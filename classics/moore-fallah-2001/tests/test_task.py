@@ -88,6 +88,13 @@ def test_holding_off_a_catch_trial_is_a_correct_rejection_after_its_duration(tas
     assert len(plan.stimuli["target"].draws) == CATCH_K
 
 
+def test_the_dark_background_is_up_from_the_first_fixation_frame(task):
+    _, _, _, plan = run_trial(task, condition("catch"), script())
+    # One acquisition frame, then the catch trial's frames, all on the background.
+    assert len(plan.stimuli["background"].draws) == CATCH_K + 1
+    assert len(plan.stimuli["fixation"].draws) == CATCH_K + 1
+
+
 def test_a_key_already_down_when_the_target_appears_is_ignored(task):
     _, result, _, _ = run_trial(task, condition("catch"), script(press_at=0))
     assert result.outcome.name == "CORRECT_REJECTION"

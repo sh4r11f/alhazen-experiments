@@ -1,7 +1,9 @@
 """Run Saccade planning and attention (Moore & Fallah), in any of alhazen's modes.
 
-        uv run python run.py --task target-dimming-detection --mode simulate --headless --sub sim --ses 1 --seed 1
-    uv run python run.py --task target-dimming-detection --mode test --sub dev --ses 1 --initials DEV
+        uv run python run.py --task target-dimming-detection --mode simulate --headless \
+        --sub sim --ses 1 --seed 1
+    uv run python run.py --task target-dimming-detection --mode test \
+        --sub dev --ses 1 --initials DEV
     uv run python run.py --task target-dimming-detection --rig booth --sub s01 --ses 1 --initials AB
     uv run alhazen dashboard --project .
 

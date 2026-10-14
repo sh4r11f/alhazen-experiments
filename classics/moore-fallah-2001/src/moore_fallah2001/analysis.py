@@ -49,7 +49,8 @@ def block_table(trials: pd.DataFrame, n_blink: int = 2, n_catch: int = 1,
         held = int((g.query("trial_type == 'catch'")["outcome"] == "CORRECT_REJECTION").sum())
         n_b = int((g["trial_type"] == "blink").sum())
         n_c = int((g["trial_type"] == "catch").sum())
-        rows.append({"staircase": label, "block": int(block), "dim_pct": float(g["dim_pct"].iloc[0]),
+        rows.append({"staircase": label, "block": int(block),
+                     "dim_pct": float(g["dim_pct"].iloc[0]),
                      "blink_hits": hits, "n_blink": n_b, "catch_correct": held, "n_catch": n_c,
                      "complete": n_b == n_blink and n_c == n_catch,
                      "block_success": hits >= min_hits and held == n_catch})
@@ -124,7 +125,8 @@ def performance(trials: pd.DataFrame) -> pd.DataFrame:
             "pct_correct": 100.0 * correct,
             "hit_rate": (blink["outcome"] == "HIT").mean() if len(blink) else np.nan,
             "early_rate": (blink["outcome"] == "EARLY_RESPONSE").mean() if len(blink) else np.nan,
-            "false_alarm_rate": (catch["outcome"] == "FALSE_ALARM").mean() if len(catch) else np.nan,
+            "false_alarm_rate": (
+                (catch["outcome"] == "FALSE_ALARM").mean() if len(catch) else np.nan),
             "median_rt_ms": blink.loc[blink["outcome"] == "HIT", "rt_ms"].median(),
         })
     return pd.DataFrame(rows)

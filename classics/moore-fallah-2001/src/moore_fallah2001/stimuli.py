@@ -98,3 +98,18 @@ def make_fixation_point(display: DisplayBackend, screen: Screen, size_dva: float
     if display.kind == "simulated":
         return RecordingSquare("fixation", color)
     return make_fixation(display, screen, size_dva, fill_color=color)
+
+
+class Layered:
+    """Several stimuli drawn as one, in order (later on top)."""
+
+    def __init__(self, *parts: Any) -> None:
+        self._parts = parts
+
+    def update(self, dt: float) -> None:
+        for part in self._parts:
+            part.update(dt)
+
+    def draw(self) -> None:
+        for part in self._parts:
+            part.draw()

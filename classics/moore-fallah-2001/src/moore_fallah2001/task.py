@@ -45,7 +45,7 @@ from moore_fallah2001 import geometry
 from moore_fallah2001.luminance import Photometry, dimmed_luminance, to_rgb
 from moore_fallah2001.phases import DimmingWatch, WatchPlan
 from moore_fallah2001.staircase import BLINK, CATCH, BlockRule, BlockStaircases
-from moore_fallah2001.stimuli import make_background, make_fixation_point, make_square
+from moore_fallah2001.stimuli import Layered, make_background, make_fixation_point, make_square
 
 HERE = Path(__file__).resolve().parent
 PROJECT = HERE.parents[1]
@@ -130,9 +130,11 @@ class TargetDimmingDetectionTaskParams(SubjectParams):
         ms = _ms
         if self.subject_kind is not None and self.subject_kind.value == "human" \
                 and self.stimulation.enabled:
-            raise ValueError("stimulation.enabled is a monkey procedure; a human file must say false")
+            raise ValueError(
+                "stimulation.enabled is a monkey procedure; a human file must say false")
         checks = [
-            ((self.dim_onset_min,), (self.dim_onset_max,), "dim_onset_min must be <= dim_onset_max"),
+            ((self.dim_onset_min,), (self.dim_onset_max,),
+             "dim_onset_min must be <= dim_onset_max"),
             ((self.dim_duration_min,), (self.dim_duration_max,),
              "dim_duration_min must be <= dim_duration_max"),
             ((self.dim_onset_max, self.response_window), (self.catch_duration,),
@@ -282,7 +284,8 @@ class TargetDimmingDetectionTask(Task):
             plan, hit=o["HIT"], miss=o["MISS"], early=o["EARLY_RESPONSE"],
             false_alarm=o["FALSE_ALARM"], correct_rejection=o["CORRECT_REJECTION"],
             fix_break=o["FIX_BREAK"], response_key=p.response_key,
-            stim_payload={"soa_frames": soa_frames, "train_ms": p.stimulation.train.seconds(hz) * 1000},
+            stim_payload={"soa_frames": soa_frames,
+                          "train_ms": p.stimulation.train.seconds(hz) * 1000},
             dim_payload={"dim_pct": dim_pct, "dim_frames": dim_frames},
         )
         display = setup.display
@@ -295,9 +298,13 @@ class TargetDimmingDetectionTask(Task):
             "distractor": make_square(display, screen, distractor_side,
                                       to_rgb(p.distractor_cd_m2, phot), (0.0, 0.0), "distractor"),
         }
-        acquire = _AcquireOnBackground(
-            fixation_key="fixation", region="fixation", hold_s=p.fix_acquire_hold.seconds(hz),
-            timeout_s=p.fix_acquire_timeout.seconds(hz), on_timeout=o["NO_FIXATION"],
+        # The paper's display is the 1 cd/m² background for the whole trial (alhazen's
+        # window is mid-grey), so fixation acquisition draws the point over it too.
+        stimuli["fixation_on_background"] = Layered(stimuli["background"], stimuli["fixation"])
+        acquire = phases.AcquireFixation(
+            fixation_key="fixation_on_background", region="fixation",
+            hold_s=p.fix_acquire_hold.seconds(hz), timeout_s=p.fix_acquire_timeout.seconds(hz),
+            on_timeout=o["NO_FIXATION"],
         )
         mf = p.field.movement_field_dva
         return TrialPlan(
@@ -323,9 +330,6 @@ class TargetDimmingDetectionTask(Task):
             record["realised_soa_ms"] = (dim - stim) * 1000.0
         return record
 
-    def score_trial(self, result) -> bool:  # used only if a stock scheduler is ever plugged in
-        return bool(result.outcome.success)
-
     def simulation(self, seed: int):
         from alhazen.modes.simulation import Simulation
 
@@ -338,22 +342,6 @@ class TargetDimmingDetectionTask(Task):
             describe={"seed": seed, "source": "moore_fallah2001.simulate",
                       **SimulatedObserver.DEFAULTS, **FixatingEye.DEFAULTS},
         )
-
-
-class _AcquireOnBackground(phases.AcquireFixation):
-    """alhazen's AcquireFixation, drawn over the dark background.
-
-    The window's own colour is alhazen's mid-grey; the paper's display is a
-    1 cd/m² background for the whole trial, so the background is drawn under
-    the fixation point here too.
-    """
-
-    def on_frame(self, ctx):  # type: ignore[override]
-        if not ctx.time_up(self._t0, self._timeout_s):
-            bg = ctx.stimuli["background"]
-            bg.update(ctx.dt)
-            bg.draw()
-        return super().on_frame(ctx)
 
 
 def _ms(d: Duration) -> float | None:

@@ -67,3 +67,46 @@ def test_listing_states_status_hardware_and_the_original():
     assert listing["status"] in {"original-protocol", "adaptation", "demo"}
     assert listing["original"]["citation"] and listing["original"]["year"]
     assert listing["hardware"]["display"] is True
+
+
+def test_every_parameter_set_flags_the_same_assumptions():
+    """The three parameter sets share their assumed values, and each says so on the line."""
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    for path in sorted((PROJECT / "configs").glob("task*.yaml")):
+        lines = path.read_text(encoding="utf-8").splitlines()
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+        for item in doc["assumed"]:
+            key = item.get("key")
+            if not key:
+                continue
+            value = data
+            for part in key.split("."):
+                value = value.get(part) if isinstance(value, dict) else None
+            if value is None:
+                continue  # not in this file (the reward block is the monkey files')
+            leaf = key.split(".")[-1]
+            hit = [ln for ln in lines if re.match(rf"\s*{re.escape(leaf)}\s*:", ln)]
+            assert hit and all("ASSUMED" in ln for ln in hit), f"{key} not flagged in {path.name}"
+
+
+def test_every_unflagged_value_cites_the_paper_or_is_structure():
+    """A task-YAML line with a scalar value says where it comes from."""
+    allowed = {"subject_kind", "target_field", "enabled", "current_ua", "movement_threshold_ua"}
+    for path in sorted((PROJECT / "configs").glob("task*.yaml")):
+        for ln in path.read_text(encoding="utf-8").splitlines():
+            m = re.match(r"\s*([A-Za-z_]+)\s*:\s*(\S.*)$", ln)
+            if not m or ln.lstrip().startswith("#") or m.group(2).startswith("#"):
+                continue
+            if m.group(1) in allowed:
+                continue
+            assert "# paper:" in ln or "# ASSUMED" in ln or "# entered by the lab" in ln, (
+                f"{path.name}: {ln.strip()!r} says neither paper nor ASSUMED")
+
+
+def test_the_example_rigs_load_and_map_the_stimulation_trigger():
+    from alhazen.config.loader import load_rig
+
+    rig = load_rig(PROJECT / "configs" / "rig-lab-example.yaml")
+    assert rig.devices.sync.event_lines["STIM_TRIGGER"]
+    assert rig.devices.reward is not None and rig.devices.eyetracker is not None
+    assert load_rig(PROJECT / "configs" / "rig-booth.yaml").devices.eyetracker is not None
