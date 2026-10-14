@@ -1,6 +1,6 @@
 In this experiment you search a display of coloured letters for $target.
 
-Rest your two index fingers on the F and J keys.
+Rest your left index finger on $left_key and your right index finger on $right_key.
 
 Each trial begins with a plain white screen. Press $ready_key when you are ready. A small
 black spot then appears in the middle of the screen for one second: look at it. Then the

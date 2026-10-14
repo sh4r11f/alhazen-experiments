@@ -153,3 +153,28 @@ def test_the_subject_is_told_what_to_do():
     assert "press J with your right hand" in text and "press F with your left hand" in text
     feature = FeatureConjunctionSearchTask(params("task-exp1-feature.yaml")).instructions()
     assert "a blue letter or an S" in feature
+
+
+
+def test_the_demo_pages_through_every_display_size_and_answer():
+    from types import SimpleNamespace
+
+    import numpy as np
+    from alhazen.testing import FakeClock, FakeDisplay
+    from support import SCREEN
+
+    task = FeatureConjunctionSearchTask(params("task-exp2-easy.yaml"))
+    setup = SimpleNamespace(display=FakeDisplay(FakeClock()), screen=SCREEN, params=task.params,
+                            rng=np.random.default_rng(0))
+    views = task.demo_views(setup)
+    assert len(views) == 8
+    views[0].draw(0.0)
+
+
+def test_the_duration_estimate_counts_one_block():
+    import numpy as np
+
+    task = FeatureConjunctionSearchTask(params())
+    assert task.duration_schedule(task.params, np.random.default_rng(0)).n_trials == 128
+    timing = task.trial_timing(None, 60.0)
+    assert timing.fixed_s == pytest.approx(1.0 + 1.5)

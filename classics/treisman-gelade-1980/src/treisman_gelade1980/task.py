@@ -162,6 +162,7 @@ class FeatureConjunctionSearchTask(Task):
         return Template(text).substitute(
             target=p.target_description, present_key=p.present_key.upper(),
             absent_key=p.absent_key.upper(), ready_key=p.ready_key.upper(),
+            left_key=p.left_key.upper(), right_key=p.right_key.upper(),
             present_hand=p.dominant_hand,
             absent_hand="left" if p.dominant_hand == "right" else "right")
 
