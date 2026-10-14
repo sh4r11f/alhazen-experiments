@@ -22,6 +22,8 @@ uv sync --locked                      # --extra psychopy on a machine with a scr
 uv run pytest -q
 uv run python run.py --task mental-rotation --mode simulate --headless --sub sim --ses 1 --seed 1 \
     --params configs/task-rehearsal.yaml   # a 20-trial rehearsal, under a minute
+uv run python scripts/simulate_sessions.py --out data-sim --subjects sim1 --sessions 1-8
+                                       # 8 whole simulated sessions in simulated time, ~30 s
 uv run python run.py --task mental-rotation --mode demo
 uv run python run.py --task mental-rotation --rig booth --sub s01 --ses 1 --initials AB
 uv run alhazen dashboard --project .

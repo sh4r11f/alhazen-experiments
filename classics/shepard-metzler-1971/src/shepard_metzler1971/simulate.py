@@ -10,12 +10,16 @@ main parameter set plants the paper's own results (about 1 s at 0 deg, about 60 
 can recover, not a prediction about real subjects.
 
 It learns what each trial is from TRIAL_START, whose payload is the trial's condition,
-and starts its clock on PAIR_ON, the flip that showed the pair.
+and starts its clock on PAIR_ON, the flip that showed the pair. It times itself on the
+session clock when it is given one (a FakeClock session in simulated time,
+scripts/simulate_sessions.py), else on the host's monotonic clock, which is what
+`run.py --mode simulate` paces against.
 """
 
 from __future__ import annotations
 
 import time
+from collections.abc import Callable
 
 import numpy as np
 from alhazen.core.events import Event
@@ -26,7 +30,8 @@ from shepard_metzler1971.params import SimulatedSubjectConfig
 
 class SimulatedObserver:
     def __init__(self, cfg: SimulatedSubjectConfig, same_key: str, different_key: str,
-                 seed: int = 0) -> None:
+                 seed: int = 0, now: Callable[[], float] = time.monotonic) -> None:
+        self._now = now
         self._cfg = cfg
         self._keys = {"same": same_key, "different": different_key}
         self._rng = np.random.default_rng(seed)
@@ -57,10 +62,10 @@ class SimulatedObserver:
             self._due = None
         elif event.name == "PAIR_ON":
             rt, self._key = self.plan(self._condition)
-            self._due = time.monotonic() + rt
+            self._due = self._now() + rt
 
     def poll(self) -> ResponseSample:
-        if self._due is None or time.monotonic() < self._due:
+        if self._due is None or self._now() < self._due:
             return ResponseSample()
         self._due = None
         return ResponseSample(keys=(self._key,))

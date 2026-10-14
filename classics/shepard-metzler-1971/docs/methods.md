@@ -227,7 +227,12 @@ replication of the original result.
   event order and the 0.5 s from warning to pair, RT from pair onset; params files load and
   agree with the bank; the session hook.
 - `tests/test_simulate.py` and `tests/test_notebook.py`: `run.py --mode simulate --headless`
-  on the rehearsal set end to end, and the analysis notebook executed on its output. The
+  on the rehearsal set end to end (real time), a whole 200-trial block of the main set in
+  simulated time (`scripts/simulate_sessions.py`, alhazen's FakeClock), and the analysis
+  notebook executed on the rehearsal's output. Run by hand on all 8 simulated sessions of
+  one subject (1600 trials), the notebook recovered the planted pattern: linear RT
+  functions of nearly equal slope for both rotation types (about 57 deg/s against the 60
+  planted), no quadratic or higher-order trend, 3.8 s for "different" pairs. The
   simulated subject plants the paper's own numbers; recovering them shows the pipeline
   works, not that people behave this way.
 
