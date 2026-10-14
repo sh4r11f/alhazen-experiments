@@ -95,3 +95,17 @@ def test_a_neurometric_function_rises_from_chance_with_correlation():
     assert table.iloc[-1]["p_correct"] > 0.99
     fit = neurometric_fit(table)
     assert 0.5 < fit.alpha < 30
+
+
+def test_the_fit_recovers_the_simulated_observers_planted_threshold():
+    from britten1992.simulate import SimulatedObserver
+
+    obs = SimulatedObserver(seed=9, alpha_pct=8.0, beta=1.3, lapse=0.0)
+    rows = []
+    for c in [0.0, *LEVELS]:
+        for d in ("pref", "anti"):
+            for _ in range(150):  # ten blocks' worth per cell
+                rows.append({"coherence_pct": c, "direction": d, "correction": False,
+                             "outcome": "CORRECT" if obs.choose(d, c) == d else "WRONG"})
+    fit = fit_psychometric(psychometric_table(pd.DataFrame(rows)))
+    assert fit.alpha == pytest.approx(8.0, rel=0.15)
