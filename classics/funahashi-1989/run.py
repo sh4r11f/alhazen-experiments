@@ -1,12 +1,14 @@
 """Run the oculomotor delayed-response task, in any of alhazen's modes.
 
-    uv run python run.py --task oculomotor-delayed-response --mode demo
-    uv run python run.py --task oculomotor-delayed-response --mode simulate --headless --sub sim --ses 1 --seed 1
-    uv run python run.py --task oculomotor-delayed-response --mode test --sub dev --ses 1 --initials DEV
-    uv run python run.py --task oculomotor-delayed-response --rig booth --sub s01 --ses 1 --initials AB
-    uv run python run.py --task oculomotor-delayed-response --params configs/task-monkey.yaml \
+    TASK=oculomotor-delayed-response
+    uv run python run.py --task $TASK --mode demo
+    uv run python run.py --task $TASK --mode simulate --headless --sub sim --ses 1 --seed 1
+    uv run python run.py --task $TASK --mode test --sub dev --ses 1 --initials DEV
+    uv run python run.py --task $TASK --rig booth --sub s01 --ses 1 --initials AB
+    uv run python run.py --task $TASK --params configs/task-monkey.yaml \
         --rig gaze-example --sub m01 --ses 1 --initials MK
-    uv run python run.py --mode training --stage fixate --rig gaze-example --sub m01 --ses 1 --initials MK
+    uv run python run.py --mode training --stage fixate --rig gaze-example \
+        --sub m01 --ses 1 --initials MK
     uv run alhazen dashboard --project .
 
 TASKS, PARAMETERS and LADDERS are module-level dict LITERALS on purpose: alhazen's

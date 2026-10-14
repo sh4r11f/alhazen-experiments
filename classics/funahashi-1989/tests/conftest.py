@@ -31,7 +31,8 @@ def run_session(task, data_root: Path, *, reward: bool = False, seed: int = 11, 
     delays cost no real time. Returns the trials rows and session.json."""
     monitor = MonitorConfig(width_px=1920, height_px=1080, width_cm=53.0, distance_cm=57.0,
                             refresh_rate_hz=60.0, fullscreen=False)
-    devices = DevicesConfig(reward=RewardHwConfig(backend="simulated")) if reward else DevicesConfig()
+    devices = (DevicesConfig(reward=RewardHwConfig(backend="simulated")) if reward
+               else DevicesConfig())
     rig = RigConfig(monitor=monitor, display=DisplayConfig(backend="simulated"), devices=devices,
                     data_root=data_root)
     runner = build_session(rig=rig, subject="sim01", session=1, run=1, task=task, seed=seed,

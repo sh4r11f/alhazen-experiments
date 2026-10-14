@@ -153,7 +153,8 @@ class SimulatedSubject:
             return _Plan("fixation_break", break_after_s=float(self._rng.uniform(0.3, 4.0)))
         latency = float(self._rng.lognormal(np.log(self._median_latency_s),
                                             self._latency_spread_s / self._median_latency_s))
-        blink_at = float(self._rng.uniform(0.0, 0.2)) if self._rng.random() < self._p_blink else None
+        blinks = self._rng.random() < self._p_blink
+        blink_at = float(self._rng.uniform(0.0, 0.2)) if blinks else None
         if roll < edges[1]:
             return _Plan("no_saccade")
         rotation = 0.0
@@ -173,7 +174,8 @@ class SimulatedSubject:
         if plan.released_s is None:
             return self._fixation
         since = now - plan.released_s
-        if plan.blink_at_s is not None and plan.blink_at_s <= since < plan.blink_at_s + plan.blink_for_s:
+        blink = plan.blink_at_s
+        if blink is not None and blink <= since < blink + plan.blink_for_s:
             return None
         if plan.kind in ("no_saccade", "still") or since < plan.latency_s:
             return self._fixation

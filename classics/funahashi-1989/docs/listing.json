@@ -1,20 +1,49 @@
 {
   "status": "adaptation",
-  "status_reason": "Why this status, in one sentence.",
+  "status_reason": "The trial follows the paper's stated timing, geometry and 6-deg response window, but the apparatus changes (a video eye tracker for a scleral search coil, a modern monitor with a mid-grey field for a dark monochrome CRT), human volunteers are added, and the paper's main measure, single-neuron delay activity in prefrontal cortex, is not part of this folder.",
   "collection": "classics",
-  "authors": [{"name": "Sharif Saleki", "role": "replication"}],
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
   "original": {
-    "citation": "CITATION",
-    "year": 1900,
-    "doi": null,
-    "url": null,
-    "experiments": "Which experiment(s) of the paper"
+    "citation": "Funahashi, S., Bruce, C. J., & Goldman-Rakic, P. S. (1989). Mnemonic coding of visual space in the monkey's dorsolateral prefrontal cortex. Journal of Neurophysiology, 61(2), 331–349.",
+    "year": 1989,
+    "doi": "10.1152/jn.1989.61.2.331",
+    "url": "https://journals.physiology.org/doi/10.1152/jn.1989.61.2.331",
+    "experiments": "The oculomotor delayed-response task (Methods, Fig. 1) and its behavioural measure (Fig. 2); the single-neuron recordings are not replicated"
   },
-  "hardware": {"display": true, "keyboard": true, "audio": false, "eye_tracker": false,
-               "reward": false, "microstimulation": false, "recording": false},
-  "subjects": ["human"],
-  "category": "attention",
-  "tags": [],
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": true,
+    "reward": true,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human",
+    "monkey"
+  ],
+  "category": "memory",
+  "tags": [
+    "working memory",
+    "memory-guided saccade",
+    "oculomotor delayed response",
+    "prefrontal cortex",
+    "eye tracking",
+    "monkey training"
+  ],
   "art": "docs/preview.png",
-  "assets": []
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "MIT",
+      "source": "drawn by src/funahashi1989/preview.py from configs/task.yaml"
+    }
+  ],
+  "notes": "Reward is needed for monkey sessions only. The paper's dark screen is replaced by alhazen's mid-grey field. Eye tracker required: the task is gaze-contingent."
 }
