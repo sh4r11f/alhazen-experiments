@@ -357,7 +357,7 @@ class RfGatingFixationTask(Task):
             "rf_y_dva": rf_xy[1],
             "distracter_x_dva": dist_xy[0],
             "distracter_y_dva": dist_xy[1],
-            "stimulus_duration_s": stimulus_s,
+            "planned_stimulus_s": stimulus_s,
             "current_ua": p.stimulation.current_ua if stim else 0.0,
             "train_ms": p.stimulation.train_ms if stim else 0.0,
             # Which line the trigger could have gone out on, as the rig says: "" on a rig

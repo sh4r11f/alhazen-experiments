@@ -1,34 +1,51 @@
-"""The analysis notebook runs, start to finish, on a simulated session."""
+"""The analysis notebook runs, start to finish, on a simulated session: once with no
+spike file (the neural measures are skipped, saying why) and once with a synthetic null
+spike train (the code path that a real, aligned recording would take)."""
 
 from __future__ import annotations
 
 import os
-import subprocess
-import sys
 from pathlib import Path
 
 import nbformat
+import numpy as np
+import pandas as pd
+import pytest
 from nbclient import NotebookClient
+
+from moore_armstrong2003 import analysis
 
 PROJECT = Path(__file__).resolve().parents[1]
 
 
-def test_the_notebook_runs_on_simulated_data(tmp_path):
-    rig = tmp_path / "rig-sim.yaml"
-    rig.write_text(
-        "monitor: {name: sim, width_px: 1920, height_px: 1080, width_cm: 53.0, distance_cm: 57.0,"
-        " refresh_rate_hz: 60.0, fullscreen: false}\n"
-        "display: {backend: simulated}\n"
-        f"devices: {{}}\ndata_root: {tmp_path / 'data'}\nreal_data: false\n",
-        encoding="utf-8")
-    subprocess.run([sys.executable, str(PROJECT / "run.py"), "--task", "rf-gating-fixation", "--mode",
-                    "simulate", "--headless", "--rig", str(rig), "--sub", "sim", "--ses", "1",
-                    "--seed", "2"], cwd=PROJECT, check=True, capture_output=True, timeout=900)
-    run = next(tmp_path.rglob("*_trials.csv")).parent
+def execute(env):
     nb = nbformat.read(PROJECT / "notebooks" / "analysis.ipynb", as_version=4)
-    os.environ["ANALYSIS_RUN"] = str(run)
+    old = {k: os.environ.get(k) for k in env}
+    os.environ.update(env)
     try:
         NotebookClient(nb, timeout=600, kernel_name="python3",
                        resources={"metadata": {"path": str(PROJECT / "notebooks")}}).execute()
     finally:
-        os.environ.pop("ANALYSIS_RUN", None)
+        for k, v in old.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+    return "\n".join(o.get("text", "") for c in nb.cells for o in c.get("outputs", []))
+
+
+@pytest.mark.parametrize("with_spikes", [False, True])
+def test_the_notebook_runs_on_simulated_data(simulated_run, tmp_path, with_spikes):
+    env = {"ANALYSIS_RUN": str(simulated_run)}
+    if with_spikes:
+        trials = pd.read_csv(next(simulated_run.glob("*_trials.csv")))
+        spikes = analysis.synthetic_spikes_for_testing(trials, np.random.default_rng(0),
+                                                       analysis.Windows())
+        path = tmp_path / "spikes.csv"
+        pd.DataFrame({"t_s": spikes}).to_csv(path, index=False)
+        env["ANALYSIS_SPIKES"] = str(path)
+    text = execute(env)
+    if with_spikes:
+        assert "stimulation effect" in text
+    else:
+        assert "needs a recording" in text
