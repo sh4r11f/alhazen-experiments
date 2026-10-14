@@ -46,13 +46,18 @@ class Component:
 
     def advance(self, dt: float) -> None:
         sign = self.direction if self.cycles > 0 else 1
-        self.phase = (self.phase + TWO_PI * self.rate_hz * sign * dt) % TWO_PI
+        # Wrapped at one whole revolution of the pattern (cycles x 2 pi), not at 2 pi: the
+        # phase also says WHICH bar is where, and a pointer that follows bar 3 must not
+        # jump to bar 2 when the phase passes 2 pi.
+        period = TWO_PI * max(self.cycles, 1)
+        self.phase = (self.phase + TWO_PI * self.rate_hz * sign * dt) % period
 
     def values(self, theta: np.ndarray) -> np.ndarray:
         if self.cycles == 0:
             # Square wave, on for the first half of each cycle. The phase is read at the
             # frame's start, so at 60 Hz a 15 Hz flicker is two frames on, two off.
-            on = (self.phase / TWO_PI) % 1.0 < 0.5 - 1e-9
+            # Rounded first so float drift in the accumulated phase cannot move an edge.
+            on = round(self.phase / TWO_PI, 9) % 1.0 < 0.5
             return np.full(np.shape(theta), 1.0 if on else -1.0)
         return np.cos(self.cycles * theta - self.phase)
 
