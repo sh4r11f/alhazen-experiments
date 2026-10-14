@@ -2,29 +2,27 @@
 
 from __future__ import annotations
 
-import subprocess
-import sys
-from pathlib import Path
+import json
 
 import pandas as pd
 
-PROJECT = Path(__file__).resolve().parents[1]
+
+def test_a_simulated_session_runs_every_sheet_in_order(simulated_run):
+    trials = pd.read_csv(next(simulated_run.glob("*_trials.csv")), keep_default_na=False)
+    assert len(trials) > 0
+    test = trials[trials["phase"] == "test"]
+    assert sorted(test["block"].unique()) == [1, 2, 3, 4]
+    order = test.groupby("block")["test"].first().tolist()
+    assert order in (["NC", "NCWd", "NCWd", "NC"], ["NCWd", "NC", "NC", "NCWd"])
+    # The rehearsal serves 5 items of each sheet (params rehearsal.sheet_items).
+    done = test[test["completed"].astype(str) == "True"]
+    assert done.groupby("block").size().tolist() == [5, 5, 5, 5]
+    assert set(trials["phase"]) == {"key_practice", "practice", "test"}
+    assert set(trials["outcome"]) <= {"CORRECT", "CORRECTED", "UNCORRECTED", "NO_RESPONSE"}
 
 
-def test_a_simulated_session_runs_and_writes_trials(tmp_path):
-    rig = tmp_path / "rig-sim.yaml"
-    rig.write_text(
-        "monitor: {name: sim, width_px: 1920, height_px: 1080, width_cm: 53.0, distance_cm: 57.0,"
-        " refresh_rate_hz: 60.0, fullscreen: false}\n"
-        "display: {backend: simulated}\n"
-        f"devices: {{}}\ndata_root: {tmp_path / 'data'}\nreal_data: false\n",
-        encoding="utf-8")
-    cmd = [sys.executable, str(PROJECT / "run.py"), "--task", "stroop-color-naming",
-           "--mode", "simulate", "--headless",
-           "--rig", str(rig), "--sub", "sim", "--ses", "1", "--seed", "1"]
-    done = subprocess.run(cmd, cwd=PROJECT, capture_output=True, text=True, timeout=900)
-    assert done.returncode == 0, done.stdout[-3000:] + done.stderr[-3000:]
-    trials = list((tmp_path).rglob("*_trials.csv"))
-    assert trials, "no trials.csv written"
-    df = pd.read_csv(trials[0])
-    assert len(df) > 0
+def test_the_session_records_its_rehearsal_and_block_order(simulated_run):
+    session = json.loads((simulated_run / "session.json").read_text(encoding="utf-8"))
+    assert session  # written
+    params = (simulated_run / "params.yaml").read_text(encoding="utf-8")
+    assert "block_order_basis" in params and "sheet_items: 5" in params
