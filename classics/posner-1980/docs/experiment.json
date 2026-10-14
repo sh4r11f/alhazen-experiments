@@ -2,42 +2,478 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Posner spatial cueing",
-  "summary": "One or two sentences on what the experiment asks and what a trial is.",
+  "summary": "Posner's (1980) central-cue experiment: a plus sign or an arrow at fixation, then 1000 ms later a white square 7° left or right, detected with one key. Arrows point to the square's side on 80% of target trials; the plus sign is uninformative. RT is faster after a valid cue (benefit) and slower after an invalid one (cost) than after the neutral cue, with the eyes held at fixation (checked by an eye tracker; a keyboard-only set runs without one). Catch trials have no square.",
   "methods": "docs/methods.md",
-  "references": ["CITATION"],
+  "references": [
+    "Posner, M. I. (1980). Orienting of attention. Quarterly Journal of Experimental Psychology, 32(1), 3–25. https://doi.org/10.1080/00335558008248231",
+    "Posner, M. I., Nissen, M. J., & Ogden, W. C. (1978). Attended and unattended processing modes: The role of set for spatial location. In H. L. Pick & I. J. Saltzman (Eds.), Modes of perceiving and processing information (pp. 137–157). Erlbaum."
+  ],
   "deviations": [
-    {"item": "(template)", "original": "(template)", "here": "(template)", "reason": "(template)"}
+    {
+      "item": "Eye-position monitoring",
+      "original": "EOG; only trials on which the eyes stayed fixated were used, selected after the fact (p. 6)",
+      "here": "A video eye tracker, when the rig has one (configs/task.yaml). Gaze leaving a window around fixation ends the attempt at once as FIXATION_BREAK, and the same trial is served again later in its block",
+      "reason": "The same exclusion criterion, applied online. Serving the trial again keeps each block's planned 80-trial composition, so the cue validities stay exactly 0.8/0.2"
+    },
+    {
+      "item": "Keyboard-only parameter set",
+      "original": "Every trial was eye-monitored (p. 6)",
+      "here": "configs/task-keyboard.yaml runs with no tracker. The subject is asked to keep fixation, but nothing checks it",
+      "reason": "Lets a booth without a tracker run the task. Data from this set cannot rule out eye movements toward the cued side, so this set is not the original protocol; its menu name says it has no eye tracker"
+    },
+    {
+      "item": "Background",
+      "original": "Luminance increments in a dark field (p. 6)",
+      "here": "alhazen's mid-grey window, with a white square as the luminance increment",
+      "reason": "alhazen 2.16 fixes the window colour at mid-grey and has no per-task background. Drawing a dark field inside each trial would flash grey between trials. The increment's contrast therefore differs from the original"
+    },
+    {
+      "item": "Display and timing apparatus",
+      "original": "Not described in Posner (1980); the primary report (Posner, Nissen & Ogden, 1978) was not read",
+      "here": "A computer monitor. Sizes are in degrees of visual angle from the rig file's geometry, and every duration is rounded to whole display frames",
+      "reason": "The original apparatus is not available. A frame-locked monitor times every interval to within one frame"
+    }
   ],
   "assumed": [
-    {"item": "Fixation point size", "value": "0.3 dva", "reason": "template placeholder", "key": "fix_size_dva"},
-    {"item": "Target size", "value": "1.0 dva", "reason": "template placeholder", "key": "target_size_dva"},
-    {"item": "Target eccentricity", "value": "5.0 dva", "reason": "template placeholder", "key": "target_ecc_dva"},
-    {"item": "Fixation duration", "value": "500 ms", "reason": "template placeholder", "key": "fixation_duration"},
-    {"item": "Response deadline", "value": "2000 ms", "reason": "template placeholder", "key": "response_timeout"},
-    {"item": "Inter-trial interval", "value": "1000 ms", "reason": "template placeholder", "key": "iti"},
-    {"item": "Trials per condition", "value": "10", "reason": "template placeholder", "key": "paradigm.n_per_condition"}
+    {
+      "item": "Fixation point size",
+      "value": "0.3 dva diameter",
+      "reason": "Not stated. A conventional small fixation point",
+      "key": "fix_size_dva"
+    },
+    {
+      "item": "Fixation point during the inter-trial interval",
+      "value": "A dot at the centre during the inter-trial interval, replaced by the cue at cue onset and shown again for feedback",
+      "reason": "Fig. 1 (p. 6) shows only the cue at the centre. A fixation mark is needed for the subject (and the tracker) to fixate before the cue",
+      "file": "src/posner1980/task.py"
+    },
+    {
+      "item": "Cue size",
+      "value": "1.0 dva (arrow length; plus-sign arm span)",
+      "reason": "Not stated. Large enough to read at the fovea without moving the eyes",
+      "key": "cue_size_dva"
+    },
+    {
+      "item": "Cue stroke width",
+      "value": "0.12 dva",
+      "reason": "Not stated. A clearly visible line at a 1-dva cue size",
+      "key": "cue_stroke_dva"
+    },
+    {
+      "item": "Arrow shape",
+      "value": "A horizontal shaft with a chevron head (two strokes at 45° to the shaft, a third of its length) at the pointing end",
+      "reason": "Fig. 1 draws a simple arrow without dimensions",
+      "file": "src/posner1980/geometry.py"
+    },
+    {
+      "item": "Target size",
+      "value": "1.0 dva square",
+      "reason": "Fig. 1 draws a filled square but gives no size",
+      "key": "target_size_dva"
+    },
+    {
+      "item": "Stimulus colour",
+      "value": "White (maximum luminance) for the fixation point, cue and target",
+      "reason": "The paper says only 'clear above threshold luminance increments' (p. 6). White gives the largest increment the display allows",
+      "key": "stimulus_color"
+    },
+    {
+      "item": "Inter-trial interval distribution",
+      "value": "Uniform between 1000 and 2000 ms, drawn per trial",
+      "reason": "Fig. 1 (p. 6) gives the range 1000–2000 ms but not how values were drawn",
+      "file": "src/posner1980/task.py"
+    },
+    {
+      "item": "Response deadline",
+      "value": "1000 ms after target onset",
+      "reason": "Not stated. Fig. 1 shows the target lasting until the response; the deadline only ends trials with no response. Simple RTs in the paper are about 250–300 ms (Fig. 2, p. 7)",
+      "key": "response_deadline"
+    },
+    {
+      "item": "Response key",
+      "value": "Space bar",
+      "reason": "The paper says a single key pressed wherever the stimulus occurred (pp. 6–7), not which key",
+      "key": "response_key"
+    },
+    {
+      "item": "Catch trials and their proportion",
+      "value": "25% of trials show the cue and no target; a key press is a FALSE_ALARM",
+      "reason": "Posner (1980) does not mention catch trials for this experiment. 25% is the catch-trial rate the same paper reports for the central-cue detection task of Shulman, Remington & McLean (p. 10). Catch trials stop a simple-RT subject from responding to the clock",
+      "key": "design.catch_fraction"
+    },
+    {
+      "item": "Catch-trial response window",
+      "value": "1000 ms (the response deadline), counted from the moment the target would have appeared",
+      "reason": "Follows from the assumed catch trials; nothing in the paper",
+      "file": "src/posner1980/task.py"
+    },
+    {
+      "item": "Share of arrow and neutral cues",
+      "value": "50% arrow (25% left, 25% right), 50% neutral plus sign",
+      "reason": "The paper gives the cue validities (p. 6) but not how often each cue type occurred",
+      "key": "design.arrow_fraction"
+    },
+    {
+      "item": "Trials per block",
+      "value": "80 (24 valid, 6 invalid, 30 neutral, 20 catch; left and right balanced)",
+      "reason": "Not stated. 80 is the smallest block that gives exact 0.8/0.2 validity, 0.5/0.5 neutral sides, 50% arrow cues and 25% catch trials with left and right balanced",
+      "key": "design.trials_per_block"
+    },
+    {
+      "item": "Number of blocks",
+      "value": "4 (320 trials, about 20 minutes)",
+      "reason": "Not stated. Gives 96 valid, 24 invalid and 120 neutral target trials per subject",
+      "key": "paradigm.blocks.n_blocks"
+    },
+    {
+      "item": "Trial order",
+      "value": "All cue types intermixed, shuffled within each block",
+      "reason": "The paper cues every trial (p. 8) but does not say whether neutral and arrow trials were mixed or blocked",
+      "key": "paradigm.shuffle"
+    },
+    {
+      "item": "Rest breaks",
+      "value": "A rest break between blocks",
+      "reason": "Not stated. A convention for a 20-minute RT session",
+      "key": "paradigm.blocks.breaks"
+    },
+    {
+      "item": "Anticipation rule",
+      "value": "A key press during the cue-target interval ends the attempt as ANTICIPATION; the trial is served again later in the block",
+      "reason": "Not stated. Keeps premature responses out of the RTs and the block composition intact",
+      "file": "src/posner1980/task.py"
+    },
+    {
+      "item": "Miss rule",
+      "value": "No key by the deadline on a target trial is a MISS: completed, counted, not served again",
+      "reason": "Not stated",
+      "file": "src/posner1980/task.py"
+    },
+    {
+      "item": "Fast-guess exclusion in the analysis",
+      "value": "Target-trial RTs under 100 ms are left out of the RT means",
+      "reason": "Not stated. A common lower bound for simple RT",
+      "file": "src/posner1980/analysis.py"
+    },
+    {
+      "item": "Feedback content",
+      "value": "For the 500 ms feedback period the fixation point turns green (detection, correct rejection) or red (miss, false alarm, anticipation, fixation break); no RT is shown",
+      "reason": "Fig. 1 (p. 6) shows a 500-ms feedback period but not what it showed. alhazen's standard trial feedback is used",
+      "file": "src/posner1980/task.py"
+    },
+    {
+      "item": "Feedback tone",
+      "value": "Off (display.feedback_beeps: false in both rig files)",
+      "reason": "The paper mentions no tone. alhazen would otherwise beep with the feedback",
+      "key": "display.feedback_beeps",
+      "file": "configs/rig-booth.yaml"
+    },
+    {
+      "item": "Fixation window (eye-tracker set)",
+      "value": "1.5 dva radius around the fixation point",
+      "reason": "The paper used EOG and gives no criterion for 'remained fixated' (p. 6). 1.5 dva is well inside the 7-dva target eccentricity, so any saccade toward a target position breaks fixation",
+      "key": "fixation_window_dva"
+    },
+    {
+      "item": "Fixation acquisition (eye-tracker set)",
+      "value": "Gaze must enter the window before the inter-trial interval starts; after 5 s without it the attempt ends as NO_FIXATION and is served again",
+      "reason": "Not stated",
+      "key": "acquire_timeout"
+    },
+    {
+      "item": "Monitored period (eye-tracker set)",
+      "value": "From fixation acquisition until the response or the deadline",
+      "reason": "The paper does not say over which part of the trial the eyes had to stay fixated",
+      "file": "src/posner1980/task.py"
+    },
+    {
+      "item": "Practice",
+      "value": "None built in. alhazen's test mode cannot shorten this design (each block is already one pass through the 80 cells), so for practice run test mode with a copy of the params file set to paradigm.blocks.n_blocks: 1 (80 trials, about 5 minutes)",
+      "reason": "Not stated",
+      "file": "run.py"
+    },
+    {
+      "item": "Instructions",
+      "value": "The wording in instructions.md",
+      "reason": "The paper gives no instructions text",
+      "file": "instructions.md"
+    }
   ],
   "tasks": [
     {
       "id": "posner-cueing",
       "title": "Posner spatial cueing",
-      "summary": "What one trial is.",
+      "summary": "Fixation point, 1000–2000 ms; cue (+, ← or →) at fixation; square 7° left or right 1000 ms later (or nothing, on catch trials); one key; 500 ms feedback.",
       "parameters_file": "configs/task.yaml",
       "parameters": [
-        {"name": "fix_size_dva", "label": "Fixation point size", "group": "Stimuli", "type": "number",
-         "unit": "dva", "default": 0.3, "meaning": "Diameter of the fixation point. ASSUMED, not in the paper."},
-        {"name": "response_timeout", "label": "Response deadline", "group": "Timing", "type": "duration",
-         "default": {"ms": 2000}, "meaning": "How long a key is accepted after the target appears. ASSUMED, not in the paper."}
+        {
+          "name": "fixation_control",
+          "label": "Fixation control",
+          "group": "Eye tracking",
+          "type": "choice",
+          "default": "tracker",
+          "meaning": "\"tracker\": gaze must stay in the fixation window and a break serves the trial again (the paper's EOG control, p. 6). \"none\": the keyboard-only set, nothing checks fixation (configs/task-keyboard.yaml; not the original protocol).",
+          "constraints": {
+            "choices": [
+              "tracker",
+              "none"
+            ]
+          }
+        },
+        {
+          "name": "fixation_window_dva",
+          "label": "Fixation window radius",
+          "group": "Eye tracking",
+          "type": "number",
+          "unit": "dva",
+          "default": 1.5,
+          "meaning": "Radius of the window gaze must stay inside, eye-tracker set only. ASSUMED, not in the paper."
+        },
+        {
+          "name": "acquire_timeout",
+          "label": "Fixation acquisition timeout",
+          "group": "Eye tracking",
+          "type": "duration",
+          "default": {
+            "ms": 5000
+          },
+          "meaning": "How long the fixation point waits for gaze before the attempt is served again. ASSUMED, not in the paper."
+        },
+        {
+          "name": "fix_size_dva",
+          "label": "Fixation point size",
+          "group": "Stimuli",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.3,
+          "meaning": "Diameter of the fixation point. ASSUMED, not in the paper."
+        },
+        {
+          "name": "cue_size_dva",
+          "label": "Cue size",
+          "group": "Stimuli",
+          "type": "number",
+          "unit": "dva",
+          "default": 1.0,
+          "meaning": "Arrow length and plus-sign arm span. ASSUMED, not in the paper."
+        },
+        {
+          "name": "cue_stroke_dva",
+          "label": "Cue stroke width",
+          "group": "Stimuli",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.12,
+          "meaning": "Width of the cue's strokes. ASSUMED, not in the paper."
+        },
+        {
+          "name": "target_size_dva",
+          "label": "Target size",
+          "group": "Stimuli",
+          "type": "number",
+          "unit": "dva",
+          "default": 1.0,
+          "meaning": "Side of the filled square. ASSUMED, not in the paper."
+        },
+        {
+          "name": "target_ecc_dva",
+          "label": "Target eccentricity",
+          "group": "Stimuli",
+          "type": "number",
+          "unit": "dva",
+          "default": 7.0,
+          "meaning": "Distance of the square's centre from fixation, left or right on the horizontal meridian. Paper: 7°, Fig. 1 and Fig. 2."
+        },
+        {
+          "name": "stimulus_color",
+          "label": "Stimulus colour",
+          "group": "Stimuli",
+          "type": "object",
+          "unit": "PsychoPy rgb",
+          "default": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "meaning": "Colour of the fixation point, cue and square, -1..1 per channel. ASSUMED, not in the paper."
+        },
+        {
+          "name": "intertrial_min",
+          "label": "Inter-trial interval, shortest",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "Shortest inter-trial interval before the cue. Paper: 1000 ms, Fig. 1 (drawn uniformly: assumed)."
+        },
+        {
+          "name": "intertrial_max",
+          "label": "Inter-trial interval, longest",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 2000
+          },
+          "meaning": "Longest inter-trial interval before the cue. Paper: 2000 ms, Fig. 1."
+        },
+        {
+          "name": "cue_target_soa",
+          "label": "Cue-target SOA",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "From cue onset to the square's onset. Paper: 1000 ms, Fig. 1."
+        },
+        {
+          "name": "cue_stays_on",
+          "label": "Cue stays on",
+          "group": "Timing",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Whether the cue stays on screen with the square. Paper: Fig. 1 draws them together."
+        },
+        {
+          "name": "response_deadline",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "How long a key is accepted after the square appears (or would have, on a catch trial). ASSUMED, not in the paper."
+        },
+        {
+          "name": "feedback_duration",
+          "label": "Feedback duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "How long the fixation point shows green or red. Paper: 500 ms, Fig. 1."
+        },
+        {
+          "name": "response_key",
+          "label": "Response key",
+          "group": "Response",
+          "type": "string",
+          "default": "space",
+          "meaning": "The single detection key. The paper says one key, not which. ASSUMED, not in the paper."
+        },
+        {
+          "name": "design.validity",
+          "label": "Arrow validity",
+          "group": "Design",
+          "type": "number",
+          "default": 0.8,
+          "meaning": "Probability that the square is on the side an arrow points to, on target trials. Paper: 0.8, p. 6."
+        },
+        {
+          "name": "design.arrow_fraction",
+          "label": "Share of arrow cues",
+          "group": "Design",
+          "type": "number",
+          "default": 0.5,
+          "meaning": "Fraction of trials with an arrow; the rest have the plus sign. ASSUMED, not in the paper."
+        },
+        {
+          "name": "design.catch_fraction",
+          "label": "Catch-trial share",
+          "group": "Design",
+          "type": "number",
+          "default": 0.25,
+          "meaning": "Fraction of trials behind every cue type with no square. ASSUMED, not in the paper."
+        },
+        {
+          "name": "design.trials_per_block",
+          "label": "Trials per block",
+          "group": "Design",
+          "type": "integer",
+          "default": 80,
+          "meaning": "One block's fixed composition, served shuffled; the proportions above must divide it into whole trials. ASSUMED, not in the paper."
+        },
+        {
+          "name": "paradigm.blocks.n_blocks",
+          "label": "Blocks",
+          "group": "Design",
+          "type": "integer",
+          "default": 4,
+          "meaning": "Number of blocks, with a rest between them. ASSUMED, not in the paper."
+        }
       ],
       "outcomes": [
-        {"name": "CORRECT", "completed": true, "success": true, "meaning": "The key matched the target's side."},
-        {"name": "WRONG", "completed": true, "success": false, "meaning": "The other key."},
-        {"name": "NO_RESPONSE", "completed": false, "meaning": "No key before the deadline; the condition is served again."}
+        {
+          "name": "DETECTED",
+          "completed": true,
+          "success": true,
+          "meaning": "The key after the square appeared; rt_ms is the reaction time."
+        },
+        {
+          "name": "MISS",
+          "completed": true,
+          "success": false,
+          "meaning": "No key by the deadline on a target trial."
+        },
+        {
+          "name": "CORRECT_REJECTION",
+          "completed": true,
+          "success": true,
+          "meaning": "No key on a catch trial."
+        },
+        {
+          "name": "FALSE_ALARM",
+          "completed": true,
+          "success": false,
+          "meaning": "A key on a catch trial."
+        },
+        {
+          "name": "ANTICIPATION",
+          "completed": false,
+          "meaning": "A key during the cue-target interval; the trial is served again later in the block."
+        },
+        {
+          "name": "FIXATION_BREAK",
+          "completed": false,
+          "meaning": "Eye-tracker set: gaze left the fixation window (or was lost) before the response; served again."
+        },
+        {
+          "name": "NO_FIXATION",
+          "completed": false,
+          "meaning": "Eye-tracker set: gaze never reached the fixation window; served again."
+        }
       ],
       "events": [
-        {"name": "FIX_ON", "meaning": "Fixation point shown."},
-        {"name": "RESPONSE_CUE", "meaning": "Target shown; reaction time runs from this flip."},
-        {"name": "RESPONSE", "meaning": "The subject's key."}
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation point shown (start of the inter-trial interval, keyboard set; start of acquisition, eye-tracker set)."
+        },
+        {
+          "name": "FIX_ACQUIRED",
+          "meaning": "Gaze reached the fixation window; the inter-trial interval starts (eye-tracker set)."
+        },
+        {
+          "name": "CUE_ON",
+          "meaning": "The cue replaced the fixation point."
+        },
+        {
+          "name": "EARLY_RESPONSE",
+          "meaning": "A key during the cue-target interval (an anticipation)."
+        },
+        {
+          "name": "TARGET_ON",
+          "meaning": "The square appeared; reaction time runs from this flip."
+        },
+        {
+          "name": "CATCH_ON",
+          "meaning": "Catch trials: the moment the square would have appeared."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The detection key."
+        }
       ]
     }
   ]

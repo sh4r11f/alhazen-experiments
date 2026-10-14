@@ -76,9 +76,14 @@ def test_the_timing_is_the_papers_to_the_frame(simulated_runs, name):
     assert (catch["t_catch_on"] - catch["t_cue_on"]).sub(1.0).abs().max() <= frame / 2 + 1e-9
     iti = df["intertrial_s"].dropna()
     assert iti.between(1.0, 2.0).all() and iti.std() > 0.2
-    start = df["t_fix_acquired"] if name == "tracker" else df["t_fix_on"]
-    gap = (df["t_cue_on"] - start - df["intertrial_s"]).dropna()
-    assert gap.abs().max() <= frame + 1e-9
+    # The cue follows the drawn inter-trial interval, to the nearest frame. With the
+    # tracker the interval starts on the frame after the one fixation was acquired on.
+    if name == "tracker":
+        gap = (df["t_cue_on"] - df["t_fix_acquired"] - df["intertrial_s"]).dropna()
+        assert gap.min() >= -1e-9 and gap.max() <= 1.5 * frame + 1e-9
+    else:
+        gap = (df["t_cue_on"] - df["t_fix_on"] - df["intertrial_s"]).dropna()
+        assert gap.abs().max() <= frame / 2 + 1e-9
     hits = df[df["outcome"] == "DETECTED"]
     assert hits["rt_ms"].between(100, 1000).mean() > 0.95
 
