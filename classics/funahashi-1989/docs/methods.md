@@ -4,8 +4,8 @@
 performed during recording (Methods, "Oculomotor delayed-response task", Fig. 1; the
 behaviour of Fig. 2). Not replicated: the single-neuron recordings and microstimulation.
 **Source read.** The publisher's PDF of the original paper, through a text extraction: the
-Summary (p. 331), the whole Methods section (pp. 332–334) and the Discussion were read; the
-Results (pp. 334–345) were only partly legible in that extraction and are not used for any
+Summary (p. 331) and the whole Methods section (pp. 332–334) were read, and parts of the
+Discussion; the Results (pp. 334–345) were only partly legible in that extraction and are not used for any
 parameter. The link given with the assignment (https://www.cns.nyu.edu/wanglab/publications/pdf/wang.jnp2005.pdf)
 is not the paper but Wang's 2005 essay on it (J Neurophysiol 93: 3027–3028), used here only
 as a secondary source for one unstated detail (the dark screen). Page numbers below are the
@@ -46,7 +46,8 @@ screen does not reach 13.35 deg up and down from its centre (e.g. a 53-cm-wide 1
 - Cue: a filled white square, 0.7 x 0.7 deg (paper: p. 332), [[param:cue_size_dva]], centred
   13 deg from fixation (paper: p. 332; Fig. 2 legend, p. 333), [[param:cue_ecc_dva]], at one of
   eight locations 45 deg apart: right, up, left, down and the four obliques (paper: p. 331,
-  Summary 1 and 7; p. 332), [[param:cue_angles_deg]].
+  Summary 1 and 7; p. 332), [[param:cue_angles_deg]]. The paper used four or eight
+  locations, "usually" eight (p. 331); this folder uses eight.
 - Response window: a circle 6 deg in diameter around the cue location (paper: pp. 332–333),
   [[param:target_window_dva]] = 3 deg radius.
 - Fixation window: 1.5 deg radius, [[param:fix_window_dva]] (ASSUMED).
