@@ -59,7 +59,8 @@ def run(task, plan: TrialPlan, env, condition: dict, inputs: list[InputFrame],
     collector = EventCollector()
     bus.subscribe(collector)
     engine = TrialEngine(display=display, clock=clock, bus=bus, schema=task.events,
-                         commands=commands or ScriptedCommands(), input_provider=ScriptedInputs(inputs))
+                         commands=commands or ScriptedCommands(),
+                         input_provider=ScriptedInputs(inputs))
     ctx = TrialContext(clock=clock, screen=SCREEN, rng=np.random.default_rng(0), trial_index=1,
                        params=dict(condition), stimuli=plan.stimuli, regions=plan.regions,
                        record=dict(plan.record))

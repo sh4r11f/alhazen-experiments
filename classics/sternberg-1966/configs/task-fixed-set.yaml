@@ -40,7 +40,7 @@ iti: {ms: 2700}                   # ASSUMED (not in the paper): 3.7 s minus the 
 practice:
   kind: sequence
   n_per_condition: 4              # paper: p. 652-653 (60 practice trials = 4 x the 15-stimulus population)
-  shuffle: true
+  shuffle: true                   # paper: p. 653 ("random permutation of the fixed population")
 paradigm:
   kind: sequence
   n_per_condition: 8              # paper: p. 652-653 (120 test trials = 8 x the 15-stimulus population)

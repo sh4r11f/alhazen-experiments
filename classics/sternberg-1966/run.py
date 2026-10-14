@@ -1,8 +1,8 @@
 """Run Sternberg memory scanning (experiment 1 varied set, experiment 2 fixed set).
 
     uv run python run.py --task memory-scanning --mode demo
-    uv run python run.py --task memory-scanning-fixed --mode simulate --headless --sub sim --ses 1
-    uv run python run.py --task memory-scanning --mode simulate --headless --sub sim --ses 1 --seed 1
+    uv run python run.py --task memory-scanning-fixed --mode simulate --headless --sub sim
+    uv run python run.py --task memory-scanning --mode simulate --headless --sub sim --seed 1
     uv run python run.py --task memory-scanning --mode test --sub dev --ses 1 --initials DEV
     uv run python run.py --task memory-scanning --rig booth --sub s01 --ses 1 --initials AB
     uv run alhazen dashboard --project .

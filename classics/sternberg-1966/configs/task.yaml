@@ -43,7 +43,7 @@ iti: {ms: 1000}                   # ASSUMED (not in the paper): the time from th
 practice:
   kind: sequence
   n_per_condition: 2              # ASSUMED (not in the paper): 24 practice trials stated; their split over set sizes is not
-  shuffle: true
+  shuffle: true                   # paper: p. 652 ("the length, s, of the series varied at random")
 paradigm:
   kind: sequence
   n_per_condition: 12             # ASSUMED (not in the paper): 144 test trials stated; equal 24 per s inferred from "about 95 observations per point" (8 subjects x 12)
