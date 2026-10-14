@@ -195,3 +195,18 @@ def test_the_subject_is_told_what_to_do():
     assert TargetDimmingDetectionTask.default_params().is_file()
     text = (PROJECT / "instructions.md").read_text(encoding="utf-8")
     assert "SPACE" in text
+
+
+def test_the_launch_estimate_counts_every_planned_trial_and_times_both_kinds():
+    import numpy as np
+    from alhazen.paradigms.base import Condition
+
+    for name, per_block in (("task.yaml", 3), ("task-monkey-inside.yaml", 6)):
+        p = load_params(PROJECT / "configs" / name, TargetDimmingDetectionTaskParams)
+        task = TargetDimmingDetectionTask(p)
+        schedule = task.duration_schedule(p, np.random.default_rng(0))
+        assert schedule.n_trials == p.staircase.n_blocks * per_block
+    catch = task.trial_timing(Condition({"trial_type": "catch"}), 60.0)
+    blink = task.trial_timing(Condition({"trial_type": "blink"}), 60.0)
+    assert catch.fixed_s == pytest.approx(0.2 + 2.1)
+    assert blink.max_s == pytest.approx(2.0 + 0.2 + 1.3 + 0.8)
