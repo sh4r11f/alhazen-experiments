@@ -1,10 +1,16 @@
-"""Run Posner spatial cueing, in any of alhazen's modes.
+"""Run Posner spatial cueing (Posner, 1980), in any of alhazen's modes.
 
-    uv run python run.py --task posner-cueing --mode demo
     uv run python run.py --task posner-cueing --mode simulate --headless --sub sim --ses 1 --seed 1
     uv run python run.py --task posner-cueing --mode test --sub dev --ses 1 --initials DEV
-    uv run python run.py --task posner-cueing --rig booth --sub s01 --ses 1 --initials AB
+    uv run python run.py --task posner-cueing --rig eyetracker --sub s01 --ses 1 --initials AB
+    uv run python run.py --task posner-cueing --rig booth --params configs/task-keyboard.yaml \
+        --sub s01 --ses 1 --initials AB
     uv run alhazen dashboard --project .
+
+Two parameter sets: configs/task.yaml (the original protocol: fixation held, checked by
+an eye tracker) and configs/task-keyboard.yaml (for a booth with no tracker; nothing
+checks fixation, so it is not the original protocol). A run-mode session of the first
+on a rig without a tracker is refused before anything is written.
 
 TASKS, PARAMETERS and LADDERS are module-level dict LITERALS on purpose: alhazen's
 dashboard reads them out of this file without running it. Each path is anchored to this
@@ -34,10 +40,12 @@ TASKS = {
 # The dashboard's parameter-set menu: display name -> (task name, params file).
 # "(human)" / "(monkey)" names who the file is for (its subject_kind).
 PARAMETERS = {
-    "Main (human)": ("posner-cueing", HERE / "configs" / "task.yaml"),
+    "Main, eye tracker (human)": ("posner-cueing", HERE / "configs" / "task.yaml"),
+    "Keyboard only, no eye tracker (human)": (
+        "posner-cueing", HERE / "configs" / "task-keyboard.yaml"),
 }
 
-# Monkey training ladders: display name -> ladder YAML. Empty when there are none.
+# Monkey training ladders: display name -> ladder YAML. None: a human experiment.
 LADDERS: dict[str, Path] = {}
 
 
