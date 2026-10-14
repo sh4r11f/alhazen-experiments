@@ -22,6 +22,7 @@ from typing import Literal
 import numpy as np
 from alhazen import Condition, Duration, SubjectParams, Task, TrialPlan, TrialSetup, outcomes
 from alhazen.config.models import Model
+from alhazen.core.commands import DEFAULT_KEYMAP
 from alhazen.core.events import EventSchema
 from alhazen.core.trial import TrialContext
 from alhazen.paradigms.config import SchedulerConfig
@@ -37,6 +38,10 @@ HERE = Path(__file__).resolve().parent
 PROJECT = HERE.parents[1]
 TYPE_LABELS = {"presence": "appeared / disappeared", "color": "changed colour",
                "location": "moved"}
+KEY_NAMES = {"left": "LEFT arrow", "down": "DOWN arrow", "right": "RIGHT arrow", "up": "UP arrow"}
+# alhazen's experimenter keys (pause, calibrate, skip, reward, ...) are read from the same
+# keyboard before the subject's; a response key among them would never reach the task.
+COMMAND_KEYS = frozenset(name.split("+")[-1] for name in DEFAULT_KEYMAP)
 
 
 class FlickerTiming(Model):
@@ -80,7 +85,7 @@ class LocationProbe(Model):
 
 class TypeProbe(Model):
     keys: dict[str, Literal["presence", "color", "location"]] = {
-        "p": "presence", "c": "color", "l": "location"}
+        "left": "presence", "down": "color", "right": "location"}
     timeout: Duration = Duration(ms=20000)
 
     @model_validator(mode="after")
@@ -120,6 +125,10 @@ class FlickerChangeDetectionTaskParams(SubjectParams):
         types = set(self.type_probe.keys)
         if probe & types or self.detect_key in probe | types:
             raise ValueError("the detection, location and type keys must all differ")
+        taken = (probe | types | {self.detect_key}) & COMMAND_KEYS
+        if taken:
+            raise ValueError(f"{sorted(taken)} are alhazen experimenter keys (pause, calibrate, "
+                             "skip, reward, ...); choose other response keys")
         if set(self.change_area_dva2) != {"central", "marginal"}:
             raise ValueError("change_area_dva2 needs central and marginal")
         return self
@@ -222,7 +231,8 @@ class FlickerChangeDetectionTask(Task):
             "image_b": make_image(display, pair.image_b, (iw, ih), name="image_b"),
             "type_prompt": make_text(
                 display, "What kind of change was it?\n\n" + "\n".join(
-                    f"{k.upper()}   {TYPE_LABELS[v]}" for k, v in p.type_probe.keys.items()),
+                    f"{KEY_NAMES.get(k, k.upper())}   {TYPE_LABELS[v]}"
+                    for k, v in p.type_probe.keys.items()),
                 screen.deg2px(p.probe_text_height_dva) * 1.3, wrap_px=screen.deg2px(20),
                 name="type_prompt"),
             "where_prompt": make_text(

@@ -11,8 +11,8 @@ Then two questions:
 
 - Where: numbered boxes appear on the picture. Press the number (1 to 4) of the box
   the change was in.
-- What kind: press P if something appeared and disappeared, C if it changed colour,
-  L if it moved.
+- What kind: press the LEFT arrow if something appeared and disappeared, the DOWN
+  arrow if it changed colour, the RIGHT arrow if it moved.
 
 If you do not see the change within a minute, the trial ends by itself. When a word
 appears in the white rectangle, it may name the part of the picture that changes.

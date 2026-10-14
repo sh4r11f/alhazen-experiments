@@ -129,7 +129,7 @@ def test_the_wrong_box_is_misidentified(task):
 
 def test_the_wrong_type_is_misidentified(task):
     box, _ = answers(task)
-    _, result, ctx = run_trial(task, {"scene": SCENE, "cue": "none"}, script(box=box, kind="l"))
+    _, result, ctx = run_trial(task, {"scene": SCENE, "cue": "none"}, script(box=box, kind="right"))
     assert result.outcome.name == "MISIDENTIFIED"
     assert ctx.record["location_correct"] and not ctx.record["type_correct"]
 
@@ -246,11 +246,16 @@ def test_every_params_file_loads():
 
 def test_clashing_keys_are_refused():
     with pytest.raises(ValueError):
-        fast_params(detect_key="p")
+        fast_params(detect_key="left")
+
+
+def test_alhazens_experimenter_keys_are_refused_as_responses():
+    with pytest.raises(ValueError, match="experimenter keys"):
+        fast_params(type_probe=TypeProbe(keys={"p": "presence", "c": "color", "l": "location"}))
 
 
 def test_the_subject_is_told_what_to_do():
     text = (PROJECT / "instructions.md").read_text(encoding="utf-8")
     assert FlickerChangeDetectionTask.default_params().is_file()
-    for word in ("SPACE", "press P", "C if", "L if", "1 to 4"):
+    for word in ("SPACE", "LEFT arrow", "DOWN", "RIGHT arrow", "1 to 4"):
         assert word in text, word

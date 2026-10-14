@@ -30,7 +30,7 @@ location_probe:                # DEVIATION: replaces the spoken description of t
   keys: ['1', '2', '3', '4']   # ASSUMED (not in the paper): number keys, labelled on the boxes
   timeout: {ms: 20000}         # ASSUMED (not in the paper): no report deadline in the original; generous cap
 type_probe:                    # DEVIATION: replaces the spoken report of the type of change
-  keys: {p: presence, c: color, l: location}   # ASSUMED (not in the paper): mnemonic keys for the three types
+  keys: {left: presence, down: color, right: location}   # ASSUMED (not in the paper): arrow keys, labelled on screen; P, C, R and H are alhazen's experimenter keys
   timeout: {ms: 20000}         # ASSUMED (not in the paper): no report deadline in the original; generous cap
 probe_text_height_dva: 0.7     # ASSUMED (not in the paper): text size of the report prompts
 scenes:

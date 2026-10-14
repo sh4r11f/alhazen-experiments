@@ -41,7 +41,7 @@
     {
       "item": "Report of what changed",
       "original": "the observer verbally described the type of change and the part that changed; correct = both right (pp. 368-370)",
-      "here": "after SPACE: press the numbered box (1 of 4) the change was in, then P, C or L for its type; correct = both right",
+      "here": "after SPACE: press the numbered box (1 of 4) the change was in, then an arrow key for its type; correct = both right",
       "reason": "alhazen has keys and a wheel, no voice key or pointer; chance of guessing both is 1/12 (the paper's verbal report was near guess-proof), and a box centred on an object may be easier to guess than chance"
     },
     {
@@ -120,8 +120,8 @@
     },
     {
       "item": "Change-type keys",
-      "value": "P presence, C colour, L location",
-      "reason": "no keyed probe in the original; mnemonic keys",
+      "value": "LEFT presence, DOWN colour, RIGHT location (arrows, labelled on screen)",
+      "reason": "no keyed probe in the original; P, C, R and H are alhazen's experimenter keys, so letters for the types would pause or recalibrate the session",
       "key": "type_probe.keys"
     },
     {
@@ -272,7 +272,7 @@
     {
       "id": "flicker-change-detection",
       "title": "Flicker change detection",
-      "summary": "Cue field 3 s, gray 1 s, then A A A' A' flicker until SPACE (max 60 s), then where (box 1-4) and what kind (P / C / L).",
+      "summary": "Cue field 3 s, gray 1 s, then A A A' A' flicker until SPACE (max 60 s), then where (box 1-4) and what kind (arrow keys).",
       "parameters_file": "configs/task.yaml",
       "parameters": [
         {
@@ -426,9 +426,9 @@
           "group": "Response",
           "type": "object",
           "default": {
-            "p": "presence",
-            "c": "color",
-            "l": "location"
+            "left": "presence",
+            "down": "color",
+            "right": "location"
           },
           "meaning": "Keys for the type of change (replaces the spoken report). ASSUMED.",
           "source": "ASSUMED"

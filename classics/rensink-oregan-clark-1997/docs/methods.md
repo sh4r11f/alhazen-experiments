@@ -46,8 +46,8 @@ of visual angle (dva); durations are rounded to whole display frames.
     The raw generator output is not shipped; regenerating from the prompts gives new
     photographs, not these ones.
   - **Procedural pairs** (`src/rensink1997/procedural.py`): an outdoor scene (sky,
-    clouds, hills, ground, 14–21 houses, trees, bushes, cars and signs, one larger focal
-    object in the foreground), drawn twice from one description so the two images differ
+    clouds, hills, ground, up to 21 small houses, trees, bushes, cars and signs, and one
+    larger focal object in the foreground), drawn twice from one description so the two images differ
     only in the changed object. Changed areas are set to the paper's averages (18 dva² for
     central, 22 dva² for marginal interests, p. 369; [[param:change_area_dva2]]).
 - **Interest.** The paper's rule (p. 369): five naive observers gave a brief description
@@ -95,7 +95,8 @@ One trial of [[task:flicker-change-detection]] (Fig. 1, p. 369):
    FrameSequence; keys count only after the first image's flip, as in ResponseWindow.
 4. **Where** (deviation): image A with [[param:location_probe.n_choices]] numbered boxes; the
    subject presses the number of the box the change was in.
-5. **What kind** (deviation): P presence/absence, C colour, L location.
+5. **What kind** (deviation): LEFT arrow presence/absence, DOWN arrow colour, RIGHT arrow
+   location (labelled on screen).
 
 The paper's observers "press a key when they saw the change, and then [...] verbally
 describe it" (p. 369), and a response was correct only if both the type of change and the
@@ -152,7 +153,7 @@ Intended changes. Each row: what the paper did, what this version does, and why.
 | Who decided interest | five naive observers' brief descriptions; central = mentioned by >= 3, marginal = by none (p. 369) | photos: the same rule applied to five independent requests to a vision-language model (gpt-6.1-sol, 2026-10-14); procedural: a placement rule (ASSUMED) | no human raters; model describers are not naive observers |
 | Balance of the photo set | CI and MI changes for every type of change (p. 370) | labels came out of the ratings: presence 1 central / 3 marginal, colour 2 / 2, location 2 / 2 (5 central, 7 marginal); the procedural pairs are balanced, 6 per cell | the photo labels were not adjusted after rating |
 | Change size and strength | MI changes larger on average (22 vs 18 sq deg) with similar mean change in intensity and colour (p. 369) | photos: central 20.8, marginal 18.3 dva² on average (pixels whose RGB changed by > 24 levels), intensity and colour not equated; procedural: 18 and 22 dva² by construction | the generated photographs could not be tuned to the paper's sizes |
-| Report of what changed | the observer verbally described the type of change and the part that changed; correct = both right (pp. 368-370) | after SPACE: press the numbered box (1 of 4) the change was in, then P, C or L for its type; correct = both right | alhazen has keys and a wheel, no voice key or pointer; chance of guessing both is 1/12 (the paper's verbal report was near guess-proof), and a box centred on an object may be easier to guess than chance |
+| Report of what changed | the observer verbally described the type of change and the part that changed; correct = both right (pp. 368-370) | after SPACE: press the numbered box (1 of 4) the change was in, then an arrow key for its type; correct = both right | alhazen has keys and a wheel, no voice key or pointer; chance of guessing both is 1/12 (the paper's verbal report was near guess-proof), and a box centred on an object may be easier to guess than chance |
 | Durations | 240 ms images, 80 ms blanks (p. 369) | whole display frames: 14 and 5 frames at 60 Hz (233 and 83 ms), exact at 75, 100 or 125 Hz | a monitor shows whole frames |
 | Practice images | six practice trials, two of each type (p. 369), images not described | six procedural pairs, two of each type | no test scene may be seen in practice |
 
@@ -173,7 +174,7 @@ paper's values. Each one with a key is flagged `# ASSUMED` on its line of the fi
 | Largest box side | 7.0 dva | clamped so four separate boxes fit on a 27 x 18 dva image | `location_probe.max_side_dva` in `configs/task.yaml` |
 | Box keys | 1, 2, 3, 4, drawn on the boxes | no keyed probe in the original | `location_probe.keys` in `configs/task.yaml` |
 | Location report deadline | 20 s (outcome NO_REPORT) | the original report was spoken, with no deadline; a generous cap | `location_probe.timeout` in `configs/task.yaml` |
-| Change-type keys | P presence, C colour, L location | no keyed probe in the original; mnemonic keys | `type_probe.keys` in `configs/task.yaml` |
+| Change-type keys | LEFT presence, DOWN colour, RIGHT location (arrows, labelled on screen) | no keyed probe in the original; P, C, R and H are alhazen's experimenter keys, so letters for the types would pause or recalibrate the session | `type_probe.keys` in `configs/task.yaml` |
 | Type report deadline | 20 s (outcome NO_REPORT) | as the location deadline | `type_probe.timeout` in `configs/task.yaml` |
 | Report prompt text size | 0.7 dva | no on-screen prompts in the original | `probe_text_height_dva` in `configs/task.yaml` |
 | Scene set composition | 12 photo pairs + 6 procedural pairs per change type x interest = 48 | the paper had 48 images (p. 369) but does not give their split over change types and interest | `scenes.procedural_per_cell` in `configs/task.yaml` |

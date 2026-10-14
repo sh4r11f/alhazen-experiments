@@ -82,7 +82,8 @@ def render(out: Path) -> Path:
     fr = lambda d_: f"{d_.ms:g} ms" if d_.ms is not None else f"{d_.frames} frames"  # noqa: E731
     labels = [f"cue field {fr(p.cue_field)}", f"gray field {fr(p.gray_field)}",
               f"A {fr(p.flicker.image)}", f"blank {fr(p.flicker.blank)}",
-              f"A' {fr(p.flicker.image)} (A A A' A' ...)", "where? keys 1-4, then P / C / L"]
+              f"A' {fr(p.flicker.image)} (A A A' A' ...)",
+              "where? keys 1-4, then the kind (arrows)"]
     gap, label_h = 8, 22
     sheet = Image.new("RGB", (3 * PANEL_W + 2 * gap, 2 * (ph + label_h) + gap), (250, 250, 248))
     ds = ImageDraw.Draw(sheet)
