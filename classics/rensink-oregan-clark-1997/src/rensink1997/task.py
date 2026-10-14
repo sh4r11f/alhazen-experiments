@@ -242,12 +242,12 @@ class FlickerChangeDetectionTask(Task):
         for i, (b, key) in enumerate(zip(boxes, box_keys, strict=False)):
             cx, cy = to_px((b[0] + b[2]) / 2, (b[1] + b[3]) / 2)
             w, h = (b[2] - b[0]) * iw, (b[3] - b[1]) * ih
-            stimuli[f"box_{i}"] = make_rect(display, (w, h), (cx, cy), line=(1.0, 1.0, 0.0),
+            stimuli[f"box_{i}"] = make_rect(display, (w, h), (cx, cy), line=(1.0, 1.0, -1.0),
                                             line_px=line_px, name=f"box_{i}")
             stimuli[f"box_label_{i}"] = make_text(
                 display, key, screen.deg2px(p.probe_text_height_dva) * 1.4,
                 pos=(cx - w / 2 + screen.deg2px(0.6), cy + h / 2 - screen.deg2px(0.6)),
-                color=(1.0, 1.0, 0.0), name=f"box_label_{i}")
+                color=(1.0, 1.0, -1.0), name=f"box_label_{i}")
             where_keys += [f"box_{i}", f"box_label_{i}"]
 
         out = self.outcomes

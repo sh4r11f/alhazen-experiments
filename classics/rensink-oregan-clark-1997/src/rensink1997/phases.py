@@ -108,7 +108,8 @@ class FlickerPhase:
     def on_frame(self, ctx: TrialContext) -> str | Outcome:
         reference_t = self._reference_time(ctx)
         if reference_t is not None and self._key in ctx.inputs.keys:
-            self._draw(ctx)
+            # Counted before this frame is drawn: what the subject had seen when they pressed.
+            self._record(ctx)
             ctx.record["detect_key"] = self._key
             rt_s = ctx.clock.now() - reference_t
             ctx.record["rt_ms"] = rt_s * 1000.0
@@ -116,8 +117,8 @@ class FlickerPhase:
                 # The paper's dependent variable: alternations to detection, "proportional
                 # to the reaction time" (p. 370), i.e. RT / the time between changes.
                 ctx.record["alternations"] = round(rt_s / self._alternation_s, 3)
-            self._record(ctx)
             ctx.emit_on_flip(self._response_event)
+            self._draw(ctx)  # the response frame is shown, as in ResponseWindow
             return self._on_detect
         if ctx.time_up(self._t0, self._timeout_s):
             self._record(ctx)

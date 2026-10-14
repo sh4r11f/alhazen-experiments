@@ -156,8 +156,11 @@ def test_the_flicker_runs_a_a_b_b_with_a_blank_after_each_image(task):
     events, _, ctx = run_trial(task, {"scene": SCENE, "cue": "none"}, script(detect_at=60))
     shown = [e.payload["image"] for e in events.events if e.name == "IMAGE_ON"]
     assert shown[:8] == ["A", "A", "B", "B", "A", "A", "B", "B"]
-    assert ctx.record["images_shown"] == len(shown)
-    pairs = zip(shown, shown[1:], strict=False)
+    names = events.names()
+    seen = [e.payload["image"] for e in events.events[: names.index("DETECTED")]
+            if e.name == "IMAGE_ON"]
+    assert ctx.record["images_shown"] == len(seen)
+    pairs = zip(seen, seen[1:], strict=False)
     assert ctx.record["changes_shown"] == sum(a != b for a, b in pairs)
     t = [e.t for e in events.events if e.name == "IMAGE_ON"]
     assert np.allclose(np.diff(t), (IMG + BLANK) * FRAME_S)  # frame-exact onsets
