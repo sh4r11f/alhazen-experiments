@@ -30,8 +30,8 @@
     {
       "item": "Response-to-next-digit interval (exp. 2)",
       "original": "3.7 s",
-      "here": "3.7 s plus the frame that shows the response and the trial boundary (one to two frames, 17-33 ms at 60 Hz)",
-      "reason": "alhazen ends a trial on a frame and starts the next on a new one; the remainder is in whole frames."
+      "here": "3.75 s at 60 Hz: the 3.7 s plus three frames (the frame that shows the response, and the trial boundary), measured on simulated time",
+      "reason": "alhazen shows the response frame before the light, and ends and starts trials on frames of their own; three frames is 25 ms at 120 Hz."
     },
     {
       "item": "Standard errors (analysis)",

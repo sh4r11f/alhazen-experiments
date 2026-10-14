@@ -54,8 +54,8 @@ green after a correct response and red after a wrong one (ASSUMED colours, size 
    flip that showed the test digit to the key (the paper's "time from the onset of the test
    stimulus to the occurrence of the response", p. 652). The test digit stays until a key
    or the deadline ([[param:response_timeout]], ASSUMED).
-5. As soon as a key is pressed, the feedback light says whether it was right
-   ([[param:feedback_duration]], ASSUMED 0.5 s).
+5. As soon as a key is pressed, the feedback light says whether it was right (on the
+   frame after the one that registered the key; [[param:feedback_duration]], ASSUMED 0.5 s).
 6. The subject recalls the series in order, typing it and pressing Enter (the mode is
    ASSUMED; the paper says only that "the trial ended with his attempt to recall the series
    in order"; [[param:recall_timeout]]).
@@ -72,8 +72,8 @@ every digit outside the set needs the negative response. Each trial is a warning
 test digit, the response and the feedback light. From a response to the next test digit 3.7 s
 elapse ([[param:response_to_next_probe]]): here the light, the inter-trial interval and the
 warning signal, which the params require to add up to 3.7 s (the split is ASSUMED), plus the
-one to two frames alhazen takes to show the response and cross the trial boundary
-(deviation).
+three frames alhazen takes to show the response and cross the trial boundary: 3.75 s at
+60 Hz (deviation).
 
 ## Design
 
@@ -136,7 +136,7 @@ Intended changes. Each row: what the paper did, what this version does, and why.
 | Response device | two levers, one per response | two keyboard keys (J yes, F no by default) | A standard rig has no lever box; a two-key manual choice keeps the binary response. Absolute latencies may shift; the slope is the measure. |
 | Feedback light | a feedback light (apparatus not described) | an on-screen disc below the digit locus, green or red | A standard rig has no separate lamp; it is drawn on the same display. |
 | Payoffs | feedback and payoffs designed to encourage speed with a low error rate (scheme not given) | no payoffs; the instructions ask for speed with few errors and the light gives feedback on every trial | The payoff scheme is not described and paying subjects is the lab's decision; an experimenter can add one. |
-| Response-to-next-digit interval (exp. 2) | 3.7 s | 3.7 s plus the frame that shows the response and the trial boundary (one to two frames, 17-33 ms at 60 Hz) | alhazen ends a trial on a frame and starts the next on a new one; the remainder is in whole frames. |
+| Response-to-next-digit interval (exp. 2) | 3.7 s | 3.75 s at 60 Hz: the 3.7 s plus three frames (the frame that shows the response, and the trial boundary), measured on simulated time | alhazen shows the response frame before the light, and ends and starts trials on frames of their own; three frames is 25 ms at 120 Hz. |
 | Standard errors (analysis) | variance components from an analysis of variance with subjects as random effects (notes 6-7) | between-subject SD of the per-subject slopes and intercepts divided by sqrt(n) | A transparent estimator of the same quantities; it needs two or more subjects. |
 
 ## Assumed, not in the paper

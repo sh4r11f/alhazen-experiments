@@ -278,3 +278,19 @@ def test_the_subject_is_told_what_to_do_with_the_real_keys():
         assert "SPACE" in text and "{" not in text
         assert "J  =  yes" in text and "F  =  no" in text
     assert "SPACE" in (PROJECT / "instructions.md").read_text(encoding="utf-8")
+
+
+def test_the_demo_views_draw_on_a_headless_display():
+    import numpy as np
+    from alhazen.modes.demo import DemoSetup
+    from alhazen.testing import FakeClock, FakeDisplay
+    from harness import SCREEN
+
+    for task_class, params in ((MemoryScanningTask, VariedSetParams),
+                               (FixedSetMemoryScanningTask, FixedSetParams)):
+        task = task_class(load_params(task_class.default_params(), params))
+        setup = DemoSetup(display=FakeDisplay(FakeClock()), screen=SCREEN, params=task.params,
+                          rng=np.random.default_rng(0))
+        (view,) = task.demo_views(setup)
+        for t in np.arange(0, 12, 0.25):
+            view.draw(float(t))
