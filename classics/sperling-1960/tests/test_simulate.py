@@ -2,29 +2,24 @@
 
 from __future__ import annotations
 
-import subprocess
-import sys
-from pathlib import Path
-
 import pandas as pd
 
-PROJECT = Path(__file__).resolve().parents[1]
 
-
-def test_a_simulated_session_runs_and_writes_trials(tmp_path):
-    rig = tmp_path / "rig-sim.yaml"
-    rig.write_text(
-        "monitor: {name: sim, width_px: 1920, height_px: 1080, width_cm: 53.0, distance_cm: 57.0,"
-        " refresh_rate_hz: 60.0, fullscreen: false}\n"
-        "display: {backend: simulated}\n"
-        f"devices: {{}}\ndata_root: {tmp_path / 'data'}\nreal_data: false\n",
-        encoding="utf-8")
-    cmd = [sys.executable, str(PROJECT / "run.py"), "--task", "partial-report",
-           "--mode", "simulate", "--headless",
-           "--rig", str(rig), "--sub", "sim", "--ses", "1", "--seed", "1"]
-    done = subprocess.run(cmd, cwd=PROJECT, capture_output=True, text=True, timeout=900)
-    assert done.returncode == 0, done.stdout[-3000:] + done.stderr[-3000:]
-    trials = list((tmp_path).rglob("*_trials.csv"))
-    assert trials, "no trials.csv written"
-    df = pd.read_csv(trials[0])
-    assert len(df) > 0
+def test_a_simulated_session_runs_and_writes_scored_trials(simulated_run):
+    df = pd.read_csv(next(simulated_run.glob("*_trials.csv")))
+    # 4 delays x 2 series x (1 sample + 1 test trial: simulate mode serves one per block)
+    assert len(df) >= 16
+    assert set(df["outcome"]) <= {"REPORTED", "NO_RESPONSE", "NO_START"}
+    done = df[df["outcome"] == "REPORTED"]
+    assert len(done) == 16
+    assert done["n_correct"].between(0, 4).all()
+    assert (done["letters_available"] == done["n_correct"] * 3).all()
+    # Whole frames: 3 at 60 Hz, and the flip stamps say so.
+    assert (done["exposure_frames"] == 3).all()
+    # On a loaded machine a simulated display can flip late; the flag says so per trial.
+    assert (done["exposure_ms_measured"] > 49).all()
+    late = done["exposure_ms_measured"] - done["exposure_ms_planned"] >= 500 / 60
+    assert (done["exposure_ok"] == ~late).all()
+    assert set(done["delay_s"]) == {-0.10, 0.0, 0.30, 1.0}
+    events = pd.read_csv(next(simulated_run.glob("*_events.csv")))
+    assert {"ARRAY_ON", "ARRAY_OFF", "REPORT_ON", "RESPONSE"} <= set(events["name"])

@@ -365,7 +365,16 @@ class PartialReportTask(Task):
         out = dict(record)
         t_on, t_off = record.get("t_array_on"), record.get("t_array_off")
         if t_on is not None and t_off is not None:
-            out["exposure_ms_measured"] = (t_off - t_on) * 1000.0
+            measured = (t_off - t_on) * 1000.0
+            out["exposure_ms_measured"] = measured
+            # A dropped or late flip while the card is up lengthens the exposure. Frame QA
+            # judges a trial by its fraction of dropped frames, which one late flip in 50 ms
+            # never reaches, so the exposure is checked on its own: within half a frame of
+            # the planned whole frames, from the flip stamps. The analysis excludes the rest.
+            half_frame_ms = 500.0 / float(record.get("refresh_hz") or 60.0)
+            planned = record.get("exposure_ms_planned")
+            if planned is not None:
+                out["exposure_ok"] = abs(measured - planned) < half_frame_ms
         cue_name = record.get("cue_event")
         t_cue = record.get(f"t_{cue_name.lower()}") if cue_name else None
         if t_cue is not None and t_off is not None:

@@ -138,6 +138,7 @@ def test_the_exposure_is_whole_frames_at_the_measured_rate(task, hz, frames):
     scored = task.score(result.record)
     assert scored["exposure_ms_measured"] == pytest.approx(frames * 1000 / hz)
     assert scored["exposure_ms_planned"] == pytest.approx(frames * 1000 / hz)
+    assert scored["exposure_ok"]
 
 
 @pytest.mark.parametrize("delay, frames_after_offset", [(-0.10, -6), (0.0, 0), (0.15, 9),
@@ -156,6 +157,12 @@ def test_a_cue_at_minus_010_comes_50_ms_before_the_array(task):
     events, _, _ = run_trial(task, condition(delay_s=-0.10), typed("BBBB"))
     ev = by_name(events)
     assert ev["ARRAY_ON"].t - ev["CUE_HIGH"].t == pytest.approx(0.05)
+
+
+def test_a_late_flip_during_the_exposure_is_flagged(task):
+    record = {"t_array_on": 1.0, "t_array_off": 1.0 + 4 / 60, "exposure_ms_planned": 50.0,
+              "refresh_hz": 60.0}
+    assert task.score(record)["exposure_ok"] is False
 
 
 def test_the_presentation_starts_half_a_second_after_the_press(task):
