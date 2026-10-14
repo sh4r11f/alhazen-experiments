@@ -225,7 +225,7 @@ paper's values. Each keyed one is flagged `# ASSUMED` in the task YAML.
 | Fixation cross line width | 0.08 dva | Not stated | `fix_line_dva` |
 | Fixation cross position | The centre of the array | Not stated; the fixation field was the tachistoscope's other field | `src/sperling1960/stimuli.py` |
 | Fixation cross during the exposure | Not drawn while the card is lit | Not stated; in a mirror tachistoscope the dim fixation field adds to the bright card and would be invisible | `src/sperling1960/task.py` |
-| When the response boxes appear | When the cue ends (0.5 s after its onset; for a whole report 0.5 s after the array's offset); keys count from the cue's next frame | The paper's grid was outside the tachistoscope; nothing new lights the dark post-exposure field before the cue is over | `src/sperling1960/task.py` |
+| When the response boxes appear | When the cue ends (0.5 s after its onset; for a whole report 0.5 s after the array's offset); keys count from the frame after the cue starts (after the card, for a cue before it) | The paper's grid was outside the tachistoscope; nothing new lights the dark post-exposure field before the cue is over | `src/sperling1960/task.py` |
 | Response keys | Letters and digits as typed, BACKSPACE to correct, ENTER to commit (only with every box filled) | The paper used pen and paper; 'fill in all the required squares' (p. 4) is kept | `src/sperling1960/phases.py` |
 | Cued row on sample trials | Random, not balanced | The paper does not say how sample trials were cued | `src/sperling1960/schedule.py` |
 

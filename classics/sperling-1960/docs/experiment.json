@@ -242,7 +242,7 @@
     },
     {
       "item": "When the response boxes appear",
-      "value": "When the cue ends (0.5 s after its onset; for a whole report 0.5 s after the array's offset); keys count from the cue's next frame",
+      "value": "When the cue ends (0.5 s after its onset; for a whole report 0.5 s after the array's offset); keys count from the frame after the cue starts (after the card, for a cue before it)",
       "reason": "The paper's grid was outside the tachistoscope; nothing new lights the dark post-exposure field before the cue is over",
       "file": "src/sperling1960/task.py"
     },
