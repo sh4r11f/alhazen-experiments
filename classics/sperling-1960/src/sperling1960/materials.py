@@ -85,7 +85,7 @@ def draw_array(
             raise ValueError("the letters-and-numbers rule is two of each in a row of four")
         number_slots = set(rng.choice(4, size=2, replace=False).tolist())
         row = [
-            str(rng.choice(list(digits))) if i in number_slots else str(rng.choice(list(consonants)))
+            str(rng.choice(list(digits if i in number_slots else consonants)))
             for i in range(4)
         ]
         rows.append("".join(row))

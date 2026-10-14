@@ -22,4 +22,4 @@ def test_a_simulated_session_runs_and_writes_scored_trials(simulated_run):
     assert (done["exposure_ok"] == ~late).all()
     assert set(done["delay_s"]) == {-0.10, 0.0, 0.30, 1.0}
     events = pd.read_csv(next(simulated_run.glob("*_events.csv")))
-    assert {"ARRAY_ON", "ARRAY_OFF", "REPORT_ON", "RESPONSE"} <= set(events["name"])
+    assert {"ARRAY_ON", "ARRAY_OFF", "REPORT_ON", "RESPONSE"} <= set(events["event"])

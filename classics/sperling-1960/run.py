@@ -34,11 +34,14 @@ TASKS = {
 # The dashboard's parameter-set menu: display name -> (task name, params file).
 # "(human)" / "(monkey)" names who the file is for (its subject_kind).
 PARAMETERS = {
-    "Exp. 4 decay, 12 letters and numbers (human)": ("partial-report", HERE / "configs" / "task.yaml"),
-    "Exp. 4 decay, 9 letters (human)": ("partial-report", HERE / "configs" / "task-9.yaml"),
+    "Exp. 4 decay, 12 letters and numbers (human)": (
+        "partial-report", HERE / "configs" / "task.yaml"),
+    "Exp. 4 decay, 9 letters (human)": (
+        "partial-report", HERE / "configs" / "task-9.yaml"),
     "Exp. 3 partial report at offset, all materials (human)": (
         "partial-report", HERE / "configs" / "task-exp3.yaml"),
-    "Exp. 1 whole report, baseline (human)": ("partial-report", HERE / "configs" / "task-whole.yaml"),
+    "Exp. 1 whole report, baseline (human)": (
+        "partial-report", HERE / "configs" / "task-whole.yaml"),
 }
 
 # Monkey training ladders: display name -> ladder YAML. Empty when there are none.

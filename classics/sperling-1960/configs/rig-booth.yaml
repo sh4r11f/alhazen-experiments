@@ -2,6 +2,11 @@
 # Measure your own panel and viewing distance and enter them here before a real session;
 # `uv run alhazen calibrate ruler --rig booth` checks them with a tape measure.
 # Add devices (eyetracker, reward, sync) inside `devices:` as alhazen's docs/rigs.md shows.
+# Sperling partial report needs only the display and the keyboard. The 50 ms exposure is
+# whole frames at the MEASURED refresh rate; each trial also checks its own exposure from
+# the flip stamps (exposure_ok), because one late flip in 50 ms never reaches frame QA's
+# per-trial budget. A photodiode (display.photodiode) is the way to measure the panel's
+# real offset; see docs/methods.md, Apparatus.
 monitor:
   name: booth
   width_px: 1920

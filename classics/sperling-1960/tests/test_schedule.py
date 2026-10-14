@@ -95,7 +95,8 @@ def test_letters_are_drawn_with_replacement():
     # The paper's information values are n x log2(21) bits (p. 4): independent draws, so a
     # card can repeat a letter (its Fig. 2 shows LQDKKJ).
     rng = np.random.default_rng(0)
-    rows = [draw_array(MATERIALS["4/4"], "BDFGJKLMNQSTVWXYZ", "0123456789", rng) for _ in range(300)]
+    rows = [draw_array(MATERIALS["4/4"], "BDFGJKLMNQSTVWXYZ", "0123456789", rng)
+            for _ in range(300)]
     assert any(len(set(r)) < len(r) for card in rows for r in card)
 
 
