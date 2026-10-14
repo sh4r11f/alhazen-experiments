@@ -1,0 +1,69 @@
+# The no-stimulation DEMO (human): the display and the fixation structure of
+# configs/task.yaml for a person to watch, with every trial a control trial.
+#
+# A human session is never stimulated: the params model refuses subject_kind human with
+# any stim condition. Nothing here measures anything the paper measured; it is for seeing
+# what a trial looks like (and for a rehearsal on a booth with an eye tracker). Every
+# other value is configs/task.yaml's, with the same citations and ASSUMED marks
+# (tests/test_task.py holds the two files equal apart from subject, stimulation and reward).
+subject_kind: human                      # DEMO: a person watching the task structure
+
+
+# --- the recording site (measured in the two mapping paradigms, p. 371 and p. 373) ---
+site:
+  rf_center_dva: [-7.8, -7.8]            # ASSUMED (not in the paper): EXAMPLE site, 11 dva into the lower contralateral (left) quadrant like the paper's example neuron (p. 371); the exact direction is assumed
+  rf_diameter_dva: 5.0                   # ASSUMED (not in the paper): EXAMPLE RF size; the paper gives none
+  preferred_orientation_deg: 45.0        # ASSUMED (not in the paper): EXAMPLE preferred orientation; 0 = vertical, clockwise positive
+  saccade_endpoint_dva: [-7.8, -7.8]     # ASSUMED (not in the paper): EXAMPLE evoked-saccade end point, inside the RF as at the paper's example site (p. 371); exact point assumed
+  movement_threshold_ua: 40.0            # ASSUMED (not in the paper): EXAMPLE threshold; the example site's is not stated, its suprathreshold mapping used > 40 uA (p. 371)
+
+# --- FEF stimulation ---------------------------------------------------------------
+stimulation:
+  conditions: [control]                  # DEMO: control trials only (paper: stimulation and control, p. 371)
+  train_ms: 50                           # paper: p. 371 (example site: 50-ms trains); trains of 20-50 ms, p. 373
+  pulse_rate_hz: 200                     # paper: p. 373 (set on the stimulator; recorded here)
+  pulse_width_ms: 0.2                    # paper: p. 373 (set on the stimulator; recorded here)
+  biphasic: true                         # paper: p. 373 (set on the stimulator; recorded here)
+  current_ua: 20.0                       # paper: p. 371 (example site: 20 uA); EXAMPLE, set each site below its threshold (mean 40.7 uA, 55% of threshold, p. 372)
+  onset_after_display:                   # paper: p. 371 (200-500 ms after the visual stimuli appear)
+    min: {ms: 200}
+    max: {ms: 500}
+timing_draw: uniform                     # ASSUMED (not in the paper): the paper gives ranges only; the trigger time and the stimulus duration are drawn uniformly per trial
+
+# --- the visual stimuli ------------------------------------------------------------
+stimulus_duration:                       # paper: p. 373 (presented for 1.5-2 s)
+  min: {ms: 1500}
+  max: {ms: 2000}
+# Display conditions: what is in the RF and what is at the distracter site, each
+# "preferred", "orthogonal" (to the preferred orientation, p. 373) or "none".
+displays:                                # ASSUMED (not in the paper): the paper names the locations (RF, outside, both; p. 372) and orientations (p. 373) but not the set; when both appear they share an orientation, no blank display
+  - {rf: preferred, distracter: none}
+  - {rf: orthogonal, distracter: none}
+  - {rf: none, distracter: preferred}
+  - {rf: none, distracter: orthogonal}
+  - {rf: preferred, distracter: preferred}
+  - {rf: orthogonal, distracter: orthogonal}
+distracter_placement: auto               # ASSUMED (not in the paper): at the evoked-saccade end point for a non-overlapping site (paper p. 372); opposite the RF through fixation for an overlapping site (assumed)
+bar_length_dva: 2.0                      # ASSUMED (not in the paper): bar size not reported
+bar_width_dva: 0.4                       # ASSUMED (not in the paper): bar size not reported
+bar_contrast: 0.93                       # ASSUMED (not in the paper): one value from the paper's 50-93% Michelson range (p. 373)
+bar_polarity: dark                       # ASSUMED (not in the paper): dark bars on the window's mid-grey reach the paper's contrasts; polarity and background not reported
+
+# --- fixation ------------------------------------------------------------------------
+fix_size_dva: 0.2                        # ASSUMED (not in the paper): a conventional small fixation spot
+fix_rgb: [1.0, 1.0, 1.0]                 # ASSUMED (not in the paper): spot colour not reported
+fix_window_dva: 1.0                      # ASSUMED (not in the paper): fixation window radius not reported
+acquire_timeout: {ms: 2000}              # ASSUMED (not in the paper): time allowed to acquire fixation
+baseline_hold: {ms: 500}                 # ASSUMED (not in the paper): fixation before the bars appear
+iti: {ms: 1000}                          # ASSUMED (not in the paper): inter-trial interval
+
+# --- the paper's measurement windows (read by notebooks/analysis.ipynb) ----------------
+analysis:
+  visual_onset_window: {ms: 400}         # paper: p. 371 (Fig. 2c: 400 ms after the display's onset)
+  post_train_window: {ms: 70}            # paper: p. 371 (70 ms immediately after the end of the train)
+
+# --- schedule ----------------------------------------------------------------------------
+paradigm:
+  kind: sequence
+  n_per_condition: 10                    # paper: p. 371 (Fig. 2: ten trials per condition, example neuron)
+  shuffle: true                          # ASSUMED (not in the paper): all conditions interleaved at random in one block; a broken trial is served again later
