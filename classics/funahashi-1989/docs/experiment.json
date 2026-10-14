@@ -18,7 +18,7 @@
     {
       "item": "Eye-position measurement",
       "original": "Scleral search coil (Robinson's method), digitized at 500 Hz (pp. 332-333)",
-      "here": "A video eye tracker (example rigs: EyeLink), gaze read once per display frame",
+      "here": "A video eye tracker (example rigs: EyeLink), gaze read once per display frame. A blink loses the eye on a video tracker, and alhazen counts a lost sample during fixation as a break, so a blink before the go signal ends the trial as FIX_BREAK (the coil kept measuring through blinks)",
       "reason": "Non-invasive and what most labs have; alhazen reads one gaze sample per frame"
     },
     {
