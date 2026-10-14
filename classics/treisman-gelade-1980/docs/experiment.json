@@ -2,42 +2,542 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Feature vs conjunction search",
-  "summary": "One or two sentences on what the experiment asks and what a trial is.",
+  "summary": "Treisman & Gelade (1980), Experiments I and II. Subjects search a display of 1 to 36 coloured letters for a target defined by one feature (a blue letter or an S) or by a conjunction of colour and shape (a green T among brown Ts and green Xs) and press one key if it is there and another if not. Reaction time rises steeply with the number of letters for conjunctions and hardly at all for features; Experiment II varies how hard the conjunction's features are to tell apart.",
   "methods": "docs/methods.md",
-  "references": ["CITATION"],
+  "references": [
+    "Treisman, A. M., & Gelade, G. (1980). A feature-integration theory of attention. Cognitive Psychology, 12(1), 97-136. https://doi.org/10.1016/0010-0285(80)90005-5",
+    "Treisman, A., Sykes, M., & Gelade, G. (1977). Selective attention and stimulus integration. In S. Dornic (Ed.), Attention and Performance VI (pp. 333-361). Erlbaum."
+  ],
   "deviations": [
-    {"item": "(template)", "original": "(template)", "here": "(template)", "reason": "(template)"}
+    {
+      "item": "Apparatus",
+      "original": "Hand-made cards with stencilled letters in coloured inks, shown in an Electronics Development three-field tachistoscope (Exp. I, p. 103) or a two-field Cambridge tachistoscope (Exp. II, p. 108)",
+      "here": "A computer monitor; letters rendered from strokes in RGB colours on a white field, sized in degrees from the rig file's geometry",
+      "reason": "Tachistoscopes and ink cards are not available; the display geometry, letters and timing are reproduced on a monitor."
+    },
+    {
+      "item": "Starting a trial",
+      "original": "The experimenter said \"Ready\" and pressed a button to show the fixation card (p. 103)",
+      "here": "The subject presses SPACE on the plain white field",
+      "reason": "No experimenter at a button; the subject-paced start keeps the plain white field before every trial."
+    },
+    {
+      "item": "Feedback",
+      "original": "Subjects were told their RT and whether they were correct after each trial (p. 103)",
+      "here": "\"Correct 512 ms\" / \"Error 640 ms\" on the screen for 1.5 s",
+      "reason": "Told on screen rather than by the experimenter."
+    },
+    {
+      "item": "The cards",
+      "original": "One set of hand-placed cards per condition and display size, reused across blocks; positions \"appeared random\" (p. 102)",
+      "here": "The deck is generated from the session seed with the paper's placement rules, new layouts for every block",
+      "reason": "Procedural cards follow the stated rules exactly and are reproducible from the seed and each trial's row (the items column)."
+    },
+    {
+      "item": "Dummy trial results",
+      "original": "Not recorded (p. 103)",
+      "here": "Written to the trials file with dummy = 1 and dropped by the notebook",
+      "reason": "Keeping the rows costs nothing and shows that the procedure ran; the analysis excludes them as the paper did."
+    },
+    {
+      "item": "Reaction time",
+      "original": "A digital timer started by the onset of the search card and stopped by the key (p. 103)",
+      "here": "From the display flip that showed the array to the frame on which the key was read",
+      "reason": "Monitor presentation: RT resolution is one frame plus the keyboard's latency."
+    },
+    {
+      "item": "Between trials",
+      "original": "The tachistoscope field stayed white",
+      "here": "The window's grey background shows for the frames between the end of feedback and the next white ready field",
+      "reason": "alhazen blanks the display between trials; the ready field is up before the subject can start."
+    }
   ],
   "assumed": [
-    {"item": "Fixation point size", "value": "0.3 dva", "reason": "template placeholder", "key": "fix_size_dva"},
-    {"item": "Target size", "value": "1.0 dva", "reason": "template placeholder", "key": "target_size_dva"},
-    {"item": "Target eccentricity", "value": "5.0 dva", "reason": "template placeholder", "key": "target_ecc_dva"},
-    {"item": "Fixation duration", "value": "500 ms", "reason": "template placeholder", "key": "fixation_duration"},
-    {"item": "Response deadline", "value": "2000 ms", "reason": "template placeholder", "key": "response_timeout"},
-    {"item": "Inter-trial interval", "value": "1000 ms", "reason": "template placeholder", "key": "iti"},
-    {"item": "Trials per condition", "value": "10", "reason": "template placeholder", "key": "paradigm.n_per_condition"}
+    {
+      "item": "Letter stroke width",
+      "value": "0.12 deg (15% of the letter height), all four files",
+      "reason": "The letters were drawn with stencils (p. 102); stroke width not given. Chosen to look like a stencil sans-serif at 0.8 deg.",
+      "key": "stroke_dva"
+    },
+    {
+      "item": "Letter shapes",
+      "value": "Sans-serif stroke letters T, X, S, O, N filling a 0.6 x 0.8 deg box",
+      "reason": "The stencil typeface is not given; plain strokes keep every letter exactly the stated size.",
+      "file": "src/treisman_gelade1980/glyphs.py"
+    },
+    {
+      "item": "Reading of \"0.8 x 0.6 deg\"",
+      "value": "0.8 deg high, 0.6 deg wide",
+      "reason": "The paper gives the two numbers without saying which is height; capital letters are taller than wide."
+    },
+    {
+      "item": "Item placement, Exp. I",
+      "value": "Uniformly random centres at least 1.2 deg apart, the target uniformly random inside its section",
+      "reason": "Positions only \"appeared random\"; \"no systematic randomization procedure was used\" (p. 102). A minimum spacing keeps letters from touching, as on a hand-made card.",
+      "key": "min_spacing_dva"
+    },
+    {
+      "item": "What the 14 x 8 deg area bounds, Exp. I",
+      "value": "The letters themselves: centres stay half a letter inside its edge",
+      "reason": "The paper gives the area, not whether it bounds centres or letters."
+    },
+    {
+      "item": "Ink: green, Exp. I",
+      "value": "RGB (0, 150, 70)",
+      "reason": "Coloured inks, values not given.",
+      "key": "inks.green"
+    },
+    {
+      "item": "Ink: brown, Exp. I",
+      "value": "RGB (140, 85, 35)",
+      "reason": "Coloured inks, values not given.",
+      "key": "inks.brown"
+    },
+    {
+      "item": "Ink: blue, Exp. I",
+      "value": "RGB (25, 75, 210)",
+      "reason": "Coloured inks, values not given.",
+      "key": "inks.blue"
+    },
+    {
+      "item": "Ink: red, Exp. II easy",
+      "value": "RGB (210, 35, 35)",
+      "reason": "Coloured inks, values not given.",
+      "key": "inks.red",
+      "file": "configs/task-exp2-easy.yaml"
+    },
+    {
+      "item": "Ink: green, Exp. II easy",
+      "value": "RGB (0, 150, 70), Exp. I's green",
+      "reason": "Coloured inks, values not given; red and green were meant to be easy to tell apart (p. 108).",
+      "key": "inks.green",
+      "file": "configs/task-exp2-easy.yaml"
+    },
+    {
+      "item": "Ink: green, Exp. II difficult",
+      "value": "RGB (0, 140, 110)",
+      "reason": "The paper chose \"green and blue inks which were very similar to each other\" (p. 108); values not given. How similar decides the slopes, so check it on your display.",
+      "key": "inks.green",
+      "file": "configs/task-exp2-difficult.yaml"
+    },
+    {
+      "item": "Ink: blue, Exp. II difficult",
+      "value": "RGB (0, 110, 150)",
+      "reason": "As for the green: \"very similar\" inks, values not given (p. 108).",
+      "key": "inks.blue",
+      "file": "configs/task-exp2-difficult.yaml"
+    },
+    {
+      "item": "White field extent",
+      "value": "The white field fills the whole screen",
+      "reason": "The cards were white (p. 102); their size in the tachistoscope is not given."
+    },
+    {
+      "item": "Fixation spot size",
+      "value": "0.25 deg",
+      "reason": "\"a central fixation spot\" (p. 103), size not given.",
+      "key": "fixation_size_dva"
+    },
+    {
+      "item": "Fixation spot colour",
+      "value": "Black",
+      "reason": "Colour not given; black on the white card.",
+      "key": "fixation_rgb"
+    },
+    {
+      "item": "Response deadline",
+      "value": "10 s; a card left unanswered is served again later in the block",
+      "reason": "The paper has no deadline (the card stayed until a key was pressed). A safety cap so an unattended session cannot hang.",
+      "key": "response_timeout"
+    },
+    {
+      "item": "Ready-field deadline",
+      "value": "60 s; then the card is put back and served later",
+      "reason": "The experimenter started each trial in the paper; the wait for the subject's key needs some end.",
+      "key": "ready_timeout"
+    },
+    {
+      "item": "Feedback duration",
+      "value": "1.5 s",
+      "reason": "Subjects \"were told their RT and whether or not they were correct after each trial\" (p. 103); for how long is not given.",
+      "key": "feedback_duration"
+    },
+    {
+      "item": "Feedback text colour",
+      "value": "Black",
+      "reason": "Not given.",
+      "key": "feedback_rgb"
+    },
+    {
+      "item": "Feedback text size",
+      "value": "0.8 deg",
+      "reason": "Not given.",
+      "key": "feedback_height_dva"
+    },
+    {
+      "item": "Dominant hand",
+      "value": "Right by default; set per subject in the params file",
+      "reason": "The dominant hand answers \"present\" (p. 103); which hand is each subject's.",
+      "key": "dominant_hand"
+    },
+    {
+      "item": "Left response key",
+      "value": "F",
+      "reason": "Each index finger rested on a response key (p. 103); which keys is a hardware choice.",
+      "key": "left_key"
+    },
+    {
+      "item": "Right response key",
+      "value": "J",
+      "reason": "As for the left key.",
+      "key": "right_key"
+    },
+    {
+      "item": "Instruction wording",
+      "value": "instructions.md, with the target named from target_description (\"a green T\", \"a blue letter or an S\", \"a red O\")",
+      "reason": "The paper reports what subjects were told to do, not the words.",
+      "key": "target_description"
+    },
+    {
+      "item": "Position of a repeated error trial",
+      "value": "A uniformly random later position in the block, at least one trial after the dummy; at the end when nothing is left",
+      "reason": "\"repeated later in the testing session\" (p. 103), position not given.",
+      "file": "src/treisman_gelade1980/source.py"
+    },
+    {
+      "item": "What a dummy trial shows",
+      "value": "A card drawn at random from the block's deck",
+      "reason": "The paper says a dummy trial followed each error, not what it showed.",
+      "file": "src/treisman_gelade1980/source.py"
+    },
+    {
+      "item": "An error on a dummy trial",
+      "value": "Another dummy follows; no repeat. A dummy left unanswered is served again at once",
+      "reason": "Not covered by the paper; this keeps every analysed trial clear of a preceding error.",
+      "file": "src/treisman_gelade1980/source.py"
+    },
+    {
+      "item": "Feature targets per display size",
+      "value": "Each of the four (blue T, blue X, brown S, green S) on 2 of the 8 target cards",
+      "reason": "The paper lists the four possible targets (p. 103), not how often each appeared.",
+      "file": "src/treisman_gelade1980/design.py"
+    },
+    {
+      "item": "Odd distractor and one-item blank cards",
+      "value": "Which distractor kind takes the odd one, and the kind on a one-item blank card, are random",
+      "reason": "\"as near equal numbers on each card as possible\" (p. 103) leaves these open.",
+      "file": "src/treisman_gelade1980/design.py"
+    },
+    {
+      "item": "Letter size, Exp. II: height",
+      "value": "0.8 deg (Exp. I's)",
+      "reason": "Exp. II gives the matrix extents but not the letter size.",
+      "key": "letter_height_dva",
+      "file": "configs/task-exp2-easy.yaml"
+    },
+    {
+      "item": "Letter size, Exp. II: width",
+      "value": "0.6 deg (Exp. I's)",
+      "reason": "As for the height.",
+      "key": "letter_width_dva",
+      "file": "configs/task-exp2-easy.yaml"
+    },
+    {
+      "item": "What the matrix extents bound, Exp. II",
+      "value": "The letters: outer centres half a letter inside; 12.3 x 9.7 deg read as width x height",
+      "reason": "Not stated. Read this way the mean eccentricity is 4.5-4.7 deg, closest to the stated \"about 4.3 deg\" (p. 108); reading the extents as centre spans gives 4.8-5.0 deg."
+    },
+    {
+      "item": "Target cells, Exp. II",
+      "value": "Drawn at random within the paper's constraints, anew for every block",
+      "reason": "The paper gives the constraints (p. 108), not the particular cells."
+    },
+    {
+      "item": "One-item blank cards, Exp. II",
+      "value": "The distractor in each 2 x 2 cell twice",
+      "reason": "The paper places the one-item TARGET cards that way (p. 108), not the blank ones."
+    },
+    {
+      "item": "Distractor proportions, Exp. II",
+      "value": "The two kinds in as near equal numbers as possible",
+      "reason": "Stated for Exp. I (p. 103), not for Exp. II."
+    },
+    {
+      "item": "Trial procedure, Exp. II: fixation",
+      "value": "Exp. I's: ready field, 1-s fixation spot, display until the key, feedback",
+      "reason": "Exp. II's method gives subjects, apparatus and stimuli (\"as before, white cards with colored letters\") but no procedure (p. 108).",
+      "key": "fixation_duration",
+      "file": "configs/task-exp2-easy.yaml"
+    },
+    {
+      "item": "Error repetition, Exp. II",
+      "value": "On, as in Exp. I",
+      "reason": "No procedure given for Exp. II.",
+      "key": "repeat_errors",
+      "file": "configs/task-exp2-easy.yaml"
+    },
+    {
+      "item": "Dummy trials, Exp. II",
+      "value": "On, as in Exp. I",
+      "reason": "No procedure given for Exp. II.",
+      "key": "dummy_after_error",
+      "file": "configs/task-exp2-easy.yaml"
+    },
+    {
+      "item": "Block length, Exp. II",
+      "value": "Each of the 16 cards per display size twice (128 trials), as in Exp. I",
+      "reason": "Exp. II gives the cards (16 per size, 8 with a target, p. 108) and a test and a retest session, not the trials per block.",
+      "key": "paradigm.n_per_condition",
+      "file": "configs/task-exp2-easy.yaml"
+    },
+    {
+      "item": "Sessions and blocks, Exp. II",
+      "value": "Each session (test, retest) runs one block of each condition, order counterbalanced across subjects",
+      "reason": "Only \"a test and re-test session\" is given (p. 108). The operator runs one parameter set per block."
+    }
   ],
   "tasks": [
     {
       "id": "feature-conjunction-search",
       "title": "Feature vs conjunction search",
-      "summary": "What one trial is.",
+      "summary": "Plain white field until the subject presses SPACE; a central fixation spot for 1 s; the search display until a key (dominant hand: target present; other hand: absent); then the RT and whether it was correct.",
       "parameters_file": "configs/task.yaml",
       "parameters": [
-        {"name": "fix_size_dva", "label": "Fixation point size", "group": "Stimuli", "type": "number",
-         "unit": "dva", "default": 0.3, "meaning": "Diameter of the fixation point. ASSUMED, not in the paper."},
-        {"name": "response_timeout", "label": "Response deadline", "group": "Timing", "type": "duration",
-         "default": {"ms": 2000}, "meaning": "How long a key is accepted after the target appears. ASSUMED, not in the paper."}
+        {
+          "name": "condition",
+          "label": "Condition",
+          "group": "Design",
+          "type": "choice",
+          "default": "conjunction",
+          "meaning": "Which condition the block runs: conjunction (green T) or feature (blue letter or S) in Exp. I; easy or difficult in Exp. II.",
+          "source": "paper p. 102, p. 108"
+        },
+        {
+          "name": "display_sizes",
+          "label": "Display sizes",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            1,
+            5,
+            15,
+            30
+          ],
+          "meaning": "Numbers of items on a card.",
+          "source": "paper p. 102"
+        },
+        {
+          "name": "field_width_dva",
+          "label": "Field width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 14.0,
+          "meaning": "Width of the area the letters are scattered over (Exp. I).",
+          "unit": "dva",
+          "source": "paper p. 102"
+        },
+        {
+          "name": "field_height_dva",
+          "label": "Field height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.0,
+          "meaning": "Height of that area.",
+          "unit": "dva",
+          "source": "paper p. 102"
+        },
+        {
+          "name": "inner_ellipse_width_dva",
+          "label": "Inner ellipse width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.5,
+          "meaning": "The ellipse that splits the field's four diagonal sections into outer and inner, for target placement.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "letter_height_dva",
+          "label": "Letter height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.8,
+          "meaning": "Height of each letter.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "letter_width_dva",
+          "label": "Letter width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.6,
+          "meaning": "Width of each letter.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "stroke_dva",
+          "label": "Stroke width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.12,
+          "meaning": "Width of the letters' strokes. ASSUMED, not in the paper.",
+          "unit": "dva"
+        },
+        {
+          "name": "min_spacing_dva",
+          "label": "Minimum spacing",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 1.2,
+          "meaning": "Closest two letter centres may be. ASSUMED, not in the paper.",
+          "unit": "dva"
+        },
+        {
+          "name": "targets",
+          "label": "Targets",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            "T_green"
+          ],
+          "meaning": "The target glyph(s), <letter>_<ink>.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "distractors",
+          "label": "Distractors",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            "T_brown",
+            "X_green"
+          ],
+          "meaning": "The distractor glyphs, in as near equal numbers as possible.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation spot",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "How long the fixation spot is shown before the display.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 10000
+          },
+          "meaning": "Safety cap on the display; the paper had none. ASSUMED, not in the paper."
+        },
+        {
+          "name": "feedback_duration",
+          "label": "Feedback",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1500
+          },
+          "meaning": "How long the RT and correctness stay on screen. ASSUMED, not in the paper."
+        },
+        {
+          "name": "cards_per_cell",
+          "label": "Cards per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 8,
+          "meaning": "Target cards (and as many blank cards) per display size.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Showings per card",
+          "group": "Design",
+          "type": "integer",
+          "default": 2,
+          "meaning": "How often each card is shown in a block: 8 cards x 2 = 16 positive and 16 negative trials per display size.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "dominant_hand",
+          "label": "Dominant hand",
+          "group": "Response",
+          "type": "choice",
+          "default": "right",
+          "meaning": "The hand whose key means \"target present\". ASSUMED default; set per subject."
+        },
+        {
+          "name": "repeat_errors",
+          "label": "Repeat errors",
+          "group": "Procedure",
+          "type": "boolean",
+          "default": true,
+          "meaning": "An error's card is served again later in the block.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "dummy_after_error",
+          "label": "Dummy after error",
+          "group": "Procedure",
+          "type": "boolean",
+          "default": true,
+          "meaning": "A dummy trial, not analysed, follows each error.",
+          "source": "paper p. 103"
+        }
       ],
       "outcomes": [
-        {"name": "CORRECT", "completed": true, "success": true, "meaning": "The key matched the target's side."},
-        {"name": "WRONG", "completed": true, "success": false, "meaning": "The other key."},
-        {"name": "NO_RESPONSE", "completed": false, "meaning": "No key before the deadline; the condition is served again."}
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The key matched the display: present for a target card, absent for a blank one."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "The other key. The card is served again later in the block and a dummy trial follows (paper p. 103)."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No key before the safety deadline; the card is served again later."
+        },
+        {
+          "name": "NOT_STARTED",
+          "completed": false,
+          "meaning": "The subject never pressed SPACE on the ready field; the card is served again later."
+        }
       ],
       "events": [
-        {"name": "FIX_ON", "meaning": "Fixation point shown."},
-        {"name": "RESPONSE_CUE", "meaning": "Target shown; reaction time runs from this flip."},
-        {"name": "RESPONSE", "meaning": "The subject's key."}
+        {
+          "name": "READY_ON",
+          "meaning": "The plain white field is up; the subject may press SPACE."
+        },
+        {
+          "name": "FIX_ON",
+          "meaning": "The fixation spot is shown."
+        },
+        {
+          "name": "ARRAY_ON",
+          "meaning": "The search display is shown; reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The subject's key."
+        },
+        {
+          "name": "FEEDBACK_ON",
+          "meaning": "The RT and correctness are shown."
+        }
       ]
     }
   ]

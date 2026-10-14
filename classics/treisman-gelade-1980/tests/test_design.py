@@ -44,7 +44,8 @@ def test_every_card_matches_its_condition(name):
             assert card.target is None and not any(g in p.targets for g in glyphs)
         distractors = Counter(g for g in glyphs if g in p.distractors)
         if distractors:
-            assert max(distractors.values()) - min(distractors.get(k, 0) for k in p.distractors) <= 1
+            fewest = min(distractors.get(k, 0) for k in p.distractors)
+            assert max(distractors.values()) - fewest <= 1
 
 
 @pytest.mark.parametrize("name", EXP1)

@@ -1,9 +1,12 @@
 """Run Feature vs conjunction search (Treisman & Gelade, 1980), in any of alhazen's modes.
 
     uv run python run.py --task feature-conjunction-search --mode demo
-    uv run python run.py --task feature-conjunction-search --mode simulate --headless --sub sim --ses 1 --seed 1
-    uv run python run.py --task feature-conjunction-search --mode test --sub dev --ses 1 --initials DEV
-    uv run python run.py --task feature-conjunction-search --rig booth --sub s01 --ses 1 --initials AB \
+    uv run python run.py --task feature-conjunction-search --mode simulate --headless \
+        --sub sim --ses 1 --seed 1
+    uv run python run.py --task feature-conjunction-search --mode test \
+        --sub dev --ses 1 --initials DEV
+    uv run python run.py --task feature-conjunction-search --rig booth \
+        --sub s01 --ses 1 --initials AB \
         --params configs/task-exp1-feature.yaml
     uv run alhazen dashboard --project .
 

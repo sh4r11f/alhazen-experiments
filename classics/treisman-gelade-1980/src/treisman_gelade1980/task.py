@@ -94,8 +94,9 @@ class FeatureConjunctionSearchTaskParams(SubjectParams):
     @model_validator(mode="after")
     def _consistent(self) -> FeatureConjunctionSearchTaskParams:
         if self.condition not in design.CONDITIONS_BY_EXPERIMENT[self.experiment]:
+            allowed = design.CONDITIONS_BY_EXPERIMENT[self.experiment]
             raise ValueError(f"condition {self.condition!r} is not one of Experiment "
-                             f"{self.experiment}'s: {design.CONDITIONS_BY_EXPERIMENT[self.experiment]}")
+                             f"{self.experiment}'s: {allowed}")
         for g in [*self.targets, *self.distractors]:
             letter, _, ink = g.partition("_")
             if letter not in glyphs.LETTERS or ink not in self.inks:
@@ -107,7 +108,8 @@ class FeatureConjunctionSearchTaskParams(SubjectParams):
             needed = (self.field_width_dva, self.field_height_dva, self.inner_ellipse_width_dva,
                       self.inner_ellipse_height_dva, self.min_spacing_dva)
             if any(v is None for v in needed):
-                raise ValueError("layout scatter needs the field, inner ellipse and min_spacing_dva")
+                raise ValueError(
+                    "layout scatter needs the field, inner ellipse and min_spacing_dva")
         else:
             if not self.matrices:
                 raise ValueError("layout matrix needs matrices")
@@ -122,7 +124,8 @@ class FeatureConjunctionSearchTaskParams(SubjectParams):
         if self.left_key == self.right_key or self.ready_key in (self.left_key, self.right_key):
             raise ValueError("the ready key and the two response keys must all differ")
         if self.paradigm.kind != "sequence" or self.paradigm.blocks is not None:
-            raise ValueError("this task serves one block of cards: paradigm kind sequence, no blocks "
+            raise ValueError("this task serves one block of cards: paradigm kind sequence, "
+                             "no blocks "
                              "(n_per_condition is how often each card is shown)")
         return self
 
@@ -159,7 +162,8 @@ class FeatureConjunctionSearchTask(Task):
         return Template(text).substitute(
             target=p.target_description, present_key=p.present_key.upper(),
             absent_key=p.absent_key.upper(), ready_key=p.ready_key.upper(),
-            present_hand=p.dominant_hand, absent_hand="left" if p.dominant_hand == "right" else "right")
+            present_hand=p.dominant_hand,
+            absent_hand="left" if p.dominant_hand == "right" else "right")
 
     # -- the design ---------------------------------------------------------
 
@@ -268,11 +272,14 @@ class FeatureConjunctionSearchTask(Task):
         deck = design.build_deck(p, setup.rng)
         for n in p.display_sizes:
             for present in (1, 0):
-                cond = next(c for c in deck if c["display_size"] == n and c["target_present"] == present)
+                cond = next(c for c in deck
+                            if c["display_size"] == n and c["target_present"] == present)
                 patch, centre = glyphs.render_patch(design.build_card(p, cond).items, **geometry)
-                stim = picture(setup.display, setup.screen, "array", p.background_rgb, patch, centre)
+                stim = picture(setup.display, setup.screen, "array", p.background_rgb, patch,
+                               centre)
                 label = "target present" if present else "target absent"
-                views.append(DemoView(name=f"{n}-{label}", caption=f"{p.condition}: {n} items, {label}",
+                views.append(DemoView(name=f"{n}-{label}",
+                                      caption=f"{p.condition}: {n} items, {label}",
                                       draw=lambda t, s=stim: s.draw()))
         return views
 

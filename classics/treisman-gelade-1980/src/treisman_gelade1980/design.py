@@ -94,7 +94,8 @@ def section_of(x: float, y: float, p: Any) -> int:
 def _centre_bounds(p: Any) -> tuple[float, float]:
     """Half-extents of the region letter CENTRES may occupy: the field is the area the
     letters themselves cover, so centres keep half a letter inside its edge."""
-    return (p.field_width_dva - p.letter_width_dva) / 2, (p.field_height_dva - p.letter_height_dva) / 2
+    return ((p.field_width_dva - p.letter_width_dva) / 2,
+            (p.field_height_dva - p.letter_height_dva) / 2)
 
 
 def _far_enough(x: float, y: float, placed: list[tuple[float, float]], spacing: float) -> bool:
@@ -180,7 +181,8 @@ def _distractor_glyphs(n: int, kinds: list[str], rng: np.random.Generator) -> li
     """``n`` distractors of the given kinds in as near equal numbers as possible
     (paper p. 103); which kinds take the remainder is random."""
     base, extra = divmod(n, len(kinds))
-    takers = set(int(i) for i in rng.choice(len(kinds), size=extra, replace=False)) if extra else set()
+    takers = ({int(i) for i in rng.choice(len(kinds), size=extra, replace=False)}
+              if extra else set())
     glyphs = [k for i, k in enumerate(kinds) for _ in range(base + (1 if i in takers else 0))]
     return [glyphs[i] for i in rng.permutation(len(glyphs))]
 

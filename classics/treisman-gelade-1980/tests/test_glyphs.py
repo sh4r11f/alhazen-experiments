@@ -35,7 +35,8 @@ def test_the_target_is_drawn_in_its_ink_at_its_place():
     card = design.build_card(p, cond)
     img = glyphs.render_canvas(card.items, p=p, **GEOM)
     t = card.target
-    cx, cy = SCREEN.width_px / 2 + t.x * SCREEN.px_per_deg, SCREEN.height_px / 2 - t.y * SCREEN.px_per_deg
+    cx = SCREEN.width_px / 2 + t.x * SCREEN.px_per_deg
+    cy = SCREEN.height_px / 2 - t.y * SCREEN.px_per_deg
     r = SCREEN.px_per_deg * 0.45
     window = img.crop((round(cx - r), round(cy - r), round(cx + r), round(cy + r)))
     assert ink_mask(window, p.inks["green"]).sum() > 20

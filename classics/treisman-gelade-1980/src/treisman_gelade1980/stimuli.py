@@ -48,7 +48,8 @@ class FieldPicture:
 class RecordedPicture:
     """The simulated backend's FieldPicture: keeps the pixels and counts draws."""
 
-    def __init__(self, name: str, patch: Image.Image | None, centre_px: tuple[float, float]) -> None:
+    def __init__(self, name: str, patch: Image.Image | None,
+                 centre_px: tuple[float, float]) -> None:
         self.name = name
         self.patch = patch
         self.centre_px = centre_px
