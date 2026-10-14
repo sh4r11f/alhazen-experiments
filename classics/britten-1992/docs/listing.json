@@ -1,20 +1,51 @@
 {
   "status": "adaptation",
-  "status_reason": "Why this status, in one sentence.",
+  "status_reason": "The monkey set follows the paper's combined threshold series (2-s stochastic motion display, saccade report to two targets, reward, correction trials) but on a frame-based display, with fixed example aperture, axis and speed instead of values matched to each recorded MT neuron; the human set changes the population and the response (keys); the neurometric half needs an MT recording that this folder does not provide.",
   "collection": "classics",
-  "authors": [{"name": "Sharif Saleki", "role": "replication"}],
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
   "original": {
-    "citation": "CITATION",
-    "year": 1900,
-    "doi": null,
-    "url": null,
-    "experiments": "Which experiment(s) of the paper"
+    "citation": "Britten, K. H., Shadlen, M. N., Newsome, W. T., & Movshon, J. A. (1992). The analysis of visual motion: A comparison of neuronal and psychophysical performance. Journal of Neuroscience, 12(12), 4745-4765.",
+    "year": 1992,
+    "doi": "10.1523/JNEUROSCI.12-12-04745.1992",
+    "url": "https://www.cns.nyu.edu/~tony/Publications/britten-shadlen-newsome-movshon-1992.pdf",
+    "experiments": "The combined threshold series (psychophysics with simultaneous MT recording): its behavioural task in full, its neurometric analysis as code that needs a recording; not the direction-tuning or physiological threshold series"
   },
-  "hardware": {"display": true, "keyboard": true, "audio": false, "eye_tracker": false,
-               "reward": false, "microstimulation": false, "recording": false},
-  "subjects": ["human"],
-  "category": "attention",
-  "tags": [],
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": true,
+    "reward": true,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human",
+    "monkey"
+  ],
+  "category": "motion",
+  "tags": [
+    "random-dot kinematogram",
+    "motion coherence",
+    "direction discrimination",
+    "psychometric function",
+    "Weibull",
+    "MT",
+    "neurometric",
+    "saccade",
+    "monkey"
+  ],
   "art": "docs/preview.png",
-  "assets": []
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "MIT (drawn by src/britten1992/preview.py from the params files)"
+    }
+  ],
+  "notes": "Keyboard: human set only. Eye tracker and reward: monkey set only. Recording is optional and not provided: configs/rig-recording-example.yaml shows the sync lines and recording block a lab adds for the neurometric half. No participant data: tests and simulated sessions verify the software only."
 }

@@ -97,9 +97,19 @@ def test_the_example_rigs_have_what_the_monkey_set_needs():
     assert load_rig(PROJECT / "configs" / "rig-recording-example.yaml").devices.recording
 
 
+def load_run_py():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("britten_run", PROJECT / "run.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def test_every_training_stage_resolves():
-    import run
     from alhazen.training.ladder import load_ladder, resolve_stage
+
+    run = load_run_py()
 
     for label, path in run.LADDERS.items():
         for stage in load_ladder(path).stages:

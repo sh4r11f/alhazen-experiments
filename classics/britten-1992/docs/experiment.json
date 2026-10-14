@@ -2,42 +2,708 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Motion coherence discrimination (Britten et al.)",
-  "summary": "One or two sentences on what the experiment asks and what a trial is.",
+  "summary": "Discriminate the direction of weak motion in a stochastic random-dot display: a variable proportion of dots (the correlation) is replotted as a signal displaced in one of two opposite directions, the rest at random. The monkey set is the paper's trial: fixate, view the dots for 2 s, saccade to the target of the direction seen, juice for a correct choice. The human set shows the same display and takes an arrow key. The analysis fits the paper's Weibull psychometric function; its neurometric half needs an MT recording.",
   "methods": "docs/methods.md",
-  "references": ["CITATION"],
+  "references": [
+    "Britten, K. H., Shadlen, M. N., Newsome, W. T., & Movshon, J. A. (1992). The analysis of visual motion: A comparison of neuronal and psychophysical performance. Journal of Neuroscience, 12(12), 4745-4765."
+  ],
   "deviations": [
-    {"item": "(template)", "original": "(template)", "here": "(template)", "reason": "(template)"}
+    {
+      "item": "Subjects and response (human set)",
+      "original": "Three rhesus monkeys reported the direction with a saccade to one of two LEDs (p. 4745, p. 4747)",
+      "here": "configs/task.yaml: a person answers with an arrow key after the stimulus; fixation is asked for, not enforced",
+      "reason": "A keyboard booth with no eye tracker; the monkey set (configs/task-monkey.yaml) keeps the saccade report"
+    },
+    {
+      "item": "Stimulus tailored to each neuron",
+      "original": "Aperture over the receptive field, motion axis along the neuron's preferred-null axis, speed at its preferred speed, chosen anew for every neuron (p. 4747)",
+      "here": "Fixed values in each params file (example values in the monkey file, to be set for the neuron under study)",
+      "reason": "No neuron is recorded by default; the files make the choice explicit instead of hiding it in code"
+    },
+    {
+      "item": "How dots are plotted",
+      "original": "Dots plotted one at a time at 6.67 kHz by a dedicated computer; each a 150-microsecond flash of a P4 phosphor (p. 4746)",
+      "here": "Each display frame shows the dots plotted during that frame (density x 400 deg^2 / refresh rate), each visible for one frame",
+      "reason": "A frame-based monitor cannot plot dots sequentially; the dot rate per unit area and time is kept"
+    },
+    {
+      "item": "Signal interval dt",
+      "original": "45 ms (p. 4746)",
+      "here": "The nearest whole number of frames (3 frames = 50 ms at 60 Hz, 5 frames = 41.7 ms at 120 Hz); dx = speed x realised dt, so the speed is kept; signal_dt_ms is recorded on every trial",
+      "reason": "Signal dots can only be displaced from a dot shown a whole number of frames earlier"
+    },
+    {
+      "item": "Random numbers",
+      "original": "A 31-bit hardware shift-register m-sequence, seeded per trial or with one fixed seed (p. 4747)",
+      "here": "numpy's PCG64 generator seeded per trial (or one fixed seed); the seed is recorded on every trial so the display replays",
+      "reason": "Portable software generator; the same per-trial / fixed-seed choice is kept"
+    },
+    {
+      "item": "Display background",
+      "original": "A dark CRT (0.2 cd/m^2 mean luminance) behind a circular aperture mask (p. 4746)",
+      "here": "alhazen's mid-grey window, with the dots drawn on a black disc the size of the aperture (aperture_fill)",
+      "reason": "alhazen's PsychoPy window background is fixed mid-grey; the disc keeps the dots bright on dark inside the aperture"
+    },
+    {
+      "item": "Saccade targets",
+      "original": "Two LEDs (p. 4747, Fig. 2)",
+      "here": "Two discs drawn on the screen",
+      "reason": "A rig with no LEDs; the targets' timing and placement on the motion axis are kept"
+    },
+    {
+      "item": "Eye position",
+      "original": "Scleral search coil (p. 4746)",
+      "here": "Whatever eye tracker the rig file names (an EyeLink in configs/rig-monkey-example.yaml)",
+      "reason": "alhazen's eye-tracker devices; the fixation window and saccade report are the same"
+    },
+    {
+      "item": "Aperture position (human set)",
+      "original": "Over the receptive field, at 1.3-31.4 deg eccentricity (p. 4749)",
+      "here": "Centred on the fixation point",
+      "reason": "There is no receptive field to match, and an unenforced fixation cannot keep a peripheral aperture peripheral"
+    },
+    {
+      "item": "Feedback (human set)",
+      "original": "Monkeys: a drop of juice for a correct choice, a brief time-out for a wrong one (p. 4747)",
+      "here": "The fixation point turns green (correct) or red (wrong) for 300 ms; random at 0 %, as the reward was",
+      "reason": "People are not paid per trial; the information each trial gives is kept"
+    },
+    {
+      "item": "Blocks per neuron",
+      "original": "Up to six blocks of the combined threshold series per neuron while isolation lasted (p. 4748)",
+      "here": "One block per session (run another session for each further block); the notebook pools the runs it is given",
+      "reason": "alhazen schedules a session as one plan; a recording's length decides how many are run"
+    },
+    {
+      "item": "Neural experiments",
+      "original": "Direction-tuning series and physiological threshold series (fixation only, red fixation point) recorded MT neurons (pp. 4747-4748)",
+      "here": "Not built as tasks. A recording rig adds sync lines and a recording block (configs/rig-recording-example.yaml); see docs/methods.md, 'What a recording rig adds'",
+      "reason": "The behavioural task is the reusable part; recording hardware is the lab's"
+    },
+    {
+      "item": "Neurometric analysis",
+      "original": "ROC analysis of each neuron's 2-s spike counts against an 'antineuron', neurometric Weibull fits, threshold ratios (pp. 4750-4753)",
+      "here": "Implemented in britten1992.analysis and the notebook, but run only when a run's trials table carries spike counts (spike_count); nothing is computed or shown without a recording",
+      "reason": "No recording, no neurometric function; the code is ready for one"
+    }
   ],
   "assumed": [
-    {"item": "Fixation point size", "value": "0.3 dva", "reason": "template placeholder", "key": "fix_size_dva"},
-    {"item": "Target size", "value": "1.0 dva", "reason": "template placeholder", "key": "target_size_dva"},
-    {"item": "Target eccentricity", "value": "5.0 dva", "reason": "template placeholder", "key": "target_ecc_dva"},
-    {"item": "Fixation duration", "value": "500 ms", "reason": "template placeholder", "key": "fixation_duration"},
-    {"item": "Response deadline", "value": "2000 ms", "reason": "template placeholder", "key": "response_timeout"},
-    {"item": "Inter-trial interval", "value": "1000 ms", "reason": "template placeholder", "key": "iti"},
-    {"item": "Trials per condition", "value": "10", "reason": "template placeholder", "key": "paradigm.n_per_condition"}
+    {
+      "item": "Correlation (coherence) levels",
+      "value": "0, 0.8, 1.6, 3.2, 6.4, 12.8, 25.6, 51.2 %",
+      "reason": "The paper gives 6-10 levels spaced by factors of 2, typically including 0 %, chosen per neuron to span threshold (p. 4747); 0.8 % and 12.8 % appear in Fig. 5. The exact set is not given",
+      "key": "coherences_pct"
+    },
+    {
+      "item": "Motion axis",
+      "value": "Horizontal: pref = rightward (0 deg), anti = leftward",
+      "reason": "The paper used each neuron's preferred-null axis (p. 4747); in the monkey file it is an example to set per neuron",
+      "key": "axis_deg"
+    },
+    {
+      "item": "Dot speed",
+      "value": "6 deg/s",
+      "reason": "The paper used each neuron's preferred speed, 0.4-28.4 deg/s (p. 4749); a mid-range value; an example in the monkey file",
+      "key": "speed_dva_s"
+    },
+    {
+      "item": "Plotting field",
+      "value": "A 20 x 20 deg square centred on the aperture; signal dots leaving it wrap to the opposite side",
+      "reason": "The paper gives a 400 deg^2 unmasked area (p. 4746) but not its shape, position or edge rule; a square of that area, larger than any aperture, keeps the wrap behind the mask",
+      "key": "field_dva"
+    },
+    {
+      "item": "Aperture diameter (human set)",
+      "value": "10 deg",
+      "reason": "Inside the paper's 2.5-20 deg range (p. 4749), which followed receptive-field size",
+      "key": "aperture_dva"
+    },
+    {
+      "item": "Aperture diameter (monkey set, example)",
+      "value": "7 deg",
+      "reason": "Inside the paper's range (p. 4749); to be matched to the receptive field",
+      "key": "aperture_dva",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Aperture centre (monkey set, example)",
+      "value": "(6, -4) deg, 7.2 deg eccentric",
+      "reason": "An example receptive-field location near the monkeys' geometric-mean eccentricities, 6.8-10.3 deg (p. 4749)",
+      "key": "aperture_center_dva",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Dot luminance",
+      "value": "The display's white, on a black aperture disc",
+      "reason": "The paper describes bright dots on a white P4 phosphor (p. 4746) but gives no dot luminance or contrast",
+      "key": "dot_color"
+    },
+    {
+      "item": "Fixation point size",
+      "value": "0.3 deg",
+      "reason": "Not stated; a conventional small point",
+      "key": "fix_size_dva"
+    },
+    {
+      "item": "Fixation point alone before the dots (human set)",
+      "value": "500 ms",
+      "reason": "The monkeys' dots followed acquired fixation (p. 4747); with no eye tracker a fixed lead-in stands in",
+      "key": "fixation_duration"
+    },
+    {
+      "item": "Response deadline (human set)",
+      "value": "2.1 s after the dots go off",
+      "reason": "The monkeys' 2.1-s decision window (p. 4747), reused for the key",
+      "key": "response_timeout"
+    },
+    {
+      "item": "Feedback duration (human set)",
+      "value": "300 ms",
+      "reason": "Not stated (the monkeys got juice or a time-out); long enough to read at a glance",
+      "key": "feedback_duration"
+    },
+    {
+      "item": "Inter-trial interval",
+      "value": "1 s (both sets)",
+      "reason": "Not stated",
+      "key": "iti"
+    },
+    {
+      "item": "Response keys (human set)",
+      "value": "Right arrow = rightward (pref), left arrow = leftward (anti)",
+      "reason": "Not applicable to the monkeys; the keys match the axis",
+      "key": "key_pref"
+    },
+    {
+      "item": "Correction trials (human set)",
+      "value": "Off",
+      "reason": "The paper's correction trials (p. 4748) broke monkeys' position habits; nothing says they were used, or would be needed, with people",
+      "key": "correction_trials.enabled"
+    },
+    {
+      "item": "Trials per cell (human set)",
+      "value": "15 per direction per level (240 trials)",
+      "reason": "The monkeys' block (p. 4747), reused for people",
+      "key": "paradigm.n_per_condition"
+    },
+    {
+      "item": "What is on screen while the key is awaited (human set)",
+      "value": "The fixation point alone; the dots going off is the cue to answer",
+      "reason": "Not applicable to the paper's saccade report (the targets were the cue)"
+    },
+    {
+      "item": "Feedback tones (human set)",
+      "value": "Off: colour only",
+      "reason": "Not stated; a visual-only booth",
+      "key": "feedback_beeps",
+      "file": "configs/rig-booth.yaml"
+    },
+    {
+      "item": "Target size",
+      "value": "0.5 deg",
+      "reason": "The LEDs' size is not stated",
+      "key": "target_size_dva",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Target colour",
+      "value": "White",
+      "reason": "The LEDs' colour is not stated",
+      "key": "target_color",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Target positions",
+      "value": "On the motion axis, 10 deg either side of the fixation point, on the side the motion goes",
+      "reason": "Fig. 2A shows one LED per direction along the axis; distances are not stated",
+      "key": "target_ecc_dva",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Target window",
+      "value": "3 deg radius",
+      "reason": "Not stated",
+      "key": "target_window_dva",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Time to acquire fixation",
+      "value": "5 s, then the trial is served again later",
+      "reason": "Not stated",
+      "key": "acquire_timeout",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Gaze hold that counts as acquired",
+      "value": "200 ms",
+      "reason": "Not stated",
+      "key": "acquire_hold",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Fixation held before the dots",
+      "value": "300 ms",
+      "reason": "The paper says only that the dots appeared after fixation was established (p. 4747)",
+      "key": "prestim_hold",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "What the 2.1-s decision window is measured to",
+      "value": "The eye leaving the fixation window (saccade onset); the landing is then judged 200 ms later",
+      "reason": "The paper says the decision had to be indicated within 2.1 s of target onset (p. 4747) but not what event ended it"
+    },
+    {
+      "item": "Where the saccade landed",
+      "value": "Gaze 200 ms after it left the fixation window",
+      "reason": "Not stated",
+      "key": "landing_dwell",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Error time-out",
+      "value": "1.5 s of empty screen after a wrong choice",
+      "reason": "The paper gives a 'brief time-out interval' (p. 4747), not its length",
+      "key": "error_timeout",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Trials without a choice (fixation break, no saccade, a saccade to neither target)",
+      "value": "Served again later in the block; no time-out",
+      "reason": "The paper discarded them (pp. 4747-4748) but does not say whether they were re-presented or penalised"
+    },
+    {
+      "item": "Correction-trial coherence",
+      "value": "Each correction trial draws one of the non-zero levels at random",
+      "reason": "The paper says motion was presented repeatedly in the neglected direction (p. 4748), not at what strength",
+      "key": "coherence_pct",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "0 % trials and correction streaks",
+      "value": "0 % trials do not count toward the three-error streak",
+      "reason": "A 0 % trial has no motion direction to neglect; the paper does not say"
+    },
+    {
+      "item": "Reward size",
+      "value": "One 200-ms pulse per correct choice",
+      "reason": "The paper gives 'a drop of water or juice' (p. 4747); the volume is the rig's calibration",
+      "key": "reward.by_outcome.CORRECT",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Display geometry and viewing distance",
+      "value": "Example rig files: 1920 x 1080, 53 cm wide at 57 cm, 60 Hz (booth) or 120 Hz (monkey rigs)",
+      "reason": "The paper names its CRT monitors (p. 4746) but not the viewing distance or resolution; measure your own rig"
+    },
+    {
+      "item": "Training-ladder details",
+      "value": "Trial counts, stage durations, the single target's coherence, rewards and promotion criteria in configs/training-britten.yaml",
+      "reason": "The paper gives the sequence of training tasks and how long it took (p. 4748), none of these numbers"
+    }
   ],
   "tasks": [
     {
       "id": "rdk-direction",
-      "title": "Motion coherence discrimination (Britten et al.)",
-      "summary": "What one trial is.",
+      "title": "Direction discrimination, human set (keys)",
+      "summary": "Fixation point 500 ms, random dots 2 s around it, then the right or left arrow for the direction; the fixation point turns green or red.",
       "parameters_file": "configs/task.yaml",
       "parameters": [
-        {"name": "fix_size_dva", "label": "Fixation point size", "group": "Stimuli", "type": "number",
-         "unit": "dva", "default": 0.3, "meaning": "Diameter of the fixation point. ASSUMED, not in the paper."},
-        {"name": "response_timeout", "label": "Response deadline", "group": "Timing", "type": "duration",
-         "default": {"ms": 2000}, "meaning": "How long a key is accepted after the target appears. ASSUMED, not in the paper."}
+        {
+          "name": "coherences_pct",
+          "label": "Correlation levels",
+          "group": "Stimulus",
+          "type": "object",
+          "unit": "%",
+          "default": [
+            0.0,
+            0.8,
+            1.6,
+            3.2,
+            6.4,
+            12.8,
+            25.6,
+            51.2
+          ],
+          "meaning": "Percent of dots renewed as signal dots, one cell per level and direction. ASSUMED set, spaced by factors of 2 as the paper's were."
+        },
+        {
+          "name": "axis_deg",
+          "label": "Motion axis",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "deg",
+          "default": 0.0,
+          "meaning": "Direction of 'pref' motion (0 = rightward); 'anti' (the paper's null) is opposite. ASSUMED."
+        },
+        {
+          "name": "speed_dva_s",
+          "label": "Signal speed",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "deg/s",
+          "default": 6.0,
+          "meaning": "Speed of the signal dots (dx / dt). ASSUMED; the paper used each neuron's preferred speed."
+        },
+        {
+          "name": "signal_dt",
+          "label": "Signal interval dt",
+          "group": "Stimulus",
+          "type": "duration",
+          "default": {
+            "ms": 45
+          },
+          "meaning": "A signal dot is plotted dx from a dot shown this long before, rounded to whole frames.",
+          "source": "paper p. 4746"
+        },
+        {
+          "name": "density_dots_deg2_s",
+          "label": "Dot density",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dots/deg^2/s",
+          "default": 16.7,
+          "meaning": "Dots plotted per square degree per second (6.67 kHz over 400 deg^2).",
+          "source": "paper p. 4746"
+        },
+        {
+          "name": "dot_size_dva",
+          "label": "Dot size",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.1,
+          "meaning": "Diameter of each dot.",
+          "source": "paper p. 4746"
+        },
+        {
+          "name": "stimulus_duration",
+          "label": "Viewing time",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 2000
+          },
+          "meaning": "How long the dots are shown.",
+          "source": "paper p. 4747"
+        },
+        {
+          "name": "aperture_dva",
+          "label": "Aperture diameter",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 10.0,
+          "meaning": "Diameter of the circular aperture. ASSUMED, inside the paper's 2.5-20 deg range."
+        },
+        {
+          "name": "response_timeout",
+          "label": "Key deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 2100
+          },
+          "meaning": "How long after the dots a key is accepted. ASSUMED (the monkeys' 2.1-s window)."
+        },
+        {
+          "name": "key_pref",
+          "label": "Key for pref motion",
+          "group": "Response",
+          "type": "string",
+          "default": "right",
+          "meaning": "The key for rightward (pref) motion. ASSUMED."
+        },
+        {
+          "name": "key_anti",
+          "label": "Key for anti motion",
+          "group": "Response",
+          "type": "string",
+          "default": "left",
+          "meaning": "The key for leftward (anti) motion. ASSUMED."
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Trials per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 15,
+          "meaning": "Trials per direction per level (one block of 240). ASSUMED for people: the monkeys' block."
+        }
       ],
       "outcomes": [
-        {"name": "CORRECT", "completed": true, "success": true, "meaning": "The key matched the target's side."},
-        {"name": "WRONG", "completed": true, "success": false, "meaning": "The other key."},
-        {"name": "NO_RESPONSE", "completed": false, "meaning": "No key before the deadline; the condition is served again."}
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The key for the motion direction (at 0 %: the trial's nominal direction)."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "The other key."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No key within the deadline; the cell is served again."
+        }
       ],
       "events": [
-        {"name": "FIX_ON", "meaning": "Fixation point shown."},
-        {"name": "RESPONSE_CUE", "meaning": "Target shown; reaction time runs from this flip."},
-        {"name": "RESPONSE", "meaning": "The subject's key."}
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation point shown."
+        },
+        {
+          "name": "STIM_ON",
+          "meaning": "First frame of the dots."
+        },
+        {
+          "name": "RESPONSE_CUE",
+          "meaning": "Dots off; the key window opens and reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The subject's key."
+        }
+      ]
+    },
+    {
+      "id": "rdk-direction",
+      "title": "Direction discrimination, monkey set (saccade)",
+      "summary": "Acquire and hold fixation, random dots 2 s over the receptive field, then a saccade to one of two targets on the motion axis within 2.1 s; juice for a correct choice, a time-out for a wrong one; correction trials.",
+      "parameters_file": "configs/task-monkey.yaml",
+      "parameters": [
+        {
+          "name": "coherences_pct",
+          "label": "Correlation levels",
+          "group": "Stimulus",
+          "type": "object",
+          "unit": "%",
+          "default": [
+            0.0,
+            0.8,
+            1.6,
+            3.2,
+            6.4,
+            12.8,
+            25.6,
+            51.2
+          ],
+          "meaning": "Percent of dots renewed as signal dots, one cell per level and direction. ASSUMED set, spaced by factors of 2 as the paper's were."
+        },
+        {
+          "name": "axis_deg",
+          "label": "Motion axis",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "deg",
+          "default": 0.0,
+          "meaning": "Direction of 'pref' motion (0 = rightward); 'anti' (the paper's null) is opposite. ASSUMED."
+        },
+        {
+          "name": "speed_dva_s",
+          "label": "Signal speed",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "deg/s",
+          "default": 6.0,
+          "meaning": "Speed of the signal dots (dx / dt). ASSUMED; the paper used each neuron's preferred speed."
+        },
+        {
+          "name": "signal_dt",
+          "label": "Signal interval dt",
+          "group": "Stimulus",
+          "type": "duration",
+          "default": {
+            "ms": 45
+          },
+          "meaning": "A signal dot is plotted dx from a dot shown this long before, rounded to whole frames.",
+          "source": "paper p. 4746"
+        },
+        {
+          "name": "density_dots_deg2_s",
+          "label": "Dot density",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dots/deg^2/s",
+          "default": 16.7,
+          "meaning": "Dots plotted per square degree per second (6.67 kHz over 400 deg^2).",
+          "source": "paper p. 4746"
+        },
+        {
+          "name": "dot_size_dva",
+          "label": "Dot size",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.1,
+          "meaning": "Diameter of each dot.",
+          "source": "paper p. 4746"
+        },
+        {
+          "name": "stimulus_duration",
+          "label": "Viewing time",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 2000
+          },
+          "meaning": "How long the dots are shown.",
+          "source": "paper p. 4747"
+        },
+        {
+          "name": "aperture_dva",
+          "label": "Aperture diameter",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 7.0,
+          "meaning": "Diameter of the aperture; match it to the receptive field. ASSUMED example."
+        },
+        {
+          "name": "aperture_center_dva",
+          "label": "Aperture centre",
+          "group": "Stimulus",
+          "type": "object",
+          "unit": "dva",
+          "default": [
+            6.0,
+            -4.0
+          ],
+          "meaning": "Centre of the aperture; place it over the receptive field. ASSUMED example."
+        },
+        {
+          "name": "fix_window_dva",
+          "label": "Fixation window",
+          "group": "Gaze",
+          "type": "number",
+          "unit": "dva",
+          "default": 1.25,
+          "meaning": "Radius around the fixation point gaze must stay within.",
+          "source": "paper p. 4747"
+        },
+        {
+          "name": "target_ecc_dva",
+          "label": "Target distance",
+          "group": "Gaze",
+          "type": "number",
+          "unit": "dva",
+          "default": 10.0,
+          "meaning": "Targets sit on the motion axis this far either side of fixation. ASSUMED."
+        },
+        {
+          "name": "target_window_dva",
+          "label": "Target window",
+          "group": "Gaze",
+          "type": "number",
+          "unit": "dva",
+          "default": 3.0,
+          "meaning": "Radius a saccade must land within to choose a target. ASSUMED."
+        },
+        {
+          "name": "response_timeout",
+          "label": "Decision window",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 2100
+          },
+          "meaning": "Time from target onset for the saccade to leave fixation.",
+          "source": "paper p. 4747"
+        },
+        {
+          "name": "error_timeout",
+          "label": "Time-out after an error",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1500
+          },
+          "meaning": "Empty screen after a wrong choice. ASSUMED length of the paper's 'brief time-out'."
+        },
+        {
+          "name": "correction_trials.enabled",
+          "label": "Correction trials",
+          "group": "Design",
+          "type": "boolean",
+          "default": true,
+          "meaning": "After three wrong choices on one direction, show that direction until it is chosen correctly.",
+          "source": "paper p. 4748"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Trials per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 15,
+          "meaning": "Trials per direction per level: one block of the combined threshold series.",
+          "source": "paper p. 4747"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "Landed in the target of the motion direction (at 0 %: the nominal direction); paid."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "Landed in the other target; a time-out follows."
+        },
+        {
+          "name": "NO_FIXATION",
+          "completed": false,
+          "meaning": "Fixation not acquired in time; served again."
+        },
+        {
+          "name": "FIX_BREAK",
+          "completed": false,
+          "meaning": "Gaze left the fixation window before the targets; served again."
+        },
+        {
+          "name": "NO_CHOICE",
+          "completed": false,
+          "meaning": "No saccade within 2.1 s of target onset; served again."
+        },
+        {
+          "name": "MISSED",
+          "completed": false,
+          "meaning": "The saccade landed in neither target; served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation point shown."
+        },
+        {
+          "name": "FIX_ACQUIRED",
+          "meaning": "Gaze held in the fixation window."
+        },
+        {
+          "name": "STIM_ON",
+          "meaning": "First frame of the dots: the 2-s spike-count window opens."
+        },
+        {
+          "name": "TARGETS_ON",
+          "meaning": "Fixation point and dots off, targets on: the window closes, the decision window opens."
+        },
+        {
+          "name": "SACCADE_ONSET",
+          "meaning": "Gaze left the fixation window."
+        },
+        {
+          "name": "LANDED",
+          "meaning": "The landing sample was taken."
+        },
+        {
+          "name": "TIMEOUT_ON",
+          "meaning": "Time-out after a wrong choice begins."
+        }
       ]
     }
   ]
