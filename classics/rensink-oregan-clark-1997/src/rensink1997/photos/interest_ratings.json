@@ -1,0 +1,304 @@
+{
+ "rule": "paper p. 369: central = mentioned by >= 3 of 5 describers, marginal = by none",
+ "describers": "5 independent requests to gpt-6.1-sol",
+ "prompt": "You are taking part in a psychology study. Look at this photograph and describe the scene briefly, in a single short sentence of at most 12 words, as you would to someone who cannot see it.",
+ "prompt_name": "brief",
+ "date": "2026-10-14",
+ "scenes": {
+  "harbor": {
+   "keywords": [
+    "sailboat",
+    "sail boat",
+    "sailing boat",
+    "yacht",
+    "sail",
+    "sailing"
+   ],
+   "descriptions": [
+    "Boats float in a calm harbor beside colorful houses and green hills.",
+    "Boats float in a calm harbor beside colorful waterfront houses.",
+    "Boats float in a calm harbor beside colorful houses and green hills.",
+    "Boats float in a calm harbor beside colorful houses and hills.",
+    "Boats float in a calm harbor beside colorful waterfront houses."
+   ],
+   "mentioned": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "n_mentioning": 0,
+   "label": "marginal",
+   "intended": "central"
+  },
+  "dog": {
+   "keywords": [
+    "dog",
+    "retriever",
+    "puppy",
+    "labrador"
+   ],
+   "descriptions": [
+    "A golden retriever sits on a leaf-strewn park path between benches.",
+    "A golden retriever sits on a leaf-strewn park path between benches.",
+    "A golden retriever sits on a leaf-strewn park path between benches.",
+    "A golden retriever sits on a leaf-strewn park path between benches.",
+    "A golden retriever sits on a leaf-strewn park path between benches."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "plaza": {
+   "keywords": [
+    "awning",
+    "striped"
+   ],
+   "descriptions": [
+    "A stone fountain anchors a sunny square lined with colorful buildings.",
+    "A stone fountain anchors a sunny square surrounded by cafés and buildings.",
+    "A stone fountain anchors a sunny square surrounded by colorful buildings.",
+    "A stone fountain anchors a sunny square surrounded by cafés and buildings.",
+    "A stone fountain anchors a sunny square surrounded by colorful buildings."
+   ],
+   "mentioned": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "n_mentioning": 0,
+   "label": "marginal",
+   "intended": "marginal"
+  },
+  "kitchen": {
+   "keywords": [
+    "curtain",
+    "drape",
+    "drapes"
+   ],
+   "descriptions": [
+    "A bowl of lemons sits on a sunlit kitchen table.",
+    "A bowl of lemons sits on a sunlit kitchen table.",
+    "A bowl of lemons sits on a sunlit kitchen table.",
+    "A bowl of lemons sits on a sunlit kitchen table.",
+    "A bowl of lemons sits on a wooden table in a kitchen."
+   ],
+   "mentioned": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "n_mentioning": 0,
+   "label": "marginal",
+   "intended": "marginal"
+  },
+  "car": {
+   "keywords": [
+    "car",
+    "vehicle",
+    "automobile",
+    "coupe",
+    "sedan"
+   ],
+   "descriptions": [
+    "A blue car sits on a quiet, tree-lined residential street.",
+    "A blue car sits on a quiet, tree-lined residential street.",
+    "A blue car sits on a quiet, tree-lined residential street.",
+    "A blue car sits parked on a tree-lined residential street.",
+    "A quiet, tree-lined residential street has a blue car parked alongside."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "beach": {
+   "keywords": [
+    "umbrella",
+    "parasol",
+    "sunshade"
+   ],
+   "descriptions": [
+    "A blue umbrella shades an empty chair on a sunny beach.",
+    "A blue umbrella shades a lone chair on a sandy beach.",
+    "A blue umbrella shades a chair on a sunny, sandy beach.",
+    "A blue umbrella shades an empty chair on a sunny beach.",
+    "A blue umbrella shades a lone chair on a sunny beach."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "garden": {
+   "keywords": [
+    "gate"
+   ],
+   "descriptions": [
+    "A stone cottage stands behind colorful flowers and a neatly trimmed lawn.",
+    "A stone cottage overlooks a colorful flower garden and green lawn.",
+    "A stone cottage overlooks a colorful flower garden and green lawn.",
+    "A stone cottage overlooks a colorful flower garden and green lawn.",
+    "A stone cottage overlooks a colorful flower garden and green lawn."
+   ],
+   "mentioned": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "n_mentioning": 0,
+   "label": "marginal",
+   "intended": "marginal"
+  },
+  "office": {
+   "keywords": [
+    "cabinet",
+    "filing",
+    "drawers",
+    "drawer"
+   ],
+   "descriptions": [
+    "A laptop, mug, and lamp sit on a desk beside bookshelves.",
+    "A laptop, mug, and lamp sit on a desk beside bookshelves.",
+    "A laptop, mug, and lamp sit on a desk beside bookshelves.",
+    "A laptop, mug, and lamp sit on a desk beside bookshelves.",
+    "A laptop, mug, and lamp sit on a desk beside bookshelves."
+   ],
+   "mentioned": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "n_mentioning": 0,
+   "label": "marginal",
+   "intended": "marginal"
+  },
+  "helicopter": {
+   "keywords": [
+    "helicopter",
+    "chopper",
+    "aircraft"
+   ],
+   "descriptions": [
+    "A red helicopter flies above Toronto’s waterfront skyline under clear blue skies.",
+    "A red helicopter flies above Toronto’s waterfront skyline under clear blue skies.",
+    "A red helicopter flies above Toronto’s skyline beside blue water.",
+    "A red helicopter flies above Toronto’s waterfront skyline under clear blue skies.",
+    "A red helicopter flies above Toronto’s waterfront skyline under clear skies."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "balloon": {
+   "keywords": [
+    "balloon"
+   ],
+   "descriptions": [
+    "A rainbow hot-air balloon floats above green fields and a winding river.",
+    "A rainbow hot-air balloon floats above green fields and a winding river.",
+    "A rainbow hot-air balloon floats above green fields and a winding river.",
+    "A rainbow hot air balloon floats above green fields and winding rivers.",
+    "A rainbow hot-air balloon floats above green fields and a winding river."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "lake": {
+   "keywords": [
+    "boathouse",
+    "boat house",
+    "cabin",
+    "hut",
+    "shed",
+    "house",
+    "building",
+    "dock"
+   ],
+   "descriptions": [
+    "A red canoe floats on a calm lake beneath forested mountains.",
+    "A red canoe floats on a lake beneath forested mountains.",
+    "A red canoe floats on a calm lake beneath forested mountains.",
+    "A red canoe floats on a lake surrounded by forested mountains.",
+    "A red canoe floats on a lake beneath forested mountains."
+   ],
+   "mentioned": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "n_mentioning": 0,
+   "label": "marginal",
+   "intended": "marginal"
+  },
+  "market": {
+   "keywords": [
+    "sign",
+    "signboard",
+    "signage"
+   ],
+   "descriptions": [
+    "Fresh produce fills a shopfront along a narrow, sunlit stone street.",
+    "Fresh produce fills a shopfront along a narrow, sunlit stone street.",
+    "Fresh produce fills a storefront along a narrow, sunlit stone street.",
+    "Fresh produce sits outside a stone shop on a narrow street.",
+    "Fresh produce fills a storefront along a narrow, sunlit cobblestone street."
+   ],
+   "mentioned": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "n_mentioning": 0,
+   "label": "marginal",
+   "intended": "marginal"
+  }
+ }
+}

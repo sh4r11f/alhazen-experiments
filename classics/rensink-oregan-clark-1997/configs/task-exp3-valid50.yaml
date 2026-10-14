@@ -1,0 +1,41 @@
+# Experiment 3, partially-valid cues (Rensink et al., 1997, p. 371): half the words name the
+# changed part, half name another part of the scene. Identical to task.yaml apart from `cue`.
+subject_kind: human
+
+image_width_dva: 27.0          # paper: p. 369 ("Images were 27 deg wide and 18 deg high")
+image_height_dva: 18.0         # paper: p. 369
+background_gray: 0.0           # ASSUMED (not in the paper): "gray" fields, luminance not given; mid gray (signed RGB 0)
+cue_field: {ms: 3000}          # paper: p. 369, Fig. 1 (3-s gray field with a white rectangle)
+cue_box_width_dva: 8.0         # ASSUMED (not in the paper): rectangle size not given; wide enough for a word pair
+cue_box_height_dva: 2.5        # ASSUMED (not in the paper): rectangle size not given
+cue_text_height_dva: 1.0       # ASSUMED (not in the paper): cue word size and colour (black) not given
+cue: valid50                   # ASSUMED (not in the paper): half valid, half invalid (paper p. 371), assigned by alternating within each change type in a fixed order
+gray_field: {ms: 1000}         # paper: p. 369, Fig. 1 (then a 1-s gray field)
+flicker:
+  image: {ms: 240}             # paper: p. 369 ("Each image was displayed for 240 ms")
+  blank: {ms: 80}              # paper: p. 369 ("and each blank for 80 ms")
+  pattern: [A, A, B, B]        # paper: p. 369 (A, A, A', A', ...; each image presented twice before being switched)
+max_flicker: {ms: 60000}       # paper: p. 369, Fig. 1 (cycle continues for 60 s or until the observer responds)
+detect_key: space              # ASSUMED (not in the paper): "hits a key"; which key is not given
+location_probe:                # DEVIATION: replaces the spoken description of the changed part (docs/methods.md)
+  n_choices: 4                 # ASSUMED (not in the paper): no keyed probe in the original; 4 boxes, chance 1/4
+  min_side_dva: 3.0            # ASSUMED (not in the paper): box side clamp, so small changes get findable boxes
+  max_side_dva: 7.0            # ASSUMED (not in the paper): box side clamp, so four boxes fit on a 27 x 18 deg image
+  keys: ['1', '2', '3', '4']   # ASSUMED (not in the paper): number keys, labelled on the boxes
+  timeout: {ms: 20000}         # ASSUMED (not in the paper): no report deadline in the original; generous cap
+type_probe:                    # DEVIATION: replaces the spoken report of the type of change
+  keys: {p: presence, c: color, l: location}   # ASSUMED (not in the paper): mnemonic keys for the three types
+  timeout: {ms: 20000}         # ASSUMED (not in the paper): no report deadline in the original; generous cap
+probe_text_height_dva: 0.7     # ASSUMED (not in the paper): text size of the report prompts
+scenes:
+  photos: true                 # DEVIATION: 12 generated photo pairs replace the 48 original photographs
+  photo_ids: null              # every shipped pair (src/rensink1997/photos/pairs.json)
+  procedural_per_cell: 6       # ASSUMED (not in the paper): 6 x 3 types x 2 interests = 36, so 12 + 36 = 48 scenes, the paper's count (p. 369)
+  procedural_seed: 1997        # ASSUMED (not in the paper): arbitrary seed of the procedural pairs
+change_area_dva2: {central: 18.0, marginal: 22.0}   # paper: p. 369 (average change areas; used as each procedural pair's target)
+location_shift_dva: 3.0        # ASSUMED (not in the paper): "a few degrees" (p. 369); 3 deg is Fig. 2's example, used for every procedural location change
+iti: {ms: 500}                 # ASSUMED (not in the paper): no inter-trial interval given; the 3-s cue field opens each trial
+paradigm:
+  kind: sequence
+  n_per_condition: 1           # ASSUMED (not in the paper): each scene once, inferred from "presented in random order for each subject" (p. 370)
+  shuffle: true                # paper: p. 370 ("Images were presented in random order for each subject")

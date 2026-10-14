@@ -7,13 +7,15 @@ monitor:
   width_px: 1920
   height_px: 1080
   width_cm: 53.0
-  distance_cm: 57.0
-  refresh_rate_hz: 60.0
+  distance_cm: 57.0            # ASSUMED (not in the paper): viewing distance not given; example only (27 deg images need a ~27 cm wide picture at 57 cm)
+  refresh_rate_hz: 60.0        # ASSUMED (not in the paper): monitor not described; at 60 Hz 240/80 ms become 14/5 frames (233/83 ms), exact at 75, 100 or 125 Hz
   fullscreen: true
 display:
   backend: psychopy
   frame_qa:
-    policy: recycle_trial
+    # mark_trial, not recycle_trial: every scene is shown once, and serving a scene again
+    # after a dropped-frame trial would show the subject a change they may already have seen.
+    policy: mark_trial
     max_dropped_fraction: 0.10
 live_monitor:
   enabled: true

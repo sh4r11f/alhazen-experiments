@@ -1,0 +1,304 @@
+{
+ "rule": "paper p. 369: central = mentioned by >= 3 of 5 describers, marginal = by none",
+ "describers": "5 independent requests to gpt-6.1-sol",
+ "prompt": "You are taking part in a psychology study. Look at this photograph and give a brief verbal description of the scene, in one or two sentences, as you would to someone who cannot see it.",
+ "date": "2026-10-14",
+ "scenes": {
+  "harbor": {
+   "keywords": [
+    "sailboat",
+    "sail boat",
+    "sailing boat",
+    "yacht",
+    "sail",
+    "sailing"
+   ],
+   "descriptions": [
+    "Several small wooden boats are moored in the foreground of a calm harbor, while a white sailboat glides across the water. A row of colorful houses lines the opposite shore, backed by green, rocky hills beneath a lightly clouded sky.",
+    "Small wooden boats are moored in the foreground of a calm harbor, while a white sailboat glides across the water. A row of colorful waterfront houses lines the opposite shore, backed by green, rocky hills beneath a partly cloudy sky.",
+    "Small wooden boats are moored in the foreground of a calm harbor, while a white-sailed boat crosses the water. Across the harbor, a row of colorful houses lines a stone waterfront beneath green, rocky hills and a partly cloudy sky.",
+    "Several small wooden boats are moored in the foreground of a calm harbor, while a white sailboat glides across the water. A row of colorful houses lines the opposite shore, backed by green, rocky hills under a partly cloudy sky.",
+    "Small wooden boats are moored in the foreground of a calm harbor, while a white sailboat glides across the water. A row of colorful waterfront houses lines the far shore, backed by green, rocky hills beneath a partly cloudy sky."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "dog": {
+   "keywords": [
+    "dog",
+    "retriever",
+    "puppy",
+    "labrador"
+   ],
+   "descriptions": [
+    "A golden retriever sits in the middle of a leaf-strewn park path, facing the camera with its mouth open and tongue out. Wooden benches and tall trees line both sides of the path.",
+    "A golden retriever sits in the middle of a leaf-strewn park path, facing the camera with its mouth open and tongue out. Wooden benches and tall trees line both sides of the path.",
+    "A golden retriever sits in the middle of a leaf-strewn park path, facing the camera with its mouth open and tongue out. Wooden benches and tall trees line both sides of the path.",
+    "A golden retriever sits in the middle of a leaf-strewn park path, facing the camera with its mouth open and tongue out. Wooden benches and tall trees line both sides of the path.",
+    "A golden retriever sits in the middle of a leaf-strewn park path, facing the camera with its mouth open and tongue out. Wooden benches and tall trees line both sides of the path."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "plaza": {
+   "keywords": [
+    "awning",
+    "striped"
+   ],
+   "descriptions": [
+    "A large stone fountain splashes into a circular basin in a sunny town square, surrounded by outdoor café tables, umbrellas, and potted plants. Behind it stand pastel-colored buildings with shuttered windows and small wrought-iron balconies.",
+    "An ornate stone fountain splashes into a circular basin in a sunny cobblestone square, surrounded by outdoor café tables, umbrellas, and potted plants. Tall buildings in warm yellow, beige, and peach tones frame the square, with shuttered windows and small balconies.",
+    "A large stone fountain splashes into a circular basin in a sunny cobblestone square, surrounded by outdoor café tables, chairs, and umbrellas. Tall buildings in warm yellow, cream, and pink tones frame the square, with shuttered windows, small balconies, and potted greenery.",
+    "A large stone fountain flows into a circular basin in a sunny cobblestone square, surrounded by café tables, chairs, and umbrellas. Behind it stand closely packed yellow, cream, and pink buildings with shuttered windows, balconies, and potted plants.",
+    "A large, ornate stone fountain flows in the center of a sunny cobblestone square, surrounded by outdoor café tables, chairs, and umbrellas. Behind it stand pastel yellow, beige, and pink buildings with shuttered windows, balconies, and potted plants."
+   ],
+   "mentioned": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "n_mentioning": 0,
+   "label": "marginal",
+   "intended": "marginal"
+  },
+  "kitchen": {
+   "keywords": [
+    "curtain",
+    "drape",
+    "drapes"
+   ],
+   "descriptions": [
+    "A ceramic bowl filled with bright yellow lemons sits on a wooden table in a sunlit kitchen. White cabinets, wooden cutting boards, and potted herbs line the background, while daylight streams through a large window beside a sheer white curtain.",
+    "A blue-and-white ceramic bowl piled with bright yellow lemons sits on a wooden table in a sunlit kitchen. Behind it are white cabinets, cutting boards, a pot of herbs, and utensils, with daylight streaming through a large window beside a sheer white curtain.",
+    "A blue-and-white ceramic bowl filled with bright yellow lemons sits on a wooden table in a sunlit kitchen. White cabinets, wooden cutting boards, and potted herbs line the background, while daylight streams through a large window with a sheer white curtain.",
+    "A blue-and-white ceramic bowl filled with bright yellow lemons sits on a wooden table in a sunlit kitchen. White cabinets, wooden cutting boards, and potted herbs line the background, beside a large window with a sheer white curtain.",
+    "A blue-and-white ceramic bowl filled with bright yellow lemons sits on a rustic wooden table in a sunlit kitchen. White cabinets, wooden cutting boards, and potted herbs line the background, while a large window with a sheer curtain looks out onto greenery."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "marginal"
+  },
+  "car": {
+   "keywords": [
+    "car",
+    "vehicle",
+    "automobile",
+    "coupe",
+    "sedan"
+   ],
+   "descriptions": [
+    "A quiet residential street is lined with brick houses, leafy trees, and garden walls beneath an overcast sky. A small blue car is parked along the left curb, and no people are visible.",
+    "A quiet residential street is lined with brick houses, leafy trees, and gardens behind low brick walls. A small blue vintage car is parked along the left curb beneath an overcast sky, with no people visible.",
+    "A quiet residential street is lined with brick houses, leafy trees, and garden walls beneath an overcast sky. A small blue car is parked along the left curb, and no people are visible.",
+    "A quiet residential street is lined with brick houses, leafy trees, and garden walls beneath an overcast sky. A small blue vintage car is parked along the left curb, and no people are visible.",
+    "A quiet residential street is lined with brick houses, leafy trees, and garden walls beneath an overcast sky. A small blue car is parked along the left curb, and no people are visible."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "beach": {
+   "keywords": [
+    "umbrella",
+    "parasol",
+    "sunshade"
+   ],
+   "descriptions": [
+    "A lone beach chair sits beneath a bright blue umbrella on a wide, empty sandy beach, facing the turquoise sea and gentle waves. A green, rocky headland stretches along the right side under a mostly clear blue sky.",
+    "A lone beach chair sits beneath a bright blue umbrella on a wide, empty sandy beach, facing the turquoise sea and gentle waves. A green, rocky headland stretches into the water in the distance beneath a mostly clear blue sky.",
+    "A blue beach umbrella shades an empty deck chair on a wide sandy beach beside a turquoise sea with gentle waves. A green, rocky headland stretches along the distant shore beneath a mostly clear blue sky.",
+    "A lone beach chair sits beneath a bright blue umbrella on a wide, empty sandy beach, facing turquoise water and gentle waves. A green, rocky headland stretches into the sea beneath a mostly clear blue sky.",
+    "A single blue beach umbrella shades an empty chair on a wide sandy beach beside gentle turquoise waves. A green, rocky headland stretches into the sea beneath a mostly clear blue sky."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "garden": {
+   "keywords": [
+    "gate"
+   ],
+   "descriptions": [
+    "A stone cottage with white-framed windows and a pale blue front door is surrounded by a lush garden of pink, purple, and white flowers, with climbing roses spreading across its walls. A neatly cut lawn fills the foreground, and a blue wooden gate stands beside a tall hedge on the right.",
+    "A stone cottage with white-framed windows and a pale blue front door is covered in climbing pink roses. A lush garden of purple, pink, and white flowers borders the green lawn, with a blue wooden gate set into a tall hedge on the right.",
+    "A stone cottage with white-framed windows and a pale blue front door is surrounded by climbing pink roses and a lush garden of purple, pink, and white flowers. A neatly mown lawn stretches across the foreground, and a blue wooden gate stands beside a tall hedge on the right.",
+    "A stone cottage with white-framed windows and a pale blue front door is surrounded by climbing pink roses and a lush garden of purple, pink, and white flowers. A neatly mown lawn stretches across the foreground, and a blue wooden gate stands beside a tall hedge on the right.",
+    "A stone cottage with white-framed windows and a pale blue front door is surrounded by climbing pink roses and a lush garden of purple, pink, and white flowers. A neatly mown lawn stretches across the foreground, and a blue wooden gate stands beside a tall hedge on the right."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "marginal"
+  },
+  "office": {
+   "keywords": [
+    "cabinet",
+    "filing",
+    "drawers",
+    "drawer"
+   ],
+   "descriptions": [
+    "An open laptop sits on a wooden desk beside a ceramic mug, a black adjustable lamp, and a notebook with a pen. Behind the desk are a book-filled wooden shelf, a blue filing cabinet, and leafy plants near a sunlit window.",
+    "An open laptop sits on a wooden desk beside a mug, a notebook and pen, and a large black desk lamp. Behind the desk are a book-filled wooden shelf, a blue filing cabinet, and potted plants near a sunlit window.",
+    "An open laptop sits on a wooden desk beside a ceramic mug, a notebook and pen, and a black adjustable lamp. Behind the desk are a bookshelf filled with books, a blue filing cabinet, and potted plants near a sunlit window.",
+    "An open laptop sits on a wooden desk beside a ceramic mug, a black adjustable lamp, and a notebook with a pen. Behind the desk are a book-filled wooden shelf, a blue filing cabinet, and potted plants near a sunlit window.",
+    "An open laptop sits on a wooden desk beside a ceramic mug, a black adjustable lamp, and a notebook with a pen. Behind the desk are a book-filled wooden shelf, a blue filing cabinet, and potted plants, with daylight coming through a window on the right."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "marginal"
+  },
+  "helicopter": {
+   "keywords": [
+    "helicopter",
+    "chopper",
+    "aircraft"
+   ],
+   "descriptions": [
+    "A red-and-white helicopter flies over Toronto’s waterfront skyline, with the CN Tower rising on the left. Blue water fills the foreground beneath a clear blue sky.",
+    "A red-and-white helicopter flies above Toronto’s waterfront skyline, with the CN Tower rising on the left. Blue water fills the foreground beneath a clear blue sky.",
+    "A red-and-white helicopter flies above Toronto’s waterfront skyline, with the CN Tower rising on the left. Blue water fills the foreground beneath a clear blue sky.",
+    "A red-and-white helicopter flies above Toronto’s waterfront skyline, with the CN Tower rising on the left among high-rise buildings. Blue water fills the foreground beneath a clear blue sky.",
+    "A red-and-white helicopter flies over Toronto’s waterfront skyline, with the CN Tower standing among the high-rise buildings. Blue water fills the foreground beneath a clear blue sky."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "balloon": {
+   "keywords": [
+    "balloon"
+   ],
+   "descriptions": [
+    "A rainbow-striped hot-air balloon floats in a blue sky above a green valley. Below, a winding river runs through fields and clusters of trees, with rolling hills and patches of mist in the distance.",
+    "A rainbow-striped hot-air balloon floats in a blue sky above a lush green valley. Below, a winding river passes through patchwork fields and clusters of trees, with rolling hills and a low band of mist in the distance.",
+    "A rainbow-striped hot-air balloon floats in a blue sky above a lush green valley. Below it, a winding river flows through patchwork fields and clusters of trees, with rolling hills in the distance.",
+    "A rainbow-striped hot-air balloon floats in a blue sky above a green valley of fields and trees. A winding river runs through the landscape, with rolling hills and patches of mist in the distance.",
+    "A rainbow-striped hot air balloon floats in a blue sky above a green valley. Below, a winding river runs through patchwork fields and clusters of trees, with rolling hills and a thin band of mist in the distance."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "central"
+  },
+  "lake": {
+   "keywords": [
+    "boathouse",
+    "boat house",
+    "cabin",
+    "hut",
+    "shed",
+    "house",
+    "building",
+    "dock"
+   ],
+   "descriptions": [
+    "A bright red canoe floats on a calm lake, reflected in the water along with the surrounding evergreen forest and rugged, snow-dappled mountains. A small wooden boathouse sits on the left shore.",
+    "A red canoe floats on a calm lake, its reflection mirrored in the water. A small wooden cabin sits along the pine-covered shore, with rugged, partly snow-covered mountains rising behind it.",
+    "A bright red canoe floats on a calm lake, reflected in the water alongside dense evergreen forest and rugged, partly snow-covered mountains. A small wooden boathouse sits on the left shore.",
+    "A red canoe floats on a calm lake, its reflection mirrored in the water. Dense evergreen forest lines the shore, with a small wooden cabin on the left and rugged, snow-patched mountains rising behind it.",
+    "A bright red canoe floats on a calm lake, reflected in the water along with the surrounding evergreen forest and rugged, snow-streaked mountains. A small wooden boathouse stands on the left shore."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "marginal"
+  },
+  "market": {
+   "keywords": [
+    "sign",
+    "signboard",
+    "signage"
+   ],
+   "descriptions": [
+    "A produce shop displays crates of colorful fruit, leafy greens, and vegetables outside a rustic stone building. A blank round sign hangs above the storefront beside a narrow, sunlit cobblestone street lined with stone houses and plants.",
+    "A produce shop displays crates of colorful fruit, leafy greens, and other vegetables beneath a white awning beside a narrow cobblestone street. A blank round sign hangs above, with old stone buildings and greenery lining the sunlit lane.",
+    "A small produce shop displays crates of colorful fruit, leafy vegetables, and garlic beneath an awning beside a rustic stone building. A blank round sign hangs above the narrow cobblestone lane, which winds between stone houses and greenery.",
+    "Crates of colorful fruit and vegetables fill the front of a stone-walled shop beneath a white awning and a round, blank hanging sign. A narrow cobblestone lane runs alongside it between old stone buildings, with greenery and flowers along the walls.",
+    "A small produce shop displays crates of fruit, leafy vegetables, and garlic outside a stone building beneath a white awning and a round, blank hanging sign. Beside it, a narrow cobblestone lane winds between sunlit stone buildings decorated with greenery and flowers."
+   ],
+   "mentioned": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "n_mentioning": 5,
+   "label": "central",
+   "intended": "marginal"
+  }
+ },
+ "prompt_name": "two-sentences"
+}

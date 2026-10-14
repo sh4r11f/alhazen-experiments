@@ -10,6 +10,9 @@ TASKS, PARAMETERS and LADDERS are module-level dict LITERALS on purpose: alhazen
 dashboard reads them out of this file without running it. Each path is anchored to this
 file, so a session finds its configs wherever the command is typed.
 
+Each scene is shown once per subject, and a subject who has seen a set's scenes cannot
+do another set of the same scenes: the paper ran ten new observers per experiment (p. 369).
+
 Without --rig a session starts on alhazen's shared `laptop` rig, a development rig on
 which run mode (real data) is refused. A real session names its rig: copy
 configs/rig-booth.yaml, enter the machine's measured geometry, and pass --rig booth.
@@ -34,10 +37,20 @@ TASKS = {
 # The dashboard's parameter-set menu: display name -> (task name, params file).
 # "(human)" / "(monkey)" names who the file is for (its subject_kind).
 PARAMETERS = {
-    "Main (human)": ("flicker-change-detection", HERE / "configs" / "task.yaml"),
+    "Practice: 6 trials (human)": ("flicker-change-detection", HERE / "configs" / "task-practice.yaml"),
+    "Experiment 1: flicker (human)": ("flicker-change-detection", HERE / "configs" / "task.yaml"),
+    "Experiment 1: no-blank control (human)": (
+        "flicker-change-detection", HERE / "configs" / "task-noblank.yaml"),
+    "Experiment 2: extended display (human)": (
+        "flicker-change-detection", HERE / "configs" / "task-exp2.yaml"),
+    "Experiment 3: valid cues (human)": (
+        "flicker-change-detection", HERE / "configs" / "task-exp3-valid.yaml"),
+    "Experiment 3: 50% valid cues (human)": (
+        "flicker-change-detection", HERE / "configs" / "task-exp3-valid50.yaml"),
 }
 
-# Monkey training ladders: display name -> ladder YAML. Empty when there are none.
+# Monkey training ladders: display name -> ladder YAML. None: the paradigm is a human one
+# (free viewing, a key press and a report of what changed).
 LADDERS: dict[str, Path] = {}
 
 
