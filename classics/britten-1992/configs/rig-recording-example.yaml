@@ -1,0 +1,62 @@
+# The monkey rig with a neural recording beside it: what the NEUROMETRIC half of Britten et
+# al. (1992) needs. EXAMPLE GEOMETRY AND DEVICES ONLY.
+#
+# alhazen records no spikes. It drives the task, pulses a TTL line for every event named
+# under sync.event_lines (the recording system records those pulses), and notes where the
+# recording's files land (recording) so a run can be found and aligned afterwards
+# (alhazen's align_run). The paper counted each neuron's spikes over the 2-s viewing
+# interval (p. 4750): STIM_ON marks the start of that window, and TARGETS_ON its end,
+# since the targets come on as the dots go off. docs/methods.md, "What a recording rig
+# adds", says what is still the lab's (spike sorting, the counts per trial).
+#
+#   uv run python run.py --task rdk-direction --params configs/task-monkey.yaml \
+#       --rig recording-example --sub m01 --ses 1 --initials MK
+monitor:
+  name: recording-example
+  width_px: 1920
+  height_px: 1080
+  width_cm: 53.0
+  distance_cm: 57.0
+  refresh_rate_hz: 120.0
+  fullscreen: true
+display:
+  backend: psychopy
+  frame_qa:
+    policy: recycle_trial
+    max_dropped_fraction: 0.10
+  feedback_beeps: false
+  photodiode:
+    corner: br
+    size_px: 60
+    events: [STIM_ON]
+live_monitor:
+  enabled: true
+  auto_open: true
+  port: 0
+devices:
+  eyetracker:
+    backend: eyelink
+    host_ip: 100.1.1.1
+    calibration_type: HV9
+    edf_host_filename: BRITTEN.EDF
+  reward:
+    backend: nidaq
+    device: Dev1
+    channel: ao0
+    voltage: 5.0
+  sync:
+    backend: nidaq
+    pulse_ms: 2.0
+    event_lines:
+      TRIAL_START: Dev1/port0/line0
+      STIM_ON: Dev1/port0/line1      # the spike-count window opens (2 s of dots)
+      TARGETS_ON: Dev1/port0/line2   # ... and closes: dots off, targets on
+      SACCADE_ONSET: Dev1/port0/line3
+  # Where the acquisition software writes, relative to the folder the session is started
+  # from (or an absolute path on the rig: keep it out of the repository).
+  recording:
+    backend: spikeglx
+    data_dir: recordings
+    run_glob: "*_g0"
+data_root: data
+real_data: true

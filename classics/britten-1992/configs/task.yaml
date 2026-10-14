@@ -20,10 +20,10 @@ signal_dt: {ms: 45}              # paper: p. 4746 (rounded to whole frames of th
 density_dots_deg2_s: 16.7        # paper: p. 4746 (6.67 kHz over 400 deg^2)
 field_dva: 20.0                  # ASSUMED (not in the paper): the 400 deg^2 unmasked area (p. 4746) taken as a 20 x 20 deg plotting field centred on the aperture, wrapping at its edges
 aperture_dva: 10.0               # ASSUMED (not in the paper): one size inside the paper's 2.5-20 deg range (p. 4749); the paper matched it to each receptive field
-aperture_center_dva: [0.0, 0.0]  # ASSUMED (not in the paper): centred on the fixation point (no receptive field to match; fixation is not enforced)
+aperture_center_dva: [0.0, 0.0]  # deviation: centred on the fixation point (the paper's aperture sat over the receptive field, p. 4749)
 aperture_fill: [-1.0, -1.0, -1.0]  # deviation: the dots are drawn on a black disc; the paper's whole display was dark (0.2 cd/m^2 mean, p. 4746)
 dot_size_dva: 0.1                # paper: p. 4746
-dot_color: [1.0, 1.0, 1.0]       # paper: p. 4746 (bright dots on a white P4 phosphor; drawn at the display's white)
+dot_color: [1.0, 1.0, 1.0]       # ASSUMED (not in the paper): the display's white; p. 4746 says bright dots on a white P4 phosphor, no luminance
 stimulus_seed: per_trial         # paper: p. 4747 (a new seed on each trial in 160 of 216 experiments)
 stimulus_duration: {ms: 2000}    # paper: p. 4747
 
@@ -45,5 +45,5 @@ correction_trials:
 # correct for a random half of them, as the monkeys' reward was (p. 4747).
 paradigm:
   kind: sequence
-  n_per_condition: 15            # paper: p. 4747 (the monkeys' block, reused for humans)
+  n_per_condition: 15            # ASSUMED (not in the paper): the monkeys' block (15 per direction per level, p. 4747) reused for people
   shuffle: true                  # paper: p. 4747 (random order)

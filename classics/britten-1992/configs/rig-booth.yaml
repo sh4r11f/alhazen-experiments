@@ -1,4 +1,5 @@
-# A behavioural booth: a display, a keyboard, no other devices. EXAMPLE GEOMETRY ONLY.
+# A behavioural booth for the HUMAN set (configs/task.yaml): a display, a keyboard, no other
+# devices. EXAMPLE GEOMETRY ONLY.
 # Measure your own panel and viewing distance and enter them here before a real session;
 # `uv run alhazen calibrate ruler --rig booth` checks them with a tape measure.
 # Add devices (eyetracker, reward, sync) inside `devices:` as alhazen's docs/rigs.md shows.
@@ -12,6 +13,7 @@ monitor:
   fullscreen: true
 display:
   backend: psychopy
+  feedback_beeps: false   # ASSUMED (not in the paper): the human set's feedback is the fixation point's colour only
   frame_qa:
     policy: recycle_trial
     max_dropped_fraction: 0.10

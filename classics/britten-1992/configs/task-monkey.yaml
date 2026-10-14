@@ -27,7 +27,7 @@ aperture_dva: 7.0                # ASSUMED (not in the paper): example size insi
 aperture_center_dva: [6.0, -4.0] # ASSUMED (not in the paper): example receptive-field centre, 7.2 deg eccentric (the monkeys' geometric means were 6.8-10.3 deg, p. 4749)
 aperture_fill: [-1.0, -1.0, -1.0]  # deviation: dots on a black disc; the paper's whole display was dark (p. 4746)
 dot_size_dva: 0.1                # paper: p. 4746
-dot_color: [1.0, 1.0, 1.0]       # paper: p. 4746 (bright dots, white P4 phosphor)
+dot_color: [1.0, 1.0, 1.0]       # ASSUMED (not in the paper): the display's white; p. 4746 says bright dots on a white P4 phosphor
 stimulus_seed: per_trial         # paper: p. 4747 (fixed seed in 56 of 216 experiments: stimulus_seed: fixed)
 fixed_seed: 1                    # used only with stimulus_seed: fixed
 stimulus_duration: {ms: 2000}    # paper: p. 4747
