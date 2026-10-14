@@ -38,8 +38,8 @@ def test_the_saccade_session_is_384_trials_in_12_balanced_blocks():
     task = DoubleDriftSaccadesTask(load_params(PROJECT / "configs" / "task.yaml", SaccadeParams))
     served = drain(task.make_source(task.params, np.random.default_rng(0)))
     assert len(served) == 384
-    cells = Counter((c.params["tilt_side"], c.params["internal_motion"], c.params["start_direction"])
-                    for c in served)
+    cells = Counter((c.params["tilt_side"], c.params["internal_motion"],
+                     c.params["start_direction"]) for c in served)
     assert len(cells) == 8 and set(cells.values()) == {48}
     blocks = Counter(c.params["block"] for c in served)
     assert len(blocks) == 12 and set(blocks.values()) == {32}

@@ -1,7 +1,7 @@
 """Run Lisi & Cavanagh (2015), Experiment 1, in any of alhazen's modes.
 
-    uv run python run.py --task double-drift-perception --mode simulate --headless --sub sim --ses 1 --seed 1
-    uv run python run.py --task double-drift-saccades --mode simulate --headless --sub sim --ses 1 --seed 1
+    uv run python run.py --task double-drift-perception --mode simulate --headless --sub sim --ses 1
+    uv run python run.py --task double-drift-saccades --mode simulate --headless --sub sim --ses 1
     uv run python run.py --task double-drift-perception --rig booth --sub s01 --ses 1 --initials AB
     uv run python -m lisi_cavanagh2015.pse <the perception run folder>   # the two PSEs
     uv run python run.py --task double-drift-saccades --rig booth --sub s01 --ses 1 --initials AB \
@@ -33,13 +33,15 @@ HERE = Path(__file__).parent
 
 # task name -> (Task class, params file it runs with when --params is not given)
 TASKS = {
-    "double-drift-perception": (DoubleDriftPerceptionTask, HERE / "configs" / "task-perception.yaml"),
+    "double-drift-perception": (
+        DoubleDriftPerceptionTask, HERE / "configs" / "task-perception.yaml"),
     "double-drift-saccades": (DoubleDriftSaccadesTask, HERE / "configs" / "task.yaml"),
 }
 
 # The dashboard's parameter-set menu: display name -> (task name, params file).
 PARAMETERS = {
-    "1. Perceptual task (human)": ("double-drift-perception", HERE / "configs" / "task-perception.yaml"),
+    "1. Perceptual task (human)": (
+        "double-drift-perception", HERE / "configs" / "task-perception.yaml"),
     "2. Saccade task (human)": ("double-drift-saccades", HERE / "configs" / "task.yaml"),
 }
 

@@ -1,43 +1,967 @@
 {
   "schema": "alhazen-documentation",
   "schema_version": 1,
-  "title": "Double-drift: perception vs saccades (Lisi & Cavanagh)",
-  "summary": "One or two sentences on what the experiment asks and what a trial is.",
+  "title": "Double-drift: perception vs saccades (Lisi & Cavanagh 2015)",
+  "summary": "Lisi & Cavanagh (2015), Experiment 1. A Gabor 10 dva right of fixation moves back and forth on a 3 dva path while its grating, whose stripes run along the path, drifts across it and reverses with every pass; seen in the periphery, an oblique path looks close to vertical. In the perceptual task the observer reports whether the path leans left or right of vertical while interleaved staircases vary the physical orientation, giving each participant's perceived-vertical orientations. In the saccade task those orientations are shown with and without the internal drift, and the observer saccades to the Gabor when the fixation dot goes off; the Gabor is removed at saccade onset. The question is whether the landings follow the physical path or the perceived one.",
   "methods": "docs/methods.md",
-  "references": ["CITATION"],
+  "references": [
+    "Lisi, M., & Cavanagh, P. (2015). Dissociation between the perceptual and saccadic localization of moving objects. Current Biology, 25(19), 2535-2540. https://doi.org/10.1016/j.cub.2015.08.021",
+    "Watson, A. B., & Pelli, D. G. (1983). QUEST: A Bayesian adaptive psychometric method. Perception & Psychophysics, 33(2), 113-120.",
+    "Watson, A. B. (2017). QUEST+: A general multidimensional Bayesian adaptive psychometric method. Journal of Vision, 17(3):10.",
+    "Engbert, R., & Mergenthaler, K. (2006). Microsaccades are triggered by low retinal image slip. PNAS, 103(18), 7192-7197."
+  ],
   "deviations": [
-    {"item": "(template)", "original": "(template)", "here": "(template)", "reason": "(template)"}
+    {
+      "here": "Experiment 1 only: both of its tasks",
+      "item": "Experiments included",
+      "original": "Experiment 1 (perceptual task, saccade task) and Experiment 2 (mid-path gap, jump direction judgement)",
+      "reason": "The comparison of perceived path orientation and saccade landings is Experiment 1; Experiment 2 (the position-vs-direction test) is a separate design and is not built here."
+    },
+    {
+      "here": "alhazen v2.16.0 (PsychoPy renderer, EyeLink backend)",
+      "item": "Software",
+      "original": "MATLAB with the Psychophysics and EyeLink toolboxes on an Apple computer",
+      "reason": "The repository's toolkit."
+    },
+    {
+      "here": "The rig's gamma-linearised display at its measured refresh rate (the example rig says 120 Hz); background = the display's mid-grey, whose luminance the software does not set",
+      "item": "Display and background",
+      "original": "Gamma-linearised Compaq P1220 CRT at 120 Hz; uniform grey background of 5.3 cd/m2",
+      "reason": "Hardware is the lab's. The rig file asks for gamma linearisation and for the mid-grey to be measured with a photometer; background_cd_m2 records the paper's value."
+    },
+    {
+      "here": "alhazen's QUEST+ (Watson 2017) with one free parameter (the threshold) and the same log-Weibull psychometric family, four staircases picked at random each trial",
+      "item": "Adaptive procedure",
+      "original": "Multiple interleaved QUEST staircases (Watson & Pelli 1983) converging on 50% 'right' reports",
+      "reason": "alhazen ships QUEST+, not QUEST. QUEST+ places each trial by minimum expected entropy instead of at the threshold estimate, so placements differ; the PSE is fitted afterwards to every trial, as in the paper."
+    },
+    {
+      "here": "Until the response or 30 s; a trial with no response is re-served",
+      "item": "Perceptual response deadline",
+      "original": "Stimulus displayed until the response",
+      "reason": "An alhazen response window needs a deadline; 30 s is ten motion cycles."
+    },
+    {
+      "here": "Online, at the display rate: onset = gaze leaving the 2 dva fixation window, landing = first new sample slower than 30 dva/s after leaving (alhazen StimulusResponse and LandingSample); the EyeLink still records 1 kHz samples to its EDF",
+      "item": "Saccade detection",
+      "original": "Onset and offset detected offline from 1 kHz samples (Engbert & Mergenthaler 2006)",
+      "reason": "alhazen measures saccades online. The window exit comes a few ms after true onset (the Gabor moves 2 dva/s, so its position at 'onset' is off by a few hundredths of a dva); an offline reanalysis of the EDF can replace these columns."
+    },
+    {
+      "here": "Removed from the frame after the one on which gaze is first read outside the window (up to one extra frame, 8.3 ms at 120 Hz)",
+      "item": "Gabor removal at saccade onset",
+      "original": "Removed as soon as gaze was detected outside the 2 dva window",
+      "reason": "alhazen's StimulusResponse still draws the stimulus on the departure frame."
+    }
   ],
   "assumed": [
-    {"item": "Fixation point size", "value": "0.3 dva", "reason": "template placeholder", "key": "fix_size_dva"},
-    {"item": "Target size", "value": "1.0 dva", "reason": "template placeholder", "key": "target_size_dva"},
-    {"item": "Target eccentricity", "value": "5.0 dva", "reason": "template placeholder", "key": "target_ecc_dva"},
-    {"item": "Fixation duration", "value": "500 ms", "reason": "template placeholder", "key": "fixation_duration"},
-    {"item": "Response deadline", "value": "2000 ms", "reason": "template placeholder", "key": "response_timeout"},
-    {"item": "Inter-trial interval", "value": "1000 ms", "reason": "template placeholder", "key": "iti"},
-    {"item": "Trials per condition", "value": "10", "reason": "template placeholder", "key": "paradigm.n_per_condition"}
+    {
+      "item": "Saccade task: grating starting phase",
+      "reason": "Not reported; random so no stripe position is tied to the path.",
+      "value": "Random, uniform over one cycle, per trial",
+      "key": "carrier_phase"
+    },
+    {
+      "item": "Saccade task: fixation acquisition timeout",
+      "reason": "Not reported; a trial whose fixation is never acquired is re-served.",
+      "value": "5000 ms",
+      "key": "acquire_timeout"
+    },
+    {
+      "item": "Saccade task: what counts as fixating",
+      "reason": "'Each trial started when participant fixated'; the criterion is not reported.",
+      "value": "100 ms of continuous gaze in the window",
+      "key": "acquire_hold"
+    },
+    {
+      "item": "Saccade task: first direction of motion",
+      "reason": "The paper says the Gabor appears in the middle of its path and starts moving, not which way.",
+      "value": "Up and down, crossed with tilt and condition (balanced)",
+      "key": "start_directions"
+    },
+    {
+      "item": "Saccade task: inter-trial interval",
+      "reason": "Not reported.",
+      "value": "500 ms",
+      "key": "iti"
+    },
+    {
+      "item": "Saccade task: saccade deadline",
+      "reason": "Not reported; the paper excluded latencies over 600 ms offline, which the notebook does too.",
+      "value": "1000 ms after the dot goes off; no saccade = NO_SACCADE, re-served in the block",
+      "key": "saccade_timeout"
+    },
+    {
+      "item": "Saccade task: online landing criterion",
+      "reason": "Not in the paper (it detected saccades offline); a conventional saccade-offset speed. See Deviations.",
+      "value": "First new gaze sample slower than 30 dva/s after leaving fixation",
+      "key": "landing_settle_speed_dva_s"
+    },
+    {
+      "item": "Saccade task: wait for the eye to settle",
+      "reason": "Not in the paper; longer than any 10 dva saccade lasts.",
+      "value": "150 ms after onset at most",
+      "key": "landing_max_wait"
+    },
+    {
+      "item": "Saccade task: landing window",
+      "reason": "Not in the paper; no trial is judged or excluded by it.",
+      "value": "5 dva around the path middle, for the endpoint_in_target column only",
+      "key": "landing_window_dva"
+    },
+    {
+      "item": "Saccade task: trials per cell per block",
+      "reason": "The paper gives 384 trials in 12 blocks but not how conditions were balanced within blocks.",
+      "value": "4 (8 cells x 4 = 32 trials per block, 12 blocks = 384)",
+      "key": "paradigm.n_per_condition"
+    },
+    {
+      "item": "Saccade task: fixation control before the dot goes off",
+      "reason": "The paper aborts such trials but gives the window only for the Gabor's removal.",
+      "value": "The 2 dva removal window also aborts a trial on a look away or blink"
+    },
+    {
+      "item": "Saccade task: which of the six offset times",
+      "reason": "The paper lists the six times, not how they were assigned to trials.",
+      "value": "Drawn uniformly at random per trial",
+      "file": "src/lisi_cavanagh2015/saccade.py"
+    },
+    {
+      "item": "Saccade task: control and double-drift trials",
+      "reason": "The paper 'added a control condition' without saying whether it was blocked or interleaved.",
+      "value": "Randomly interleaved within every block",
+      "file": "src/lisi_cavanagh2015/saccade.py"
+    },
+    {
+      "item": "Perceptual task: fixation point size",
+      "reason": "Described for the saccade task only; taken from there.",
+      "value": "0.2 dva",
+      "key": "fix_size_dva",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: fixation point colour",
+      "reason": "Described for the saccade task only; taken from there.",
+      "value": "Black",
+      "key": "fix_color",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: fixation window",
+      "reason": "The radius for aborting a trial is not given; the saccade task's window.",
+      "value": "2 dva radius",
+      "key": "fix_window_dva",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: where and which way the Gabor starts",
+      "reason": "Not reported for this task; the saccade task's start.",
+      "value": "Middle of the path; up or down at random per trial",
+      "key": "start_directions",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: grating starting phase",
+      "reason": "Not reported.",
+      "value": "Random per trial",
+      "key": "carrier_phase",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: fixation acquisition timeout",
+      "reason": "Not reported.",
+      "value": "5000 ms",
+      "key": "acquire_timeout",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: what counts as fixating",
+      "reason": "Not reported.",
+      "value": "100 ms of continuous gaze",
+      "key": "acquire_hold",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: delay before the Gabor",
+      "reason": "Not reported for this task; the saccade task's foreperiod.",
+      "value": "400-600 ms, uniform",
+      "key": "foreperiod",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: delay jitter",
+      "reason": "As above.",
+      "value": "+/- 100 ms",
+      "key": "foreperiod_jitter",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: inter-trial interval",
+      "reason": "Not reported.",
+      "value": "500 ms",
+      "key": "iti",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: number of staircases",
+      "reason": "'Multiple interleaved QUEST staircases'; the number is not given.",
+      "value": "Two per drift pairing, four in all",
+      "key": "staircases_per_side",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: orientations the staircases may present",
+      "reason": "QUEST's stimulus range is not reported.",
+      "value": "-80 to 80 deg in 2 deg steps",
+      "key": "paradigm.quest.intensities",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: QUEST prior",
+      "reason": "Not reported.",
+      "value": "Uniform over thresholds -80 to 80 deg",
+      "key": "paradigm.quest.thresholds",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: QUEST slope",
+      "reason": "Not reported; gives a function rising over about 30 deg.",
+      "value": "0.05 per deg (log-Weibull form)",
+      "key": "paradigm.quest.slopes",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: QUEST lower asymptote",
+      "reason": "Not reported.",
+      "value": "0.02",
+      "key": "paradigm.quest.lower_asymptotes",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: QUEST lapse rate",
+      "reason": "Not reported.",
+      "value": "0.02",
+      "key": "paradigm.quest.lapse_rates",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: QUEST intensity axis",
+      "reason": "Not reported; the form QUEST uses, applied to orientation.",
+      "value": "Signed degrees on QUEST's log-Weibull form (alhazen scale log10)",
+      "key": "paradigm.quest.scale",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: trials per staircase",
+      "reason": "The paper gives 240 per session; the split follows from the assumed four staircases.",
+      "value": "60 (4 x 60 = 240 per session)",
+      "key": "paradigm.quest.n_trials",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: blocks per session",
+      "reason": "'2 sessions of 240 trials each, divided in 6 blocks' is ambiguous; read as 6 per session, like the saccade task's '384 trials divided in 12 blocks'.",
+      "value": "6",
+      "key": "paradigm.blocks.n_blocks",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: trials per block",
+      "reason": "240 / 6, following the reading above.",
+      "value": "40",
+      "key": "paradigm.blocks.trials_per_block",
+      "file": "configs/task-perception.yaml"
+    },
+    {
+      "item": "Perceptual task: an aborted trial",
+      "reason": "'Immediately aborted and repeated'; that the orientation is kept is assumed.",
+      "value": "Served again straight away, at the same orientation",
+      "file": "src/lisi_cavanagh2015/perception.py"
+    },
+    {
+      "item": "Staircases across sessions",
+      "reason": "Not reported whether QUEST carried over between the two sessions.",
+      "value": "Each session starts its staircases afresh; the notebook pools a participant's sessions for the fit",
+      "file": "src/lisi_cavanagh2015/perception.py"
+    },
+    {
+      "item": "Gabor patch extent",
+      "reason": "Not reported.",
+      "value": "6 sigma on a side (envelope cut at +/- 3 sigma, PsychoPy's gauss mask)",
+      "file": "src/lisi_cavanagh2015/stimuli.py"
+    },
+    {
+      "item": "Instruction wording",
+      "reason": "The paper gives the task, not the words; the saccade instruction follows 'make a saccade to the Gabor as soon as the fixation point disappeared'.",
+      "value": "instructions.md and instructions-perception.md",
+      "file": "instructions.md"
+    },
+    {
+      "item": "Eye-tracker calibration",
+      "reason": "Not reported.",
+      "value": "9-point (HV9) calibration with validation, accuracy <= 0.5 deg (example rig)",
+      "key": "calibration_type",
+      "file": "configs/rig-booth.yaml"
+    }
   ],
   "tasks": [
     {
-      "id": "double-drift-saccades",
-      "title": "Double-drift: perception vs saccades (Lisi & Cavanagh)",
-      "summary": "What one trial is.",
-      "parameters_file": "configs/task.yaml",
+      "id": "double-drift-perception",
+      "title": "Perceptual task: left or right of vertical?",
+      "summary": "Fixate; after 400-600 ms the double-drift Gabor moves on its path until a left or right arrow key reports its tilt; a look away or blink aborts and repeats the trial.",
+      "parameters_file": "configs/task-perception.yaml",
       "parameters": [
-        {"name": "fix_size_dva", "label": "Fixation point size", "group": "Stimuli", "type": "number",
-         "unit": "dva", "default": 0.3, "meaning": "Diameter of the fixation point. ASSUMED, not in the paper."},
-        {"name": "response_timeout", "label": "Response deadline", "group": "Timing", "type": "duration",
-         "default": {"ms": 2000}, "meaning": "How long a key is accepted after the target appears. ASSUMED, not in the paper."}
+        {
+          "name": "background_cd_m2",
+          "label": "Background luminance (reference)",
+          "group": "Display",
+          "type": "number",
+          "unit": "cd/m2",
+          "default": 5.3,
+          "meaning": "The paper's background luminance. Not set by software: the window is the display's mid-grey, which the rig must be set to and measured at.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "fix_color",
+          "label": "Fixation dot colour",
+          "group": "Fixation",
+          "type": "object",
+          "default": [
+            -1.0,
+            -1.0,
+            -1.0
+          ],
+          "meaning": "PsychoPy signed RGB; black. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "fix_size_dva",
+          "label": "Fixation dot diameter",
+          "group": "Fixation",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.2,
+          "meaning": "Diameter of the black fixation dot. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "fix_window_dva",
+          "label": "Fixation window radius",
+          "group": "Fixation",
+          "type": "number",
+          "unit": "dva",
+          "default": 2.0,
+          "meaning": "Gaze outside this circle (or a blink) before the dot goes off aborts the trial; in the saccade task leaving it is saccade onset and removes the Gabor. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "path_center_dva",
+          "label": "Path middle",
+          "group": "Stimulus",
+          "type": "object",
+          "unit": "dva",
+          "default": [
+            10.0,
+            0.0
+          ],
+          "meaning": "Where the middle of the Gabor's path is, from fixation (x right, y up).",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "path_length_dva",
+          "label": "Path length",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 3.0,
+          "meaning": "End-to-end length of the straight path the envelope moves back and forth on.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "path_speed_dva_s",
+          "label": "Envelope speed",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva/s",
+          "default": 2.0,
+          "meaning": "Speed of the envelope along the path (one pass = length / speed).",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "gabor_sf_cpd",
+          "label": "Spatial frequency",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "cycles/dva",
+          "default": 2.0,
+          "meaning": "Spatial frequency of the grating, whose stripes run along the path.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "gabor_sigma_dva",
+          "label": "Envelope SD",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.1,
+          "meaning": "Standard deviation of the Gaussian contrast envelope.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "gabor_contrast",
+          "label": "Contrast",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 1.0,
+          "meaning": "Michelson contrast of the grating at the envelope's peak.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "drift_tf_hz",
+          "label": "Internal drift",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "Hz",
+          "default": 3.0,
+          "meaning": "Temporal frequency of the grating's drift across the path (perpendicular to the stripes and the path), reversing at each path reversal.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "start_directions",
+          "label": "First direction of motion",
+          "group": "Stimulus",
+          "type": "object",
+          "default": [
+            "up",
+            "down"
+          ],
+          "meaning": "Which way the envelope first moves from the middle of the path. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "carrier_phase",
+          "label": "Grating starting phase",
+          "group": "Stimulus",
+          "type": "string",
+          "default": "random",
+          "meaning": "'random': a uniform random phase per trial. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "acquire_timeout",
+          "label": "Fixation timeout",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 5000
+          },
+          "meaning": "How long the dot waits to be fixated; then the trial is re-served. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "acquire_hold",
+          "label": "Fixation criterion",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 100
+          },
+          "meaning": "Continuous gaze in the window that counts as fixating. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "foreperiod",
+          "label": "Delay before the Gabor",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Mean delay from fixation to Gabor onset. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "foreperiod_jitter",
+          "label": "Delay jitter",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 100
+          },
+          "meaning": "The delay is uniform on foreperiod +/- this. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Blank time between trials. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "left_key",
+          "label": "Left key",
+          "group": "Response",
+          "type": "string",
+          "default": "left",
+          "meaning": "Report 'tilted left'.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "right_key",
+          "label": "Right key",
+          "group": "Response",
+          "type": "string",
+          "default": "right",
+          "meaning": "Report 'tilted right'.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 30000
+          },
+          "meaning": "The Gabor moves until a key or this deadline (a deviation: the paper had none).",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "staircases_per_side",
+          "label": "Staircases per pairing",
+          "group": "Design",
+          "type": "integer",
+          "default": 2,
+          "meaning": "Interleaved QUEST+ staircases for each drift pairing. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "paradigm.quest.n_trials",
+          "label": "Trials per staircase",
+          "group": "Design",
+          "type": "integer",
+          "default": 60,
+          "meaning": "Completed trials each staircase runs. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "paradigm.quest.slopes",
+          "label": "QUEST slope",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            0.05
+          ],
+          "meaning": "Slope of QUEST's log-Weibull psychometric function, per deg. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "paradigm.blocks.n_blocks",
+          "label": "Blocks",
+          "group": "Design",
+          "type": "integer",
+          "default": 6,
+          "meaning": "Blocks per session. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "paradigm.blocks.trials_per_block",
+          "label": "Trials per block",
+          "group": "Design",
+          "type": "integer",
+          "default": 40,
+          "meaning": "Completed trials per block. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        }
       ],
       "outcomes": [
-        {"name": "CORRECT", "completed": true, "success": true, "meaning": "The key matched the target's side."},
-        {"name": "WRONG", "completed": true, "success": false, "meaning": "The other key."},
-        {"name": "NO_RESPONSE", "completed": false, "meaning": "No key before the deadline; the condition is served again."}
+        {
+          "name": "REPORTED_RIGHT",
+          "completed": true,
+          "success": true,
+          "meaning": "Right arrow: the path leans right of vertical (what the staircases count as a success)."
+        },
+        {
+          "name": "REPORTED_LEFT",
+          "completed": true,
+          "success": false,
+          "meaning": "Left arrow: the path leans left of vertical."
+        },
+        {
+          "name": "NO_FIXATION",
+          "completed": false,
+          "meaning": "The dot was never fixated; served again."
+        },
+        {
+          "name": "FIX_BREAK",
+          "completed": false,
+          "meaning": "Gaze left the window or a blink before the report; served again at once with the same orientation."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No key within the deadline; served again."
+        }
       ],
       "events": [
-        {"name": "FIX_ON", "meaning": "Fixation point shown."},
-        {"name": "RESPONSE_CUE", "meaning": "Target shown; reaction time runs from this flip."},
-        {"name": "RESPONSE", "meaning": "The subject's key."}
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation dot shown."
+        },
+        {
+          "name": "FIX_ACQUIRED",
+          "meaning": "Fixation acquired."
+        },
+        {
+          "name": "GABOR_ON",
+          "meaning": "First frame of the moving Gabor; the reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The arrow key."
+        }
+      ]
+    },
+    {
+      "id": "double-drift-saccades",
+      "title": "Saccade task: a saccade to the moving Gabor",
+      "summary": "Fixate; after 400-600 ms the Gabor appears mid-path and moves; at one of six times the dot goes off and the observer saccades to the Gabor, which is removed as gaze leaves the 2 dva window.",
+      "parameters_file": "configs/task.yaml",
+      "parameters": [
+        {
+          "name": "background_cd_m2",
+          "label": "Background luminance (reference)",
+          "group": "Display",
+          "type": "number",
+          "unit": "cd/m2",
+          "default": 5.3,
+          "meaning": "The paper's background luminance. Not set by software: the window is the display's mid-grey, which the rig must be set to and measured at.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "fix_color",
+          "label": "Fixation dot colour",
+          "group": "Fixation",
+          "type": "object",
+          "default": [
+            -1.0,
+            -1.0,
+            -1.0
+          ],
+          "meaning": "PsychoPy signed RGB; black.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "fix_size_dva",
+          "label": "Fixation dot diameter",
+          "group": "Fixation",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.2,
+          "meaning": "Diameter of the black fixation dot.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "fix_window_dva",
+          "label": "Fixation window radius",
+          "group": "Fixation",
+          "type": "number",
+          "unit": "dva",
+          "default": 2.0,
+          "meaning": "Gaze outside this circle (or a blink) before the dot goes off aborts the trial; in the saccade task leaving it is saccade onset and removes the Gabor. Its use for fixation control before the dot goes off is ASSUMED, not in the paper.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "path_center_dva",
+          "label": "Path middle",
+          "group": "Stimulus",
+          "type": "object",
+          "unit": "dva",
+          "default": [
+            10.0,
+            0.0
+          ],
+          "meaning": "Where the middle of the Gabor's path is, from fixation (x right, y up).",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "path_length_dva",
+          "label": "Path length",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 3.0,
+          "meaning": "End-to-end length of the straight path the envelope moves back and forth on.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "path_speed_dva_s",
+          "label": "Envelope speed",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva/s",
+          "default": 2.0,
+          "meaning": "Speed of the envelope along the path (one pass = length / speed).",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "gabor_sf_cpd",
+          "label": "Spatial frequency",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "cycles/dva",
+          "default": 2.0,
+          "meaning": "Spatial frequency of the grating, whose stripes run along the path.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "gabor_sigma_dva",
+          "label": "Envelope SD",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.1,
+          "meaning": "Standard deviation of the Gaussian contrast envelope.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "gabor_contrast",
+          "label": "Contrast",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 1.0,
+          "meaning": "Michelson contrast of the grating at the envelope's peak.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "drift_tf_hz",
+          "label": "Internal drift",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "Hz",
+          "default": 3.0,
+          "meaning": "Temporal frequency of the grating's drift across the path (perpendicular to the stripes and the path), reversing at each path reversal.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "start_directions",
+          "label": "First direction of motion",
+          "group": "Stimulus",
+          "type": "object",
+          "default": [
+            "up",
+            "down"
+          ],
+          "meaning": "Which way the envelope first moves from the middle of the path. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "carrier_phase",
+          "label": "Grating starting phase",
+          "group": "Stimulus",
+          "type": "string",
+          "default": "random",
+          "meaning": "'random': a uniform random phase per trial. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "acquire_timeout",
+          "label": "Fixation timeout",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 5000
+          },
+          "meaning": "How long the dot waits to be fixated; then the trial is re-served. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "acquire_hold",
+          "label": "Fixation criterion",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 100
+          },
+          "meaning": "Continuous gaze in the window that counts as fixating. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "foreperiod",
+          "label": "Delay before the Gabor",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Mean delay from fixation to Gabor onset.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "foreperiod_jitter",
+          "label": "Delay jitter",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 100
+          },
+          "meaning": "The delay is uniform on foreperiod +/- this.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Blank time between trials. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "path_angle_right_deg",
+          "label": "Right-tilt path angle",
+          "group": "Per participant",
+          "type": "number",
+          "unit": "deg",
+          "default": 49.0,
+          "meaning": "Physical path orientation (clockwise from vertical) shown with the right-tilt drift pairing: the participant's perceived-vertical PSE from the perceptual task. Shipped: the paper's group mean, for rehearsal.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "path_angle_left_deg",
+          "label": "Left-tilt path angle",
+          "group": "Per participant",
+          "type": "number",
+          "unit": "deg",
+          "default": -52.0,
+          "meaning": "As above for the left-tilt pairing. Shipped: the paper's group mean, for rehearsal.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "n_fix_off_times",
+          "label": "Fixation offset times",
+          "group": "Design",
+          "type": "integer",
+          "default": 6,
+          "meaning": "The dot goes off at one of this many times equally spaced along a full motion cycle, from the first path reversal.",
+          "source": "Lisi & Cavanagh (2015)"
+        },
+        {
+          "name": "saccade_timeout",
+          "label": "Saccade deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "How long after the dot goes off a saccade is waited for. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "landing_settle_speed_dva_s",
+          "label": "Landing speed threshold",
+          "group": "Measurement",
+          "type": "number",
+          "unit": "dva/s",
+          "default": 30.0,
+          "meaning": "The landing is the first new gaze sample slower than this after leaving fixation. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "landing_max_wait",
+          "label": "Landing wait cap",
+          "group": "Measurement",
+          "type": "duration",
+          "default": {
+            "ms": 150
+          },
+          "meaning": "Longest wait for the eye to settle after saccade onset. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "landing_window_dva",
+          "label": "Landing window",
+          "group": "Measurement",
+          "type": "number",
+          "unit": "dva",
+          "default": 5.0,
+          "meaning": "Radius for the recorded endpoint_in_target column only. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Trials per cell per block",
+          "group": "Design",
+          "type": "integer",
+          "default": 4,
+          "meaning": "Repetitions of each of the 8 cells (tilt x condition x first direction) in a block. ASSUMED, not in the paper.",
+          "source": "ASSUMED, not in the paper"
+        },
+        {
+          "name": "paradigm.blocks.n_blocks",
+          "label": "Blocks",
+          "group": "Design",
+          "type": "integer",
+          "default": 12,
+          "meaning": "Blocks per session (384 trials).",
+          "source": "Lisi & Cavanagh (2015)"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "SACCADE",
+          "completed": true,
+          "success": true,
+          "meaning": "A saccade left the fixation window after the dot went off; its landing is recorded, with where the Gabor was at onset."
+        },
+        {
+          "name": "NO_FIXATION",
+          "completed": false,
+          "meaning": "The dot was never fixated; served again in the block."
+        },
+        {
+          "name": "FIX_BREAK",
+          "completed": false,
+          "meaning": "Gaze left the window or a blink before the dot went off; served again in the block."
+        },
+        {
+          "name": "NO_SACCADE",
+          "completed": false,
+          "meaning": "No saccade within the deadline; served again in the block."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation dot shown."
+        },
+        {
+          "name": "FIX_ACQUIRED",
+          "meaning": "Fixation acquired."
+        },
+        {
+          "name": "GABOR_ON",
+          "meaning": "First frame of the moving Gabor (its own clock starts here)."
+        },
+        {
+          "name": "FIX_OFF",
+          "meaning": "The fixation dot goes off: the go signal; latency runs from this flip."
+        },
+        {
+          "name": "RESPONSE_ONSET",
+          "meaning": "Gaze first read outside the 2 dva window: saccade onset; the Gabor is removed from the next frame."
+        },
+        {
+          "name": "LANDED",
+          "meaning": "The eye settled: the landing sample."
+        }
       ]
     }
   ]

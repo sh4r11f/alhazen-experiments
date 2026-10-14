@@ -18,7 +18,9 @@ def test_the_notebook_runs_on_simulated_data(tmp_path):
     run_simulated("double-drift-perception", root, seed=2, full=False, refresh_hz=60.0)
     saccades = run_simulated("double-drift-saccades", root, seed=2, full=False, refresh_hz=60.0)
     nb = nbformat.read(PROJECT / "notebooks" / "analysis.ipynb", as_version=4)
-    os.environ["ANALYSIS_RUN"] = str(saccades.parents[3])  # the rehearsal data root
+    # The rehearsal data root both runs were filed under.
+    data_root = next(p for p in saccades.parents if p.name.endswith("-rehearsal"))
+    os.environ["ANALYSIS_RUN"] = str(data_root)
     try:
         NotebookClient(nb, timeout=600, kernel_name="python3",
                        resources={"metadata": {"path": str(PROJECT / "notebooks")}}).execute()

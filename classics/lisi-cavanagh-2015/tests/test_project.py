@@ -67,3 +67,61 @@ def test_listing_states_status_hardware_and_the_original():
     assert listing["status"] in {"original-protocol", "adaptation", "demo"}
     assert listing["original"]["citation"] and listing["original"]["year"]
     assert listing["hardware"]["display"] is True
+
+
+def _flagged_lines(path):
+    """(leaf key, line) for every line of a config file flagged ASSUMED."""
+    out = []
+    for ln in path.read_text(encoding="utf-8").splitlines():
+        m = re.match(r"\s*-?\s*([A-Za-z_][\w]*)\s*:", ln)
+        if m and "ASSUMED" in ln.split("#", 1)[-1] and "#" in ln:
+            out.append((m.group(1), ln))
+    return out
+
+
+def test_every_assumed_flag_in_the_configs_is_documented():
+    """The other direction: no value is flagged ASSUMED in a file without an entry in
+    docs/experiment.json naming that key and file."""
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    listed = {(a.get("file", "configs/task.yaml"), a["key"].split(".")[-1])
+              for a in doc["assumed"] if a.get("key")}
+    for path in sorted((PROJECT / "configs").glob("*.yaml")):
+        rel = path.relative_to(PROJECT).as_posix()
+        for leaf, line in _flagged_lines(path):
+            if leaf == "fix_window_dva" and rel == "configs/task.yaml":
+                continue  # the paper's value; only its use before the go signal is assumed
+            assert (rel, leaf) in listed, f"{rel}: {line.strip()} has no 'assumed' entry"
+
+
+STRUCTURE = {"subject_kind", "paradigm", "kind", "shuffle", "blocks", "breaks", "quest",
+             "interleave_by"}
+
+
+def test_every_task_value_says_where_it_comes_from():
+    for name in ("task.yaml", "task-perception.yaml"):
+        for ln in (PROJECT / "configs" / name).read_text(encoding="utf-8").splitlines():
+            m = re.match(r"\s*([A-Za-z_]\w*)\s*:", ln)
+            if not m or m.group(1) in STRUCTURE:
+                continue
+            comment = ln.split("#", 1)[1] if "#" in ln else ""
+            assert re.search(r"paper:|ASSUMED \(not in the paper\)|deviation:", comment), \
+                f"{name}: {ln.strip()} cites neither the paper nor an assumption"
+
+
+def test_the_deviations_table_matches_the_descriptor():
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    methods = (PROJECT / "docs" / "methods.md").read_text(encoding="utf-8")
+    section = methods.split("## Deviations from the original", 1)[1].split("\n## ", 1)[0]
+    rows = [r for r in section.splitlines() if r.startswith("|") and not set(r) <= set("|-: ")]
+    assert len(rows) - 1 == len(doc["deviations"])
+    for d in doc["deviations"]:
+        assert d["item"] in section
+
+
+def test_the_listing_is_honest_about_what_was_verified():
+    listing = json.loads((PROJECT / "docs" / "listing.json").read_text(encoding="utf-8"))
+    assert listing["hardware"]["eye_tracker"] is True
+    assert listing["status"] == "original-protocol" and listing["status_reason"]
+    assert "no participant data" in listing["notes"].lower()
+    methods = (PROJECT / "docs" / "methods.md").read_text(encoding="utf-8")
+    assert "claims no\nreplication" in methods or "claims no replication" in methods

@@ -1,20 +1,50 @@
 {
-  "status": "adaptation",
-  "status_reason": "Why this status, in one sentence.",
+  "status": "original-protocol",
+  "status_reason": "Experiment 1 as published: the double-drift stimulus (2 c/dva, sigma 0.1 dva, 3 dva path at 2 dva/s, 3 Hz drift reversing with the path, 10 dva right of fixation), the perceptual task with interleaved adaptive staircases and arrow-key reports, and the saccade task at the perceived-vertical orientations with a no-drift control, six fixation-offset times and gaze-contingent removal. Changes are substitutions of apparatus and software (QUEST+ placement, online saccade detection), listed as deviations; Experiment 2 is not included.",
   "collection": "classics",
-  "authors": [{"name": "Sharif Saleki", "role": "replication"}],
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
   "original": {
-    "citation": "CITATION",
-    "year": 1900,
-    "doi": null,
-    "url": null,
-    "experiments": "Which experiment(s) of the paper"
+    "citation": "Lisi, M., & Cavanagh, P. (2015). Dissociation between the perceptual and saccadic localization of moving objects. Current Biology, 25(19), 2535-2540.",
+    "year": 2015,
+    "doi": "10.1016/j.cub.2015.08.021",
+    "url": "https://www.cell.com/current-biology/fulltext/S0960-9822(15)00992-6",
+    "experiments": "Experiment 1: the perceptual task and the saccade task (Experiment 2, the mid-path gap, is not included)"
   },
-  "hardware": {"display": true, "keyboard": true, "audio": false, "eye_tracker": false,
-               "reward": false, "microstimulation": false, "recording": false},
-  "subjects": ["human"],
-  "category": "attention",
-  "tags": [],
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": true,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human"
+  ],
+  "category": "motion",
+  "tags": [
+    "double-drift",
+    "motion-induced position shift",
+    "perception vs action",
+    "saccades",
+    "Gabor",
+    "QUEST",
+    "eye tracking",
+    "psychophysics"
+  ],
   "art": "docs/preview.png",
-  "assets": []
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "MIT",
+      "source": "drawn by src/lisi_cavanagh2015/preview.py from configs/task.yaml"
+    }
+  ],
+  "notes": "Software verification only (tests and simulated sessions with a simulated observer); no participant data have been recorded with this folder. The saccade task needs each participant's perceived-vertical orientations from the perceptual task: run that first and enter its PSEs (python -m lisi_cavanagh2015.pse)."
 }

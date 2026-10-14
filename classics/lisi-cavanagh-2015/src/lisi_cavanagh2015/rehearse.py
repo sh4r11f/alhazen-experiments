@@ -2,7 +2,7 @@
 give the analysis notebook something to read.
 
     uv run python -m lisi_cavanagh2015.rehearse data-sim            # both tasks, full length
-    uv run python -m lisi_cavanagh2015.rehearse data-sim --perceived  # saccades to the perceived path
+    uv run python -m lisi_cavanagh2015.rehearse data-sim --perceived  # saccades: perceived path
 
 Each flip moves a fake clock on by one frame (alhazen's FakeClock), so nothing waits for
 real time. The data go to <root>/data-rehearsal/ like any rehearsal. This is software

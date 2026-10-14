@@ -2,21 +2,21 @@
 # task (human): is the path tilted left or right of vertical?
 #
 # Every key is validated against PerceptionParams. '# paper: <where>' cites the paper
-# ('Suppl.' = Supplemental Experimental Procedures); '# ASSUMED (not in the paper): <reason>'
+# ('Suppl. p. N' = page N of the Supplemental Information PDF); '# ASSUMED (not in the paper): <reason>'
 # marks every value it does not state (docs/methods.md, 'Assumed, not in the paper').
 subject_kind: human
 
-background_cd_m2: 5.3              # paper: Suppl. Exp. Procedures, Stimuli (Exp. 1), uniform grey 5.3 cd/m2; documentation, set on the display (methods: Deviations)
+background_cd_m2: 5.3              # paper: Suppl. p. 4, Stimuli (Exp. 1), uniform grey 5.3 cd/m2; documentation, set on the display (methods: Deviations)
 fix_size_dva: 0.2                  # ASSUMED (not in the paper): the saccade task's 0.2 dva dot, which the paper describes for that task only
 fix_color: [-1.0, -1.0, -1.0]      # ASSUMED (not in the paper): the perceptual task's fixation point is not described; the saccade task's black dot
 fix_window_dva: 2.0                # ASSUMED (not in the paper): the fixation window for aborting a trial is not given; the saccade task's 2 dva radius
-path_center_dva: [10.0, 0.0]       # paper: Suppl. Stimuli (Exp. 1), path midpoint 10 dva right of fixation on the horizontal midline
-path_length_dva: 3.0               # paper: Suppl. Stimuli (Exp. 1), path length 3 dva
-path_speed_dva_s: 2.0              # paper: Suppl. Stimuli (Exp. 1), speed 2 dva/s (a reversal every 1.5 s)
-gabor_sf_cpd: 2.0                  # paper: Suppl. Stimuli (Exp. 1), 2 cycles/dva
-gabor_sigma_dva: 0.1               # paper: Suppl. Stimuli (Exp. 1), envelope SD 0.1 dva
-gabor_contrast: 1.0                # paper: Suppl. Stimuli (Exp. 1), 100% contrast
-drift_tf_hz: 3.0                   # paper: Suppl. Stimuli (Exp. 1), internal drift 3 Hz, reversing at each path reversal
+path_center_dva: [10.0, 0.0]       # paper: Suppl. p. 4, Stimuli (Exp. 1), path midpoint 10 dva right of fixation on the horizontal midline
+path_length_dva: 3.0               # paper: Suppl. p. 4, Stimuli (Exp. 1), path length 3 dva
+path_speed_dva_s: 2.0              # paper: Suppl. p. 4, Stimuli (Exp. 1), speed 2 dva/s (a reversal every 1.5 s)
+gabor_sf_cpd: 2.0                  # paper: Suppl. p. 4, Stimuli (Exp. 1), 2 cycles/dva
+gabor_sigma_dva: 0.1               # paper: Suppl. p. 4, Stimuli (Exp. 1), envelope SD 0.1 dva
+gabor_contrast: 1.0                # paper: Suppl. p. 4, Stimuli (Exp. 1), 100% contrast
+drift_tf_hz: 3.0                   # paper: Suppl. p. 4, Stimuli (Exp. 1), internal drift 3 Hz, reversing at each path reversal
 start_directions: [up, down]       # ASSUMED (not in the paper): where and which way the Gabor starts is not reported for this task; at the middle of the path as in the saccade task, direction drawn at random per trial
 carrier_phase: random              # ASSUMED (not in the paper): the grating's starting phase is not reported; random per trial so no stripe position is fixed relative to the path
 acquire_timeout: {ms: 5000}        # ASSUMED (not in the paper): how long the dot waits to be fixated; a trial not started is re-served
@@ -25,14 +25,14 @@ foreperiod: {ms: 500}              # ASSUMED (not in the paper): no delay before
 foreperiod_jitter: {ms: 100}       # ASSUMED (not in the paper): uniform 400-600 ms, as in the saccade task
 iti: {ms: 500}                     # ASSUMED (not in the paper): no inter-trial interval is reported
 
-left_key: left                     # paper: Suppl. Procedure (perceptual task), left arrow key
-right_key: right                   # paper: Suppl. Procedure (perceptual task), right arrow key
+left_key: left                     # paper: Suppl. p. 5, Procedure (perceptual task), left arrow key
+right_key: right                   # paper: Suppl. p. 5, Procedure (perceptual task), right arrow key
 response_timeout: {ms: 30000}      # deviation: the paper shows the stimulus until the response; here until the response or 30 s (then re-served)
 staircases_per_side: 2             # ASSUMED (not in the paper): "multiple interleaved QUEST staircases"; two per drift pairing, four in all
 paradigm:
   kind: questplus
   quest:
-    parameter: path_angle_deg      # paper: Suppl. Procedure (perceptual task), QUEST adjusted the physical path orientation
+    parameter: path_angle_deg      # paper: Suppl. p. 5, Procedure (perceptual task), QUEST adjusted the physical path orientation
     intensities: [-80, -78, -76, -74, -72, -70, -68, -66, -64, -62, -60, -58, -56, -54, -52, -50, -48, -46, -44, -42, -40, -38, -36, -34, -32, -30, -28, -26, -24, -22, -20, -18, -16, -14, -12, -10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80]  # ASSUMED (not in the paper): orientations the staircases may present, -80..80 deg in 2 deg steps
     thresholds: [-80, -78, -76, -74, -72, -70, -68, -66, -64, -62, -60, -58, -56, -54, -52, -50, -48, -46, -44, -42, -40, -38, -36, -34, -32, -30, -28, -26, -24, -22, -20, -18, -16, -14, -12, -10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80]  # ASSUMED (not in the paper): QUEST's prior, uniform over -80..80 deg
     slopes: [0.05]                 # ASSUMED (not in the paper): QUEST's psychometric slope, 0.05 per deg on the log-Weibull (Gumbel) form QUEST uses
