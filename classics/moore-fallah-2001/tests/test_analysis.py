@@ -21,6 +21,13 @@ def test_the_asymptotic_fit_recovers_a_and_b():
     assert fit.a == pytest.approx(25.0, rel=1e-3)
     assert fit.b == pytest.approx(3.0, rel=1e-2)
     assert fit.threshold_pct == pytest.approx(35.0, rel=1e-3)
+    assert fit.converged
+
+
+def test_a_staircase_still_falling_is_flagged_not_reported():
+    levels = 60.0 - 4.0 * np.arange(1, 11)  # a straight line: no asymptote in 10 blocks
+    fit = fit_asymptote(levels, start=60.0)
+    assert fit.at_bound and not fit.converged
 
 
 def test_threshold_reduction_matches_the_papers_example():

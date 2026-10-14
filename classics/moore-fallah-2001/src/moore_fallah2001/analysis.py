@@ -64,10 +64,18 @@ class AsymptoteFit:
     start: float
     sse: float
     n_blocks: int
+    # True when the best b lies on the edge of the searched range: the staircase has not
+    # levelled off within its blocks (it is still falling, or never moved), so a and the
+    # threshold are extrapolations, not estimates. The paper fitted staircases that had.
+    at_bound: bool = False
 
     @property
     def threshold_pct(self) -> float:
         return self.start - self.a
+
+    @property
+    def converged(self) -> bool:
+        return not self.at_bound and 0.0 <= self.threshold_pct <= self.start
 
     def progress(self, x: np.ndarray) -> np.ndarray:
         return self.a * x / (self.b + x)
@@ -80,14 +88,15 @@ def fit_asymptote(levels: np.ndarray, start: float,
     ``levels[i]`` is the level the staircase stood at AFTER block i + 1 (the
     level its next block ran at). For each b on a log grid the best a is
     closed-form (linear least squares), so the fit has no starting values to
-    get wrong and cannot fail to converge.
+    get wrong. b is searched from 0.01 to 10 × the number of blocks; a best b on
+    either edge is flagged (``at_bound``) rather than reported as a threshold.
     """
     levels = np.asarray(levels, dtype=float)
     if levels.size < 2:
         raise ValueError("an asymptotic fit needs at least two blocks")
     x = np.arange(1, levels.size + 1, dtype=float)
     y = start - levels
-    grid = np.geomspace(1e-3, 1e3, 2001) if b_grid is None else b_grid
+    grid = np.geomspace(1e-2, 10.0 * levels.size, 2001) if b_grid is None else b_grid
     best = None
     for b in grid:
         f = x / (b + x)
@@ -96,8 +105,9 @@ def fit_asymptote(levels: np.ndarray, start: float,
         if best is None or sse < best[2]:
             best = (a, float(b), sse)
     assert best is not None
+    at_bound = bool(np.isclose(best[1], grid[0]) or np.isclose(best[1], grid[-1]))
     return AsymptoteFit(a=best[0], b=best[1], start=float(start), sse=best[2],
-                        n_blocks=int(levels.size))
+                        n_blocks=int(levels.size), at_bound=at_bound)
 
 
 def thresholds(paradigm: pd.DataFrame, start: float) -> dict[str, AsymptoteFit]:
