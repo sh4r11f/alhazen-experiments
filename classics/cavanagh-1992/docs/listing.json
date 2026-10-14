@@ -1,20 +1,52 @@
 {
   "status": "adaptation",
-  "status_reason": "Why this status, in one sentence.",
+  "status_reason": "The full paper was read and both experiments are rebuilt with its parameters, but a modern display's red and green primaries replace the paper's CRT phosphors, so the 40% colour grating and the yellow mean are matched in luminance (the paper's 45 cd/m2 and red:green split), not in chromaticity or cone contrast; the colour stimuli need rig-specific photometry, and 49 unstated details are ASSUMED.",
   "collection": "classics",
-  "authors": [{"name": "Sharif Saleki", "role": "replication"}],
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
   "original": {
-    "citation": "CITATION",
-    "year": 1900,
-    "doi": null,
-    "url": null,
-    "experiments": "Which experiment(s) of the paper"
+    "citation": "Cavanagh, P. (1992). Attention-based motion perception. Science, 257(5076), 1563–1565.",
+    "year": 1992,
+    "doi": "10.1126/science.1523411",
+    "url": "https://www.science.org/doi/10.1126/science.1523411",
+    "experiments": "Experiment 1 (attentive tracking of colour vs luminance bars, with the motion null and thresholds of Fig. 1) and Experiment 2 (apparent speed of a colour grating, global vs tracking match, Fig. 2)"
   },
-  "hardware": {"display": true, "keyboard": true, "audio": false, "eye_tracker": false,
-               "reward": false, "microstimulation": false, "recording": false},
-  "subjects": ["human"],
-  "category": "attention",
-  "tags": [],
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": false,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false,
+    "mouse": false
+  },
+  "subjects": [
+    "human"
+  ],
+  "category": "motion",
+  "tags": [
+    "attention",
+    "motion",
+    "attentive tracking",
+    "equiluminance",
+    "isoluminance",
+    "color",
+    "high-level motion",
+    "speed matching",
+    "method of adjustment"
+  ],
   "art": "docs/preview.png",
-  "assets": []
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "MIT",
+      "source": "drawn by src/cavanagh1992/preview.py from the parameter files"
+    }
+  ],
+  "notes": "Colour stimuli need a linearised display (alhazen calibrate gamma) and each gun's maximum luminance measured with a photometer in configs/photometry-<rig>.yaml. Run equiluminance-speed for each subject first; later tasks refuse a real session without it. A scroll wheel works as the knob but the arrow keys suffice."
 }
