@@ -98,4 +98,5 @@ def test_the_duration_estimate_names_every_stretch():
     labels = [s.label for s in timing.spans]
     assert labels[0] == "fixation acquired" and "cue to target" in labels
     kb = load_params(CONFIGS / "task-keyboard.yaml", PosnerCueingTaskParams)
-    assert "fixation acquired" not in [s.label for s in PosnerCueingTask(kb).trial_timing(None, 60.0).spans]
+    kb_spans = PosnerCueingTask(kb).trial_timing(None, 60.0).spans
+    assert "fixation acquired" not in [s.label for s in kb_spans]

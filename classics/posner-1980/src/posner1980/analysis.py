@@ -54,6 +54,10 @@ def costs_and_benefits(df: pd.DataFrame, min_rt_ms: float = MIN_RT_MS) -> dict[s
             "validity_effect_ms": float(m["invalid"] - m["valid"])}
 
 
+def _rate(rows: pd.DataFrame, outcome: str) -> float:
+    return float((rows["outcome"] == outcome).mean()) if len(rows) else float("nan")
+
+
 def response_summary(df: pd.DataFrame, min_rt_ms: float = MIN_RT_MS) -> dict[str, float]:
     """Catch-trial false alarms, misses, fast guesses, and the attempts served again."""
     done = _completed(df)
@@ -63,9 +67,9 @@ def response_summary(df: pd.DataFrame, min_rt_ms: float = MIN_RT_MS) -> dict[str
     return {
         "completed_trials": int(len(done)),
         "catch_trials": int(len(catch)),
-        "false_alarm_rate": float((catch["outcome"] == "FALSE_ALARM").mean()) if len(catch) else float("nan"),
+        "false_alarm_rate": _rate(catch, "FALSE_ALARM"),
         "target_trials": int(len(targets)),
-        "miss_rate": float((targets["outcome"] == "MISS").mean()) if len(targets) else float("nan"),
+        "miss_rate": _rate(targets, "MISS"),
         "fast_guesses": int((hits["rt_ms"] < min_rt_ms).sum()),
         "anticipations": int((df["outcome"] == "ANTICIPATION").sum()),
         "fixation_breaks": int((df["outcome"] == "FIXATION_BREAK").sum()),

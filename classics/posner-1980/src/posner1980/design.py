@@ -43,7 +43,8 @@ class Composition:
 
     @property
     def total(self) -> int:
-        return 2 * (self.valid + self.invalid + self.arrow_catch + self.neutral) + self.neutral_catch
+        per_side = self.valid + self.invalid + self.arrow_catch + self.neutral
+        return 2 * per_side + self.neutral_catch
 
 
 def _whole(value: Fraction, what: str, detail: str) -> int:
@@ -67,7 +68,8 @@ def composition(
     n = Fraction(trials_per_block)
     a, v, c = (Fraction(str(x)) for x in (arrow_fraction, validity, catch_fraction))
     if not (0 < a < 1 and 0 < v < 1 and 0 <= c < 1):
-        raise CompositionError("arrow_fraction and validity must be in (0, 1), catch_fraction in [0, 1)")
+        raise CompositionError(
+            "arrow_fraction and validity must be in (0, 1), catch_fraction in [0, 1)")
     detail = (f"trials_per_block={trials_per_block}, arrow_fraction={arrow_fraction}, "
               f"validity={validity}, catch_fraction={catch_fraction}")
     per_arrow = n * a / 2                      # trials behind one arrow direction

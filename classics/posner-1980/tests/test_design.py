@@ -43,8 +43,9 @@ def test_catch_trials_are_the_same_fraction_behind_every_cue(block):
 
 
 def test_left_and_right_are_balanced(block):
-    assert Counter(b["cue"] for b in block)["left"] == Counter(b["cue"] for b in block)["right"]
-    assert Counter(b["target"] for b in block)["left"] == Counter(b["target"] for b in block)["right"]
+    for field in ("cue", "target"):
+        counts = Counter(b[field] for b in block)
+        assert counts["left"] == counts["right"]
 
 
 def test_a_block_that_does_not_divide_evenly_is_refused_not_rounded():

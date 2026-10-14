@@ -58,7 +58,8 @@ def render(out: Path, params_file: Path | None = None) -> Path:
             spine.set_visible(False)
         ax.text(-half_w + 0.4, half_h - 0.5, label, color="#f0f0f0", fontsize=10, va="top")
         ax.text(half_w - 0.4, -half_h + 0.4,
-                f"target {p.target_ecc_dva:g}° from fixation, {p.cue_target_soa.ms:g} ms after the cue",
+                f"target {p.target_ecc_dva:g}° from fixation, "
+                f"{p.cue_target_soa.ms:g} ms after the cue",
                 color="#d8d8d8", fontsize=7.5, ha="right", va="bottom")
     fig.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01, hspace=0.06)
     out.parent.mkdir(parents=True, exist_ok=True)

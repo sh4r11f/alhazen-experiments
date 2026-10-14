@@ -46,7 +46,8 @@ def test_a_full_session_serves_every_planned_trial_of_every_block(simulated_runs
     assert len(done) == 320
     comp = composition(80, 0.5, 0.8, 0.25)
     want = Counter({"valid": 2 * comp.valid, "invalid": 2 * comp.invalid,
-                    "neutral": 2 * comp.neutral, "catch": 2 * comp.arrow_catch + comp.neutral_catch})
+                    "neutral": 2 * comp.neutral,
+                    "catch": 2 * comp.arrow_catch + comp.neutral_catch})
     for _, block in done.groupby("block"):
         assert Counter(block["validity"]) == want
     assert set(done["outcome"]) <= {"DETECTED", "MISS", "CORRECT_REJECTION", "FALSE_ALARM"}
