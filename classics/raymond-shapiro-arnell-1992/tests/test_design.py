@@ -79,7 +79,7 @@ def test_the_full_simulated_session_serves_the_whole_design(full_session):
     done = df[df["completed"]]
     assert len(done) == 380
     main = done[~done["practice"]]
-    for condition, g in main.groupby("condition"):
+    for _condition, g in main.groupby("condition"):
         assert len(g) == 180
         assert g["probe_pos"].value_counts().to_dict() == {float(k): 10 for k in range(9)}
         assert g["probe_present"].sum() == 90

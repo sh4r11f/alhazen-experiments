@@ -1,7 +1,6 @@
-"""Run Attentional blink, in any of alhazen's modes.
+"""Run Attentional blink (Raymond, Shapiro & Arnell, 1992, Experiment 2).
 
-    uv run python run.py --task attentional-blink --mode demo
-    uv run python run.py --task attentional-blink --mode simulate --headless --sub sim --ses 1 --seed 1
+    uv run python run.py --task attentional-blink --mode simulate --headless --sub sim --ses 1
     uv run python run.py --task attentional-blink --mode test --sub dev --ses 1 --initials DEV
     uv run python run.py --task attentional-blink --rig booth --sub s01 --ses 1 --initials AB
     uv run alhazen dashboard --project .

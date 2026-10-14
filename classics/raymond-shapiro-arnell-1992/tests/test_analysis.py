@@ -54,7 +54,10 @@ def test_false_alarms_and_target_errors():
     assert analysis.target_accuracy(df)["p_target_correct"].mean() == pytest.approx(0.8, abs=0.03)
     table = analysis.target_report_positions(df)
     assert set(table.index) == {"probe absent", "probe 0", "probe +1", "probe +2"}
-    assert table.loc["probe absent", "1"] == pytest.approx(0.2, abs=0.03)
+    absent = df[(df["condition"] == "experimental") & ~df["probe_present"]]
+    # Every error in this synthetic set is a +1 intrusion.
+    assert table.loc["probe absent", "1"] == pytest.approx(1 - absent["target_correct"].mean())
+    assert table.loc["probe absent", "0"] == pytest.approx(absent["target_correct"].mean())
 
 
 def test_practice_and_incomplete_trials_are_excluded():

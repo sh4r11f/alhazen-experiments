@@ -20,7 +20,7 @@ field_cd_m2: 9.1             # paper: p. 851 (gray field 9.1 cd/m²)
 target_cd_m2: 32.9           # paper: p. 852 (white target 32.9 cd/m²)
 letters_cd_m2: 0.0           # ASSUMED (not in the paper): letters "appeared black"; no luminance given, drawn at the display's black
 fixation_cd_m2: 32.9         # ASSUMED (not in the paper): the dot is "white"; given the target's white
-surround_cd_m2: 0.0          # ASSUMED (not in the paper): the field was 16.3° x 12.5°, what lay outside it is not described
+surround_cd_m2: 0.0          # ASSUMED (not in the paper): the field (centred here) was 16.3° x 12.5°; what lay outside it is not described
 prompt_cd_m2: 0.0            # ASSUMED (not in the paper): prompt text colour (black, like the letters)
 display_white_cd_m2: 32.9    # ASSUMED (not in the paper): YOUR display's measured white; 32.9 draws the target at full white and the field at the paper's 9.1/32.9 ratio
 

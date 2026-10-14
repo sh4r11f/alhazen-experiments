@@ -1,43 +1,525 @@
 {
   "schema": "alhazen-documentation",
   "schema_version": 1,
-  "title": "Attentional blink",
-  "summary": "One or two sentences on what the experiment asks and what a trial is.",
+  "title": "Attentional blink (Raymond, Shapiro & Arnell, 1992, Experiment 2)",
+  "summary": "Letters flash one at a time at 11 per second. Subjects identify the one white letter and then say whether a black X followed it, or, in a control condition, ignore the white letter and only look for the X. Detecting the X drops for about half a second after the target only when the target has to be identified: the attentional blink. One trial is one stream and one or two reports.",
   "methods": "docs/methods.md",
-  "references": ["CITATION"],
+  "references": [
+    "Raymond, J. E., Shapiro, K. L., & Arnell, K. M. (1992). Temporary suppression of visual processing in an RSVP task: An attentional blink? Journal of Experimental Psychology: Human Perception and Performance, 18(3), 849-860. https://doi.org/10.1037/0096-1523.18.3.849"
+  ],
   "deviations": [
-    {"item": "(template)", "original": "(template)", "here": "(template)", "reason": "(template)"}
+    {
+      "item": "Responses",
+      "original": "Spoken: the subject named the white letter and said whether an X was present; an experimenter, blind to the correct answers, entered them on a second computer (pp. 851, 853)",
+      "here": "Typed by the subject: the white letter on the letter keys, then Y or N for the X",
+      "reason": "No experimenter transcription in alhazen; unspeeded reports after the stream measure the same thing without a transcription step"
+    },
+    {
+      "item": "Trial start",
+      "original": "The subject pressed the mouse button when ready (p. 852)",
+      "here": "The subject presses SPACE when ready",
+      "reason": "Keyboard-only rig; the same self-paced start"
+    },
+    {
+      "item": "Display timing",
+      "original": "Macintosh II and Apple 13-in monitor: letters 15 ms on, 75 ms grey ISI, 11.11 letters/s (p. 851)",
+      "here": "Whole frames of the rig's refresh rate, the 90 ms SOA kept first (120 Hz: 16.7 ms on, 75.0 ms off, SOA 91.7 ms; 100 and 200 Hz: SOA 90.0 ms). Realised durations are recorded on every trial; run mode refuses a rate outside the tolerances (60 Hz: SOA 83.3 ms)",
+      "reason": "A modern display cannot show 15 ms at most refresh rates"
+    },
+    {
+      "item": "Rest breaks",
+      "original": "One-minute rest every 60 trials; a longer rest permitted between conditions (p. 853)",
+      "here": "alhazen's block-break screen after every 60 trials, after practice and between conditions, ended by SPACE; the minute is asked for in the instructions, not enforced",
+      "reason": "alhazen's breaks are self-paced; the operator can time the minute"
+    },
+    {
+      "item": "Screens around the stream",
+      "original": "Not described (spoken responses needed none)",
+      "here": "A ready screen before each trial (a one-line reminder of the condition; the full condition instructions on its first trial) and a prompt for each typed report",
+      "reason": "Typed responses need prompts, and the subject must know which condition is running"
+    },
+    {
+      "item": "Unanswered trials",
+      "original": "Not described",
+      "here": "A report not given within 30 s, or a trial not started within 10 min, is recorded (NO_RESPONSE / NO_START) and the trial is served again later in its block",
+      "reason": "alhazen's re-serve rule keeps the planned counts"
+    }
   ],
   "assumed": [
-    {"item": "Fixation point size", "value": "0.3 dva", "reason": "template placeholder", "key": "fix_size_dva"},
-    {"item": "Target size", "value": "1.0 dva", "reason": "template placeholder", "key": "target_size_dva"},
-    {"item": "Target eccentricity", "value": "5.0 dva", "reason": "template placeholder", "key": "target_ecc_dva"},
-    {"item": "Fixation duration", "value": "500 ms", "reason": "template placeholder", "key": "fixation_duration"},
-    {"item": "Response deadline", "value": "2000 ms", "reason": "template placeholder", "key": "response_timeout"},
-    {"item": "Inter-trial interval", "value": "1000 ms", "reason": "template placeholder", "key": "iti"},
-    {"item": "Trials per condition", "value": "10", "reason": "template placeholder", "key": "paradigm.n_per_condition"}
+    {
+      "item": "Fixation dot size",
+      "value": "0.15° diameter",
+      "reason": "'a small white fixation dot' (p. 852); size not given",
+      "key": "fixation_dot_dva"
+    },
+    {
+      "item": "Prompt text height",
+      "value": "0.5°",
+      "reason": "responses were spoken in the paper; the prompts are ours",
+      "key": "prompt_height_dva"
+    },
+    {
+      "item": "Letter luminance",
+      "value": "0 cd/m² (the display's black)",
+      "reason": "letters 'appeared black' (p. 852); no luminance given",
+      "key": "letters_cd_m2"
+    },
+    {
+      "item": "Fixation dot luminance",
+      "value": "32.9 cd/m²",
+      "reason": "the dot is 'white' (p. 852); given the target's white",
+      "key": "fixation_cd_m2"
+    },
+    {
+      "item": "Surround and field placement",
+      "value": "field centred on the screen; 0 cd/m² (black) around it",
+      "reason": "the paper gives the field's size, not where it sat or what lay around it",
+      "key": "surround_cd_m2"
+    },
+    {
+      "item": "Prompt text luminance",
+      "value": "0 cd/m² (black)",
+      "reason": "the prompts are ours",
+      "key": "prompt_cd_m2"
+    },
+    {
+      "item": "Display white luminance",
+      "value": "32.9 cd/m² (enter your display's measured white)",
+      "reason": "a rig property, not the paper's; with 32.9 the target is drawn at full white and the field at the paper's 9.1/32.9 ratio on a gamma-corrected display",
+      "key": "display_white_cd_m2"
+    },
+    {
+      "item": "Gap between the fixation dot and the first letter",
+      "value": "0 ms",
+      "reason": "not stated (Fig. 1B shows the dot, then the stream)",
+      "key": "fixation_gap"
+    },
+    {
+      "item": "Tolerance on the realised letter duration",
+      "value": "±5 ms",
+      "reason": "the paper used one monitor; a tolerance is needed on modern refresh rates",
+      "key": "max_letter_error_ms"
+    },
+    {
+      "item": "Tolerance on the realised SOA",
+      "value": "±2 ms (SOA 90 ms in the paper)",
+      "reason": "the SOA sets every lag in ms; 2 ms keeps lag +8 within 16 ms of 720 ms",
+      "key": "max_soa_error_ms"
+    },
+    {
+      "item": "Refresh rates outside the tolerances",
+      "value": "refused in run mode; run with a warning in test and simulate",
+      "reason": "the paper's lags in ms should not change silently",
+      "key": "on_inexact_timing"
+    },
+    {
+      "item": "Practice trials with an X",
+      "value": "5 of 10, at serial positions drawn at random (with replacement)",
+      "reason": "the paper gives 10 practice trials per condition (p. 853), not their composition",
+      "key": "practice_probe_present"
+    },
+    {
+      "item": "Counterbalancing rule",
+      "value": "the subject id's trailing number: odd = experimental first, even = control first (ids without digits: experimental first)",
+      "reason": "'The order of conditions tested was counterbalanced' (p. 853); the rule is not given",
+      "key": "condition_order"
+    },
+    {
+      "item": "Key for 'X present'",
+      "value": "Y",
+      "reason": "responses were spoken",
+      "key": "probe_yes_key"
+    },
+    {
+      "item": "Key for 'X absent'",
+      "value": "N",
+      "reason": "responses were spoken",
+      "key": "probe_no_key"
+    },
+    {
+      "item": "Response deadline",
+      "value": "30 s per report, then the trial is served again",
+      "reason": "no deadline is described; reports were unspeeded",
+      "key": "response_timeout"
+    },
+    {
+      "item": "Start deadline",
+      "value": "10 min, then the trial is served again",
+      "reason": "trials were subject-initiated with no stated limit",
+      "key": "ready_timeout"
+    },
+    {
+      "item": "On-screen wording",
+      "value": "ready screens, condition introductions and prompts as in configs/task.yaml (screens)",
+      "reason": "the paper gives none; spoken responses needed none",
+      "key": "screens"
+    },
+    {
+      "item": "Typeface and letter width",
+      "value": "DejaVu Sans Bold, capitals 0.82° high, natural widths (mean 1.04 x height; I 0.51, W 1.51)",
+      "reason": "'simple, block-style upper case letters' 'approximately the same width' (pp. 851-852); typeface not named",
+      "file": "src/raymond1992/glyphs.py"
+    },
+    {
+      "item": "Number of pre-target letters",
+      "value": "uniform over 7..15",
+      "reason": "'randomly chosen ... varied between 7 and 15' (p. 852); distribution not given",
+      "file": "src/raymond1992/design.py"
+    },
+    {
+      "item": "Rounding to frames",
+      "value": "SOA (letter + ISI) to the nearest frame first; letter to the nearest frame (at least 1); ISI = the rest (at least 1)",
+      "reason": "the paper used one monitor at fixed timing",
+      "file": "src/raymond1992/design.py"
+    },
+    {
+      "item": "Report order (experimental)",
+      "value": "the white letter first, then the X question",
+      "reason": "the paper lists the two reports in this order (p. 853) without saying the order was enforced",
+      "file": "src/raymond1992/task.py"
+    },
+    {
+      "item": "Trial order and blocks",
+      "value": "each condition's 180 trials shuffled together, then cut into 3 consecutive blocks of 60 (probe positions not balanced within a block)",
+      "reason": "rest 'every 60 trials' (p. 853); how positions fell into blocks is not given",
+      "file": "src/raymond1992/design.py"
+    },
+    {
+      "item": "Break after practice",
+      "value": "a self-paced break between each practice block and the condition's first data block",
+      "reason": "not stated",
+      "file": "src/raymond1992/design.py"
+    },
+    {
+      "item": "Feedback",
+      "value": "none",
+      "reason": "no feedback is described",
+      "file": "src/raymond1992/task.py"
+    }
   ],
   "tasks": [
     {
       "id": "attentional-blink",
-      "title": "Attentional blink",
-      "summary": "What one trial is.",
+      "title": "Attentional blink: experimental and control conditions",
+      "summary": "SPACE starts a trial; a white dot for 180 ms; then an RSVP stream of black letters (15 ms on, 75 ms off) with one white target after 7-15 letters and 8 letters after it, an X on half the trials at serial position 0..+8; then the reports.",
+      "description": "One session runs both conditions in the counterbalanced order, each as 10 practice trials and 180 trials in three blocks of 60. Experimental: type the white letter, then Y/N for the X. Control: Y/N for the X only. Probe detection is analysed by serial position, for experimental trials with the target correct.",
       "parameters_file": "configs/task.yaml",
       "parameters": [
-        {"name": "fix_size_dva", "label": "Fixation point size", "group": "Stimuli", "type": "number",
-         "unit": "dva", "default": 0.3, "meaning": "Diameter of the fixation point. ASSUMED, not in the paper."},
-        {"name": "response_timeout", "label": "Response deadline", "group": "Timing", "type": "duration",
-         "default": {"ms": 2000}, "meaning": "How long a key is accepted after the target appears. ASSUMED, not in the paper."}
+        {
+          "name": "letter_height_dva",
+          "label": "Letter height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.82,
+          "meaning": "Cap height of every letter. Paper, p. 852.",
+          "unit": "dva",
+          "source": "paper"
+        },
+        {
+          "name": "field_width_dva",
+          "label": "Field width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 16.3,
+          "meaning": "Width of the uniform grey field. Paper, p. 851.",
+          "unit": "dva",
+          "source": "paper"
+        },
+        {
+          "name": "field_height_dva",
+          "label": "Field height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 12.5,
+          "meaning": "Height of the uniform grey field. Paper, p. 851.",
+          "unit": "dva",
+          "source": "paper"
+        },
+        {
+          "name": "fixation_dot_dva",
+          "label": "Fixation dot size",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.15,
+          "meaning": "Diameter of the white fixation dot. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "assumed"
+        },
+        {
+          "name": "field_cd_m2",
+          "label": "Field luminance",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 9.1,
+          "meaning": "Grey field, also shown during every ISI. Paper, p. 851.",
+          "unit": "cd/m²",
+          "source": "paper"
+        },
+        {
+          "name": "target_cd_m2",
+          "label": "Target luminance",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 32.9,
+          "meaning": "The white target letter. Paper, p. 852.",
+          "unit": "cd/m²",
+          "source": "paper"
+        },
+        {
+          "name": "display_white_cd_m2",
+          "label": "Display white",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 32.9,
+          "meaning": "Your display's measured white; luminances are drawn as fractions of it on a gamma-corrected display. ASSUMED, not in the paper.",
+          "unit": "cd/m²",
+          "source": "assumed"
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation dot duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 180
+          },
+          "meaning": "The dot shown before each stream. Paper, p. 852.",
+          "source": "paper"
+        },
+        {
+          "name": "letter_duration",
+          "label": "Letter duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 15
+          },
+          "meaning": "Each letter's time on screen, rounded to whole frames. Paper, p. 851.",
+          "source": "paper"
+        },
+        {
+          "name": "isi",
+          "label": "Inter-stimulus interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 75
+          },
+          "meaning": "Grey field between letters; letter + ISI = the 90 ms SOA, kept first when rounding to frames. Paper, p. 851.",
+          "source": "paper"
+        },
+        {
+          "name": "max_soa_error_ms",
+          "label": "SOA tolerance",
+          "group": "Timing",
+          "type": "number",
+          "default": 2.0,
+          "meaning": "How far the realised SOA may be from the paper's before run mode refuses the refresh rate. ASSUMED, not in the paper.",
+          "unit": "ms",
+          "source": "assumed"
+        },
+        {
+          "name": "pretarget_min",
+          "label": "Fewest pre-target letters",
+          "group": "Stream",
+          "type": "integer",
+          "default": 7,
+          "meaning": "Paper, p. 852.",
+          "source": "paper"
+        },
+        {
+          "name": "pretarget_max",
+          "label": "Most pre-target letters",
+          "group": "Stream",
+          "type": "integer",
+          "default": 15,
+          "meaning": "Paper, p. 852.",
+          "source": "paper"
+        },
+        {
+          "name": "posttarget_items",
+          "label": "Post-target letters",
+          "group": "Stream",
+          "type": "integer",
+          "default": 8,
+          "meaning": "Paper, p. 852.",
+          "source": "paper"
+        },
+        {
+          "name": "probe_positions",
+          "label": "Probe serial positions",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "meaning": "Where the X can appear relative to the target (0 = the target is a white X). Paper, p. 853.",
+          "source": "paper"
+        },
+        {
+          "name": "trials_per_probe_position",
+          "label": "Trials per probe position",
+          "group": "Design",
+          "type": "integer",
+          "default": 10,
+          "meaning": "Per condition. Paper, p. 853.",
+          "source": "paper"
+        },
+        {
+          "name": "probe_absent_trials",
+          "label": "Probe-absent trials",
+          "group": "Design",
+          "type": "integer",
+          "default": 90,
+          "meaning": "Per condition. Paper, p. 853.",
+          "source": "paper"
+        },
+        {
+          "name": "trials_between_rests",
+          "label": "Trials between rests",
+          "group": "Design",
+          "type": "integer",
+          "default": 60,
+          "meaning": "Paper, p. 853.",
+          "source": "paper"
+        },
+        {
+          "name": "practice_trials",
+          "label": "Practice trials",
+          "group": "Design",
+          "type": "integer",
+          "default": 10,
+          "meaning": "Per condition, before its data. Paper, p. 853.",
+          "source": "paper"
+        },
+        {
+          "name": "condition_order",
+          "label": "Condition order",
+          "group": "Design",
+          "type": "choice",
+          "default": "by-subject",
+          "meaning": "by-subject (odd id = experimental first), experimental-first or control-first. The rule is ASSUMED; the paper says only 'counterbalanced'.",
+          "source": "assumed"
+        },
+        {
+          "name": "probe_yes_key",
+          "label": "Key: X present",
+          "group": "Responses",
+          "type": "string",
+          "default": "y",
+          "meaning": "ASSUMED, not in the paper (responses were spoken).",
+          "source": "assumed"
+        },
+        {
+          "name": "probe_no_key",
+          "label": "Key: X absent",
+          "group": "Responses",
+          "type": "string",
+          "default": "n",
+          "meaning": "ASSUMED, not in the paper (responses were spoken).",
+          "source": "assumed"
+        },
+        {
+          "name": "response_timeout",
+          "label": "Report deadline",
+          "group": "Responses",
+          "type": "duration",
+          "default": {
+            "ms": 30000
+          },
+          "meaning": "After it the trial is served again. ASSUMED, not in the paper.",
+          "source": "assumed"
+        }
       ],
       "outcomes": [
-        {"name": "CORRECT", "completed": true, "success": true, "meaning": "The key matched the target's side."},
-        {"name": "WRONG", "completed": true, "success": false, "meaning": "The other key."},
-        {"name": "NO_RESPONSE", "completed": false, "meaning": "No key before the deadline; the condition is served again."}
+        {
+          "name": "HIT",
+          "completed": true,
+          "success": true,
+          "meaning": "An X was shown and the subject said yes."
+        },
+        {
+          "name": "MISS",
+          "completed": true,
+          "success": false,
+          "meaning": "An X was shown and the subject said no."
+        },
+        {
+          "name": "FALSE_ALARM",
+          "completed": true,
+          "success": false,
+          "meaning": "No X was shown and the subject said yes."
+        },
+        {
+          "name": "CORRECT_REJECTION",
+          "completed": true,
+          "success": true,
+          "meaning": "No X was shown and the subject said no."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "A report was not given within the deadline; the trial is served again."
+        },
+        {
+          "name": "NO_START",
+          "completed": false,
+          "meaning": "The trial was not started within the start deadline; served again."
+        }
       ],
       "events": [
-        {"name": "FIX_ON", "meaning": "Fixation point shown."},
-        {"name": "RESPONSE_CUE", "meaning": "Target shown; reaction time runs from this flip."},
-        {"name": "RESPONSE", "meaning": "The subject's key."}
+        {
+          "name": "READY",
+          "meaning": "Ready screen shown; waiting for SPACE."
+        },
+        {
+          "name": "START_KEY",
+          "meaning": "SPACE pressed."
+        },
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation dot on (the stream's first frame)."
+        },
+        {
+          "name": "STREAM_ON",
+          "meaning": "First letter on."
+        },
+        {
+          "name": "TARGET_ON",
+          "meaning": "The white target letter on."
+        },
+        {
+          "name": "PROBE_ON",
+          "meaning": "The X on (probe-present trials)."
+        },
+        {
+          "name": "STREAM_OFF",
+          "meaning": "Last letter off."
+        },
+        {
+          "name": "TARGET_PROMPT",
+          "meaning": "Prompt to type the white letter (experimental)."
+        },
+        {
+          "name": "TARGET_RESPONSE",
+          "meaning": "The typed letter."
+        },
+        {
+          "name": "PROBE_PROMPT",
+          "meaning": "Prompt for the X question."
+        },
+        {
+          "name": "PROBE_RESPONSE",
+          "meaning": "Y or N."
+        }
       ]
     }
   ]
