@@ -1,10 +1,16 @@
-"""Run Feature vs conjunction search, in any of alhazen's modes.
+"""Run Feature vs conjunction search (Treisman & Gelade, 1980), in any of alhazen's modes.
 
     uv run python run.py --task feature-conjunction-search --mode demo
     uv run python run.py --task feature-conjunction-search --mode simulate --headless --sub sim --ses 1 --seed 1
     uv run python run.py --task feature-conjunction-search --mode test --sub dev --ses 1 --initials DEV
-    uv run python run.py --task feature-conjunction-search --rig booth --sub s01 --ses 1 --initials AB
+    uv run python run.py --task feature-conjunction-search --rig booth --sub s01 --ses 1 --initials AB \
+        --params configs/task-exp1-feature.yaml
     uv run alhazen dashboard --project .
+
+One run is one block of 128 search trials (plus a repeat and a dummy trial for every
+error) in ONE condition, the parameter set chosen. Experiment I ran each condition in its
+own session, in an ABBAAB order, half the subjects starting with each condition, and
+treated the first block of each condition as practice (paper p. 103). See docs/methods.md.
 
 TASKS, PARAMETERS and LADDERS are module-level dict LITERALS on purpose: alhazen's
 dashboard reads them out of this file without running it. Each path is anchored to this
@@ -34,10 +40,17 @@ TASKS = {
 # The dashboard's parameter-set menu: display name -> (task name, params file).
 # "(human)" / "(monkey)" names who the file is for (its subject_kind).
 PARAMETERS = {
-    "Main (human)": ("feature-conjunction-search", HERE / "configs" / "task.yaml"),
+    "Exp. I conjunction: green T (human)": (
+        "feature-conjunction-search", HERE / "configs" / "task.yaml"),
+    "Exp. I feature: blue letter or S (human)": (
+        "feature-conjunction-search", HERE / "configs" / "task-exp1-feature.yaml"),
+    "Exp. II easy: red O (human)": (
+        "feature-conjunction-search", HERE / "configs" / "task-exp2-easy.yaml"),
+    "Exp. II difficult: green T among blue T (human)": (
+        "feature-conjunction-search", HERE / "configs" / "task-exp2-difficult.yaml"),
 }
 
-# Monkey training ladders: display name -> ladder YAML. Empty when there are none.
+# Monkey training ladders: display name -> ladder YAML. Empty: a human-only experiment.
 LADDERS: dict[str, Path] = {}
 
 

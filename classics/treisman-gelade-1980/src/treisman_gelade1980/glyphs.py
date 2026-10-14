@@ -59,24 +59,30 @@ def _extend(points: list[Point], by: float) -> list[Point]:
     return pts
 
 
-def draw_letter(draw: ImageDraw.ImageDraw, letter: str, cx: float, cy: float, w: float,
-                h: float, stroke: float, fill: Sequence[int]) -> None:
-    """One letter centred on (cx, cy) px (y down), ``w`` x ``h`` px outside, strokes
-    ``stroke`` px wide. Straight strokes get square caps so T and N reach the box edges."""
+def draw_letter(img: Image.Image, letter: str, cx: float, cy: float, w: float, h: float,
+                stroke: float, fill: Sequence[int]) -> None:
+    """One letter centred on (cx, cy) px (y down) in ``img``: ``w`` x ``h`` px outside,
+    strokes ``stroke`` px wide. Strokes are drawn with square caps into a mask the size of
+    the letter's box and clipped to it, so every letter's ink fills exactly its box."""
     if letter not in STROKES:
         raise ValueError(f"no strokes for letter {letter!r}; known: {sorted(STROKES)}")
     color = tuple(int(c) for c in fill)
     width = max(1, round(stroke))
-    inner_w, inner_h = max(w - stroke, 1.0), max(h - stroke, 1.0)
-    left, top = cx - inner_w / 2, cy - inner_h / 2
+    left, top = round(cx - w / 2), round(cy - h / 2)
+    bw, bh = max(1, round(w)), max(1, round(h))
+    mask = Image.new("L", (bw, bh), 0)
+    draw = ImageDraw.Draw(mask)
     if letter == "O":
-        draw.ellipse([cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2], outline=color, width=width)
-        return
-    for line in STROKES[letter]:
-        pts = [(left + u * inner_w, top + v * inner_h) for u, v in line]
-        if letter in ("T", "N"):
-            pts = _extend(pts, stroke / 2)
-        draw.line(pts, fill=color, width=width, joint="curve")
+        draw.ellipse([0, 0, bw - 1, bh - 1], outline=255, width=width)
+    else:
+        inner_w, inner_h = max(bw - stroke, 1.0), max(bh - stroke, 1.0)
+        x0, y0 = (bw - inner_w) / 2, (bh - inner_h) / 2
+        for line in STROKES[letter]:
+            pts = [(x0 + u * inner_w, y0 + v * inner_h) for u, v in line]
+            if letter != "S":
+                pts = _extend(pts, stroke)
+            draw.line(pts, fill=255, width=width, joint="curve")
+    img.paste(Image.new("RGB", (bw, bh), color), (left, top), mask)
 
 
 def _px(x_deg: float, y_deg: float, width_px: int, height_px: int, ppd: float) -> Point:
@@ -116,7 +122,7 @@ def render_patch(items: Iterable[Any], *, width_px: int, height_px: int, px_per_
     draw = ImageDraw.Draw(img)
     for it in items:
         cx, cy = _px(it.x, it.y, width_px, height_px, ppd)
-        draw_letter(draw, it.letter, (cx - left) * ss, (cy - top) * ss,
+        draw_letter(img, it.letter, (cx - left) * ss, (cy - top) * ss,
                     p.letter_width_dva * ppd * ss, p.letter_height_dva * ppd * ss,
                     p.stroke_dva * ppd * ss, p.inks[it.ink])
     if fixation:

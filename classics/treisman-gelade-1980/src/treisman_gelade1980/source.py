@@ -21,6 +21,7 @@ from collections import deque
 from typing import Any
 
 import numpy as np
+import pandas as pd
 from alhazen.paradigms.base import Condition
 
 
@@ -80,5 +81,6 @@ class CardQueue:
         if self._dummy:
             self._queue.appendleft(self._make_dummy())
 
-    def summary(self) -> dict[str, int]:
-        return {"dummy_trials": self._n_dummies, "repeated_errors": self.n_repeats}
+    def summary(self) -> pd.DataFrame:
+        """One row for the run's paradigm file: how many dummies and repeats were served."""
+        return pd.DataFrame([{"dummy_trials": self._n_dummies, "repeated_errors": self.n_repeats}])
