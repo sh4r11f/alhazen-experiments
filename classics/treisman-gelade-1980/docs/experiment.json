@@ -1,0 +1,44 @@
+{
+  "schema": "alhazen-documentation",
+  "schema_version": 1,
+  "title": "Feature vs conjunction search",
+  "summary": "One or two sentences on what the experiment asks and what a trial is.",
+  "methods": "docs/methods.md",
+  "references": ["CITATION"],
+  "deviations": [
+    {"item": "(template)", "original": "(template)", "here": "(template)", "reason": "(template)"}
+  ],
+  "assumed": [
+    {"item": "Fixation point size", "value": "0.3 dva", "reason": "template placeholder", "key": "fix_size_dva"},
+    {"item": "Target size", "value": "1.0 dva", "reason": "template placeholder", "key": "target_size_dva"},
+    {"item": "Target eccentricity", "value": "5.0 dva", "reason": "template placeholder", "key": "target_ecc_dva"},
+    {"item": "Fixation duration", "value": "500 ms", "reason": "template placeholder", "key": "fixation_duration"},
+    {"item": "Response deadline", "value": "2000 ms", "reason": "template placeholder", "key": "response_timeout"},
+    {"item": "Inter-trial interval", "value": "1000 ms", "reason": "template placeholder", "key": "iti"},
+    {"item": "Trials per condition", "value": "10", "reason": "template placeholder", "key": "paradigm.n_per_condition"}
+  ],
+  "tasks": [
+    {
+      "id": "feature-conjunction-search",
+      "title": "Feature vs conjunction search",
+      "summary": "What one trial is.",
+      "parameters_file": "configs/task.yaml",
+      "parameters": [
+        {"name": "fix_size_dva", "label": "Fixation point size", "group": "Stimuli", "type": "number",
+         "unit": "dva", "default": 0.3, "meaning": "Diameter of the fixation point. ASSUMED, not in the paper."},
+        {"name": "response_timeout", "label": "Response deadline", "group": "Timing", "type": "duration",
+         "default": {"ms": 2000}, "meaning": "How long a key is accepted after the target appears. ASSUMED, not in the paper."}
+      ],
+      "outcomes": [
+        {"name": "CORRECT", "completed": true, "success": true, "meaning": "The key matched the target's side."},
+        {"name": "WRONG", "completed": true, "success": false, "meaning": "The other key."},
+        {"name": "NO_RESPONSE", "completed": false, "meaning": "No key before the deadline; the condition is served again."}
+      ],
+      "events": [
+        {"name": "FIX_ON", "meaning": "Fixation point shown."},
+        {"name": "RESPONSE_CUE", "meaning": "Target shown; reaction time runs from this flip."},
+        {"name": "RESPONSE", "meaning": "The subject's key."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+# Experiment I, feature targets: a blue letter or an S among brown Ts and green Xs (human).
+# Every key is validated against FeatureConjunctionSearchTaskParams: a typo fails at load.
+# Every value says where it comes from, on its own line:
+#   "# paper: p. N"                 stated in Treisman & Gelade (1980), Cognitive Psychology 12, 97-136
+#   "# ASSUMED (not in the paper)"  chosen here; listed with its reason in docs/methods.md,
+#                                   "Assumed, not in the paper", and in docs/experiment.json
+#   "# DEVIATION"                   an intended change; docs/methods.md, "Deviations from the original"
+#   "# alhazen"                     framework bookkeeping, not a property of the paradigm
+subject_kind: human           # alhazen
+experiment: 1                 # paper: pp. 101-106
+condition: feature            # paper: p. 102
+layout: scatter               # paper: p. 102 (positions that appeared random)
+display_sizes: [1, 5, 15, 30]  # paper: p. 102
+field_width_dva: 14.0         # paper: p. 102 (an area of 14 x 8 deg for all display sizes)
+field_height_dva: 8.0         # paper: p. 102
+inner_ellipse_width_dva: 8.5  # paper: p. 103 (inner elliptical boundary, 8.5 x 5.5 deg)
+inner_ellipse_height_dva: 5.5  # paper: p. 103
+min_spacing_dva: 1.2          # ASSUMED (not in the paper): no randomization rule given; uniform positions at least 1.2 deg apart
+targets: [T_blue, X_blue, S_brown, S_green]  # paper: p. 103 (blue T or X; brown or green S)
+distractors: [T_brown, X_green]  # paper: p. 103 (the same distractors as the conjunction condition)
+target_description: a blue letter or an S  # ASSUMED (not in the paper): the instruction wording
+inks:
+  green: [0, 150, 70]         # ASSUMED (not in the paper): ink colour not specified; a mid green
+  brown: [140, 85, 35]        # ASSUMED (not in the paper): ink colour not specified; a mid brown
+  blue: [25, 75, 210]         # ASSUMED (not in the paper): ink colour not specified; a saturated blue
+letter_height_dva: 0.8        # paper: p. 103 (each letter 0.8 x 0.6 deg)
+letter_width_dva: 0.6         # paper: p. 103
+stroke_dva: 0.12              # ASSUMED (not in the paper): stencil stroke width, 15% of the letter height
+background_rgb: [255, 255, 255]  # paper: p. 102 (white cards)
+fixation_size_dva: 0.25       # ASSUMED (not in the paper): "a central fixation spot", size not given
+fixation_rgb: [0, 0, 0]       # ASSUMED (not in the paper): spot colour not given; black on the white card
+fixation_duration: {ms: 1000}  # paper: p. 103 (fixation spot for 1 s, then the search card)
+response_timeout: {ms: 10000}  # ASSUMED (not in the paper): no deadline in the paper; a safety cap, a timed-out card is served again
+ready_timeout: {ms: 60000}     # ASSUMED (not in the paper): how long the ready field waits before the card is put back
+feedback_duration: {ms: 1500}  # ASSUMED (not in the paper): subjects were told RT and correctness; how long is not given
+feedback_rgb: [0, 0, 0]       # ASSUMED (not in the paper): feedback text colour
+feedback_height_dva: 0.8      # ASSUMED (not in the paper): feedback text size
+cards_per_cell: 8             # paper: p. 103 (eight target cards and eight blank cards per display size)
+dominant_hand: right          # ASSUMED (not in the paper): set per subject; the dominant hand answers "present"
+left_key: f                   # ASSUMED (not in the paper): left index finger's key
+right_key: j                  # ASSUMED (not in the paper): right index finger's key
+ready_key: space              # DEVIATION: the subject starts each trial (experimenter's "Ready" and button in the paper)
+repeat_errors: true           # paper: p. 103 (error trials repeated later in the session)
+dummy_after_error: true       # paper: p. 103 (a dummy trial after each error, not analysed)
+paradigm:
+  kind: sequence              # alhazen: one block of cards, served in random order (CardQueue)
+  n_per_condition: 2          # paper: p. 103 (16 positive + 16 negative trials per size per block = each card twice)
