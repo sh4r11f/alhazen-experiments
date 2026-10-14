@@ -84,7 +84,7 @@ class OdrParams(SubjectParams):
     landing_max_wait: Duration = Duration(ms=150)
     iti: Duration = Duration(ms=5000)
 
-    paradigm: SchedulerConfig = SchedulerConfig(n_per_condition=5)
+    paradigm: SchedulerConfig = SchedulerConfig(n_per_condition=3)
 
     @field_validator("cue_angles_deg", "delays")
     @classmethod

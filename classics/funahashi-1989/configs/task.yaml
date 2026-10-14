@@ -34,12 +34,13 @@ landing_max_wait: {ms: 150}  # ASSUMED (not in the paper): how long after saccad
 iti: {ms: 5000}              # paper: p. 332, "Following a 5-s inter-trial interval (ITI)"
 
 # --- scheduling ---------------------------------------------------------------------------
-# 8 locations x 3 delays = 24 conditions, 5 each = 120 completed trials, about 21 min
-# (run.py --estimate-duration). A trial that ends before a saccade is made (NO_FIXATION,
+# 8 locations x 3 delays = 24 conditions, 3 of each per block, 2 blocks = 144 completed
+# trials (6 per location and delay), about 25 min (run.py --estimate-duration). Each block is
+# a complete, shuffled replicate. A trial that ends before a saccade is made (NO_FIXATION,
 # FIX_BREAK, NO_SACCADE) is served again later in its block; INACCURATE is kept.
 paradigm:
   kind: sequence
-  n_per_condition: 5         # ASSUMED (not in the paper): no trial count per location is given
+  n_per_condition: 3         # ASSUMED (not in the paper): no trial count per location is given; 3 per block
   shuffle: true              # ASSUMED (not in the paper): delays interleaved at random with the locations; the paper states only that location was randomized (p. 332)
   blocks:
     n_blocks: 2              # ASSUMED (not in the paper): one rest (and recalibration) halfway
