@@ -1,0 +1,49 @@
+# Motion coherence discrimination (Britten et al., 1992): the HUMAN parameter set.
+#
+# An adaptation: the paper's subjects were three rhesus monkeys who reported with a
+# saccade. Here a person views the same stochastic motion display for the same 2 s and
+# answers with a key. docs/methods.md gives the deviations and the assumptions in full.
+#
+# Every key is validated against RdkDirectionTaskParams: a typo fails at load.
+# "# paper: p. N" cites the page of Britten et al. (1992) that states the value.
+# "# ASSUMED (not in the paper): <reason>" marks every value the paper does not state;
+# each is a row of docs/methods.md, "Assumed, not in the paper", and an entry under
+# "assumed" in docs/experiment.json. Page numbers are the journal's (4745-4765).
+subject_kind: human
+response_mode: keyboard          # deviation: the paper's monkeys answered with a saccade (p. 4747)
+
+# --- the stochastic motion display (pp. 4746-4747) -------------------------------------
+coherences_pct: [0.0, 0.8, 1.6, 3.2, 6.4, 12.8, 25.6, 51.2]  # ASSUMED (not in the paper): the exact set; p. 4747 gives 6-10 levels spaced by factors of 2, typically with 0 %, chosen per neuron to span threshold
+axis_deg: 0.0                    # ASSUMED (not in the paper): a horizontal axis (right = pref, left = anti, the paper's null); the paper used each neuron's preferred-null axis (p. 4747)
+speed_dva_s: 6.0                 # ASSUMED (not in the paper): one mid-range speed; the paper used each neuron's preferred speed, 0.4-28.4 deg/s (p. 4749)
+signal_dt: {ms: 45}              # paper: p. 4746 (rounded to whole frames of the display: a deviation)
+density_dots_deg2_s: 16.7        # paper: p. 4746 (6.67 kHz over 400 deg^2)
+field_dva: 20.0                  # ASSUMED (not in the paper): the 400 deg^2 unmasked area (p. 4746) taken as a 20 x 20 deg plotting field centred on the aperture, wrapping at its edges
+aperture_dva: 10.0               # ASSUMED (not in the paper): one size inside the paper's 2.5-20 deg range (p. 4749); the paper matched it to each receptive field
+aperture_center_dva: [0.0, 0.0]  # ASSUMED (not in the paper): centred on the fixation point (no receptive field to match; fixation is not enforced)
+aperture_fill: [-1.0, -1.0, -1.0]  # deviation: the dots are drawn on a black disc; the paper's whole display was dark (0.2 cd/m^2 mean, p. 4746)
+dot_size_dva: 0.1                # paper: p. 4746
+dot_color: [1.0, 1.0, 1.0]       # paper: p. 4746 (bright dots on a white P4 phosphor; drawn at the display's white)
+stimulus_seed: per_trial         # paper: p. 4747 (a new seed on each trial in 160 of 216 experiments)
+stimulus_duration: {ms: 2000}    # paper: p. 4747
+
+# --- fixation point and response ---------------------------------------------------------
+fix_size_dva: 0.3                # ASSUMED (not in the paper): a conventional small fixation point
+fix_color: [1.0, 1.0, -1.0]      # paper: p. 4748 (yellow fixation point in the combined threshold series)
+fixation_duration: {ms: 500}     # ASSUMED (not in the paper): the fixation point alone before the dots (the monkeys' dots followed acquired fixation)
+response_timeout: {ms: 2100}     # ASSUMED (not in the paper): the monkeys' 2.1-s decision window (p. 4747) reused for the key
+feedback_duration: {ms: 300}     # ASSUMED (not in the paper): fixation point green or red after the answer; the monkeys got juice or a time-out
+iti: {ms: 1000}                  # ASSUMED (not in the paper): inter-trial interval
+key_pref: right                  # ASSUMED (not in the paper): right arrow for rightward (pref) motion
+key_anti: left                   # ASSUMED (not in the paper): left arrow for leftward (anti) motion
+
+correction_trials:
+  enabled: false                 # ASSUMED (not in the paper): no correction trials for humans; the paper's (p. 4748) broke monkeys' position habits
+
+# One block of the combined threshold series: 15 trials in each direction at each level,
+# in random order (p. 4747), 240 trials. A 0 % trial's "direction" is nominal: feedback is
+# correct for a random half of them, as the monkeys' reward was (p. 4747).
+paradigm:
+  kind: sequence
+  n_per_condition: 15            # paper: p. 4747 (the monkeys' block, reused for humans)
+  shuffle: true                  # paper: p. 4747 (random order)
