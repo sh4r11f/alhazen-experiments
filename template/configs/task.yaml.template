@@ -1,0 +1,17 @@
+# $title: the main parameter set (human).
+#
+# Every key is validated against $task_class's params model: a typo fails at load.
+# Values the original paper does not state are marked "# ASSUMED (not in the paper): <reason>".
+# They are listed with their reasons in docs/methods.md, "Assumed, not in the paper", and
+# under "assumed" in docs/experiment.json. Values the paper states cite it: "# paper: <where>".
+subject_kind: human
+
+fix_size_dva: 0.3            # ASSUMED (not in the paper): a conventional small fixation point
+target_size_dva: 1.0         # ASSUMED (not in the paper): template placeholder
+target_ecc_dva: 5.0          # ASSUMED (not in the paper): template placeholder
+fixation_duration: {ms: 500} # ASSUMED (not in the paper): template placeholder
+response_timeout: {ms: 2000} # ASSUMED (not in the paper): template placeholder
+iti: {ms: 1000}              # ASSUMED (not in the paper): template placeholder
+paradigm:
+  kind: sequence
+  n_per_condition: 10        # ASSUMED (not in the paper): template placeholder
