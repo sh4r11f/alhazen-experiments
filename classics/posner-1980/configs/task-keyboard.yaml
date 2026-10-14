@@ -1,0 +1,46 @@
+# Posner spatial cueing, keyboard-only parameter set (human): for a booth WITHOUT an eye tracker.
+# NOT the original protocol: nothing checks fixation (docs/methods.md, deviations). Every other
+# value is the same as configs/task.yaml, and tests/test_configs.py keeps them in step.
+# Posner (1980), Fig. 1 and pp. 6-7: the central-cue simple-detection experiment.
+#
+# Every key is validated against PosnerCueingTask's params model: a typo fails at load.
+# Values the paper states cite it: "# paper: <where>". Values it does not state are marked
+# "# ASSUMED (not in the paper): <reason>" and are listed, with their reasons, in
+# docs/methods.md ("Assumed, not in the paper") and under "assumed" in docs/experiment.json.
+# Sizes are degrees of visual angle; colours are PsychoPy rgb (-1..1).
+subject_kind: human
+
+# Eye position: the paper monitored it by EOG and kept only fixated trials (p. 6). This set
+# does not: the subject is asked to keep fixation and nothing checks it (a deviation).
+fixation_control: none
+fixation_window_dva: 1.5         # ASSUMED (not in the paper): no EOG criterion given; well inside the 7 dva target
+acquire_timeout: {ms: 5000}      # ASSUMED (not in the paper): wait for gaze before the attempt is served again
+
+fix_size_dva: 0.3                # ASSUMED (not in the paper): a conventional small fixation point
+cue_size_dva: 1.0                # ASSUMED (not in the paper): arrow length / plus-sign span; Fig. 1 gives none
+cue_stroke_dva: 0.12             # ASSUMED (not in the paper): a clearly visible line at that size
+target_size_dva: 1.0             # ASSUMED (not in the paper): Fig. 1 draws a filled square with no size
+target_ecc_dva: 7.0              # paper: Fig. 1 (p. 6) and Fig. 2 ("Simple 7°", p. 7)
+stimulus_color: [1.0, 1.0, 1.0]  # ASSUMED (not in the paper): white, the largest increment the display allows
+
+intertrial_min: {ms: 1000}       # paper: Fig. 1, p. 6 (ITI 1000-2000 ms; drawn uniformly, which is assumed)
+intertrial_max: {ms: 2000}       # paper: Fig. 1, p. 6
+cue_target_soa: {ms: 1000}       # paper: Fig. 1, p. 6 (cue at 0, detection stimulus at 1000 ms)
+cue_stays_on: true               # paper: Fig. 1, p. 6 (the cue is drawn together with the detection stimulus)
+response_deadline: {ms: 1000}    # ASSUMED (not in the paper): the target lasts until the response (Fig. 1); this only ends trials with none
+feedback_duration: {ms: 500}     # paper: Fig. 1, p. 6
+response_key: space              # ASSUMED (not in the paper): "a single key" (pp. 6-7), which one is not said
+
+design:
+  validity: 0.8                  # paper: p. 6 (arrow: 0.8 on the indicated side, 0.2 on the other)
+  arrow_fraction: 0.5            # ASSUMED (not in the paper): how often arrows vs the plus sign occurred is not given
+  catch_fraction: 0.25           # ASSUMED (not in the paper): no catch trials mentioned for this experiment; 25% as in the cued detection task on p. 10
+  trials_per_block: 80           # ASSUMED (not in the paper): smallest block giving these proportions exactly, left/right balanced
+
+paradigm:
+  kind: sequence
+  n_per_condition: 1             # one pass through the 80-trial block composition per block
+  shuffle: true                  # ASSUMED (not in the paper): all cue types intermixed, shuffled within each block
+  blocks:
+    n_blocks: 4                  # ASSUMED (not in the paper): 320 trials, about 20 minutes
+    breaks: true                 # ASSUMED (not in the paper): a rest break between blocks

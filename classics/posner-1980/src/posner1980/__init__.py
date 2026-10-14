@@ -1,4 +1,4 @@
-"""Posner spatial cueing, rebuilt in alhazen."""
+"""Posner spatial cueing (Posner, 1980), rebuilt in alhazen."""
 
 from posner1980.task import PosnerCueingTask, PosnerCueingTaskParams
 
