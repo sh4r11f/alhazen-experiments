@@ -33,7 +33,7 @@ scenes:
   procedural_per_cell: 1       # paper: p. 369 (six practice trials, two examples of each type of change)
   procedural_seed: 9000        # ASSUMED (not in the paper): practice scenes come from a seed range the test sets never use
 change_area_dva2: {central: 18.0, marginal: 22.0}   # paper: p. 369 (average change areas; used as each procedural pair's target)
-location_shift_dva: 3.0        # ASSUMED (not in the paper): "a few degrees" (p. 369); 3 deg is Fig. 2's example, used for every procedural location change
+location_shift_dva: 3.0        # ASSUMED (not in the paper): "a few degrees" (p. 369); 3 deg is Fig. 2's example (p. 370), used for every procedural location change
 iti: {ms: 500}                 # ASSUMED (not in the paper): no inter-trial interval given; the 3-s cue field opens each trial
 paradigm:
   kind: sequence

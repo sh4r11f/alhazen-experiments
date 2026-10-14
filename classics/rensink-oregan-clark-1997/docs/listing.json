@@ -1,20 +1,118 @@
 {
   "status": "adaptation",
-  "status_reason": "Why this status, in one sentence.",
+  "status_reason": "The paradigm and its timing are the paper's (A A A' A', 240-ms images, 80-ms blanks, 60-s limit, 48 scenes once each, alternations on correct trials), but the 48 original photographs are replaced by 12 generated photo pairs and procedural pairs, interest is rated by model describers or a placement rule instead of naive observers, and the spoken report of what changed is a keyed place-and-type report.",
   "collection": "classics",
-  "authors": [{"name": "Sharif Saleki", "role": "replication"}],
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
   "original": {
-    "citation": "CITATION",
-    "year": 1900,
-    "doi": null,
-    "url": null,
-    "experiments": "Which experiment(s) of the paper"
+    "citation": "Rensink, R. A., O'Regan, J. K., & Clark, J. J. (1997). To see or not to see: The need for attention to perceive changes in scenes. Psychological Science, 8(5), 368-373.",
+    "year": 1997,
+    "doi": "10.1111/j.1467-9280.1997.tb00427.x",
+    "url": "https://www.cs.ubc.ca/~rensink/publications/download/PsychSci97-RR.pdf",
+    "experiments": "Experiment 1 (flicker) and its no-blank control; Experiments 2 (extended display) and 3 (verbal cues) as parameter sets; the six practice trials"
   },
-  "hardware": {"display": true, "keyboard": true, "audio": false, "eye_tracker": false,
-               "reward": false, "microstimulation": false, "recording": false},
-  "subjects": ["human"],
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": false,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human"
+  ],
   "category": "attention",
-  "tags": [],
+  "tags": [
+    "change blindness",
+    "flicker paradigm",
+    "scene perception",
+    "attention",
+    "visual memory",
+    "central vs marginal interest"
+  ],
   "art": "docs/preview.png",
-  "assets": []
+  "assets": [
+    {
+      "path": "src/rensink1997/photos/",
+      "what": "12 photo scene pairs (24 JPEG, 4.7 MB) composited by scripts/build_photo_pairs.py from images an image model generated for this project",
+      "licence": "generated for this project (no third-party material); distributed with this repository",
+      "generator": {
+        "base": "gpt-image-2.5-flare",
+        "removal_edit": "gpt-image-2.5-sunburst (reference image = the base)",
+        "date": "2026-10-14"
+      },
+      "prompts": {
+        "harbor": {
+          "base": "Photorealistic colour photograph, eye level, soft morning daylight, wide view. A small quiet fishing harbour: a stone quay along the bottom edge, a few moored wooden rowing boats along the left edge, a row of colourful houses along the far shore, and one small white sailboat with its sail up in the middle distance near the centre of the picture, the focal point but occupying only a small part of the frame. No text, no logos.",
+          "removal": "Edit this photograph: remove the small white sailboat (hull, mast, sail and reflection) near the centre of the harbour, filling the area with the calm water that would be behind it. Keep everything else in the photograph exactly the same: same framing, houses, rowing boats, quay, light and colours."
+        },
+        "dog": {
+          "base": "Photorealistic colour photograph, eye level, natural daylight. A tree-lined gravel path in a city park in autumn, wooden benches along both sides, fallen leaves, and a golden retriever sitting in the middle of the path facing the camera, the clear main subject. No people, no text.",
+          "removal": "Edit this photograph: remove the golden retriever from the middle of the path, filling the area with the gravel path, leaves and trees that would be behind it. Keep everything else in the photograph exactly the same: same framing, benches, trees, light and colours."
+        },
+        "plaza": {
+          "base": "Photorealistic colour photograph, eye level, sunny afternoon. A European town square with a round stone fountain in the centre as the main subject, café tables around it, old four-storey buildings behind. On the building at the far left edge there is a striped green-and-white shop awning over a ground-floor window. Few or no people, no readable text.",
+          "removal": "Edit this photograph: remove the green-and-white striped awning on the building at the left edge, showing the plain stone wall and the top of the window that would be behind it. Keep everything else in the photograph exactly the same: same framing, fountain, café tables, buildings, light and colours."
+        },
+        "kitchen": {
+          "base": "Photorealistic colour photograph, eye level, bright daylight. A farmhouse kitchen: a wooden table in the foreground with a ceramic bowl of lemons as the main subject, white cabinets along the back wall, and a window on the right side with a long white linen curtain hanging beside it. No people, no text.",
+          "removal": "Edit this photograph: remove the white linen curtain hanging beside the window on the right, showing the window frame and wall that would be behind it. Keep everything else in the photograph exactly the same: same framing, table, bowl of lemons, cabinets, light and colours."
+        },
+        "car": {
+          "base": "Photorealistic colour photograph, eye level, overcast daylight, wide view down a quiet residential street with trees and brick houses on both sides, and one bright blue vintage car parked by the kerb in the middle distance near the centre of the picture, the focal point but small in the frame. No people, no readable text or licence plate.",
+          "removal": "Edit this photograph: remove the blue vintage car parked by the kerb, filling the area with the empty street and kerb that would be behind it. Keep everything else in the photograph exactly the same: same framing, houses, trees, light and colours."
+        },
+        "beach": {
+          "base": "Photorealistic colour photograph, eye level, sunny day, wide view of a long sandy beach with gentle waves and a distant green headland on the right, and one bright blue beach umbrella with a deck chair under it standing on the sand in the middle distance near the centre of the picture, the focal point but small in the frame. No people, no text.",
+          "removal": "Edit this photograph: remove the blue beach umbrella (canopy and pole) only, filling the area with the sea and sky that would be behind it. Keep the deck chair and everything else in the photograph exactly the same: same framing, light and colours."
+        },
+        "garden": {
+          "base": "Photorealistic colour photograph, eye level, soft daylight. A cottage garden: a stone cottage with flower beds in front as the main subject, a lawn in the foreground, and at the far right edge a painted blue wooden garden gate set into a tall green hedge. No people, no text.",
+          "removal": "Edit this photograph: remove the blue wooden garden gate at the right edge, filling the opening with the same tall green hedge around it. Keep everything else in the photograph exactly the same: same framing, cottage, flower beds, lawn, light and colours."
+        },
+        "office": {
+          "base": "Photorealistic colour photograph, eye level, daylight from a window. A home office: a wooden desk in the foreground with an open laptop, a desk lamp and a coffee mug as the main subject; in the background a tall bookshelf, and against the back wall on the left a small low blue metal filing cabinet, knee height, partly in shadow. No people, no readable text.",
+          "removal": "Edit this photograph: remove the small blue metal filing cabinet against the back wall on the left, showing the plain wall and floor behind it. Keep everything else in the photograph exactly the same: same framing, desk, laptop, lamp, mug, bookshelf, light and colours."
+        },
+        "helicopter": {
+          "base": "Photorealistic colour photograph, eye level from across the water, clear day. A coastal city skyline with the sea in the foreground and a clear blue sky, and a red-and-white helicopter flying in the upper middle of the sky, clearly the main subject, small but distinct. No text.",
+          "removal": "Edit this photograph: remove the red-and-white helicopter from the sky, leaving clear blue sky. Keep everything else in the photograph exactly the same: same framing, skyline, sea, light and colours."
+        },
+        "balloon": {
+          "base": "Photorealistic colour photograph, wide view, morning light. A green valley with patchwork fields and a winding river, and one colourful striped hot-air balloon floating in the middle of the sky, clearly the main subject. No text.",
+          "removal": "Edit this photograph: remove the striped hot-air balloon and its basket from the sky, leaving the sky that would be behind it. Keep everything else in the photograph exactly the same: same framing, valley, fields, river, light and colours."
+        },
+        "lake": {
+          "base": "Photorealistic colour photograph, eye level, calm morning. A calm mountain lake with a red canoe on the water in the centre as the main subject, a forested far shore and mountains behind, and on the far left shore a single small wooden boathouse at the water's edge. No people, no text.",
+          "removal": "Edit this photograph: remove the small wooden boathouse and its reflection on the far left shore, filling the area with the forested shoreline and water that would be behind it. Keep everything else in the photograph exactly the same: same framing, red canoe, forest, mountains, light and colours."
+        },
+        "market": {
+          "base": "Photorealistic colour photograph, eye level, daylight. A narrow old market street with a fruit and vegetable stall in the foreground as the main subject, and on the building behind it a round wrought-iron shop sign hanging from a bracket in the upper right area of the picture, with no lettering on it. No people, no readable text.",
+          "removal": "Edit this photograph: remove the round wrought-iron hanging sign and its bracket in the upper right, filling the area with the building wall and sky that would be behind it. Keep everything else in the photograph exactly the same: same framing, fruit and vegetable stall, street, light and colours."
+        }
+      }
+    },
+    {
+      "path": "src/rensink1997/photos/interest_ratings.json",
+      "what": "interest labels from five model describers per scene (gpt-6.1-sol, 2026-10-14), with their descriptions",
+      "licence": "generated for this project (no third-party material); distributed with this repository"
+    },
+    {
+      "path": "docs/preview.png",
+      "what": "stimulus preview drawn by src/rensink1997/preview.py",
+      "licence": "MIT (repository code licence)"
+    },
+    {
+      "path": "src/rensink1997/procedural.py",
+      "what": "procedural scene pairs, generated at run time from a seed (no files)",
+      "licence": "MIT (repository code licence)"
+    }
+  ],
+  "notes": "Software verification only (tests and a simulated session); no participant data. Experiments 1-3 share the scenes, so each subject takes one of them."
 }

@@ -8,7 +8,7 @@ centre of the foreground. One object changes between A and A':
 - color:    the object's painted body is blue in A and red in A' (the paper's example of a
             colour change is "switch its color between blue and red", p. 369);
 - location: the object is shifted ``shift_dva`` sideways in A' (p. 369: "shift its
-            position by a few degrees"; Fig. 2 gives 3 deg).
+            position by a few degrees"; Fig. 2, p. 370, gives 3 deg).
 
 Which object changes stands in for the paper's "interest": ``central`` changes the focal
 object, ``marginal`` a background object near the left or right edge. That is a
@@ -69,12 +69,14 @@ def _parts(o: Obj):
         x0 = cx - w / 2
         yield "rect", (x0, yb - h - 8 * s, x0 + w, yb - 8 * s), "body", o.body
         yield "poly", [(x0 + 28 * s, yb - h - 8 * s), (x0 + 44 * s, yb - h - 30 * s),
-                       (x0 + 92 * s, yb - h - 30 * s), (x0 + 108 * s, yb - h - 8 * s)], "body", o.body
+                       (x0 + 92 * s, yb - h - 30 * s), (x0 + 108 * s, yb - h - 8 * s)],\
+            "body", o.body
         yield "poly", [(x0 + 36 * s, yb - h - 10 * s), (x0 + 48 * s, yb - h - 27 * s),
                        (x0 + 88 * s, yb - h - 27 * s), (x0 + 100 * s, yb - h - 10 * s)],\
             "detail", (170, 190, 205)
         for wx in (x0 + 28 * s, x0 + 102 * s):
-            yield "ellipse", (wx - 13 * s, yb - 24 * s, wx + 13 * s, yb + 2 * s), "detail", (30, 30, 30)
+            yield "ellipse", (wx - 13 * s, yb - 24 * s, wx + 13 * s, yb + 2 * s), "detail",\
+                (30, 30, 30)
     elif o.kind == "tree":
         yield "rect", (cx - 7 * s, yb - 60 * s, cx + 7 * s, yb), "detail", (95, 70, 45)
         for dx, dy, r in ((0, -95, 42), (-28, -70, 32), (28, -70, 32)):
@@ -87,7 +89,8 @@ def _parts(o: Obj):
     elif o.kind == "sign":
         yield "rect", (cx - 4 * s, yb - 80 * s, cx + 4 * s, yb), "detail", (90, 90, 90)
         yield "rect", (cx - 40 * s, yb - 110 * s, cx + 40 * s, yb - 66 * s), "body", o.body
-        yield "rect", (cx - 30 * s, yb - 96 * s, cx + 30 * s, yb - 90 * s), "detail", (240, 240, 235)
+        yield "rect", (cx - 30 * s, yb - 96 * s, cx + 30 * s, yb - 90 * s), "detail",\
+            (240, 240, 235)
     elif o.kind == "cloud":
         for dx, dy, rx, ry in ((0, 0, 60, 26), (-45, 8, 40, 20), (48, 6, 44, 22)):
             yield "ellipse", (cx + (dx - rx) * s, yb + (dy - ry) * s, cx + (dx + rx) * s,
@@ -119,10 +122,17 @@ def _mask(o: Obj, mode: str) -> np.ndarray:
 
 
 def _bbox(o: Obj) -> tuple[float, float, float, float]:
-    ys, xs = np.nonzero(_mask(o, "footprint"))
-    if len(xs) == 0:
-        return (o.cx, o.yb, o.cx, o.yb)
-    return (xs.min(), ys.min(), xs.max(), ys.max())
+    """The object's extent from its parts' coordinates (not clipped by the image)."""
+    xs: list[float] = []
+    ys: list[float] = []
+    for shape, coords, _, _ in _parts(o):
+        if shape == "poly":
+            xs += [p[0] for p in coords]
+            ys += [p[1] for p in coords]
+        else:
+            xs += [coords[0], coords[2]]
+            ys += [coords[1], coords[3]]
+    return (min(xs), min(ys), max(xs), max(ys))
 
 
 def _overlaps(a, b, pad=6.0) -> bool:
@@ -167,7 +177,8 @@ def plan_scene(seed: int, change_type: str, interest: str, area_dva2: float,
         ph = rng.uniform(0, 2 * np.pi, 3)
         ys = horizon + base - amp * (0.6 * np.sin(xs / 170 + ph[0]) + 0.3 * np.sin(xs / 70 + ph[1])
                                      + 0.2 * np.sin(xs / 31 + ph[2]))
-        hills.append([(0.0, float(H))] + [(float(x), float(y)) for x, y in zip(xs, ys)]
+        hills.append([(0.0, float(H))]
+                     + [(float(x), float(y)) for x, y in zip(xs, ys, strict=True)]
                      + [(float(W), float(H))])
         g = rng.integers(0, 25)
         hill_colours.append((110 + g - 40 * layer, 140 + g - 20 * layer, 110 - 30 * layer + g))
@@ -241,7 +252,8 @@ def plan_scene(seed: int, change_type: str, interest: str, area_dva2: float,
         o = Obj(kind, float(rng.uniform(20, W - 20)), yb, s, body,
                 {"roof": tuple(int(v) for v in rng.integers([80, 40, 30], [140, 70, 60]))})
         b = _bbox(o)
-        if any(_overlaps(b, k) for k in keep_clear) or any(_overlaps(b, _bbox(p), 0) for p in background):
+        if any(_overlaps(b, k) for k in keep_clear) or any(
+                _overlaps(b, _bbox(q), 0) for q in background):
             continue
         background.append(o)
     background.sort(key=lambda o: o.yb)
@@ -258,7 +270,7 @@ def _render(plan: ScenePlan, target_state: str) -> np.ndarray:
     d = ImageDraw.Draw(img)
     for c in plan.clouds:
         _draw(d, c)
-    for pts, col in zip(plan.hills, plan.hill_colours):
+    for pts, col in zip(plan.hills, plan.hill_colours, strict=False):
         d.polygon(pts, fill=col)
     d.rectangle((0, plan.horizon + 30, W, H), fill=plan.ground)
     target = plan.target

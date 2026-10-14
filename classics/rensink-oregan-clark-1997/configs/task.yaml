@@ -39,7 +39,7 @@ scenes:
   procedural_per_cell: 6       # ASSUMED (not in the paper): 6 x 3 types x 2 interests = 36, so 12 + 36 = 48 scenes, the paper's count (p. 369)
   procedural_seed: 1997        # ASSUMED (not in the paper): arbitrary seed of the procedural pairs
 change_area_dva2: {central: 18.0, marginal: 22.0}   # paper: p. 369 (average change areas; used as each procedural pair's target)
-location_shift_dva: 3.0        # ASSUMED (not in the paper): "a few degrees" (p. 369); 3 deg is Fig. 2's example, used for every procedural location change
+location_shift_dva: 3.0        # ASSUMED (not in the paper): "a few degrees" (p. 369); 3 deg is Fig. 2's example (p. 370), used for every procedural location change
 iti: {ms: 500}                 # ASSUMED (not in the paper): no inter-trial interval given; the 3-s cue field opens each trial
 paradigm:
   kind: sequence

@@ -117,7 +117,8 @@ class FlickerChangeDetectionTaskParams(SubjectParams):
     @model_validator(mode="after")
     def _keys_do_not_clash(self) -> FlickerChangeDetectionTaskParams:
         probe = set(self.location_probe.keys[: self.location_probe.n_choices])
-        if probe & set(self.type_probe.keys) or self.detect_key in probe | set(self.type_probe.keys):
+        types = set(self.type_probe.keys)
+        if probe & types or self.detect_key in probe | types:
             raise ValueError("the detection, location and type keys must all differ")
         if set(self.change_area_dva2) != {"central", "marginal"}:
             raise ValueError("change_area_dva2 needs central and marginal")
@@ -127,7 +128,8 @@ class FlickerChangeDetectionTaskParams(SubjectParams):
 def scene_ids(p: FlickerChangeDetectionTaskParams) -> list[str]:
     ids: list[str] = []
     if p.scenes.photos:
-        ids += p.scenes.photo_ids if p.scenes.photo_ids is not None else scenes.photo_ids()
+        chosen = p.scenes.photo_ids if p.scenes.photo_ids is not None else scenes.photo_ids()
+        ids += [f"photo/{i}" for i in chosen]
     ids += scenes.procedural_ids(p.scenes.procedural_per_cell, p.scenes.procedural_seed)
     return ids
 
@@ -192,7 +194,9 @@ class FlickerChangeDetectionTask(Task):
         iw, ih = screen.deg2px(p.image_width_dva), screen.deg2px(p.image_height_dva)
         gray = (p.background_gray,) * 3
         cycle, img_frames, blank_frames = self._cycle(hz)
-        switches = sum(1 for a, b in zip(p.flicker.pattern, p.flicker.pattern[1:] + p.flicker.pattern[:1]) if a != b)
+        pattern = p.flicker.pattern
+        # Changes per cycle (A A B B has two), counting the wrap from the last image to the first.
+        switches = sum(1 for a, b in zip(pattern, pattern[1:] + pattern[:1], strict=True) if a != b)
         alternation_s = len(p.flicker.pattern) * (img_frames + blank_frames) / hz / switches
 
         # The location probe: same-size boxes on image A, one around the change.
@@ -235,7 +239,7 @@ class FlickerChangeDetectionTask(Task):
             cue_keys.append("cue_text")
         where_keys = ["background", "image_a", "where_prompt"]
         line_px = max(2.0, screen.deg2px(0.08))
-        for i, (b, key) in enumerate(zip(boxes, box_keys)):
+        for i, (b, key) in enumerate(zip(boxes, box_keys, strict=False)):
             cx, cy = to_px((b[0] + b[2]) / 2, (b[1] + b[3]) / 2)
             w, h = (b[2] - b[0]) * iw, (b[3] - b[1]) * ih
             stimuli[f"box_{i}"] = make_rect(display, (w, h), (cx, cy), line=(1.0, 1.0, 0.0),

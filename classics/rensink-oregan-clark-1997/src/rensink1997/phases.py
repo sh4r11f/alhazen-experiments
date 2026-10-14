@@ -52,7 +52,7 @@ class FlickerPhase:
         self._period = sum(n for _, n in self._cycle)
         self._starts = []
         t = 0
-        for key, n in self._cycle:
+        for _key, n in self._cycle:
             self._starts.append(t)
             t += n
         self._names = dict(image_names)

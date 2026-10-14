@@ -1,8 +1,10 @@
 """Run Flicker change blindness, in any of alhazen's modes.
 
     uv run python run.py --task flicker-change-detection --mode demo
-    uv run python run.py --task flicker-change-detection --mode simulate --headless --sub sim --ses 1 --seed 1
-    uv run python run.py --task flicker-change-detection --mode test --sub dev --ses 1 --initials DEV
+    uv run python run.py --task flicker-change-detection --mode simulate --headless \
+        --sub sim --ses 1 --seed 1
+    uv run python run.py --task flicker-change-detection --mode test \
+        --sub dev --ses 1 --initials DEV
     uv run python run.py --task flicker-change-detection --rig booth --sub s01 --ses 1 --initials AB
     uv run alhazen dashboard --project .
 
@@ -37,7 +39,8 @@ TASKS = {
 # The dashboard's parameter-set menu: display name -> (task name, params file).
 # "(human)" / "(monkey)" names who the file is for (its subject_kind).
 PARAMETERS = {
-    "Practice: 6 trials (human)": ("flicker-change-detection", HERE / "configs" / "task-practice.yaml"),
+    "Practice: 6 trials (human)": (
+        "flicker-change-detection", HERE / "configs" / "task-practice.yaml"),
     "Experiment 1: flicker (human)": ("flicker-change-detection", HERE / "configs" / "task.yaml"),
     "Experiment 1: no-blank control (human)": (
         "flicker-change-detection", HERE / "configs" / "task-noblank.yaml"),
