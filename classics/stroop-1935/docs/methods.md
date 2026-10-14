@@ -39,8 +39,11 @@ watch to a fifth of a second (p. 17).
 **Here.** A monitor and a keyboard. Sizes are in degrees of visual angle (dva) from the rig
 file's geometry (`configs/rig-booth.yaml` is an example to be replaced by the machine's
 measured values); durations are rounded to whole display frames. alhazen's PsychoPy window
-opens on mid-grey; the task sets its background to the page colour
-[[param:background_rgb]] before each trial (`stroop1935.stimuli.apply_background`).
+opens on mid-grey and has no background setting; the task sets the window's clear colour to
+the page colour [[param:background_rgb]] when it builds each trial
+(`stroop1935.stimuli.apply_background`). The change shows from the next cleared frame, so the
+first frame of the session's first trial (part of its fixation period) is still mid-grey; every
+later frame, rest screens included, is on the page colour.
 
 ## Stimuli
 

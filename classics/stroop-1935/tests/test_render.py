@@ -27,7 +27,9 @@ SCREEN = Screen(width_px=800, height_px=600, px_per_deg=40.0)
 
 @pytest.fixture
 def window():
-    visual = pytest.importorskip("psychopy.visual")
+    # Imported here, not skipped: asking for the display tests on a machine
+    # without the psychopy extra is a setup error and should say so.
+    from psychopy import visual
     win = visual.Window(size=(800, 600), units="pix", color=(0, 0, 0), fullscr=False,
                         allowGUI=False, checkTiming=False)
     yield win
@@ -64,3 +66,18 @@ def test_a_word_is_drawn_in_its_ink(window):
     assert red.sum() > 50
     assert abs(xs.mean() - 400) < 20 and abs(ys.mean() - 300) < 20
     assert ys.max() - ys.min() <= p.letter_height_dva * 40 * 1.5
+
+
+def test_the_demo_views_draw_real_stimuli(window):
+    from alhazen.modes.demo import DemoSetup
+
+    from stroop1935.task import StroopColorNamingTask
+
+    task = StroopColorNamingTask(params_with(block_order="A"))
+    setup = DemoSetup(display=SimpleNamespace(kind="psychopy", window=window), screen=SCREEN,
+                      params=task.params, rng=np.random.default_rng(0))
+    views = task.demo_views(setup)
+    assert len(views) == 6 and views[0].key == "1" and views[3].key == "2"
+    for view in views:
+        view.draw(0.0)
+    assert tuple(window.color) == tuple(task.params.background_rgb)
