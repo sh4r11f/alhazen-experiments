@@ -1,34 +1,29 @@
-"""The analysis notebook runs, start to finish, on a simulated session."""
+"""The analysis notebook runs, start to finish, on simulated sessions of both tasks."""
 
 from __future__ import annotations
 
 import os
-import subprocess
-import sys
 from pathlib import Path
 
 import nbformat
 from nbclient import NotebookClient
 
+from lisi_cavanagh2015.rehearse import run_simulated
+
 PROJECT = Path(__file__).resolve().parents[1]
 
 
 def test_the_notebook_runs_on_simulated_data(tmp_path):
-    rig = tmp_path / "rig-sim.yaml"
-    rig.write_text(
-        "monitor: {name: sim, width_px: 1920, height_px: 1080, width_cm: 53.0, distance_cm: 57.0,"
-        " refresh_rate_hz: 60.0, fullscreen: false}\n"
-        "display: {backend: simulated}\n"
-        f"devices: {{}}\ndata_root: {tmp_path / 'data'}\nreal_data: false\n",
-        encoding="utf-8")
-    subprocess.run([sys.executable, str(PROJECT / "run.py"), "--task", "double-drift-saccades", "--mode",
-                    "simulate", "--headless", "--rig", str(rig), "--sub", "sim", "--ses", "1",
-                    "--seed", "2"], cwd=PROJECT, check=True, capture_output=True, timeout=900)
-    run = next(tmp_path.rglob("*_trials.csv")).parent
+    root = tmp_path / "data"
+    run_simulated("double-drift-perception", root, seed=2, full=False, refresh_hz=60.0)
+    saccades = run_simulated("double-drift-saccades", root, seed=2, full=False, refresh_hz=60.0)
     nb = nbformat.read(PROJECT / "notebooks" / "analysis.ipynb", as_version=4)
-    os.environ["ANALYSIS_RUN"] = str(run)
+    os.environ["ANALYSIS_RUN"] = str(saccades.parents[3])  # the rehearsal data root
     try:
         NotebookClient(nb, timeout=600, kernel_name="python3",
                        resources={"metadata": {"path": str(PROJECT / "notebooks")}}).execute()
     finally:
         os.environ.pop("ANALYSIS_RUN", None)
+    text = "\n".join(o.get("text", "") for c in nb.cells for o in c.get("outputs", []))
+    assert "pse_deg" in text and "effect_deg" in text and "rightward_minus_leftward_dva" in text
+    assert not any(o.get("output_type") == "error" for c in nb.cells for o in c.get("outputs", []))

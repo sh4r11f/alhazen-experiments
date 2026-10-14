@@ -29,8 +29,8 @@ devices:
   eyetracker:
     backend: eyelink
     host_ip: 100.1.1.1
-    calibration_type: HV9
+    calibration_type: HV9             # ASSUMED (not in the paper): the calibration is not reported; 9-point with validation
     edf_host_filename: LC2015.EDF
-    accuracy_max_deg: 0.5
+    accuracy_max_deg: 0.5             # example: landing position is the dependent measure
 data_root: data
 real_data: true
