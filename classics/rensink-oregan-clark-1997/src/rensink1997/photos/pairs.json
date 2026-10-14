@@ -1,0 +1,292 @@
+{
+ "pairs": [
+  {
+   "id": "harbor",
+   "change_type": "presence",
+   "object": "the small white sailboat near the centre of the harbour",
+   "cue_valid": "sailboat",
+   "cue_invalid": "houses",
+   "image_a": "harbor_a.jpg",
+   "image_b": "harbor_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.4355,
+    0.1552,
+    0.498,
+    0.4305
+   ],
+   "centroid": [
+    0.4682,
+    0.2944
+   ],
+   "area_fraction": 0.00715
+  },
+  {
+   "id": "dog",
+   "change_type": "presence",
+   "object": "the golden retriever sitting on the park path",
+   "cue_valid": "dog",
+   "cue_invalid": "bench",
+   "image_a": "dog_a.jpg",
+   "image_b": "dog_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.2852,
+    0.0659,
+    0.6973,
+    0.9341
+   ],
+   "centroid": [
+    0.4864,
+    0.5197
+   ],
+   "area_fraction": 0.1332
+  },
+  {
+   "id": "plaza",
+   "change_type": "presence",
+   "object": "the green-and-white striped awning on the building at the left edge",
+   "cue_valid": "awning",
+   "cue_invalid": "fountain",
+   "image_a": "plaza_a.jpg",
+   "image_b": "plaza_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.0,
+    0.2826,
+    0.1826,
+    0.6779
+   ],
+   "centroid": [
+    0.0783,
+    0.4143
+   ],
+   "area_fraction": 0.02976
+  },
+  {
+   "id": "kitchen",
+   "change_type": "presence",
+   "object": "the white linen curtain beside the window on the right",
+   "cue_valid": "curtain",
+   "cue_invalid": "lemons",
+   "image_a": "kitchen_a.jpg",
+   "image_b": "kitchen_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.6709,
+    0.0,
+    0.8594,
+    1.0
+   ],
+   "centroid": [
+    0.7348,
+    0.5502
+   ],
+   "area_fraction": 0.08498
+  },
+  {
+   "id": "car",
+   "change_type": "color",
+   "object": "the vintage car parked by the kerb (blue in A, red in A')",
+   "cue_valid": "car",
+   "cue_invalid": "tree",
+   "image_a": "car_a.jpg",
+   "image_b": "car_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.4863,
+    0.4963,
+    0.5576,
+    0.5652
+   ],
+   "centroid": [
+    0.5223,
+    0.5336
+   ],
+   "area_fraction": 0.00255
+  },
+  {
+   "id": "beach",
+   "change_type": "color",
+   "object": "the beach umbrella (blue in A, red in A')",
+   "cue_valid": "umbrella",
+   "cue_invalid": "headland",
+   "image_a": "beach_a.jpg",
+   "image_b": "beach_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.4277,
+    0.388,
+    0.5605,
+    0.4656
+   ],
+   "centroid": [
+    0.4917,
+    0.4277
+   ],
+   "area_fraction": 0.00564
+  },
+  {
+   "id": "garden",
+   "change_type": "color",
+   "object": "the wooden garden gate in the hedge at the right edge (blue in A, red in A')",
+   "cue_valid": "gate",
+   "cue_invalid": "windows",
+   "image_a": "garden_a.jpg",
+   "image_b": "garden_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.8867,
+    0.4802,
+    0.9805,
+    0.7892
+   ],
+   "centroid": [
+    0.9282,
+    0.631
+   ],
+   "area_fraction": 0.02027
+  },
+  {
+   "id": "office",
+   "change_type": "color",
+   "object": "the low filing cabinet against the back wall on the left (blue in A, red in A')",
+   "cue_valid": "cabinet",
+   "cue_invalid": "laptop",
+   "image_a": "office_a.jpg",
+   "image_b": "office_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.042,
+    0.3221,
+    0.082,
+    0.4978
+   ],
+   "centroid": [
+    0.0649,
+    0.3856
+   ],
+   "area_fraction": 0.00381
+  },
+  {
+   "id": "helicopter",
+   "change_type": "location",
+   "object": "the red-and-white helicopter in the sky (shifted 3 deg to the right in A')",
+   "cue_valid": "helicopter",
+   "cue_invalid": "tower",
+   "image_a": "helicopter_a.jpg",
+   "image_b": "helicopter_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.4619,
+    0.1376,
+    0.6865,
+    0.2108
+   ],
+   "centroid": [
+    0.5621,
+    0.1838
+   ],
+   "area_fraction": 0.00583
+  },
+  {
+   "id": "balloon",
+   "change_type": "location",
+   "object": "the striped hot-air balloon (shifted 3 deg to the left in A')",
+   "cue_valid": "balloon",
+   "cue_invalid": "river",
+   "image_a": "balloon_a.jpg",
+   "image_b": "balloon_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.2988,
+    0.0351,
+    0.5869,
+    0.3821
+   ],
+   "centroid": [
+    0.442,
+    0.1757
+   ],
+   "area_fraction": 0.06756
+  },
+  {
+   "id": "lake",
+   "change_type": "location",
+   "object": "the small wooden boathouse on the far left shore (shifted 3 deg to the right in A')",
+   "cue_valid": "boathouse",
+   "cue_invalid": "canoe",
+   "image_a": "lake_a.jpg",
+   "image_b": "lake_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.0596,
+    0.2899,
+    0.3594,
+    0.5344
+   ],
+   "centroid": [
+    0.1865,
+    0.4108
+   ],
+   "area_fraction": 0.04237
+  },
+  {
+   "id": "market",
+   "change_type": "location",
+   "object": "the round hanging shop sign at the upper right (shifted 3 deg to the left in A')",
+   "cue_valid": "sign",
+   "cue_invalid": "vegetables",
+   "image_a": "market_a.jpg",
+   "image_b": "market_b.jpg",
+   "size_px": [
+    1024,
+    683
+   ],
+   "bbox": [
+    0.4609,
+    0.019,
+    0.8379,
+    0.3909
+   ],
+   "centroid": [
+    0.6639,
+    0.2081
+   ],
+   "area_fraction": 0.0756
+  }
+ ]
+}
