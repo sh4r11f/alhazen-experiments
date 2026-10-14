@@ -33,7 +33,7 @@ wrong_color: [1.0, -1.0, -1.0]    # ASSUMED (not in the paper): red for wrong
 
 # The recall of the series in order, which ends the trial (paper: p. 652).
 recall_timeout: {ms: 30000}       # ASSUMED (not in the paper): no recall deadline is described; a generous cap
-recall_prompt: "Type the digits in order, then press Enter"  # ASSUMED (not in the paper): recall modality not stated; typed here
+recall_prompt: "Type the digits in order, then Enter"  # ASSUMED (not in the paper): recall modality not stated; typed here
 prompt_height_dva: 0.8            # ASSUMED (not in the paper): size of the recall prompt's letters
 
 iti: {ms: 1000}                   # ASSUMED (not in the paper): the time from the end of the recall to the next series is not stated

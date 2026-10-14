@@ -105,7 +105,7 @@ class VariedSetParams(ScanningParams):
     item_gap: Duration = Duration(ms=0)
     delay: Duration = Duration(ms=2000)
     recall_timeout: Duration = Duration(ms=30000)
-    recall_prompt: str = "Type the digits in order, then press Enter"
+    recall_prompt: str = "Type the digits in order, then Enter"
     prompt_height_dva: float = 0.8
 
     @model_validator(mode="after")
