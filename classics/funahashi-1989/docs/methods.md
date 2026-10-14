@@ -86,7 +86,7 @@ NO_SACCADE made no response and their condition is served again later in the blo
 
 Eight cue locations x three delays = 24 conditions, randomly interleaved (location randomized
 as in the paper, pp. 332–333; the random mixing of delays is ASSUMED), 3 of each per block,
-2 blocks (ASSUMED): 144 completed trials, about 25 min with the 5-s ITI
+2 blocks (ASSUMED): 144 completed trials, 23–30 min with the 5-s ITI, plus calibration and one rest
 (`uv run python run.py --task oculomotor-delayed-response --estimate-duration`).
 
 Parameter sets (run.py `PARAMETERS`): **Main (human)**, configs/task.yaml, and **Main
@@ -142,9 +142,9 @@ paper's values. Each one with a key is flagged `# ASSUMED` in the file named.
 | Time allowed to look at the fixation spot | 2 s, then NO_FIXATION | Not stated; a trial must end if the subject never looks | `acquire_timeout` (configs/task.yaml) |
 | Where the saccade ends | The first new gaze sample slower than 30 deg/s after gaze leaves the fixation window | The paper used a velocity algorithm but gives no threshold; 30 deg/s is a conventional saccade-offset threshold | `landing_settle_speed_dva_s` (configs/task.yaml) |
 | Wait for the eye to settle | 150 ms after saccade onset; if it has not settled, the last sample is judged | Not stated; a 13-deg saccade lasts about 50 ms, so 150 ms leaves room without reaching a corrective saccade | `landing_max_wait` (configs/task.yaml) |
-| Trials per location and delay | 3 per block, 6 per session (144 completed trials) | Not stated (the paper's data files held 50-100 trials, p. 333); 6 per cell gives a usable endpoint distribution in about 25 min | `paradigm.n_per_condition` (configs/task.yaml) |
+| Trials per location and delay | 3 per block, 6 per session (144 completed trials) | Not stated (the paper's data files held 50-100 trials, p. 333); 6 per cell gives a usable endpoint distribution in a 23-30-min session | `paradigm.n_per_condition` (configs/task.yaml) |
 | How delays are mixed | Delays interleaved at random with the eight locations, each block a shuffled complete replicate | The paper states only that location was randomized (pp. 332-333) and that delays were sometimes combined | `paradigm.shuffle` (configs/task.yaml) |
-| Blocks | 2 blocks with a rest (and a chance to recalibrate) between them | Not stated; a rest halfway through a 25-min session | `paradigm.blocks.n_blocks` (configs/task.yaml) |
+| Blocks | 2 blocks with a rest (and a chance to recalibrate) between them | Not stated; a rest halfway through a 23-30-min session | `paradigm.blocks.n_blocks` (configs/task.yaml) |
 | Reading of the response period | The saccade must start (gaze leave the fixation window) within 0.5 s of the go signal; its endpoint is judged when the eye lands | "If the monkeys made a saccadic eye movement within the next 0.5 s" (pp. 332-333) does not say whether onset or landing must fall within 0.5 s | src/funahashi1989/task.py (`_response_phases`) |
 | Trials without a response | A trial ended by NO_FIXATION, FIX_BREAK or NO_SACCADE is served again later in its block; INACCURATE responses are kept and not repeated | Not stated; repeating aborted trials keeps every cell filled, and keeping errors keeps the large-error trials the paper examined (p. 331, Summary 9) | task outcomes (src/funahashi1989/task.py) |
 | Screen after the saccade | Nothing is shown: the cue does not reappear, there is no feedback, and the trial ends at the landing | The paper describes no feedback other than the reward | src/funahashi1989/task.py |

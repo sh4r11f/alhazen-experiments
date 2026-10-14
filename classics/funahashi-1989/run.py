@@ -2,7 +2,8 @@
 
     TASK=oculomotor-delayed-response
     uv run python run.py --task $TASK --mode demo
-    uv run python run.py --task $TASK --mode simulate --headless --sub sim --ses 1 --seed 1
+    uv run python run.py --task $TASK --mode simulate --headless --rig booth \
+        --sub sim --ses 1 --seed 1
     uv run python run.py --task $TASK --mode test --sub dev --ses 1 --initials DEV
     uv run python run.py --task $TASK --rig booth --sub s01 --ses 1 --initials AB
     uv run python run.py --task $TASK --params configs/task-monkey.yaml \
@@ -19,7 +20,9 @@ The task is gaze-contingent: a real session needs a rig with an eye tracker
 (configs/rig-booth.yaml for a human booth, configs/rig-gaze-example.yaml for a monkey rig
 with reward and sync lines; both carry example geometry to replace with your own). Without
 --rig a session starts on alhazen's shared `laptop` rig, a development rig on which run mode
-(real data) is refused.
+(real data) is refused, and its screen is too small for the 13-deg cues: simulate on one of
+this folder's rigs (`--rig booth`); simulate mode stands its eye tracker down and the
+simulated subject plays the task.
 """
 
 from __future__ import annotations

@@ -19,12 +19,12 @@ square was. A landing within 6 deg (diameter) of the cue location is correct.
 ```bash
 uv sync --locked                      # --extra psychopy on a machine with a screen
 uv run pytest -q
-uv run python run.py --task oculomotor-delayed-response --mode simulate --headless --sub sim --ses 1 --seed 1
+uv run python run.py --task oculomotor-delayed-response --mode simulate --headless --rig booth --sub sim --ses 1 --seed 1
 uv run python run.py --task oculomotor-delayed-response --estimate-duration
 uv run python run.py --task oculomotor-delayed-response --rig booth --sub s01 --ses 1 --initials AB
 uv run python run.py --task oculomotor-delayed-response --params configs/task-monkey.yaml --rig gaze-example --sub m01 --ses 1 --initials MK
 uv run python run.py --mode training --stage fixate --rig gaze-example --sub m01 --ses 1 --initials MK
-uv run python run.py --mode simulate --stage visual --headless     # rehearse a training stage
+uv run python run.py --mode simulate --stage visual --headless --rig gaze-example   # rehearse a stage
 uv run alhazen dashboard --project .
 uv run python -m funahashi1989.preview     # redraws docs/preview.png
 ```

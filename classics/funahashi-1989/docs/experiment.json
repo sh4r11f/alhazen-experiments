@@ -80,7 +80,7 @@
     {
       "item": "Trials per location and delay",
       "value": "3 per block, 6 per session (144 completed trials)",
-      "reason": "Not stated (the paper's data files held 50-100 trials, p. 333); 6 per cell gives a usable endpoint distribution in about 25 min",
+      "reason": "Not stated (the paper's data files held 50-100 trials, p. 333); 6 per cell gives a usable endpoint distribution in a 23-30-min session",
       "key": "paradigm.n_per_condition"
     },
     {
@@ -92,7 +92,7 @@
     {
       "item": "Blocks",
       "value": "2 blocks with a rest (and a chance to recalibrate) between them",
-      "reason": "Not stated; a rest halfway through a 25-min session",
+      "reason": "Not stated; a rest halfway through a 23-30-min session",
       "key": "paradigm.blocks.n_blocks"
     },
     {

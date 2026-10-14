@@ -30,7 +30,7 @@ iti: {ms: 5000}              # paper: p. 332, "Following a 5-s inter-trial inter
 
 # --- scheduling ---------------------------------------------------------------------------
 # 8 locations x 3 delays = 24 conditions, 3 of each per block, 2 blocks = 144 completed
-# trials (6 per location and delay), about 25 min (run.py --estimate-duration). Each block is
+# trials (6 per location and delay), 23-30 min (run.py --estimate-duration). Each block is
 # a complete, shuffled replicate. A trial that ends before a saccade is made (NO_FIXATION,
 # FIX_BREAK, NO_SACCADE) is served again later in its block; INACCURATE is kept.
 paradigm:

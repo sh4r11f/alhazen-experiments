@@ -15,7 +15,6 @@ dependencies = [
   "pandas>=2.0",
   "pyyaml>=6.0",
   "matplotlib>=3.7",
-  "pillow>=10.0",
 ]
 
 [project.optional-dependencies]
