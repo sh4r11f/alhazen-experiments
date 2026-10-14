@@ -1,0 +1,51 @@
+# Oculomotor delayed response (Funahashi, Bruce & Goldman-Rakic, 1989): MONKEY parameter set.
+#
+# The paper's own subject. Everything above the last block is configs/task.yaml unchanged
+# (tests/test_configs.py holds the two files equal there); see that file for the conventions
+# ("# paper: p. N" and "# ASSUMED (not in the paper): ...").
+# --- stimuli (paper: p. 332, "Behavioral techniques") ---------------------------------
+fix_size_dva: 0.1            # paper: p. 332, "a small white spot (0.1 deg diam.)"
+fix_color: [1.0, 1.0, 1.0]   # paper: p. 332, white
+cue_size_dva: 0.7            # paper: p. 332, "filled white squares (0.7 x 0.7 deg)"
+cue_color: [1.0, 1.0, 1.0]   # paper: p. 332, white
+cue_ecc_dva: 13.0            # paper: p. 332, "13 deg eccentricity"; p. 333, Fig. 2 legend
+# Eight locations 45 deg apart: right, up, left, down and the obliques (0 = right, 90 = up).
+cue_angles_deg: [0.0, 45.0, 90.0, 135.0, 180.0, 225.0, 270.0, 315.0]  # paper: p. 331, Summary 1 and 7; p. 332
+
+# --- gaze windows (radii, deg) ----------------------------------------------------------
+fix_window_dva: 1.5          # ASSUMED (not in the paper): no fixation window size is given; 1.5 deg radius is a common ODR value
+target_window_dva: 3.0       # paper: p. 332, "a window (6 deg diam.) around the cue location"
+
+# --- timing ----------------------------------------------------------------------------
+acquire_timeout: {ms: 2000}  # ASSUMED (not in the paper): no time limit for looking at the fixation spot is given
+fixation_period: {ms: 750}   # paper: p. 332 and Fig. 1, "maintained fixation for 0.75 s (the fixation period)"
+cue_duration: {ms: 500}      # paper: p. 332 and Fig. 1, "presented for 0.5 s (the cue period)"
+# The paper usually recorded with one 3-s delay, and sometimes used 6 s or mixtures of
+# 3 and 6 s or of 1.5, 3 and 6 s. This set is the three-delay mixture.
+delays: [{ms: 1500}, {ms: 3000}, {ms: 6000}]  # paper: p. 332, "three (1.5, 3, and 6 s) different delays"
+response_period: {ms: 500}   # paper: p. 332 and Fig. 1, "within the next 0.5 s (the response period)"
+landing_settle_speed_dva_s: 30.0  # ASSUMED (not in the paper): the saccade's end is the first gaze sample slower than this
+landing_max_wait: {ms: 150}  # ASSUMED (not in the paper): how long after saccade onset to wait for the eye to settle
+iti: {ms: 5000}              # paper: p. 332, "Following a 5-s inter-trial interval (ITI)"
+
+# --- scheduling ---------------------------------------------------------------------------
+# 8 locations x 3 delays = 24 conditions, 5 each = 120 completed trials, about 21 min
+# (run.py --estimate-duration). A trial that ends before a saccade is made (NO_FIXATION,
+# FIX_BREAK, NO_SACCADE) is served again later in its block; INACCURATE is kept.
+paradigm:
+  kind: sequence
+  n_per_condition: 5         # ASSUMED (not in the paper): no trial count per location is given
+  shuffle: true              # ASSUMED (not in the paper): delays interleaved at random with the locations; the paper states only that location was randomized (p. 332)
+  blocks:
+    n_blocks: 2              # ASSUMED (not in the paper): one rest (and recalibration) halfway
+
+# --- subject and reward -------------------------------------------------------------------
+# Paid through the rig's reward line on CORRECT only. The paper gave "drops (0.2 ml) of
+# lightly sweetened water via an electronic metering pump" (p. 332). A pump driven by pulses
+# delivers a volume set by pulse width and count, which depends on the rig: measure the
+# rig's juice per pulse (alhazen's Measure rig, Juice per pulse) and either tune this entry
+# or replace it by {volume_ul: 200, pulse_ms: <a measured width>}.
+subject_kind: monkey
+reward:
+  by_outcome:
+    CORRECT: {n_pulses: 1, pulse_ms: 200, inter_pulse_ms: 200}  # ASSUMED (not in the paper): the pulse train; the paper gives the volume (0.2 ml), not a pulse train

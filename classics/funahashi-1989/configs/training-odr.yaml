@@ -1,0 +1,86 @@
+# The monkey's TRAINING LADDER to the oculomotor delayed-response task: the stages a monkey
+# climbs, one stage per session, chosen by the operator (alhazen's training mode):
+#
+#   python run.py --mode training --stage fixate --rig <your-rig> --sub m01 --ses 1 --initials MK
+#   python run.py --mode simulate --stage fixate --headless          # rehearse a stage
+#
+# ASSUMED AS A WHOLE (not in the paper): the paper says only that training took "usually
+# 3-4 mo" before the monkey was "proficient on the oculomotor delayed-response task"
+# (p. 332). Stage order, step sizes, the wider windows, longer response periods, trial counts,
+# rewards and criteria below are the usual route to a memory-guided saccade, not the paper's.
+#
+# Each stage starts from the monkey file (task-monkey.yaml), changes what its overrides say
+# (dotted paths, checked against the task's parameters when the stage starts) and pays juice
+# on its success outcome alone. A stage's criterion is shown on the dashboard as a
+# recommendation; moving up is the operator's decision.
+
+name: odr
+title: Oculomotor delayed response training (monkey)
+description: From holding the fixation spot to the experiment's memory-guided saccade.
+task: funahashi1989.training:OdrTrainingTask
+params: task-monkey.yaml
+
+stages:                      # ASSUMED (not in the paper): every stage and value in this file
+  - id: fixate
+    title: Hold the fixation spot
+    description: >-
+      The fixation spot alone, looked at and held for the fixation period. Pays a held
+      fixation.
+    overrides:
+      training.mode: fixate
+      fix_window_dva: 2.5              # more lenient than the experiment's 1.5
+      paradigm.n_per_condition: 12     # 8 locations x 12 = 96 trials
+      paradigm.blocks: null
+    success: FIXATION_HELD
+    reward:
+      success: {n_pulses: 1, pulse_ms: 200, inter_pulse_ms: 200}
+    criterion:
+      window: 100
+      min_trials: 50
+      promote_when: {completed_rate: 0.8}
+
+  - id: visual
+    title: Visually guided saccade
+    description: >-
+      After the fixation period the spot goes off and the square appears at one of the
+      eight locations on the same flip; saccade to it and land inside the window.
+    overrides:
+      training.mode: visual
+      target_window_dva: 4.0           # more lenient than the experiment's 3.0 (6 deg diameter)
+      response_period: {ms: 800}       # longer than the experiment's 0.5 s
+      paradigm.n_per_condition: 12     # 96 trials
+      paradigm.blocks: null
+    success: CORRECT
+    reward:
+      success: {n_pulses: 1, pulse_ms: 200, inter_pulse_ms: 200}
+    criterion:
+      window: 100
+      min_trials: 50
+      promote_when: {success_rate: 0.8}
+
+  - id: short-delay
+    title: Memory saccade, short delays
+    description: >-
+      The experiment's own trial (cue 0.5 s at 13 deg, saccade on the spot's offset) with
+      delays of 0.25, 0.5 and 1 s and a wider window.
+    task: oculomotor-delayed-response
+    overrides:
+      delays: [{ms: 250}, {ms: 500}, {ms: 1000}]
+      target_window_dva: 4.0
+      paradigm.n_per_condition: 4      # 8 x 3 x 4 = 96 trials
+      paradigm.blocks: null
+    success: CORRECT
+    reward:
+      success: {n_pulses: 1, pulse_ms: 200, inter_pulse_ms: 200}
+    criterion:
+      window: 100
+      min_trials: 50
+      promote_when: {success_rate: 0.75}
+
+  - id: full
+    title: The oculomotor delayed-response task
+    description: >-
+      The experiment's own trial with the paper's delays (1.5, 3 and 6 s) and window,
+      paid on CORRECT as the monkey file says.
+    task: oculomotor-delayed-response
+    success: CORRECT

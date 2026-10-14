@@ -1,0 +1,50 @@
+# A monkey rig: video eye tracker, reward line and TTL sync lines. EXAMPLE GEOMETRY AND
+# EXAMPLE LINES ONLY: enter your own panel, distance, DAQ device and lines before a session.
+#
+# The sync lines send each task event to a recording system as a TTL pulse, so a lab that
+# records neurons, as the paper did, can align spikes to the cue, the delay and the go
+# signal. alhazen drives only these lines; the recording system is the lab's own.
+monitor:
+  name: gaze-example
+  width_px: 1920
+  height_px: 1080
+  width_cm: 53.0
+  distance_cm: 57.0
+  refresh_rate_hz: 120.0
+  fullscreen: true
+display:
+  backend: psychopy
+  frame_qa:
+    policy: recycle_trial
+    max_dropped_fraction: 0.10
+  photodiode:
+    corner: br
+    size_px: 60
+    events: [CUE_ON, CUE_OFF, FIX_OFF]
+live_monitor:
+  enabled: true
+  auto_open: true
+  port: 0
+devices:
+  eyetracker:
+    backend: eyelink
+    host_ip: 100.1.1.1
+    calibration_type: HV9
+    calibration_area: 0.8
+  reward:
+    backend: nidaq
+    device: Dev1
+    channel: ao0
+    voltage: 5.0
+  sync:
+    backend: nidaq
+    pulse_ms: 2.0
+    event_lines:
+      FIX_ACQUIRED: Dev1/port0/line0
+      CUE_ON: Dev1/port0/line1
+      CUE_OFF: Dev1/port0/line2
+      FIX_OFF: Dev1/port0/line3
+      SACCADE_ONSET: Dev1/port0/line4
+      LANDED: Dev1/port0/line5
+data_root: data
+real_data: true
