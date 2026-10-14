@@ -14,7 +14,7 @@
 subject_kind: human
 
 # --- Display --------------------------------------------------------------------------
-drawing_extent_dva: 4.3   # paper: p. 703 (drawings averaged 4-5 cm in maximum linear extent at about 60 cm: 3.8-4.8 deg; the mean of the 70 drawings is set to 4.5 cm at 60 cm)
+drawing_extent_dva: 4.3   # paper: p. 703 (drawings averaged 4-5 cm in maximum linear extent at about 60 cm, i.e. 3.8-4.8 deg). ASSUMED (not in the paper): the midpoint, 4.5 cm at 60 cm, as the mean of all 70 drawings drawn at one scale
 spacing_dva: 9.0          # paper: p. 703 (centre-to-centre spacing subtending 9 deg)
 surface_color: [-1.0, -1.0, -1.0]  # paper: p. 703 (two circular apertures in a vertical black surface)
 aperture_dva: 6.0         # ASSUMED (not in the paper): aperture diameter; large enough for every drawing at any picture-plane rotation, small enough to leave 3 deg between apertures

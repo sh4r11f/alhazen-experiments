@@ -1,7 +1,8 @@
 """Run Mental rotation of 3-D objects, in any of alhazen's modes.
 
     uv run python run.py --task mental-rotation --mode demo
-    uv run python run.py --task mental-rotation --mode simulate --headless --sub sim --ses 1 --seed 1
+    uv run python run.py --task mental-rotation --mode simulate --headless --sub sim --ses 1 \
+        --seed 1 --params configs/task-rehearsal.yaml
     uv run python run.py --task mental-rotation --mode test --sub dev --ses 1 --initials DEV
     uv run python run.py --task mental-rotation --rig booth --sub s01 --ses 1 --initials AB
 

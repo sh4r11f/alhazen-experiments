@@ -2,29 +2,34 @@
 
 from __future__ import annotations
 
-import subprocess
-import sys
-from pathlib import Path
-
+import numpy as np
 import pandas as pd
 
-PROJECT = Path(__file__).resolve().parents[1]
+from shepard_metzler1971.params import SimulatedSubjectConfig
+from shepard_metzler1971.simulate import SimulatedObserver
 
 
-def test_a_simulated_session_runs_and_writes_trials(tmp_path):
-    rig = tmp_path / "rig-sim.yaml"
-    rig.write_text(
-        "monitor: {name: sim, width_px: 1920, height_px: 1080, width_cm: 53.0, distance_cm: 57.0,"
-        " refresh_rate_hz: 60.0, fullscreen: false}\n"
-        "display: {backend: simulated}\n"
-        f"devices: {{}}\ndata_root: {tmp_path / 'data'}\nreal_data: false\n",
-        encoding="utf-8")
-    cmd = [sys.executable, str(PROJECT / "run.py"), "--task", "mental-rotation",
-           "--mode", "simulate", "--headless",
-           "--rig", str(rig), "--sub", "sim", "--ses", "1", "--seed", "1"]
-    done = subprocess.run(cmd, cwd=PROJECT, capture_output=True, text=True, timeout=900)
-    assert done.returncode == 0, done.stdout[-3000:] + done.stderr[-3000:]
-    trials = list((tmp_path).rglob("*_trials.csv"))
-    assert trials, "no trials.csv written"
-    df = pd.read_csv(trials[0])
-    assert len(df) > 0
+def test_a_simulated_session_runs_and_writes_every_trial(rehearsal_run):
+    df = pd.read_csv(next(rehearsal_run.glob("*_trials.csv")))
+    done = df[df["completed"].astype(bool)]
+    assert len(done) == 20
+    assert set(done["rotation"]) == {"depth", "picture-plane"}
+    assert set(done["kind"]) == {"same", "different"}
+    assert set(done["outcome"]) <= {"CORRECT", "WRONG"}
+    assert (done["rt_ms"] > 0).all()
+    # The paper's half second: exact on the fake clock (test_task.py); here a real-time
+    # paced display on a shared machine, so only close to it.
+    gap = done["t_pair_on"] - done["t_warning_on"]
+    assert abs(gap.median() - 0.5) < 0.02 and gap.between(0.45, 0.6).all()
+
+
+def test_the_simulated_subject_plants_the_papers_pattern():
+    obs = SimulatedObserver(SimulatedSubjectConfig(), "j", "f", seed=3)
+    rts = {a: np.mean([obs.plan({"kind": "same", "angle_deg": a})[0] for _ in range(4000)])
+           for a in (0, 180)}
+    assert 0.9 < rts[0] < 1.1
+    assert 3.8 < rts[180] < 4.2  # 1 s + 180 deg at 60 deg/s
+    diff = np.mean([obs.plan({"kind": "different", "angle_deg": 80})[0] for _ in range(4000)])
+    assert 3.6 < diff < 4.0
+    keys = [obs.plan({"kind": "same", "angle_deg": 90})[1] for _ in range(4000)]
+    assert 0.02 < keys.count("f") / 4000 < 0.05

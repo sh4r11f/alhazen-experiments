@@ -481,7 +481,8 @@ def generate(params: MentalRotationParams) -> tuple[dict[str, bytes], dict]:
         "mean_extent_dva": round(float(np.mean([i["extent_dva"] for i in images.values()])), 4),
         "objects": [{"id": o["id"], "set": o["set"], "mirror_of": o["mirror_of"],
                      "runs": [int(x) for x in o["runs"]],
-                     "cubes": o["cubes"].astype(int).tolist(), "views": [int(v) for v in o["views"]],
+                     "cubes": o["cubes"].astype(int).tolist(),
+                     "views": [int(v) for v in o["views"]],
                      "azimuths_deg": [azimuth(cfg, v) for v in o["views"]],
                      "min_visible_fraction": [round(x, 4) for x in o["min_visible"]]}
                     for o in objects],
