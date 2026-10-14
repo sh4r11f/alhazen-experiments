@@ -1,0 +1,36 @@
+# An eye-tracking booth for both tasks. EXAMPLE GEOMETRY ONLY: measure your own display and
+# viewing distance and enter them here before a real session; `uv run alhazen calibrate ruler
+# --rig booth` checks them with a tape measure.
+#
+# The paper's set-up (Supplemental Experimental Procedures, Setup): a gamma-linearised CRT at
+# 120 Hz, 60 cm from the eyes on a chin rest with a forehead rest, in a dark room; an EyeLink
+# 1000 (desktop mount) recording the RIGHT eye at 1000 Hz. The tracked eye and the sampling
+# rate are set on the EyeLink Host PC, not in this file. The display must be gamma-linearised
+# (`uv run alhazen calibrate gamma --rig booth`), and its mid-grey, which is the background,
+# measured with a photometer: the paper's background was 5.3 cd/m2.
+monitor:
+  name: booth
+  width_px: 1920
+  height_px: 1080
+  width_cm: 53.0
+  distance_cm: 60.0
+  refresh_rate_hz: 120.0
+  fullscreen: true
+display:
+  backend: psychopy
+  frame_qa:
+    policy: recycle_trial
+    max_dropped_fraction: 0.10
+live_monitor:
+  enabled: true
+  auto_open: true
+  port: 0
+devices:
+  eyetracker:
+    backend: eyelink
+    host_ip: 100.1.1.1
+    calibration_type: HV9
+    edf_host_filename: LC2015.EDF
+    accuracy_max_deg: 0.5
+data_root: data
+real_data: true

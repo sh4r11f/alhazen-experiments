@@ -1,0 +1,45 @@
+# Double-drift: perception vs saccades (Lisi & Cavanagh 2015), Experiment 1, the SACCADE task
+# (human). Lisi, M., & Cavanagh, P. (2015). Current Biology, 25(19), 2535-2540.
+#
+# Every key is validated against SaccadeParams: a typo fails at load. Values the paper states
+# cite it ('# paper: <where>'; 'Suppl.' is the Supplemental Experimental Procedures). Values it
+# does not state are marked '# ASSUMED (not in the paper): <reason>' and are listed, with
+# their reasons, in docs/methods.md ('Assumed, not in the paper') and docs/experiment.json.
+subject_kind: human
+
+background_cd_m2: 5.3              # paper: Suppl. Exp. Procedures, Stimuli (Exp. 1), uniform grey 5.3 cd/m2; documentation, set on the display (methods: Deviations)
+fix_size_dva: 0.2                  # paper: Suppl. Procedure (saccade task), a circle of 0.2 dva diameter
+fix_color: [-1.0, -1.0, -1.0]      # paper: Suppl. Procedure (saccade task), a black dot
+fix_window_dva: 2.0                # paper: Suppl. Procedure (saccade task), Gabor removed when gaze leaves a 2 dva radius; the same window checks fixation before the dot goes off (ASSUMED for that use, see methods)
+path_center_dva: [10.0, 0.0]       # paper: Suppl. Stimuli (Exp. 1), path midpoint 10 dva right of fixation on the horizontal midline
+path_length_dva: 3.0               # paper: Suppl. Stimuli (Exp. 1), path length 3 dva
+path_speed_dva_s: 2.0              # paper: Suppl. Stimuli (Exp. 1), speed 2 dva/s (a reversal every 1.5 s)
+gabor_sf_cpd: 2.0                  # paper: Suppl. Stimuli (Exp. 1), 2 cycles/dva
+gabor_sigma_dva: 0.1               # paper: Suppl. Stimuli (Exp. 1), envelope SD 0.1 dva
+gabor_contrast: 1.0                # paper: Suppl. Stimuli (Exp. 1), 100% contrast
+drift_tf_hz: 3.0                   # paper: Suppl. Stimuli (Exp. 1), internal drift 3 Hz, reversing at each path reversal
+start_directions: [up, down]       # ASSUMED (not in the paper): which way the Gabor first moves from the middle of its path is not reported; both, crossed with the other factors
+carrier_phase: random              # ASSUMED (not in the paper): the grating's starting phase is not reported; random per trial so no stripe position is fixed relative to the path
+acquire_timeout: {ms: 5000}        # ASSUMED (not in the paper): how long the dot waits to be fixated; a trial not started is re-served
+acquire_hold: {ms: 100}            # ASSUMED (not in the paper): "the trial started when participant fixated"; 100 ms continuous fixation counts as fixating
+foreperiod: {ms: 500}              # paper: Suppl. Procedure (saccade task), Gabor appears after a random 400-600 ms
+foreperiod_jitter: {ms: 100}       # paper: Suppl. Procedure (saccade task), uniform 400-600 ms
+iti: {ms: 500}                     # ASSUMED (not in the paper): no inter-trial interval is reported
+
+# Per participant: the physical path orientations seen as vertical in the perceptual task
+# (its PSEs; `uv run python -m lisi_cavanagh2015.pse <perception run>` prints these two
+# lines). Shipped: the paper's group means, for rehearsal only.
+path_angle_right_deg: 49.0         # paper: Results (Exp. 1), mean right tilt seen as vertical 49 deg; replace with the participant's PSE
+path_angle_left_deg: -52.0         # paper: Results (Exp. 1), mean left tilt seen as vertical -52 deg; replace with the participant's PSE
+n_fix_off_times: 6                 # paper: Suppl. Procedure (saccade task), six times equally spaced along a full cycle from the first reversal
+saccade_timeout: {ms: 1000}        # ASSUMED (not in the paper): how long after the dot goes off a saccade is waited for; the paper excluded latencies > 600 ms offline
+landing_settle_speed_dva_s: 30.0   # ASSUMED (not in the paper): online landing = first gaze sample slower than this after leaving fixation (the paper detected saccades offline)
+landing_max_wait: {ms: 150}        # ASSUMED (not in the paper): cap on the wait for the eye to settle after leaving fixation
+landing_window_dva: 5.0            # ASSUMED (not in the paper): radius for the recorded endpoint_in_target column only; no trial is judged by it
+paradigm:
+  kind: sequence
+  n_per_condition: 4               # ASSUMED (not in the paper): 2 tilts x 2 motion conditions x 2 start directions x 4 = 32 trials per block; balance within blocks is not reported
+  shuffle: true
+  blocks:
+    n_blocks: 12                   # paper: Suppl. Procedure (saccade task), 384 trials per session in 12 blocks
+    breaks: true
