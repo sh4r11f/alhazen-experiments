@@ -1,6 +1,6 @@
 {
   "status": "original-protocol",
-  "status_reason": "The paper's design for Experiments I and II is kept: the targets and distractors, display sizes (1, 5, 15, 30 scattered; 1, 4, 16, 36 in matrices), field and matrix geometry, target-placement rules, 1-s fixation, response mapping, feedback, error repetition with dummy trials and 16 positive and 16 negative trials per display size per block. Changes are to apparatus and presentation (monitor instead of tachistoscope and ink cards, subject-started trials, on-screen feedback), listed as deviations; everything the paper leaves open, including the ink colours, is listed as assumed.",
+  "status_reason": "The paper's design for Experiments I and II is kept: the targets and distractors, display sizes (1, 5, 15, 30 scattered; 1, 4, 16, 36 in matrices), field and matrix geometry, target-placement rules, 1-s fixation, response mapping, feedback, error repetition with dummy trials, and Experiment I's 16 positive and 16 negative trials per display size per block. Changes are to apparatus and presentation (monitor instead of tachistoscope and ink cards, subject-started trials, on-screen feedback), listed as deviations; everything the paper leaves open, including the ink colours, is listed as assumed.",
   "collection": "classics",
   "authors": [
     {
