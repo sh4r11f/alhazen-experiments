@@ -15,7 +15,7 @@ def test_the_human_session_serves_every_cell_and_records_the_answers(simulated_r
     df = trials(simulated_runs["human"])
     done = df[df["completed"]]
     assert len(done) == 16  # reduced to one trial per cell
-    assert set(zip(done["direction"], done["coherence_pct"])) == {
+    assert set(zip(done["direction"], done["coherence_pct"], strict=True)) == {
         (d, c) for d in ("pref", "anti") for c in (0.0, 0.8, 1.6, 3.2, 6.4, 12.8, 25.6, 51.2)}
     assert set(done["outcome"]) <= {"CORRECT", "WRONG"}
     assert done["rt_ms"].gt(0).all()

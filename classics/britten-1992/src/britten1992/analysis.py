@@ -58,7 +58,8 @@ def psychometric_table(trials: pd.DataFrame) -> pd.DataFrame:
     """Per correlation level: trials, correct choices, proportion correct."""
     t = measured(trials)
     g = t.groupby("coherence_pct")["outcome"]
-    table = pd.DataFrame({"n": g.size(), "n_correct": g.apply(lambda s: int((s == "CORRECT").sum()))})
+    n_correct = g.apply(lambda s: int((s == "CORRECT").sum()))
+    table = pd.DataFrame({"n": g.size(), "n_correct": n_correct})
     table["p_correct"] = table["n_correct"] / table["n"]
     return table.reset_index()
 
@@ -82,7 +83,9 @@ class WeibullFit:
         return weibull(c, self.alpha, self.beta, self.delta)
 
 
-def _nll(theta: np.ndarray, c: np.ndarray, k: np.ndarray, n: np.ndarray, free_delta: bool) -> float:
+def _nll(
+    theta: np.ndarray, c: np.ndarray, k: np.ndarray, n: np.ndarray, free_delta: bool
+) -> float:
     alpha, beta = math.exp(theta[0]), math.exp(theta[1])
     delta = 0.5 + 0.5 / (1.0 + math.exp(-theta[2])) if free_delta else 1.0
     p = np.clip(weibull(c, alpha, beta, delta), 1e-9, 1 - 1e-9)
@@ -110,7 +113,8 @@ def fit_weibull(c, k, n, *, free_asymptote: bool = False) -> WeibullFit:
     assert best is not None
     alpha, beta = math.exp(best.x[0]), math.exp(best.x[1])
     delta = 0.5 + 0.5 / (1.0 + math.exp(-best.x[2])) if free_asymptote else 1.0
-    return WeibullFit(alpha, beta, delta, -float(best.fun), int(n.sum()), 2 if free_asymptote else 1)
+    equation = 2 if free_asymptote else 1
+    return WeibullFit(alpha, beta, delta, -float(best.fun), int(n.sum()), equation)
 
 
 def fit_psychometric(table: pd.DataFrame, x: str = "coherence_pct") -> WeibullFit:

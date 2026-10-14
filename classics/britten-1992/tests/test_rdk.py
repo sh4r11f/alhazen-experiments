@@ -7,7 +7,7 @@ import math
 import numpy as np
 import pytest
 
-from britten1992.rdk import DotFieldSpec, CorrelatedDotField, signal_dt_frames
+from britten1992.rdk import CorrelatedDotField, DotFieldSpec, signal_dt_frames
 
 
 def spec(coherence=0.5, direction=0.0, refresh=60.0, aperture=10.0, k=None, speed=6.0):
