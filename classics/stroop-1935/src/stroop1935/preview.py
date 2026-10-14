@@ -45,7 +45,7 @@ def _word(ax, text: str, color, height: float) -> None:
 def render(out: Path) -> Path:
     p = load_params(PROJECT / "configs" / "task.yaml", StroopParams)
     first = {t: sheet.items(t, p.sheet_seed, 1)[0] for t in sheet.TESTS}
-    panels = [("fixation", "1. fixation point, 500 ms", None),
+    panels = [("fixation", "fixation point, 500 ms,\nthen one item", None),
               (sheet.NC, "NC: name the ink", first[sheet.NC]),
               (sheet.NCWD, "NCWd: name the ink", first[sheet.NCWD]),
               (sheet.RCNB, "RCNb: give the word", first[sheet.RCNB]),

@@ -24,5 +24,6 @@ def test_a_simulated_session_runs_every_sheet_in_order(simulated_run):
 def test_the_session_records_its_rehearsal_and_block_order(simulated_run):
     session = json.loads((simulated_run / "session.json").read_text(encoding="utf-8"))
     assert session  # written
-    params = (simulated_run / "params.yaml").read_text(encoding="utf-8")
-    assert "block_order_basis" in params and "sheet_items: 5" in params
+    # The params the session ran with (after the params hook) are in the snapshot.
+    snapshot = (simulated_run / "config_snapshot.yaml").read_text(encoding="utf-8")
+    assert "block_order_basis" in snapshot and "sheet_items: 5" in snapshot

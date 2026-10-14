@@ -1,7 +1,8 @@
 """Run Stroop (1935) color-word interference, in any of alhazen's modes.
 
     uv run python run.py --task stroop-color-naming --mode demo
-    uv run python run.py --task stroop-color-naming --mode simulate --headless --sub sim --ses 1 --seed 1
+    uv run python run.py --task stroop-color-naming --mode simulate --headless \
+        --sub sim --ses 1 --seed 1
     uv run python run.py --task stroop-color-naming --mode test --sub dev --ses 1 --initials DEV
     uv run python run.py --task stroop-color-naming --rig booth --sub 01 --ses 1 --initials AB
     uv run python run.py --task stroop-word-reading --rig booth --sub 01 --ses 2 --initials AB

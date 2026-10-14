@@ -145,7 +145,8 @@ def order_for_subject(subject: str) -> tuple[Literal["A", "B"], str]:
         return order, f"subject {subject!r}: number {n} is {'odd' if n % 2 else 'even'}"
     c = zlib.crc32(subject.encode("utf-8"))
     order = "A" if c % 2 == 0 else "B"
-    return order, f"subject {subject!r} has no number: CRC-32 {c} is {'even' if c % 2 == 0 else 'odd'}"
+    parity = "even" if c % 2 == 0 else "odd"
+    return order, f"subject {subject!r} has no number: CRC-32 {c} is {parity}"
 
 
 class StroopTask(Task):
@@ -302,7 +303,8 @@ class StroopTask(Task):
         o = self.outcomes
         return TrialPlan(
             phases=[
-                phases.Feedback(["fixation"], p.fixation_duration.seconds(hz), onset_event="FIX_ON"),
+                phases.Feedback(["fixation"], p.fixation_duration.seconds(hz),
+                                onset_event="FIX_ON"),
                 CorrectedResponse(
                     tuple(p.keys[c] for c in sheet.COLORS), p.keys[target],
                     p.response_timeout.seconds(hz),

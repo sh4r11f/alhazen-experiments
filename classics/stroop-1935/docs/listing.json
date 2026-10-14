@@ -1,20 +1,49 @@
 {
   "status": "adaptation",
-  "status_reason": "Why this status, in one sentence.",
+  "status_reason": "Stroop's subjects named or read 100-item printed sheets aloud and were timed per sheet; here each item is a trial answered by key and timed per item. The sheets' rules, the four tests, the balanced block order, the practice samples and self-correction are kept, but the response mode changed in a way that matters, above all for word reading.",
   "collection": "classics",
-  "authors": [{"name": "Sharif Saleki", "role": "replication"}],
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
   "original": {
-    "citation": "CITATION",
-    "year": 1900,
-    "doi": null,
-    "url": null,
-    "experiments": "Which experiment(s) of the paper"
+    "citation": "Stroop, J. R. (1935). Studies of interference in serial verbal reactions. Journal of Experimental Psychology, 18(6), 643–662.",
+    "year": 1935,
+    "doi": "10.1037/h0054651",
+    "url": "https://psych.hanover.edu/classes/Cognition/papers/stroop%201933.pdf",
+    "experiments": "Experiment 1 (reading colour names: black vs incongruent ink) and Experiment 2 (naming colours: squares vs incongruent words). Experiment 3 (eight days of practice) is not built."
   },
-  "hardware": {"display": true, "keyboard": true, "audio": false, "eye_tracker": false,
-               "reward": false, "microstimulation": false, "recording": false},
-  "subjects": ["human"],
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": false,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human"
+  ],
   "category": "attention",
-  "tags": [],
+  "tags": [
+    "stroop",
+    "interference",
+    "color naming",
+    "word reading",
+    "reaction time",
+    "automaticity",
+    "classic"
+  ],
   "art": "docs/preview.png",
-  "assets": []
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "MIT",
+      "source": "drawn by src/stroop1935/preview.py from configs/task.yaml"
+    }
+  ],
+  "notes": "No participant data. Software verification only (tests and a simulated session). Read the deviations and the 'Assumed, not in the paper' tables in docs/methods.md before comparing results with Stroop's."
 }

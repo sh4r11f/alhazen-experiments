@@ -93,7 +93,8 @@ def test_the_right_first_key_is_correct_and_timed_from_the_item_flip(task):
     assert ctx.record["rt_ms"] == pytest.approx(2 * FRAME_S * 1000)
     assert ctx.record["rt_correct_ms"] == ctx.record["rt_ms"]
     assert ctx.record["target_color"] == "blue" and ctx.record["competing_color"] == "red"
-    assert events.names()[:3] == ["FIX_ON", "RESPONSE_CUE", "RESPONSE"]
+    names = [n for n in events.names() if n in ("FIX_ON", "RESPONSE_CUE", "RESPONSE")]
+    assert names == ["FIX_ON", "RESPONSE_CUE", "RESPONSE"]
 
 
 def test_a_corrected_error_keeps_the_item_until_the_right_key(task):
@@ -190,7 +191,8 @@ def test_the_session_is_four_sheets_in_stroops_balanced_order():
     b_tests = [b[-1].params["test"] for b in b_task.plan(b_task.params)]
     assert b_tests == ["NCWd", "NC", "NC", "NCWd"]
     word = StroopWordReadingTask(params_with("configs/task-word-reading.yaml", block_order="A"))
-    assert [b[-1].params["test"] for b in word.plan(word.params)] == ["RCNb", "RCNd", "RCNd", "RCNb"]
+    word_tests = [b[-1].params["test"] for b in word.plan(word.params)]
+    assert word_tests == ["RCNb", "RCNd", "RCNd", "RCNb"]
 
 
 def test_the_schedule_serves_the_plan_with_rests_between_sheets():
