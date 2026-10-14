@@ -236,7 +236,7 @@ class MemoryScanningTask(_MemoryScanning):
 
     def conditions(self, rng: np.random.Generator) -> list[Condition]:
         p: VariedSetParams = self.params  # type: ignore[assignment]
-        return [Condition({"set_size": s, "probe": probe})
+        return [Condition({"set_size": s, "probe_type": probe})
                 for s in p.set_sizes for probe in ("positive", "negative")]
 
     def make_source(self, params: Any, rng: np.random.Generator) -> BlockPlan:
@@ -256,7 +256,8 @@ class MemoryScanningTask(_MemoryScanning):
         p: VariedSetParams = self.params  # type: ignore[assignment]
         hz = setup.refresh_rate_hz
         c = setup.condition.params
-        trial = design.varied_set_trial(int(c["set_size"]), c["probe"] == "positive", setup.rng)
+        trial = design.varied_set_trial(int(c["set_size"]), c["probe_type"] == "positive",
+                                        setup.rng)
         stimuli = self._common_stimuli(setup, trial.probe)
         prompt_y = setup.screen.deg2px(p.feedback_offset_dva + 0.5)
         stimuli["prompt"] = make_text(setup.display, setup.screen, "prompt", p.recall_prompt,
@@ -283,7 +284,7 @@ class MemoryScanningTask(_MemoryScanning):
             "procedure": "varied-set",
             "stage": c["stage"],
             "set_size": len(trial.series),
-            "probe_type": c["probe"],
+            "probe_type": c["probe_type"],
             "series": "".join(str(d) for d in trial.series),
             "probe_digit": trial.probe,
             "probe_position": trial.probe_position,
