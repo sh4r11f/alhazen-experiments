@@ -1,6 +1,7 @@
-"""Run Sternberg memory scanning, in any of alhazen's modes.
+"""Run Sternberg memory scanning (experiment 1 varied set, experiment 2 fixed set).
 
     uv run python run.py --task memory-scanning --mode demo
+    uv run python run.py --task memory-scanning-fixed --mode simulate --headless --sub sim --ses 1
     uv run python run.py --task memory-scanning --mode simulate --headless --sub sim --ses 1 --seed 1
     uv run python run.py --task memory-scanning --mode test --sub dev --ses 1 --initials DEV
     uv run python run.py --task memory-scanning --rig booth --sub s01 --ses 1 --initials AB
@@ -22,19 +23,24 @@ from pathlib import Path
 
 from alhazen.cli.modes import run_experiment
 
-from sternberg1966.task import MemoryScanningTask
+from sternberg1966.task import FixedSetMemoryScanningTask, MemoryScanningTask
 
 HERE = Path(__file__).parent
 
 # task name -> (Task class, params file it runs with when --params is not given)
 TASKS = {
     "memory-scanning": (MemoryScanningTask, HERE / "configs" / "task.yaml"),
+    "memory-scanning-fixed": (FixedSetMemoryScanningTask, HERE / "configs" / "task-fixed-set.yaml"),
 }
 
 # The dashboard's parameter-set menu: display name -> (task name, params file).
 # "(human)" / "(monkey)" names who the file is for (its subject_kind).
 PARAMETERS = {
-    "Main (human)": ("memory-scanning", HERE / "configs" / "task.yaml"),
+    "Experiment 1, varied set (human)": ("memory-scanning", HERE / "configs" / "task.yaml"),
+    "Experiment 2, fixed set (human)": (
+        "memory-scanning-fixed",
+        HERE / "configs" / "task-fixed-set.yaml",
+    ),
 }
 
 # Monkey training ladders: display name -> ladder YAML. Empty when there are none.

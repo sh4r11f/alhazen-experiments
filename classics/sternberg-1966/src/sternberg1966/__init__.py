@@ -1,5 +1,10 @@
-"""Sternberg memory scanning, rebuilt in alhazen."""
+"""Sternberg (1966) memory scanning, rebuilt in alhazen."""
 
-from sternberg1966.task import MemoryScanningTask, MemoryScanningTaskParams
+from sternberg1966.task import (
+    FixedSetMemoryScanningTask,
+    FixedSetParams,
+    MemoryScanningTask,
+    VariedSetParams,
+)
 
-__all__ = ["MemoryScanningTask", "MemoryScanningTaskParams"]
+__all__ = ["FixedSetMemoryScanningTask", "FixedSetParams", "MemoryScanningTask", "VariedSetParams"]

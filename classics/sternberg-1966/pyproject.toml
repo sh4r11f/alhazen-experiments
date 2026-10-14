@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "alhazen-sternberg-1966"
 version = "0.1.0"
-description = "Sternberg memory scanning, rebuilt in alhazen (alhazen-experiments: classics/sternberg-1966)"
+description = "Sternberg (1966) memory scanning, rebuilt in alhazen (alhazen-experiments: classics/sternberg-1966)"
 requires-python = ">=3.10"
 dependencies = [
   # alhazen-vision, not alhazen: the bare name on PyPI is an unrelated project.
@@ -15,7 +15,6 @@ dependencies = [
   "pandas>=2.0",
   "pyyaml>=6.0",
   "matplotlib>=3.7",
-  "pillow>=10.0",
 ]
 
 [project.optional-dependencies]
@@ -37,6 +36,7 @@ dev = ["alhazen-sternberg-1966[dev]"]
 
 [project.entry-points."alhazen.tasks"]
 memory-scanning = "sternberg1966.task:MemoryScanningTask"
+memory-scanning-fixed = "sternberg1966.task:FixedSetMemoryScanningTask"
 
 # alhazen from its GitHub repository at a release tag, never from an index. Moving to a
 # newer release is this tag and `uv lock`, committed together.

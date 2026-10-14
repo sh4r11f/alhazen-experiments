@@ -1,17 +1,50 @@
-# Sternberg memory scanning: the main parameter set (human).
+# Sternberg (1966), experiment 1: the varied-set procedure (human).
 #
-# Every key is validated against MemoryScanningTask's params model: a typo fails at load.
-# Values the original paper does not state are marked "# ASSUMED (not in the paper): <reason>".
-# They are listed with their reasons in docs/methods.md, "Assumed, not in the paper", and
-# under "assumed" in docs/experiment.json. Values the paper states cite it: "# paper: <where>".
+# Every key is validated against VariedSetParams (src/sternberg1966/task.py): a typo fails at
+# load. Values the paper states cite it ("# paper: p. N", Science 153, 652-654). Values it does
+# not state are marked "# ASSUMED (not in the paper): <reason>"; they are listed with their
+# reasons in docs/methods.md ("Assumed, not in the paper") and under "assumed" in
+# docs/experiment.json. Durations resolve to whole display frames at the measured rate.
 subject_kind: human
 
-fix_size_dva: 0.3            # ASSUMED (not in the paper): a conventional small fixation point
-target_size_dva: 1.0         # ASSUMED (not in the paper): template placeholder
-target_ecc_dva: 5.0          # ASSUMED (not in the paper): template placeholder
-fixation_duration: {ms: 500} # ASSUMED (not in the paper): template placeholder
-response_timeout: {ms: 2000} # ASSUMED (not in the paper): template placeholder
-iti: {ms: 1000}              # ASSUMED (not in the paper): template placeholder
+# The series: 1 to 6 different digits, one at a time at a fixed locus.
+set_sizes: [1, 2, 3, 4, 5, 6]     # paper: p. 652 ("from one to six different digits")
+item_duration: {ms: 1200}         # paper: p. 652 ("for 1.2 seconds each")
+item_gap: {ms: 0}                 # ASSUMED (not in the paper): no blank between digits is described
+delay: {ms: 2000}                 # paper: p. 652 ("a 2.0-second delay")
+digit_height_dva: 1.5             # ASSUMED (not in the paper): the display is not described; legible at a glance
+digit_color: [1.0, 1.0, 1.0]      # ASSUMED (not in the paper): white digits on the rig's mid-grey background
+
+# The warning signal, then the test digit.
+warning_symbol: "+"               # ASSUMED (not in the paper): modality and form not stated; a visual cross at the locus
+warning_duration: {ms: 500}       # ASSUMED (not in the paper): duration and warning-to-digit interval not stated; digit follows at its offset
+
+# The response: two levers in the paper, two keys here (a deviation, docs/methods.md).
+positive_key: j                   # ASSUMED (not in the paper): which lever (hand) meant "yes" is not stated; counterbalance across subjects
+negative_key: f                   # ASSUMED (not in the paper): see positive_key
+response_timeout: {ms: 5000}      # ASSUMED (not in the paper): no deadline is described; an unanswered trial is served again later
+
+# The feedback light, on as soon as a lever is pulled (paper: p. 652).
+feedback_duration: {ms: 500}      # ASSUMED (not in the paper): how long the light stayed on is not stated
+feedback_size_dva: 1.0            # ASSUMED (not in the paper): a lamp, here an on-screen disc of this diameter
+feedback_offset_dva: 2.5          # ASSUMED (not in the paper): disc centre this far below the digit locus
+correct_color: [-1.0, 1.0, -1.0]  # ASSUMED (not in the paper): green for correct
+wrong_color: [1.0, -1.0, -1.0]    # ASSUMED (not in the paper): red for wrong
+
+# The recall of the series in order, which ends the trial (paper: p. 652).
+recall_timeout: {ms: 30000}       # ASSUMED (not in the paper): no recall deadline is described; a generous cap
+recall_prompt: "Type the digits in order, then press Enter"  # ASSUMED (not in the paper): recall modality not stated; typed here
+prompt_height_dva: 0.8            # ASSUMED (not in the paper): size of the recall prompt's letters
+
+iti: {ms: 1000}                   # ASSUMED (not in the paper): the time from the end of the recall to the next series is not stated
+
+# 24 practice and 144 test trials (paper: p. 652). Each (set size, probe type) cell equally
+# often, shuffled: 12 cells x 2 and 12 cells x 12.
+practice:
+  kind: sequence
+  n_per_condition: 2              # ASSUMED (not in the paper): 24 practice trials stated; their split over set sizes is not
+  shuffle: true
 paradigm:
   kind: sequence
-  n_per_condition: 10        # ASSUMED (not in the paper): template placeholder
+  n_per_condition: 12             # ASSUMED (not in the paper): 144 test trials stated; equal 24 per s inferred from "about 95 observations per point" (8 subjects x 12)
+  shuffle: true                   # paper: p. 652 ("the length, s, of the series varied at random")
