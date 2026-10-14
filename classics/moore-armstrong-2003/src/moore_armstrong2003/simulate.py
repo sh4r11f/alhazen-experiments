@@ -121,7 +121,8 @@ class SimulatedMonkey:
         if plan.acquire_after_s is None or t < plan.acquire_after_s:
             return GazeSample(gx=away[0], gy=away[1], t=now)
         held = t - plan.acquire_after_s
-        if plan.blink_after_s is not None and plan.blink_after_s <= held < plan.blink_after_s + 0.12:
+        blink = plan.blink_after_s
+        if blink is not None and blink <= held < blink + 0.12:
             return None
         if plan.break_after_s is not None and held >= plan.break_after_s:
             return GazeSample(gx=away[0], gy=away[1], t=now)

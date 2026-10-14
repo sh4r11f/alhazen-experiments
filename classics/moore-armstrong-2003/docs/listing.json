@@ -1,20 +1,50 @@
 {
-  "status": "adaptation",
-  "status_reason": "Why this status, in one sentence.",
+  "status": "demo",
+  "status_reason": "Only the main experiment's trial structure is built (fixation, RF and distracter bars, a frame-locked stimulation trigger, sync marks). The paper's result is a change in V4 firing after subthreshold FEF stimulation: it needs a V4 recording, an FEF stimulator, the RF and FEF-threshold mapping paradigms (not built here) and a monkey, and the fixation task itself has no behavioural measure to replicate.",
   "collection": "classics",
-  "authors": [{"name": "Sharif Saleki", "role": "replication"}],
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
   "original": {
-    "citation": "CITATION",
-    "year": 1900,
-    "doi": null,
-    "url": null,
-    "experiments": "Which experiment(s) of the paper"
+    "citation": "Moore, T., & Armstrong, K. M. (2003). Selective gating of visual signals by microstimulation of frontal cortex. Nature, 421(6921), 370-373.",
+    "year": 2003,
+    "doi": "10.1038/nature01341",
+    "url": "https://www.nature.com/articles/nature01341",
+    "experiments": "The single experiment: subthreshold FEF stimulation while a monkey fixates, with oriented bars in and outside a V4 neuron's RF (Figs. 2 and 3)"
   },
-  "hardware": {"display": true, "keyboard": true, "audio": false, "eye_tracker": false,
-               "reward": false, "microstimulation": false, "recording": false},
-  "subjects": ["human"],
+  "hardware": {
+    "display": true,
+    "keyboard": false,
+    "audio": false,
+    "eye_tracker": true,
+    "reward": true,
+    "microstimulation": true,
+    "recording": true
+  },
+  "subjects": [
+    "monkey"
+  ],
   "category": "attention",
-  "tags": [],
+  "tags": [
+    "microstimulation",
+    "FEF",
+    "V4",
+    "neurophysiology",
+    "fixation",
+    "attention",
+    "monkey",
+    "demo"
+  ],
   "art": "docs/preview.png",
-  "assets": []
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "MIT",
+      "source": "drawn by src/moore_armstrong2003/preview.py from configs/task.yaml"
+    }
+  ],
+  "notes": "Recording and microstimulation are the lab's: this folder sends the STIM_TRIGGER TTL and sync marks only. A no-stimulation human file (configs/task-demo-human.yaml) shows the display to a person. No participant data."
 }

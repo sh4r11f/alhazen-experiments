@@ -67,3 +67,30 @@ def test_listing_states_status_hardware_and_the_original():
     assert listing["status"] in {"original-protocol", "adaptation", "demo"}
     assert listing["original"]["citation"] and listing["original"]["year"]
     assert listing["hardware"]["display"] is True
+
+
+def test_every_assumed_line_in_the_yaml_is_documented():
+    """The reverse of the check above: no '# ASSUMED' flag in a config without its row."""
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    for name in ("task.yaml", "rig-recording-example.yaml"):
+        rel = f"configs/{name}"
+        keys = {i["key"].split(".")[-1] for i in doc["assumed"]
+                if i.get("key") and i.get("file", "configs/task.yaml") == rel}
+        for line in (PROJECT / rel).read_text(encoding="utf-8").splitlines():
+            m = re.match(r"\s*-?\s*([A-Za-z_]+)\s*:.*# ASSUMED", line)
+            if m:
+                assert m.group(1) in keys, f"{rel}: {m.group(1)} is flagged but not documented"
+
+
+def test_paper_citations_point_into_the_letter():
+    """Every '# paper: p. N' in a config cites a page of the letter (Nature 421, 370-373)."""
+    for path in (PROJECT / "configs").glob("*.yaml"):
+        for page in re.findall(r"# paper: p\. (\d+)", path.read_text(encoding="utf-8")):
+            assert 370 <= int(page) <= 373, f"{path.name}: p. {page}"
+
+
+def test_the_listing_is_a_demo_needing_the_recording_hardware():
+    listing = json.loads((PROJECT / "docs" / "listing.json").read_text(encoding="utf-8"))
+    assert listing["status"] == "demo"
+    hw = listing["hardware"]
+    assert hw["eye_tracker"] and hw["reward"] and hw["microstimulation"] and hw["recording"]

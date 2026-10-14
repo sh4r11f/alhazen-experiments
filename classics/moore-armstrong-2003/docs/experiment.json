@@ -2,42 +2,454 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "FEF microstimulation gating (Moore & Armstrong)",
-  "summary": "One or two sentences on what the experiment asks and what a trial is.",
+  "summary": "Moore & Armstrong (2003) stimulated sites in the frontal eye field (FEF) below the current that evokes saccades while a monkey fixated, and recorded how V4 neurons responded to oriented bars in and outside their receptive field. One trial here: fixate, bars appear in the RF, at a distracter site, or both, and stay up 1.5-2 s; 200-500 ms after they appear a STIM_TRIGGER (stimulation trials) or CONTROL_MARK (control trials) goes out for the stimulator and the recording system. Task structure only: the measure, V4 activity, needs a recording rig.",
   "methods": "docs/methods.md",
-  "references": ["CITATION"],
+  "references": [
+    "Moore, T., & Armstrong, K. M. (2003). Selective gating of visual signals by microstimulation of frontal cortex. Nature, 421(6921), 370-373. https://doi.org/10.1038/nature01341"
+  ],
   "deviations": [
-    {"item": "(template)", "original": "(template)", "here": "(template)", "reason": "(template)"}
+    {
+      "item": "Eye tracking",
+      "original": "Scleral search coil, eye position stored at 200 Hz (p. 373)",
+      "here": "The tracker the rig file names (the example rig: an EyeLink video tracker); fixation judged on every display frame",
+      "reason": "alhazen reads video eye trackers; a search coil is not one of its backends"
+    },
+    {
+      "item": "RF mapping and FEF site mapping",
+      "original": "RFs mapped with oriented bars swept across the display during fixation; evoked-saccade metrics and movement threshold measured in a separate fixation paradigm with varying current (pp. 371, 373)",
+      "here": "Not built. The operator enters each site's RF centre and diameter, preferred orientation, evoked-saccade end point and movement threshold in the site block",
+      "reason": "Separate paradigms, outside this folder's scope; the main experiment needs only their results"
+    },
+    {
+      "item": "Neural recording (the measure)",
+      "original": "V4 single units recorded with a second electrode during the task (p. 371)",
+      "here": "No recording. Sync lines mark TRIAL_START, VIS_ON, STIM_TRIGGER and CONTROL_MARK for the lab's recording system; the notebook computes the neural measures only from a spike file aligned to the session",
+      "reason": "alhazen drives triggers and sync lines; recording V4 is the lab's system"
+    },
+    {
+      "item": "Stimulation delivery",
+      "original": "20-50 ms trains, 200 Hz, biphasic 0.2-ms pulses, subthreshold current (p. 373); how trains were triggered is not described",
+      "here": "One TTL edge (STIM_TRIGGER) on the display flip at the drawn trigger time, to an external stimulator programmed with the train; alhazen records the settings but cannot verify the train",
+      "reason": "alhazen has no stimulator backend; microstimulation is a TTL seam (project decision)"
+    },
+    {
+      "item": "Trigger timing resolution",
+      "original": "200-500 ms after the visual stimuli appear (p. 371); timing mechanism not given",
+      "here": "The drawn time rounded to the nearest display frame (half a frame either way, about 8 ms at 60 Hz), plus the sync line's host latency after the flip",
+      "reason": "Task events are stamped on display flips; the TTL goes out right after the flip"
+    },
+    {
+      "item": "Analysis scope",
+      "original": "64 V4 neurons in two monkeys, overlapping and non-overlapping sites, population ANOVAs and paired t-tests (p. 372)",
+      "here": "The notebook computes one session's (one neuron's) measures; population tests need many sessions pooled",
+      "reason": "Each session is one neuron and one FEF site"
+    },
+    {
+      "item": "Human demo parameter set",
+      "original": "Monkeys only (p. 371)",
+      "here": "An extra file, configs/task-demo-human.yaml: the same display and fixation structure, control trials only, never stimulated",
+      "reason": "Lets a person see what a trial looks like; refused for any stimulation condition"
+    }
   ],
   "assumed": [
-    {"item": "Fixation point size", "value": "0.3 dva", "reason": "template placeholder", "key": "fix_size_dva"},
-    {"item": "Target size", "value": "1.0 dva", "reason": "template placeholder", "key": "target_size_dva"},
-    {"item": "Target eccentricity", "value": "5.0 dva", "reason": "template placeholder", "key": "target_ecc_dva"},
-    {"item": "Fixation duration", "value": "500 ms", "reason": "template placeholder", "key": "fixation_duration"},
-    {"item": "Response deadline", "value": "2000 ms", "reason": "template placeholder", "key": "response_timeout"},
-    {"item": "Inter-trial interval", "value": "1000 ms", "reason": "template placeholder", "key": "iti"},
-    {"item": "Trials per condition", "value": "10", "reason": "template placeholder", "key": "paradigm.n_per_condition"}
+    {
+      "item": "Example RF centre",
+      "value": "(-7.8, -7.8) dva, 11 dva into the lower left quadrant",
+      "reason": "EXAMPLE site modelled on the paper's example neuron (11 dva into the lower contralateral quadrant, p. 371); the exact direction and the hemifield are assumed. Enter each site's own",
+      "key": "site.rf_center_dva"
+    },
+    {
+      "item": "Example RF diameter",
+      "value": "5.0 dva",
+      "reason": "EXAMPLE; the paper reports no RF sizes. Enter each site's own",
+      "key": "site.rf_diameter_dva"
+    },
+    {
+      "item": "Example preferred orientation",
+      "value": "45 deg (0 = vertical, clockwise positive)",
+      "reason": "EXAMPLE; per neuron. Enter each site's own",
+      "key": "site.preferred_orientation_deg"
+    },
+    {
+      "item": "Example evoked-saccade end point",
+      "value": "(-7.8, -7.8) dva, inside the RF",
+      "reason": "EXAMPLE overlapping site like the paper's example (p. 371); the exact point is assumed. Enter each site's own",
+      "key": "site.saccade_endpoint_dva"
+    },
+    {
+      "item": "Example movement threshold",
+      "value": "40 uA",
+      "reason": "EXAMPLE; the example site's threshold is not stated (its suprathreshold mapping used > 40 uA, p. 371; the mean threshold was 73.5 uA, p. 372). Enter each site's own",
+      "key": "site.movement_threshold_ua"
+    },
+    {
+      "item": "How values within the paper's ranges are drawn",
+      "value": "Uniformly, once per trial (trigger time 200-500 ms, stimulus 1.5-2 s)",
+      "reason": "The paper gives ranges only (pp. 371, 373)",
+      "key": "timing_draw"
+    },
+    {
+      "item": "The set of display conditions",
+      "value": "Preferred or orthogonal bar in the RF alone, at the distracter site alone, or at both with one orientation; no blank display (6 displays)",
+      "reason": "The paper names the locations (RF, outside, both; p. 372) and orientations (preferred, orthogonal; p. 373) but not the combinations",
+      "key": "displays"
+    },
+    {
+      "item": "Distracter position at an overlapping site",
+      "value": "Opposite the RF centre through fixation",
+      "reason": "The paper places it at the evoked-saccade end point only for non-overlapping sites (p. 372); for overlapping sites it does not say",
+      "key": "distracter_placement"
+    },
+    {
+      "item": "Bar length",
+      "value": "2.0 dva",
+      "reason": "Bar size not reported",
+      "key": "bar_length_dva"
+    },
+    {
+      "item": "Bar width",
+      "value": "0.4 dva",
+      "reason": "Bar size not reported",
+      "key": "bar_width_dva"
+    },
+    {
+      "item": "Bar contrast",
+      "value": "93% Michelson",
+      "reason": "One value from the paper's 50-93% range (p. 373); which value per site is not stated",
+      "key": "bar_contrast"
+    },
+    {
+      "item": "Bar polarity",
+      "value": "Dark bars",
+      "reason": "Not reported; a dark bar on the window's mid-grey reaches the paper's contrasts, a bright one cannot exceed 33%",
+      "key": "bar_polarity"
+    },
+    {
+      "item": "Fixation spot size",
+      "value": "0.2 dva",
+      "reason": "Not reported; a conventional small spot",
+      "key": "fix_size_dva"
+    },
+    {
+      "item": "Fixation spot colour",
+      "value": "White",
+      "reason": "Not reported",
+      "key": "fix_rgb"
+    },
+    {
+      "item": "Fixation window",
+      "value": "1.0 dva radius",
+      "reason": "Not reported; a common window for monkey fixation tasks",
+      "key": "fix_window_dva"
+    },
+    {
+      "item": "Time to acquire fixation",
+      "value": "2000 ms",
+      "reason": "Not reported",
+      "key": "acquire_timeout"
+    },
+    {
+      "item": "Fixation before the bars appear",
+      "value": "500 ms",
+      "reason": "Not reported",
+      "key": "baseline_hold"
+    },
+    {
+      "item": "Inter-trial interval",
+      "value": "1000 ms",
+      "reason": "Not reported",
+      "key": "iti"
+    },
+    {
+      "item": "Trial order",
+      "value": "All 12 conditions interleaved at random in one block",
+      "reason": "Not reported",
+      "key": "paradigm.shuffle"
+    },
+    {
+      "item": "Reward for a completed trial",
+      "value": "1 pulse of 150 ms",
+      "reason": "Not reported; set per animal and rig",
+      "key": "reward.by_outcome.COMPLETED"
+    },
+    {
+      "item": "Reward when a device fault cuts a trial short",
+      "value": "1 pulse of 100 ms",
+      "reason": "Not reported; alhazen's convention for monkey sessions",
+      "key": "reward.on_fault"
+    },
+    {
+      "item": "Example rig resolution (width)",
+      "value": "1024 px",
+      "reason": "The paper gives the monitor's size (40 x 30 cm), distance and rate, not its resolution; a 4:3 mode matches the size",
+      "key": "width_px",
+      "file": "configs/rig-recording-example.yaml"
+    },
+    {
+      "item": "Example rig resolution (height)",
+      "value": "768 px",
+      "reason": "As the width",
+      "key": "height_px",
+      "file": "configs/rig-recording-example.yaml"
+    },
+    {
+      "item": "Fixation breaks",
+      "value": "A break or blink at any point ends the trial unrewarded; the condition is served again later in the session",
+      "reason": "Not reported; the standard handling in fixation tasks"
+    },
+    {
+      "item": "End of the trial",
+      "value": "The trial ends when the bars go off, with no further fixation or saccade; the reward follows",
+      "reason": "Not reported"
+    },
+    {
+      "item": "How the train is triggered",
+      "value": "One TTL edge at train onset to an external stimulator that plays the programmed train",
+      "reason": "The paper gives the train's parameters (p. 373), not how it was gated"
+    },
+    {
+      "item": "Control-trial time reference",
+      "value": "CONTROL_MARK at the drawn trigger moment; the post-train window on control trials starts that plus the train duration later",
+      "reason": "The paper compares stimulation and control trials in the window after the train (p. 371) but does not say how control trials were aligned"
+    },
+    {
+      "item": "Distracter bar",
+      "value": "Identical to the RF bar in size and contrast",
+      "reason": "Not reported"
+    },
+    {
+      "item": "Background",
+      "value": "The window's mid-grey; contrasts assume a gamma-linearised display",
+      "reason": "Background luminance not reported"
+    },
+    {
+      "item": "Baseline window in the analysis",
+      "value": "300 ms before the bars appear",
+      "reason": "The paper plots baseline activity (Figs. 2c, 3) without saying how it was measured",
+      "file": "src/moore_armstrong2003/analysis.py"
+    }
   ],
   "tasks": [
     {
       "id": "rf-gating-fixation",
-      "title": "FEF microstimulation gating (Moore & Armstrong)",
-      "summary": "What one trial is.",
+      "title": "Fixation with RF and distracter bars, and an FEF stimulation trigger",
+      "summary": "Fixate; bars appear in the RF, at a distracter site or both and stay up 1.5-2 s; 200-500 ms after they appear a STIM_TRIGGER (stimulation trials) or CONTROL_MARK (control trials) goes out. No saccade is required.",
       "parameters_file": "configs/task.yaml",
       "parameters": [
-        {"name": "fix_size_dva", "label": "Fixation point size", "group": "Stimuli", "type": "number",
-         "unit": "dva", "default": 0.3, "meaning": "Diameter of the fixation point. ASSUMED, not in the paper."},
-        {"name": "response_timeout", "label": "Response deadline", "group": "Timing", "type": "duration",
-         "default": {"ms": 2000}, "meaning": "How long a key is accepted after the target appears. ASSUMED, not in the paper."}
+        {
+          "name": "site.rf_center_dva",
+          "label": "RF centre",
+          "group": "Recording site",
+          "type": "object",
+          "unit": "dva",
+          "default": [
+            -7.8,
+            -7.8
+          ],
+          "meaning": "Centre of the recorded V4 neuron's receptive field (x right, y up). EXAMPLE value: enter each site's own. ASSUMED, not in the paper."
+        },
+        {
+          "name": "site.saccade_endpoint_dva",
+          "label": "Evoked-saccade end point",
+          "group": "Recording site",
+          "type": "object",
+          "unit": "dva",
+          "default": [
+            -7.8,
+            -7.8
+          ],
+          "meaning": "Where suprathreshold stimulation of the FEF site moved the eye. Decides whether the site overlaps the RF (inside) or not (> 45 deg away, p. 372); in between is refused. EXAMPLE value."
+        },
+        {
+          "name": "site.movement_threshold_ua",
+          "label": "Movement threshold",
+          "group": "Recording site",
+          "type": "number",
+          "unit": "uA",
+          "default": 40.0,
+          "meaning": "The site's current threshold for evoking saccades; the stimulation current must be below it (p. 372). EXAMPLE value."
+        },
+        {
+          "name": "stimulation.conditions",
+          "label": "Stimulation conditions",
+          "group": "Stimulation",
+          "type": "object",
+          "default": [
+            "stim",
+            "control"
+          ],
+          "meaning": "Stimulation and control trials, in equal numbers (p. 371). A human file may only list control."
+        },
+        {
+          "name": "stimulation.current_ua",
+          "label": "Test current",
+          "group": "Stimulation",
+          "type": "number",
+          "unit": "uA",
+          "default": 20.0,
+          "meaning": "Set on the stimulator, recorded on every stimulation trial, and checked to be below the movement threshold. 20 uA at the paper's example site (p. 371); mean 40.7 uA (p. 372)."
+        },
+        {
+          "name": "stimulation.train_ms",
+          "label": "Train duration",
+          "group": "Stimulation",
+          "type": "number",
+          "unit": "ms",
+          "default": 50,
+          "meaning": "Set on the stimulator (20-50 ms, p. 373; 50 ms at the example site, p. 371). The analysis window starts when the train ends."
+        },
+        {
+          "name": "stimulation.onset_after_display",
+          "label": "Trigger time after bar onset",
+          "group": "Stimulation",
+          "type": "object",
+          "default": {
+            "min": {
+              "ms": 200
+            },
+            "max": {
+              "ms": 500
+            }
+          },
+          "meaning": "STIM_TRIGGER (or CONTROL_MARK) goes out this long after the bars appear (p. 371), drawn per trial."
+        },
+        {
+          "name": "stimulus_duration",
+          "label": "Bars on screen",
+          "group": "Timing",
+          "type": "object",
+          "default": {
+            "min": {
+              "ms": 1500
+            },
+            "max": {
+              "ms": 2000
+            }
+          },
+          "meaning": "How long the bars stay up while the monkey fixates (p. 373), drawn per trial."
+        },
+        {
+          "name": "displays",
+          "label": "Display conditions",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            {
+              "rf": "preferred",
+              "distracter": "none"
+            },
+            {
+              "rf": "orthogonal",
+              "distracter": "none"
+            },
+            {
+              "rf": "none",
+              "distracter": "preferred"
+            },
+            {
+              "rf": "none",
+              "distracter": "orthogonal"
+            },
+            {
+              "rf": "preferred",
+              "distracter": "preferred"
+            },
+            {
+              "rf": "orthogonal",
+              "distracter": "orthogonal"
+            }
+          ],
+          "meaning": "What appears in the RF and at the distracter site: the preferred orientation, the orthogonal one (p. 373), or nothing. The set is ASSUMED, not in the paper."
+        },
+        {
+          "name": "bar_contrast",
+          "label": "Bar contrast",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.93,
+          "meaning": "Michelson contrast against the background; the paper used 50-93% (p. 373). The value is ASSUMED."
+        },
+        {
+          "name": "fix_window_dva",
+          "label": "Fixation window",
+          "group": "Fixation",
+          "type": "number",
+          "unit": "dva",
+          "default": 1.0,
+          "meaning": "Radius of the window gaze must stay in. ASSUMED, not in the paper."
+        },
+        {
+          "name": "baseline_hold",
+          "label": "Fixation before the bars",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Fixation held before the bars appear. ASSUMED, not in the paper."
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Trials per condition",
+          "group": "Design",
+          "type": "integer",
+          "default": 10,
+          "meaning": "Completed trials per display x stimulation cell; ten per condition for the paper's example neuron (p. 371)."
+        }
       ],
       "outcomes": [
-        {"name": "CORRECT", "completed": true, "success": true, "meaning": "The key matched the target's side."},
-        {"name": "WRONG", "completed": true, "success": false, "meaning": "The other key."},
-        {"name": "NO_RESPONSE", "completed": false, "meaning": "No key before the deadline; the condition is served again."}
+        {
+          "name": "COMPLETED",
+          "completed": true,
+          "success": true,
+          "meaning": "Fixation held until the bars went off; paid on a monkey session."
+        },
+        {
+          "name": "NO_FIXATION",
+          "completed": false,
+          "meaning": "Fixation never acquired; served again."
+        },
+        {
+          "name": "BROKE_FIX_BASELINE",
+          "completed": false,
+          "meaning": "Fixation broken before the bars appeared; served again."
+        },
+        {
+          "name": "BROKE_FIX_STIMULUS",
+          "completed": false,
+          "meaning": "Fixation broken with the bars up, before the trigger moment; served again."
+        },
+        {
+          "name": "BROKE_FIX_AFTER_TRIGGER",
+          "completed": false,
+          "meaning": "Fixation broken after the trigger moment. More of these on stimulation than control trials would mean evoked saccades (a current too close to threshold). Served again."
+        }
       ],
       "events": [
-        {"name": "FIX_ON", "meaning": "Fixation point shown."},
-        {"name": "RESPONSE_CUE", "meaning": "Target shown; reaction time runs from this flip."},
-        {"name": "RESPONSE", "meaning": "The subject's key."}
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation spot shown."
+        },
+        {
+          "name": "FIX_ACQUIRED",
+          "meaning": "Gaze entered the fixation window."
+        },
+        {
+          "name": "VIS_ON",
+          "meaning": "The bars appear (the flip that showed them); the trigger time is counted from here."
+        },
+        {
+          "name": "STIM_TRIGGER",
+          "meaning": "Stimulation trials: the flip at the drawn trigger time. Mapped to the stimulator's trigger line in the rig file."
+        },
+        {
+          "name": "CONTROL_MARK",
+          "meaning": "Control trials: the same moment, with no stimulation (a recorder-only line)."
+        },
+        {
+          "name": "VIS_OFF",
+          "meaning": "The bars go off; the trial is complete."
+        }
       ]
     }
   ]

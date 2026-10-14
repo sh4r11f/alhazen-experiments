@@ -1,9 +1,11 @@
-"""Run FEF microstimulation gating (Moore & Armstrong), in any of alhazen's modes.
+r"""Run FEF microstimulation gating (Moore & Armstrong), in any of alhazen's modes.
 
-    uv run python run.py --task rf-gating-fixation --mode simulate --headless --sub sim --ses 1 --seed 1
-    uv run python run.py --task rf-gating-fixation --mode simulate --headless --rig recording-rehearsal --sub sim --ses 1 --seed 1
-    uv run python run.py --task rf-gating-fixation --params configs/task-demo-human.yaml --mode test --rig booth --sub dev --ses 1 --initials DEV
-    uv run python run.py --task rf-gating-fixation --rig recording-example --sub m01 --ses 1 --initials MK
+    uv run python run.py --task rf-gating-fixation --mode simulate --headless \
+        --rig recording-rehearsal --sub sim --ses 1 --seed 1
+    uv run python run.py --task rf-gating-fixation --params configs/task-demo-human.yaml \
+        --mode test --rig booth --sub dev --ses 1 --initials DEV
+    uv run python run.py --task rf-gating-fixation --rig recording-example \
+        --sub m01 --ses 1 --initials MK
     uv run alhazen dashboard --project .
 
 The main file (configs/task.yaml) is a MONKEY stimulation session: run mode refuses a rig
