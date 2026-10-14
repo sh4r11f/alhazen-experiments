@@ -9,6 +9,8 @@ from __future__ import annotations
 import pytest
 from alhazen import Duration
 from alhazen.config.loader import load_params
+from alhazen.core.commands import Command
+from alhazen.testing import ScriptedCommands
 from harness import FRAME_S, build, frames, run, typed
 
 from sternberg1966.stimuli import RecordingLamp, RecordingText
@@ -227,8 +229,10 @@ def test_the_first_trial_of_a_part_announces_the_positive_set(fixed):
 def test_an_announcement_not_yet_read_is_shown_again(fixed):
     c = fixed_condition()
     plan, env = build(fixed, c)
-    with pytest.raises(Exception):  # noqa: B017 - the scripted run never presses SPACE
-        run(fixed, plan, env, c, [])
+    # The experimenter skips the trial while the set is still on screen, unread.
+    skip = ScriptedCommands(batches=[[], [], [Command.SKIP_TRIAL]])
+    ran = run(fixed, plan, env, c, frames(10), commands=skip)
+    assert ran.result.outcome.name == "ABORTED"
     plan2, _ = build(fixed, c)
     assert type(plan2.phases[0]).__name__ == "AwaitKey"
 

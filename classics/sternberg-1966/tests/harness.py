@@ -52,13 +52,14 @@ def build(task, condition: dict, seed: int = 0) -> tuple[TrialPlan, Any]:
     return task.build_trial(setup), (clock, display)
 
 
-def run(task, plan: TrialPlan, env, condition: dict, inputs: list[InputFrame]) -> Ran:
+def run(task, plan: TrialPlan, env, condition: dict, inputs: list[InputFrame],
+        commands: ScriptedCommands | None = None) -> Ran:
     clock, display = env
     bus = EventBus()
     collector = EventCollector()
     bus.subscribe(collector)
     engine = TrialEngine(display=display, clock=clock, bus=bus, schema=task.events,
-                         commands=ScriptedCommands(), input_provider=ScriptedInputs(inputs))
+                         commands=commands or ScriptedCommands(), input_provider=ScriptedInputs(inputs))
     ctx = TrialContext(clock=clock, screen=SCREEN, rng=np.random.default_rng(0), trial_index=1,
                        params=dict(condition), stimuli=plan.stimuli, regions=plan.regions,
                        record=dict(plan.record))
