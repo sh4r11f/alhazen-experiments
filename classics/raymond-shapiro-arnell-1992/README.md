@@ -26,7 +26,9 @@ uv run alhazen dashboard --project .
 uv run python -m raymond1992.preview  # redraws docs/preview.png
 ```
 
-A full simulated session runs in real time (about 20 minutes). The simulated subject has
+A full simulated session through `run.py` runs in real time (about 15 minutes at 120 Hz,
+estimated from the trial length); the tests run the full design on alhazen's FakeClock
+instead, in seconds. The simulated subject has
 no attentional blink by design: a rehearsal tests the software and the notebook, not the
 paper's finding. A real session needs a rig file with your machine's measured geometry:
 `configs/rig-booth.yaml` is the starting point (`--rig configs/rig-booth.yaml`).
