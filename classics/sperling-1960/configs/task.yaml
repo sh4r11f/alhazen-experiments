@@ -1,0 +1,59 @@
+# Sperling (1960) partial report: Experiment 4, Part 2, twelve letters and numbers (4/4/4 L&N)
+#
+# Every key is validated against PartialReportTaskParams: a typo fails at load.
+# "# paper: p. N" cites the page of Sperling (1960) a value comes from. "# ASSUMED (not in
+# the paper): <reason>" marks a value the paper does not state; these are listed with their
+# reasons in docs/methods.md ("Assumed, not in the paper") and in docs/experiment.json.
+# "DEVIATION" marks an intended change (docs/methods.md, "Deviations from the original").
+subject_kind: human
+
+report: partial               # paper: p. 6 (partial report: one row, called after the exposure)
+materials: ["4/4/4-LN"]       # paper: p. 10-11 (Part 2 used 3/3/3 and 4/4/4 L&N; 3/3/3 is configs/task-9.yaml)
+cue_mode: visual              # DEVIATION: the paper's cue is a tone; alhazen 2.16.0 has no event-bound tone. "tone" refuses to load until it does
+cue_delays_s: [-0.10, 0.0, 0.15, 0.30, 0.50, 1.0]  # paper: p. 8 (cue onset re the array's offset; -0.10 = 0.05 s before onset)
+first_series: ascending       # paper: p. 10 (priority to an ascending series of delays)
+n_series: 4                   # paper: p. 8 (at least two ascending and two descending series)
+samples_per_block: 2          # paper: p. 8 (each delay block preceded by at least two samples)
+paradigm:
+  kind: sequence
+  n_per_condition: 6          # ASSUMED (not in the paper): test trials per delay block; the paper says "five or more" (p. 8); 6 balances rows within a block
+  shuffle: true               # paper: p. 6 (random sequence of tones)
+
+# --- Timing -----------------------------------------------------------------------------
+exposure: {ms: 50}            # paper: p. 3 (50 msec. in all experiments unless exposure was the parameter)
+start_delay: {ms: 500}        # paper: p. 4 (button press initiated the presentation after a 0.5-sec. delay)
+start_key: space              # ASSUMED (not in the paper): the paper says "a button"; SPACE is alhazen's convention
+start_timeout: {ms: 60000}    # ASSUMED (not in the paper): self-paced in the paper; a cap so an unattended session cannot hang
+cue_duration: {ms: 500}       # paper: p. 7 (tone approx. 0.5 sec.); ASSUMED (not in the paper): the visual bar lasts as long as the tone
+tone_high_hz: 2500            # paper: p. 6 (high tone 2500 cps, upper row)
+tone_mid_hz: 650              # paper: p. 7 (middle tone 650 cps, middle row)
+tone_low_hz: 250              # paper: p. 6 (low tone 250 cps, lower row)
+tone_volume: 1.0              # ASSUMED (not in the paper): paper set the high tone "loud but not uncomfortable" by ear (p. 7); set the rig's system volume the same way
+report_timeout: {ms: 60000}   # ASSUMED (not in the paper): writing was self-paced; a cap so an unattended session cannot hang
+iti: {ms: 0}                  # paper: p. 4 (S set his own rate: the next trial waits for his button press)
+
+# --- Symbols ----------------------------------------------------------------------------
+consonants: BDFGJKLMNQSTVWXYZ # paper: p. 3 (the 21 consonants); DEVIATION: C, H, P, R removed (alhazen's experimenter keys), see docs/methods.md
+digits: "0123456789"          # paper: p. 4 (O is the number zero; 17.9 bits per L&N row = ten digits)
+
+# --- Geometry (dva) ---------------------------------------------------------------------
+letter_height_dva: 1.17       # paper: p. 3 (capitals about 0.45 in high, cards at 22 in); ASSUMED (not in the paper): the 22 in of the stimulus paragraph, not the "about 24 in" of the apparatus paragraph
+letter_pitch_dva: 1.70        # ASSUMED (not in the paper): letter spacing not stated; 1.45 x letter height, estimated from Fig. 2 proportions
+row_pitch_two_rows_dva: 3.16  # ASSUMED (not in the paper): row spacing not stated; 2.7 x letter height, from Fig. 2 (3/3, 4/4)
+row_pitch_three_rows_dva: 1.70  # ASSUMED (not in the paper): row spacing not stated; 1.45 x letter height, from Fig. 2 (3/3/3, 4/4/4)
+font: Arial                   # ASSUMED (not in the paper): hand lettering with a Leroy No. 5 pen (p. 3), a monoline capital; nearest common face, drawn bold
+card_width_dva: 20.6          # paper: p. 3 (5x8 in cards at 22 in); ASSUMED (not in the paper): landscape, 8 in wide
+card_height_dva: 13.0         # paper: p. 3 (5 in at 22 in, given the landscape card)
+field_color: [-1.0, -1.0, -1.0]     # paper: p. 6, p. 13 (dark pre- and post-exposure fields)
+fixation_color: [-0.7, -0.7, -0.7]  # ASSUMED (not in the paper): "dimly illuminated" (p. 3) with no luminance; 15% of the display's range
+card_color: [1.0, 1.0, 1.0]         # ASSUMED (not in the paper): card luminance not stated; the display's white
+letter_color: [-1.0, -1.0, -1.0]    # ASSUMED (not in the paper): ink colour not stated; black pen on a white card
+cue_color: [0.5, 0.5, 0.5]          # ASSUMED (not in the paper): the bar is this version's substitute for the tone; 75% of the range
+response_color: [0.0, 0.0, 0.0]     # ASSUMED (not in the paper): the typed-response boxes replace the paper's response grid; mid-grey
+fix_size_dva: 0.6             # ASSUMED (not in the paper): the fixation cross's size is not stated
+fix_line_dva: 0.08            # ASSUMED (not in the paper): the cross's line width is not stated
+cue_bar_length_dva: 1.17      # ASSUMED (not in the paper): visual-cue substitute; one letter height long
+cue_bar_width_dva: 0.2        # ASSUMED (not in the paper): visual-cue substitute
+cue_bar_gap_dva: 0.6          # ASSUMED (not in the paper): visual-cue substitute; gap from the row's first letter
+response_y_dva: -9.0          # ASSUMED (not in the paper): response boxes below the card, clear of where the array was
+response_box_dva: 1.6         # ASSUMED (not in the paper): response box size
