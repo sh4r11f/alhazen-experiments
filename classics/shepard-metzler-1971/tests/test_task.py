@@ -169,3 +169,16 @@ def test_the_subject_is_told_the_keys_and_the_instruction():
     text = (PROJECT / "instructions.md").read_text(encoding="utf-8").lower()
     assert "j" in text and "f" in text and "space" in text
     assert "as quickly as" in text and "error" in text
+
+
+def test_the_demo_pages_through_the_three_kinds_of_pair(task):
+    from alhazen.display.simulated import SimulatedDisplay
+    from alhazen.modes.demo import DemoSetup
+
+    setup = DemoSetup(display=SimulatedDisplay(60.0, frame_period_s=0), screen=SCREEN,
+                      params=task.params, rng=np.random.default_rng(0))
+    views = task.demo_views(setup)
+    assert len(views) == 6
+    assert {v.caption.split(",")[0] for v in views} >= {"same", "different (mirror image)"}
+    for v in views:
+        v.draw(0.0)
