@@ -1,0 +1,7 @@
+# What this rig's red and green guns reach, each alone at full drive, measured with a
+# photometer through the rig's gamma correction (the stimuli assume a linearised display).
+# EXAMPLE VALUES: an sRGB panel at 250 cd/m2 white (R 21.3%, G 71.5% of white). Measure
+# your own and set measured: true before a real session.
+red_max_cd_m2: 53.0     # ASSUMED (not in the paper, rig-specific): example value, measure your display
+green_max_cd_m2: 179.0  # ASSUMED (not in the paper, rig-specific): example value, measure your display
+measured: false
