@@ -212,7 +212,13 @@ timeout of every adjustment task; the equiluminance lookup (the latest run, comm
 only, the rehearsal root for rehearsals, refusal in run mode without one); every params file
 loading and building its task; one simulated session of every task end to end
 (`run.py --mode simulate --headless`), with the later tasks using the simulated subject's own
-k; and the analysis notebook executing on those runs. The simulated observer is a toy shaped
+k; and the analysis notebook executing on those runs. A `display`-marked test (skipped by
+default; run with `xvfb-run -a uv run --extra psychopy pytest -m display`) draws the real
+psychopy stimulus and reads the frame back: the pointer pair where the raster puts it, the
+red and green bars at the levels the colour model gives, and direction +1 turning
+counterclockwise on the screen; it passed under Xvfb. Computing a frame takes several
+milliseconds at 40 px/deg on the build machine; the rig's frame QA reports any missed
+frame. The simulated observer is a toy shaped
 after the paper's figures. This folder has recorded no participant data and claims no
 replication of the original result.
 

@@ -8,7 +8,10 @@ the bars are, and so which pair a pointer aims at, is state the trial logic and 
 tests depend on.
 
 The real stimulus draws a full-screen rectangle at the mean yellow (the field), then the
-scene's pixels (``SceneRaster``) as one image, refreshed every frame.
+scene's pixels (``SceneRaster``) as one image, refreshed every frame. psychopy (at the
+version uv.lock pins) reads a float numpy image as 0..1 per channel, bottom row first;
+both were checked by drawing under Xvfb and reading the frame back (docs/methods.md,
+Verification). Colours given as ``fillColor`` are psychopy's signed -1..1.
 """
 
 from __future__ import annotations
@@ -45,7 +48,6 @@ class SceneStimulus:
 
         self.scene = scene
         self.draw_count = 0
-        # psychopy reads a numpy image bottom row first.
         self._raster = SceneRaster(scene, screen.px_per_deg, bottom_up=True)
         n = self._raster.size_px
         mean = tuple(float(v) for v in to_psychopy(np.array(scene.color.mean_rgb())))
@@ -53,7 +55,7 @@ class SceneStimulus:
             display.window, width=screen.width_px * 1.1, height=screen.height_px * 1.1,
             units="pix", fillColor=mean, lineColor=mean, colorSpace="rgb")
         self._image: Any = visual.ImageStim(
-            display.window, image=to_psychopy(self._raster.render()), size=(n, n),
+            display.window, image=self._raster.render_rgba(), size=(n, n),
             units="pix", colorSpace="rgb", interpolate=False)
 
     def update(self, dt: float) -> None:
@@ -61,7 +63,7 @@ class SceneStimulus:
 
     def draw(self) -> None:
         self.draw_count += 1
-        self._image.image = to_psychopy(self._raster.render())
+        self._image.image = self._raster.render_rgba()
         self._field.draw()
         self._image.draw()
 
