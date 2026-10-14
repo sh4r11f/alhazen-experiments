@@ -4,6 +4,9 @@
     uv run python run.py --task mental-rotation --mode simulate --headless --sub sim --ses 1 --seed 1
     uv run python run.py --task mental-rotation --mode test --sub dev --ses 1 --initials DEV
     uv run python run.py --task mental-rotation --rig booth --sub s01 --ses 1 --initials AB
+
+--ses picks the block: the design has 8 sessions of one 200-trial block each, drawn from
+the subject's own 1600-trial plan (docs/methods.md, Design). Run sessions 1 to 8.
     uv run alhazen dashboard --project .
 
 TASKS, PARAMETERS and LADDERS are module-level dict LITERALS on purpose: alhazen's
@@ -35,6 +38,7 @@ TASKS = {
 # "(human)" / "(monkey)" names who the file is for (its subject_kind).
 PARAMETERS = {
     "Main (human)": ("mental-rotation", HERE / "configs" / "task.yaml"),
+    "Rehearsal, 20 trials (human)": ("mental-rotation", HERE / "configs" / "task-rehearsal.yaml"),
 }
 
 # Monkey training ladders: display name -> ladder YAML. Empty when there are none.

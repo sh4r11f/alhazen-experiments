@@ -15,7 +15,8 @@ dependencies = [
   "pandas>=2.0",
   "pyyaml>=6.0",
   "matplotlib>=3.7",
-  "pillow>=10.0",
+  # The analysis notebook's F tests (polynomial trend, as the paper reports).
+  "scipy>=1.10",
 ]
 
 [project.optional-dependencies]

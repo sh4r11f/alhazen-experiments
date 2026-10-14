@@ -1,0 +1,75 @@
+# Mental rotation of 3-D objects: a short REHEARSAL set (human) for checking a rig and the
+# pipeline. Identical to task.yaml except design.rehearsal_trials and a fast simulated
+# subject. Its data is a rehearsal, never a session of the experiment.
+#
+# Every key is validated against MentalRotationParams: a typo fails at load.
+# "# paper: p. N" cites Science 171, pp. 701-703 (the PDF's pages 2-4).
+# "# ASSUMED (not in the paper): <reason>" marks a value the paper does not state; each is
+# a row of docs/methods.md "Assumed, not in the paper" and an item of docs/experiment.json
+# "assumed". Lines without either are software settings, not part of the paradigm.
+#
+# The stimulus bank (stimuli/bank) is generated from aperture_dva, drawing_extent_dva,
+# line_width_dva and the objects block; the task refuses to run if they change without
+# regenerating it:  uv run python -m shepard_metzler1971.bank
+subject_kind: human
+
+# --- Display --------------------------------------------------------------------------
+drawing_extent_dva: 4.3   # paper: p. 703 (drawings averaged 4-5 cm in maximum linear extent at about 60 cm: 3.8-4.8 deg; the mean of the 70 drawings is set to 4.5 cm at 60 cm)
+spacing_dva: 9.0          # paper: p. 703 (centre-to-centre spacing subtending 9 deg)
+surface_color: [-1.0, -1.0, -1.0]  # paper: p. 703 (two circular apertures in a vertical black surface)
+aperture_dva: 6.0         # ASSUMED (not in the paper): aperture diameter; large enough for every drawing at any picture-plane rotation, small enough to leave 3 deg between apertures
+line_width_dva: 0.04      # ASSUMED (not in the paper): line width of the drawings, about 0.4 mm at 60 cm
+warning_dot_dva: 0.3      # ASSUMED (not in the paper): the visual warning signal that replaces the warning tone (see Deviations)
+
+# --- Timing ---------------------------------------------------------------------------
+warning_duration: {ms: 500}       # paper: p. 703 (warning tone, then the pair half a second later)
+intertrial_interval: {ms: 1500}   # ASSUMED (not in the paper): the paper's cards were changed by hand; 1.5 s of black surface with empty apertures before each warning
+response_timeout: {ms: 30000}     # ASSUMED (not in the paper): no deadline is described; a pair left unanswered for 30 s is served again at the end of the block
+
+# --- Response -------------------------------------------------------------------------
+same_key: j               # ASSUMED (not in the paper): key letter; the paper's right-hand lever meant "same" (p. 702), so the right-hand key J
+different_key: f          # ASSUMED (not in the paper): key letter; the left-hand lever meant "different" (p. 702), so the left-hand key F
+
+# --- Objects and drawings (the stimulus bank) ------------------------------------------
+objects:
+  n_cubes: 10             # paper: p. 702 (ten solid cubes attached face-to-face)
+  n_elbows: 3             # paper: p. 702 (exactly three right-angled elbows)
+  shapes_per_set: 5       # paper: p. 702 (two subsets of five, each the mirror images of the other)
+  min_run: 2              # ASSUMED (not in the paper): every straight run of the arm spans at least 2 cube steps, so the elbows read as an arm
+  shape_seed: 1971        # ASSUMED (not in the paper): which five of the qualifying shapes are used (the originals cannot be reproduced; seeded pick)
+  n_views: 18             # paper: p. 702 (18 perspective projections per object)
+  view_step_deg: 20.0     # paper: p. 702 (one complete turn about the vertical axis in 20 deg steps)
+  view_offset_deg: 10.0   # ASSUMED (not in the paper): azimuth of the first of the 18 views relative to the object's cube faces
+  elevation_deg: 25.0     # ASSUMED (not in the paper): camera elevation above the horizontal (the drawings look down on the objects)
+  camera_distance: 25.0   # ASSUMED (not in the paper): camera distance in cube edges, a mild perspective
+  views_per_object: 7     # paper: p. 702 (seven of the 18 views selected, 70 drawings)
+  min_visible_fraction: 0.2  # ASSUMED (not in the paper): the occlusion rule made numeric; a view qualifies only if every cube shows at least 20% of its unoccluded front-face area
+  exclude_face_on: true   # ASSUMED (not in the paper): views straight onto the cube faces (azimuth 90 or 270) are not used
+  image_px: 512           # bank resolution (pixels across one aperture); a rendering setting
+  supersample: 3          # anti-aliasing factor of the rasterizer; a rendering setting
+
+# --- Design ---------------------------------------------------------------------------
+design:
+  seed: 1971                    # seeds the unique pairs and, with the subject id, the blocks
+  angle_step_deg: 20.0          # paper: p. 702 (ten angular differences from 0 to 180 deg in 20 deg steps)
+  max_angle_deg: 180.0          # paper: p. 702
+  pairs_per_object_per_angle: 2 # ASSUMED (not in the paper): 20 unique pairs per type and angle (paper) made as 2 per object x 10 objects
+  presentations: 2              # paper: p. 702 (each unique pair presented twice)
+  block_size: 200               # paper: p. 702 (blocks of not more than 200)
+  pure_blocks_per_type: 2       # ASSUMED (not in the paper): 2 pure-depth, 2 pure-picture-plane and 4 mixed blocks; each unique pair once in a pure and once in a mixed block
+  n_sessions: 8                 # ASSUMED (not in the paper): one 200-trial block per session, 8 sessions (paper: eight to ten one-hour sessions)
+  rehearsal_trials: 20          # rehearsal only: one trial from each of 20 cells of rotation x kind x angle
+
+# --- Simulated subject (--mode simulate only; not part of the paradigm) -----------------
+simulated_subject:
+  intercept_s: 0.3         # a fast simulated subject, so the rehearsal takes under a minute
+  rate_deg_per_s: 600.0    # ten times the paper's rate: the slope still has the paper's sign and linearity
+  different_mean_s: 0.6
+  rt_log_sd: 0.25
+  error_rate_at_0: 0.01
+  error_rate_at_180: 0.055
+
+paradigm:
+  kind: sequence
+  n_per_condition: 1       # each trial of the plan is its own condition, served once
+  shuffle: false           # the design module already fixes the order
