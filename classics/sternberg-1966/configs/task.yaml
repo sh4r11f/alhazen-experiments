@@ -12,7 +12,7 @@ set_sizes: [1, 2, 3, 4, 5, 6]     # paper: p. 652 ("from one to six different di
 item_duration: {ms: 1200}         # paper: p. 652 ("for 1.2 seconds each")
 item_gap: {ms: 0}                 # ASSUMED (not in the paper): no blank between digits is described
 delay: {ms: 2000}                 # paper: p. 652 ("a 2.0-second delay")
-digit_height_dva: 1.5             # ASSUMED (not in the paper): the display is not described; legible at a glance
+digit_height_dva: 1.5             # ASSUMED (not in the paper): the display is not described; font size (PsychoPy text height), digits ~0.73 of it
 digit_color: [1.0, 1.0, 1.0]      # ASSUMED (not in the paper): white digits on the rig's mid-grey background
 
 # The warning signal, then the test digit.

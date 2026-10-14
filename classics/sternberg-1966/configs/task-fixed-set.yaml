@@ -11,7 +11,7 @@ subject_kind: human
 
 part_order: null                  # ASSUMED (not in the paper): order of the s = 1, 2, 4 parts not stated; null = random per session, or list them to counterbalance
 
-digit_height_dva: 1.5             # ASSUMED (not in the paper): the display is not described; legible at a glance
+digit_height_dva: 1.5             # ASSUMED (not in the paper): the display is not described; font size (PsychoPy text height), digits ~0.73 of it
 digit_color: [1.0, 1.0, 1.0]      # ASSUMED (not in the paper): white digits on the rig's mid-grey background
 announcement_text: "Your digits for this part:"  # ASSUMED (not in the paper): the set was "announced"; how is not stated (shown on screen here)
 announcement_hint: "Press SPACE to start"         # ASSUMED (not in the paper): see announcement_text

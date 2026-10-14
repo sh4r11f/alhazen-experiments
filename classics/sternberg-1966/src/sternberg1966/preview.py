@@ -23,7 +23,6 @@ from matplotlib.textpath import TextPath  # noqa: E402
 from sternberg1966.task import PROJECT, VariedSetParams  # noqa: E402
 
 VIEW_W, VIEW_H = 20.0, 11.25  # each panel shows this much of the screen, in dva
-DIGIT_CAP = 0.73  # a digit's height as a fraction of the font size (DejaVu Sans Mono)
 BACKGROUND = "#808080"  # the rig's mid-grey (PsychoPy rgb 0, 0, 0)
 
 
@@ -33,7 +32,8 @@ def _rgb(color: tuple[float, float, float]) -> tuple[float, float, float]:
 
 
 def _text(ax, text: str, height_dva: float, color, x0: float, y0: float) -> None:
-    path = TextPath((0, 0), text, size=height_dva / DIGIT_CAP, prop={"family": "DejaVu Sans Mono"})
+    # PsychoPy's TextStim height is the font size (em), as here; a digit is ~0.73 of it.
+    path = TextPath((0, 0), text, size=height_dva, prop={"family": "DejaVu Sans Mono"})
     box = path.get_extents()
     shifted = path.transformed(
         matplotlib.transforms.Affine2D().translate(x0 - box.x0 - box.width / 2,
@@ -55,7 +55,7 @@ def render(out: Path, params_file: Path | None = None) -> Path:
         ("", f"feedback light\n{p.feedback_duration.ms / 1000:g} s", "lamp"),
         ("381", "recall in order\ntyped, then Enter", "recall"),
     ]
-    fig, axes = plt.subplots(2, 4, figsize=(12, 5.4), dpi=100)
+    fig, axes = plt.subplots(2, 4, figsize=(12, 6.0), dpi=100)
     fig.patch.set_facecolor("white")
     for ax, (text, label, kind) in zip(axes.flat, panels, strict=True):
         ax.add_patch(Rectangle((-VIEW_W / 2, -VIEW_H / 2), VIEW_W, VIEW_H, facecolor=BACKGROUND,
@@ -78,10 +78,10 @@ def render(out: Path, params_file: Path | None = None) -> Path:
         ax.set_xlabel(label, fontsize=11, color="#222222", labelpad=6)
     fig.suptitle("Sternberg (1966), experiment 1: one trial with s = 3 and a positive test digit",
                  fontsize=13, color="#111111")
-    fig.text(0.5, 0.015, f"digits {p.digit_height_dva:g} dva tall; panels show "
+    fig.text(0.5, 0.015, f"text height (font size) {p.digit_height_dva:g} dva; panels show "
              f"{VIEW_W:g} x {VIEW_H:g} dva of the screen; values from configs/task.yaml",
              ha="center", fontsize=9, color="#555555")
-    fig.tight_layout(rect=(0, 0.03, 1, 0.95))
+    fig.tight_layout(rect=(0, 0.03, 1, 0.95), h_pad=2.5)
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, facecolor=fig.get_facecolor())
     plt.close(fig)
