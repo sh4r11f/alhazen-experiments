@@ -55,13 +55,14 @@ def test_three_errors_on_one_direction_start_correction_trials_until_it_is_chose
                               after_errors=3, coherences_pct=[0.0, 6.4, 12.8], coherence_pct=None,
                               rng=np.random.default_rng(3))
     log = []
-    wrong_corrections = 2
+    corrections_left_wrong = 2
     while (c := source.next()) is not None:
+        assert len(log) < 100
         p = c.params
         log.append((p["direction"], p["correction"]))
         if p["correction"]:
-            result = WRONG if wrong_corrections else CORRECT
-            wrong_corrections -= 1 if not p.get("_") else 0
+            result = WRONG if corrections_left_wrong > 0 else CORRECT
+            corrections_left_wrong -= 1
         else:
             result = WRONG if p["direction"] == "pref" else CORRECT
         source.record(c, result)
@@ -71,7 +72,6 @@ def test_three_errors_on_one_direction_start_correction_trials_until_it_is_chose
     assert log[6:9] == [("pref", False)] * 3
     # the planned trials were all served despite the corrections
     assert sum(1 for _, corr in log if not corr) == 10
-    assert all(c > 0 for c in [6.4, 12.8])
 
 
 def test_zero_correlation_errors_do_not_count_toward_a_streak():

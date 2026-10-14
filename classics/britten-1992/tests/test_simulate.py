@@ -1,30 +1,47 @@
-"""One simulated session end to end, headless, as `--mode simulate` runs it."""
+"""One simulated session of each parameter set, end to end, as `--mode simulate` runs it."""
 
 from __future__ import annotations
 
-import subprocess
-import sys
-from pathlib import Path
+import json
 
 import pandas as pd
 
-PROJECT = Path(__file__).resolve().parents[1]
+
+def trials(run):
+    return pd.read_csv(next(run.glob("*_trials.csv")), keep_default_na=False, na_values=[""])
 
 
-def test_a_simulated_session_runs_and_writes_trials(tmp_path):
-    rig = tmp_path / "rig-sim.yaml"
-    rig.write_text(
-        "monitor: {name: sim, width_px: 1920, height_px: 1080, width_cm: 53.0, distance_cm: 57.0,"
-        " refresh_rate_hz: 60.0, fullscreen: false}\n"
-        "display: {backend: simulated}\n"
-        f"devices: {{}}\ndata_root: {tmp_path / 'data'}\nreal_data: false\n",
-        encoding="utf-8")
-    cmd = [sys.executable, str(PROJECT / "run.py"), "--task", "rdk-direction",
-           "--mode", "simulate", "--headless",
-           "--rig", str(rig), "--sub", "sim", "--ses", "1", "--seed", "1"]
-    done = subprocess.run(cmd, cwd=PROJECT, capture_output=True, text=True, timeout=900)
-    assert done.returncode == 0, done.stdout[-3000:] + done.stderr[-3000:]
-    trials = list((tmp_path).rglob("*_trials.csv"))
-    assert trials, "no trials.csv written"
-    df = pd.read_csv(trials[0])
-    assert len(df) > 0
+def test_the_human_session_serves_every_cell_and_records_the_answers(simulated_runs):
+    df = trials(simulated_runs["human"])
+    done = df[df["completed"]]
+    assert len(done) == 16  # reduced to one trial per cell
+    assert set(zip(done["direction"], done["coherence_pct"])) == {
+        (d, c) for d in ("pref", "anti") for c in (0.0, 0.8, 1.6, 3.2, 6.4, 12.8, 25.6, 51.2)}
+    assert set(done["outcome"]) <= {"CORRECT", "WRONG"}
+    assert done["rt_ms"].gt(0).all()
+    assert set(done["choice"]) <= {"pref", "anti"}
+    assert (df["subject_kind"] == "human").all()
+
+
+def test_the_monkey_session_is_paid_and_saccades_land_on_a_target(simulated_runs):
+    df = trials(simulated_runs["monkey"])
+    done = df[df["completed"] & ~df["correction"]]
+    assert len(done) == 16
+    correct = done[done["outcome"] == "CORRECT"]
+    assert correct["rewarded"].astype(str).str.lower().eq("true").all()
+    assert done["endpoint_measured"].all()
+    assert (done["endpoint_x_dva"].abs() > 7).all()  # targets are 10 deg either side
+    assert (df["subject_kind"] == "monkey").all()
+
+
+def test_each_trial_records_the_seed_that_replays_its_dots(simulated_runs):
+    for run in simulated_runs.values():
+        df = trials(run)
+        assert df["stimulus_seed"].nunique() == len(df)
+        assert df["signal_dt_ms"].eq(50.0).all()  # 45 ms at 60 Hz
+
+
+def test_the_session_record_says_who_and_what_was_simulated(simulated_runs):
+    for kind, run in simulated_runs.items():
+        session = json.loads((run / "session.json").read_text(encoding="utf-8"))
+        assert kind in json.dumps(session)
