@@ -24,7 +24,7 @@ from alhazen.paradigms.config import SchedulerConfig
 from pydantic import Field, model_validator
 
 from cavanagh1992.adjust import AdjustParams, AdjustTask, Knob, field_scene
-from cavanagh1992.common import SETTING_COLUMN, PROJECT, log_uniform, random_phase
+from cavanagh1992.common import PROJECT, SETTING_COLUMN, log_uniform, random_phase
 from cavanagh1992.scene import Component, Ring
 
 
@@ -39,7 +39,8 @@ class EquiluminanceParams(AdjustParams):
         lo, hi = self.k_limits
         a, b = self.k_start_range
         if not 0 < lo <= a < b <= hi:
-            raise ValueError("need 0 < k_limits[0] <= k_start_range[0] < k_start_range[1] <= k_limits[1]")
+            raise ValueError("need 0 < k_limits[0] <= k_start_range[0] < k_start_range[1] "
+                             "<= k_limits[1]")
         return self
 
 

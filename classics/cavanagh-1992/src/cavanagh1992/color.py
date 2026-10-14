@@ -110,7 +110,8 @@ class ColorModel:
         red, green = self.luminances(lum, col)
         r = red / self.red_max_cd_m2
         g = green / self.green_max_cd_m2
-        lo, hi = min(r.min(initial=0.0), g.min(initial=0.0)), max(r.max(initial=0.0), g.max(initial=0.0))
+        lo = min(r.min(initial=0.0), g.min(initial=0.0))
+        hi = max(r.max(initial=0.0), g.max(initial=0.0))
         if lo < -1e-9 or hi > 1.0 + 1e-9:
             raise ValueError(
                 f"the stimulus needs gun levels from {lo:.3f} to {hi:.3f} (allowed 0..1): this "
@@ -162,7 +163,8 @@ class EquiluminanceChoice(Model):
         if self.source not in ("calibration", "fixed", "photometric"):
             raise ValueError("equiluminance.source must be calibration, fixed or photometric")
         if self.method not in ("equiluminance-speed", "flicker-photometry"):
-            raise ValueError("equiluminance.method must be equiluminance-speed or flicker-photometry")
+            raise ValueError(
+                "equiluminance.method must be equiluminance-speed or flicker-photometry")
         if self.source == "fixed" and self.green_red_ratio is None:
             raise ValueError("equiluminance.source fixed needs green_red_ratio")
         if self.green_red_ratio is not None and not 0.2 <= self.green_red_ratio <= 5.0:

@@ -2,7 +2,8 @@
 
     uv run python run.py --task equiluminance-speed --rig booth --sub s01 --ses 1 --initials AB
     uv run python run.py --task attentive-tracking --rig booth --sub s01 --ses 1 --initials AB
-    uv run python run.py --task attentive-tracking --mode simulate --headless --sub sim --ses 1 --seed 1
+    uv run python run.py --task attentive-tracking --mode simulate --headless \
+        --sub sim --ses 1 --seed 1
     uv run python run.py --task attentive-tracking --mode demo
     uv run alhazen dashboard --project .
 

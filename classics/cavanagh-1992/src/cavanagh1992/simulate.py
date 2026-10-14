@@ -103,7 +103,8 @@ class SimulatedObserver:
 
     def poll(self) -> ResponseSample:
         now = time.monotonic()
-        if self._answer is not None and self._cue_at is not None and now - self._cue_at >= self._delay:
+        answer_due = self._cue_at is not None and now - self._cue_at >= self._delay
+        if self._answer is not None and answer_due:
             key, self._answer, self._cue_at = self._answer, None, None
             return ResponseSample(keys=(key,))
         knob = self._knob

@@ -64,8 +64,9 @@ def test_a_rehearsal_reads_the_rehearsal_root_not_the_real_one(tmp_path):
     rig = sim_rig(tmp_path)
     write_run(tmp_path / "data", "s01", 1, 1, [("SET", 0.8)])
     write_run(tmp_path / "data-rehearsal", "s01", 1, 1, [("SET", 1.3)])
-    assert AttentiveTrackingTask.params_hook(params(), args(rig, "simulate")).k() == pytest.approx(1.3)
-    assert AttentiveTrackingTask.params_hook(params(), args(rig, "run")).k() == pytest.approx(0.8)
+    hook = AttentiveTrackingTask.params_hook
+    assert hook(params(), args(rig, "simulate")).k() == pytest.approx(1.3)
+    assert hook(params(), args(rig, "run")).k() == pytest.approx(0.8)
 
 
 def test_the_flicker_method_reads_flicker_runs(tmp_path):

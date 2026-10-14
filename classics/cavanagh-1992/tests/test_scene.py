@@ -66,9 +66,9 @@ def test_the_raster_shows_a_red_bar_at_its_angle_and_a_black_pointer():
     assert at(0, 6)[0] > mean[0] and at(0, 6)[1] < mean[1]          # red bar at 0 deg
     assert at(22.5, 6)[0] < mean[0] and at(22.5, 6)[1] > mean[1]    # green bar between
     assert np.allclose(at(45, 2.6), 0.0) and np.allclose(at(225, 2.6), 0.0)
-    assert np.allclose(at(135, 2.6), mean)
+    assert np.allclose(at(135, 2.6), mean, atol=1e-4)  # 16-bit levels
     assert np.allclose(at(0, 0), 1.0)                                # white centre
-    assert np.allclose(img[0, 0], mean)                              # the field, a corner
+    assert np.allclose(img[0, 0], mean, atol=1e-4)                            # the field, a corner
 
 
 def test_the_pointer_keeps_its_bar_when_the_phase_passes_a_full_cycle():

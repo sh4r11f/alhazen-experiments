@@ -155,8 +155,18 @@ class Scene:
 
 class SceneRaster:
     """Pixels for one ``Scene`` at one pixel scale: a square image centred on the screen
-    centre, ``size_px`` on a side, linear RGB 0..1. Row 0 is the TOP row unless
-    ``bottom_up`` (psychopy's numpy-image convention is bottom-up)."""
+    centre, ``size_px`` on a side, linear RGB 0..1 (float32). Row 0 is the TOP row unless
+    ``bottom_up`` (psychopy's numpy-image convention is bottom-up).
+
+    Built for the frame rate. Every pixel is an entry of one lookup table: a block of
+    ``N_BINS`` angle bins per ring, then the static colours (the mean field, white and
+    black for the bull's-eye). The per-pixel index into it is made once here; each frame
+    recomputes the rings' blocks (a few thousand colours) and gathers the image with one
+    ``np.take`` over RGBA float16 packed as uint64, which is several times faster than a
+    float32 RGB gather. float16 keeps 11 significant bits, more than an 8- or 10-bit
+    display shows. The pointers are then drawn over the few pixels they cover, found by
+    searching the pointer band's pixels sorted by angle.
+    """
 
     N_BINS = 4096
 
@@ -171,40 +181,69 @@ class SceneRaster:
         cols = np.arange(n) - c
         rows = (np.arange(n) - c) if bottom_up else (c - np.arange(n))
         x, y = np.meshgrid(cols, rows)
-        r_deg = np.hypot(x, y) / self.px_per_deg
-        theta = np.mod(np.arctan2(y, x), TWO_PI)
+        flat_r = (np.hypot(x, y) / self.px_per_deg).ravel()
+        flat_theta = np.mod(np.arctan2(y, x), TWO_PI).ravel()
         self._theta_bins = np.linspace(0.0, TWO_PI, self.N_BINS, endpoint=False)
-        bins = np.minimum((theta / TWO_PI * self.N_BINS + 0.5).astype(int), self.N_BINS - 1)
-        flat_r, flat_bins, flat_theta = r_deg.ravel(), bins.ravel(), theta.ravel()
-        self._ring_px = []
-        for ring in scene.rings:
-            idx = np.flatnonzero((flat_r >= ring.inner_dva) & (flat_r < ring.outer_dva))
-            self._ring_px.append((idx, flat_bins[idx]))
+        bins = np.rint(flat_theta / TWO_PI * self.N_BINS).astype(np.intp) % self.N_BINS
+        n_rings = len(scene.rings)
+        mean_i, white_i, black_i = n_rings * self.N_BINS + np.arange(3)
+        index = np.full(n * n, mean_i, dtype=np.intp)
+        for i, ring in enumerate(scene.rings):
+            inside = (flat_r >= ring.inner_dva) & (flat_r < ring.outer_dva)
+            index[inside] = i * self.N_BINS + bins[inside]
+        bull = flat_r < scene.bullseye_radius_dva
+        ring_no = np.floor(flat_r[bull] / scene.bullseye_radius_dva * scene.bullseye_rings)
+        index[bull] = np.where(ring_no % 2 == 0, white_i, black_i)
+        self._index = index
+        self._lut = np.full((n_rings * self.N_BINS + 3, 4), 65535, dtype=np.uint16)  # alpha 1
+        self._packed = np.empty(n * n, dtype=np.uint64)
+        self._rgba = np.empty((n * n, 4), dtype=np.float32)
+        # The pointer band, sorted by angle so a pointer's pixels are one or two slices.
         g = scene.pointer_geometry
         pidx = np.flatnonzero((flat_r >= g.inner_dva) & (flat_r <= g.outer_dva))
-        self._ptr = (pidx, flat_theta[pidx], flat_r[pidx])
-        self._background = np.empty((n * n, 3))
-        self._background[:] = scene.color.mean_rgb()
-        # The bull's-eye: equal-width rings, white at the centre, alternating with black.
-        bidx = np.flatnonzero(flat_r < scene.bullseye_radius_dva)
-        ring_no = np.floor(flat_r[bidx] / scene.bullseye_radius_dva * scene.bullseye_rings)
-        self._bull = (bidx, np.where(ring_no % 2 == 0, 1.0, 0.0))
+        order = np.argsort(flat_theta[pidx], kind="stable")
+        self._ptr_idx = pidx[order]
+        self._ptr_theta = flat_theta[pidx][order]
+        self._ptr_r = flat_r[pidx][order]
+        self._ptr_reach = max(g.width_inner_dva, g.width_outer_dva) / max(g.inner_dva, 1e-6)
 
-    def render(self) -> np.ndarray:
-        out = self._background.copy()
-        for i, (idx, bins) in enumerate(self._ring_px):
-            out[idx] = self.scene.ring_lut(i, self._theta_bins)[bins]
+    def _pointer_pixels(self, angle: float) -> np.ndarray:
+        g = self.scene.pointer_geometry
+        reach = min(self._ptr_reach, math.pi / 2)
+        lo, hi = angle - reach, angle + reach
+        spans = [(lo, hi)]
+        if lo < 0:
+            spans = [(0.0, hi), (lo + TWO_PI, TWO_PI)]
+        elif hi > TWO_PI:
+            spans = [(lo, TWO_PI), (0.0, hi - TWO_PI)]
+        out = []
+        for a, b in spans:
+            i, j = np.searchsorted(self._ptr_theta, [a, b])
+            th, r = self._ptr_theta[i:j], self._ptr_r[i:j]
+            frac = (r - g.inner_dva) / (g.outer_dva - g.inner_dva)
+            half = 0.5 * (g.width_inner_dva + frac * (g.width_outer_dva - g.width_inner_dva))
+            d = np.abs((th - angle + math.pi) % TWO_PI - math.pi)
+            out.append(self._ptr_idx[i:j][np.sin(d) * r <= half])
+        return np.concatenate(out)
+
+    def render_rgba(self) -> np.ndarray:
+        """This frame, RGBA float32 (n, n, 4), alpha 1. The same buffer every call."""
+        nb = self.N_BINS
+        q = np.float64(65535.0)
+        for i in range(len(self.scene.rings)):
+            self._lut[i * nb:(i + 1) * nb, :3] = np.rint(
+                self.scene.ring_lut(i, self._theta_bins) * q)
+        static = [self.scene.color.mean_rgb(), (1.0, 1.0, 1.0), (0.0, 0.0, 0.0)]
+        self._lut[-3:, :3] = np.rint(np.asarray(static) * q)
+        np.take(self._lut.view(np.uint64).ravel(), self._index, out=self._packed)
+        np.multiply(self._packed.view(np.uint16).reshape(-1, 4), np.float32(1.0 / 65535.0),
+                    out=self._rgba, casting="unsafe")
         angles = self.scene.pointer_angles()
         if angles is not None:
-            idx, th, r = self._ptr
-            g = self.scene.pointer_geometry
-            frac = (r - g.inner_dva) / (g.outer_dva - g.inner_dva)
-            half_width = 0.5 * (g.width_inner_dva + frac * (g.width_outer_dva - g.width_inner_dva))
-            hit = np.zeros(idx.shape, dtype=bool)
             for a in angles:
-                d = np.abs((th - a + math.pi) % TWO_PI - math.pi)
-                hit |= (d < math.pi / 2) & (np.sin(d) * r <= half_width)
-            out[idx[hit]] = 0.0
-        bidx, level = self._bull
-        out[bidx] = level[:, None]
-        return out.reshape(self.size_px, self.size_px, 3)
+                self._rgba[self._pointer_pixels(a), :3] = 0.0
+        return self._rgba.reshape(self.size_px, self.size_px, 4)
+
+    def render(self) -> np.ndarray:
+        """This frame, linear RGB (n, n, 3): a view of ``render_rgba``'s buffer."""
+        return self.render_rgba()[..., :3]
