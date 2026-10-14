@@ -1,0 +1,71 @@
+# Attentional blink: Raymond, Shapiro & Arnell (1992), Experiment 2 (human).
+#
+# Every key is validated against AttentionalBlinkParams: a typo fails at load.
+# "# paper: p. N" cites the page (JEP:HPP 18(3), journal page numbers) that states the
+# value. "# ASSUMED (not in the paper): <reason>" marks a value the paper does not state;
+# each is listed with its reason in docs/methods.md, "Assumed, not in the paper", and
+# under "assumed" in docs/experiment.json. An assumed value is never the paper's.
+subject_kind: human
+
+# --- Geometry (degrees of visual angle; the viewing distance is the rig file's) ---
+letter_height_dva: 0.82      # paper: p. 852 ("0.82° in height and approximately the same width")
+field_width_dva: 16.3        # paper: p. 851 (uniform gray field 16.3° x 12.5°)
+field_height_dva: 12.5       # paper: p. 851
+fixation_dot_dva: 0.15       # ASSUMED (not in the paper): "a small white fixation dot", size not given
+prompt_height_dva: 0.5       # ASSUMED (not in the paper): responses were spoken; on-screen prompts are ours
+
+# --- Luminance (cd/m²). Drawn on a gamma-corrected display (alhazen calibrate gamma)
+# as a fraction of display_white_cd_m2, black = 0. ---
+field_cd_m2: 9.1             # paper: p. 851 (gray field 9.1 cd/m²)
+target_cd_m2: 32.9           # paper: p. 852 (white target 32.9 cd/m²)
+letters_cd_m2: 0.0           # ASSUMED (not in the paper): letters "appeared black"; no luminance given, drawn at the display's black
+fixation_cd_m2: 32.9         # ASSUMED (not in the paper): the dot is "white"; given the target's white
+surround_cd_m2: 0.0          # ASSUMED (not in the paper): the field was 16.3° x 12.5°, what lay outside it is not described
+prompt_cd_m2: 0.0            # ASSUMED (not in the paper): prompt text colour (black, like the letters)
+display_white_cd_m2: 32.9    # ASSUMED (not in the paper): YOUR display's measured white; 32.9 draws the target at full white and the field at the paper's 9.1/32.9 ratio
+
+# --- Timing (resolved to whole frames at the measured refresh rate; see docs/methods.md) ---
+fixation_duration: {ms: 180} # paper: p. 852 ("a 180-ms presentation of a small white fixation dot")
+fixation_gap: {ms: 0}        # ASSUMED (not in the paper): interval between the dot and the first letter not given
+letter_duration: {ms: 15}    # paper: p. 851 ("Each letter was presented for 15 ms")
+isi: {ms: 75}                # paper: p. 851 ("interstimulus interval (ISI) of 75 ms", 11.11 letters/s)
+max_letter_error_ms: 5.0     # ASSUMED (not in the paper): tolerance on the realised letter duration
+max_soa_error_ms: 2.0        # ASSUMED (not in the paper): tolerance on the realised 90 ms SOA
+on_inexact_timing: refuse    # ASSUMED (not in the paper): run mode refuses a refresh rate outside the tolerances
+
+# --- Stream ---
+pretarget_min: 7             # paper: p. 852 ("varied between 7 and 15")
+pretarget_max: 15            # paper: p. 852
+posttarget_items: 8          # paper: p. 852 ("Eight letters always succeeded the target")
+
+# --- Design (per condition) ---
+probe_positions: [0, 1, 2, 3, 4, 5, 6, 7, 8]  # paper: p. 853 ("one of Serial positions 0-+8")
+trials_per_probe_position: 10  # paper: p. 853 ("10 times at each of the possible serial positions")
+probe_absent_trials: 90      # paper: p. 853 (180 trials, half without an X)
+trials_between_rests: 60     # paper: p. 853 ("One-minute rest breaks were given every 60 trials")
+practice_trials: 10          # paper: p. 853 ("10 practice trials in each condition")
+practice_probe_present: 5    # ASSUMED (not in the paper): practice-trial composition not given; half with an X
+condition_order: by-subject  # ASSUMED (not in the paper): "counterbalanced" (p. 853); odd subject number = experimental first
+
+# --- Responses (spoken to an experimenter in the paper; typed here, see Deviations) ---
+probe_yes_key: y             # ASSUMED (not in the paper): key for "X present"
+probe_no_key: n              # ASSUMED (not in the paper): key for "X absent"
+response_timeout: {ms: 30000}  # ASSUMED (not in the paper): no deadline is described; an unanswered trial is served again
+ready_timeout: {ms: 600000}  # ASSUMED (not in the paper): trials were subject-initiated with no limit; 10 min, then served again
+screens:                     # ASSUMED (not in the paper): the paper gives no on-screen wording
+  intro_experimental: |-
+    Next: name the WHITE letter, then say whether there was a black X.
+
+    After each stream, type the white letter, then press Y if you saw an X or N if you did not.
+
+    Press SPACE to start a trial.
+  intro_control: |-
+    Next: IGNORE the white letter. Only say whether there was a black X.
+
+    After each stream, press Y if you saw an X or N if you did not.
+
+    Press SPACE to start a trial.
+  ready_experimental: "White letter, then X?   SPACE to start"
+  ready_control: "Ignore the white letter. X?   SPACE to start"
+  target_prompt: "Type the white letter"
+  probe_prompt: "Was there an X?   Y = yes   N = no"
