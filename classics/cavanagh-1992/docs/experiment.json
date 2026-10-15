@@ -8,6 +8,11 @@
     "Cavanagh, P. (1992). Attention-based motion perception. Science, 257(5076), 1563-1565. https://doi.org/10.1126/science.1523411",
     "Cavanagh, P., Tyler, C. W., & Favreau, O. E. (1984). Perceived velocity of moving chromatic gratings. JOSA A, 1(8), 893-899."
   ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
   "deviations": [
     {
       "item": "Display",

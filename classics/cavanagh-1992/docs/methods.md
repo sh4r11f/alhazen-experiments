@@ -229,3 +229,8 @@ replication of the original result.
 - Cavanagh, P., Tyler, C. W., & Favreau, O. E. (1984). Perceived velocity of moving chromatic
   gratings. *Journal of the Optical Society of America A*, 1(8), 893–899 (the minimum-speed
   equiluminance criterion, the paper's note 10).
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).
