@@ -195,3 +195,8 @@ the original result.
   Experimental Psychology: General, 121*(1), 15–23. (Reprint; the copy read.)
 - MacLeod, C. M. (1991). Half a century of research on the Stroop effect: An integrative
   review. *Psychological Bulletin, 109*(2), 163–203.
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).

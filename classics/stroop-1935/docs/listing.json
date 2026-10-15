@@ -41,7 +41,7 @@
   "assets": [
     {
       "path": "docs/preview.png",
-      "licence": "MIT",
+      "licence": "CC-BY-4.0",
       "source": "drawn by src/stroop1935/preview.py from configs/task.yaml"
     }
   ],

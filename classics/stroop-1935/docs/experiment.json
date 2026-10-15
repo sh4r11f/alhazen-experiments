@@ -9,6 +9,11 @@
     "Stroop, J. R. (1992). Studies of interference in serial verbal reactions. Journal of Experimental Psychology: General, 121(1), 15–23 (reprint of the 1935 article, public domain).",
     "MacLeod, C. M. (1991). Half a century of research on the Stroop effect: An integrative review. Psychological Bulletin, 109(2), 163–203."
   ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
   "deviations": [
     {
       "item": "Response",
