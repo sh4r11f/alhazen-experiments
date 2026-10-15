@@ -1,0 +1,29 @@
+# A behavioural booth: a display and a keyboard, no other devices. EXAMPLE GEOMETRY ONLY.
+# Measure your own panel and viewing distance and enter them here before a real session;
+# `uv run alhazen calibrate ruler --rig booth` checks them with a tape measure and
+# `uv run alhazen calibrate gamma --rig booth` linearises luminance (configs/task.yaml
+# draws its cd/m² values on a gamma-corrected display; enter the measured white there).
+#
+# The paper viewed an Apple 13-in monitor from 35 cm with a chinrest (p. 851). Its timing,
+# 15 ms letters with 75 ms gaps, needs a refresh rate that fits it: 100, 120, 144, 200 or
+# 240 Hz pass the task's tolerances; 60 Hz does not (docs/methods.md, Apparatus).
+monitor:
+  name: booth
+  width_px: 1920
+  height_px: 1080
+  width_cm: 53.0
+  distance_cm: 35.0          # the paper's viewing distance; use a chinrest
+  refresh_rate_hz: 120.0
+  fullscreen: true
+display:
+  backend: psychopy
+  frame_qa:
+    policy: recycle_trial
+    max_dropped_fraction: 0.0  # one dropped frame changes a 15 ms letter: re-serve the trial
+live_monitor:
+  enabled: true
+  auto_open: true
+  port: 0
+devices: {}
+data_root: data
+real_data: true

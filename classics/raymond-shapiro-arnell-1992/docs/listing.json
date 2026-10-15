@@ -1,0 +1,51 @@
+{
+  "status": "original-protocol",
+  "status_reason": "The design, stimuli, timing, trial counts and the paper's measure are Experiment 2's as published; the changes (typed instead of spoken reports, a keyboard start, whole-frame timing, self-paced rests) are listed as deviations and do not change what is measured.",
+  "collection": "classics",
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
+  "original": {
+    "citation": "Raymond, J. E., Shapiro, K. L., & Arnell, K. M. (1992). Temporary suppression of visual processing in an RSVP task: An attentional blink? Journal of Experimental Psychology: Human Perception and Performance, 18(3), 849-860.",
+    "year": 1992,
+    "doi": "10.1037/0096-1523.18.3.849",
+    "url": "https://psych.hanover.edu/classes/cognition/papers/raymond%20et%20al%201992%20attn%20blink.pdf",
+    "experiments": "Experiment 2 (target identification with probe detection, and the ignore-target control)"
+  },
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": false,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human"
+  ],
+  "category": "attention",
+  "tags": [
+    "attentional blink",
+    "RSVP",
+    "temporal attention",
+    "dual task",
+    "letters"
+  ],
+  "art": "docs/preview.png",
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "CC-BY-4.0"
+    },
+    {
+      "path": "letter glyphs (rendered at run time)",
+      "licence": "Bitstream Vera / DejaVu font licence (third-party; not shipped in this folder)",
+      "credit": "DejaVu fonts (dejavu-fonts.github.io), based on Bitstream Vera; read from matplotlib's bundled copy at run time"
+    }
+  ],
+  "notes": "Needs a display at 100, 120, 144, 200 or 240 Hz for the paper's timing (60 Hz is refused in run mode), and a gamma-corrected display whose white luminance is entered in configs/task.yaml. Software-verified only; no participant data."
+}
