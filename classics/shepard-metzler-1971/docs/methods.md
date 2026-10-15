@@ -242,3 +242,8 @@ replication of the original result.
   *Science, 171*(3972), 701–703. doi:10.1126/science.171.3972.701
 - Noll, A. M. (1965). *Computers and Automation, 14*, 20 (the projection program, as cited
   in the paper's note 1).
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).

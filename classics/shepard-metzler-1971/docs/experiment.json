@@ -7,6 +7,11 @@
   "references": [
     "Shepard, R. N., & Metzler, J. (1971). Mental rotation of three-dimensional objects. Science, 171(3972), 701-703. doi:10.1126/science.171.3972.701"
   ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
   "deviations": [
     {
       "item": "Apparatus",
