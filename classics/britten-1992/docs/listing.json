@@ -44,7 +44,7 @@
   "assets": [
     {
       "path": "docs/preview.png",
-      "licence": "MIT (drawn by src/britten1992/preview.py from the params files)"
+      "licence": "CC-BY-4.0"
     }
   ],
   "notes": "Keyboard: human set only. Eye tracker and reward: monkey set only. Recording is optional and not provided: configs/rig-recording-example.yaml shows the sync lines and recording block a lab adds for the neurometric half. No participant data: tests and simulated sessions verify the software only."

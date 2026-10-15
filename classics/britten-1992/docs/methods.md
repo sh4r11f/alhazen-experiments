@@ -256,3 +256,8 @@ animal data and claims no replication of the paper's results.
   65-67 (the Weibull form of Eq. 1, as cited by the paper).
 - Green, D. M., & Swets, J. A. (1966). *Signal detection theory and psychophysics*. Wiley
   (ROC area as two-alternative forced-choice performance, as cited by the paper).
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).

@@ -154,3 +154,8 @@ def test_the_simulated_subjects_follow_the_papers_weibull():
     assert p_correct(0.0, 10.0, 1.2) == 0.5
     assert p_correct(10.0, 10.0, 1.2) == pytest.approx(1 - 0.5 * math.exp(-1))
     assert p_correct(100.0, 10.0, 1.2, lapse=0.02) == pytest.approx(0.99, abs=1e-3)
+
+
+def test_the_licence_block_is_the_repositorys():
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    assert doc["license"] == {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}
