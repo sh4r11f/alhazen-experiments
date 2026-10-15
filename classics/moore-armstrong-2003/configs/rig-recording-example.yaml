@@ -1,0 +1,68 @@
+# AN EXAMPLE recording-and-stimulation rig for this experiment. EXAMPLE GEOMETRY AND
+# WIRING ONLY: measure your own panel and viewing distance, and wire your own lines,
+# before a real session. `uv run alhazen validate --rig recording-example` loads it;
+# `uv run alhazen check-rig --rig recording-example --pulse` pulses every mapped line
+# (WITH THE STIMULATOR DISCONNECTED OR DISARMED: STIM_TRIGGER triggers it).
+#
+# The monitor copies the paper's (p. 373): 40 cm wide, 30 cm tall, 57 cm away, 60 Hz.
+# Its resolution is not in the paper (ASSUMED below).
+#
+# What the paper used and this file does not: eye position from a scleral search coil
+# sampled at 200 Hz (p. 373). alhazen reads a video tracker; an EyeLink at its default
+# host address is the example here (docs/methods.md, deviations).
+#
+# The stimulation train (200 Hz, biphasic, 0.2-ms pulses, the site's current; p. 373) is
+# made by the lab's stimulator and isolator, never by alhazen: alhazen sends ONE TTL edge
+# on STIM_TRIGGER, on the display flip that marks the drawn trigger time, and the
+# stimulator plays its programmed train from that edge. Wire the STIM_TRIGGER line to the
+# stimulator's trigger input AND (through a T) to a digital input of the recording system,
+# so the recording holds the exact moment of every train.
+#
+# Sync lines for the recording system (a neural recording aligned offline with alhazen's
+# align_run, which fits the clocks on the most frequent wired event, TRIAL_START here):
+#   TRIAL_START   every trial, the alignment train
+#   VIS_ON        the bars appear (the paper's visual onset)
+#   STIM_TRIGGER  stimulation trials: the train starts (also the stimulator's trigger)
+#   CONTROL_MARK  control trials: the same moment, no stimulation (recorder only)
+monitor:
+  name: recording-example
+  width_px: 1024                         # ASSUMED (not in the paper): a 4:3 resolution for the paper's 40 x 30 cm monitor
+  height_px: 768                         # ASSUMED (not in the paper): a 4:3 resolution for the paper's 40 x 30 cm monitor
+  width_cm: 40.0                         # paper: p. 373
+  distance_cm: 57.0                      # paper: p. 373
+  refresh_rate_hz: 60.0                  # paper: p. 373
+  fullscreen: true
+display:
+  backend: psychopy
+  frame_qa:
+    policy: recycle_trial
+    max_dropped_fraction: 0.10
+  photodiode:
+    corner: br
+    size_px: 40
+    events: [VIS_ON]
+live_monitor:
+  enabled: true
+  auto_open: true
+  port: 0
+devices:
+  eyetracker:
+    backend: eyelink
+    host_ip: 100.1.1.1
+    edf_host_filename: ma2003.EDF
+    calibration_type: HV9
+  reward:
+    backend: nidaq
+    device: Dev1
+    channel: ao0
+    voltage: 5.0
+  sync:
+    backend: nidaq
+    pulse_ms: 2.0
+    event_lines:
+      TRIAL_START: Dev1/port0/line0
+      VIS_ON: Dev1/port0/line1
+      STIM_TRIGGER: Dev1/port0/line2
+      CONTROL_MARK: Dev1/port0/line3
+data_root: data
+real_data: true
