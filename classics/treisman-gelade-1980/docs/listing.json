@@ -1,0 +1,48 @@
+{
+  "status": "original-protocol",
+  "status_reason": "The paper's design for Experiments I and II is kept: the targets and distractors, display sizes (1, 5, 15, 30 scattered; 1, 4, 16, 36 in matrices), field and matrix geometry, target-placement rules, 1-s fixation, response mapping, feedback, error repetition with dummy trials, and Experiment I's 16 positive and 16 negative trials per display size per block. Changes are to apparatus and presentation (monitor instead of tachistoscope and ink cards, subject-started trials, on-screen feedback), listed as deviations; everything the paper leaves open, including the ink colours, is listed as assumed.",
+  "collection": "classics",
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
+  "original": {
+    "citation": "Treisman, A. M., & Gelade, G. (1980). A feature-integration theory of attention. Cognitive Psychology, 12(1), 97-136.",
+    "year": 1980,
+    "doi": "10.1016/0010-0285(80)90005-5",
+    "url": "https://doi.org/10.1016/0010-0285(80)90005-5",
+    "experiments": "Experiment I (feature vs conjunction search, scattered displays of 1, 5, 15, 30 items) and Experiment II (easy vs difficult conjunction search, matrices of 1, 4, 16, 36 items)"
+  },
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": false,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human"
+  ],
+  "category": "attention",
+  "tags": [
+    "visual search",
+    "feature integration",
+    "conjunction search",
+    "set size",
+    "reaction time",
+    "serial search"
+  ],
+  "art": "docs/preview.png",
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "what": "Stimulus preview drawn by src/treisman_gelade1980/preview.py from the shipped parameters",
+      "licence": "CC-BY-4.0"
+    }
+  ],
+  "notes": "One run is one block of one condition. Software-verified only (tests and simulated sessions); no participant data."
+}
