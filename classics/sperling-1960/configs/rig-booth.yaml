@@ -1,0 +1,29 @@
+# A behavioural booth: a display, a keyboard, no other devices. EXAMPLE GEOMETRY ONLY.
+# Measure your own panel and viewing distance and enter them here before a real session;
+# `uv run alhazen calibrate ruler --rig booth` checks them with a tape measure.
+# Add devices (eyetracker, reward, sync) inside `devices:` as alhazen's docs/rigs.md shows.
+# Sperling partial report needs only the display and the keyboard. The 50 ms exposure is
+# whole frames at the MEASURED refresh rate; each trial also checks its own exposure from
+# the flip stamps (exposure_ok), because one late flip in 50 ms never reaches frame QA's
+# per-trial budget. A photodiode (display.photodiode) is the way to measure the panel's
+# real offset; see docs/methods.md, Apparatus.
+monitor:
+  name: booth
+  width_px: 1920
+  height_px: 1080
+  width_cm: 53.0
+  distance_cm: 57.0
+  refresh_rate_hz: 60.0
+  fullscreen: true
+display:
+  backend: psychopy
+  frame_qa:
+    policy: recycle_trial
+    max_dropped_fraction: 0.10
+live_monitor:
+  enabled: true
+  auto_open: true
+  port: 0
+devices: {}
+data_root: data
+real_data: true

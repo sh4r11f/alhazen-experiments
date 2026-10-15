@@ -1,0 +1,546 @@
+{
+  "schema": "alhazen-documentation",
+  "schema_version": 1,
+  "title": "Sperling partial report (Sperling, 1960, Experiments 3 and 4)",
+  "summary": "A card of 6 to 12 letters (or letters and numbers) is flashed for 50 ms. A cue then calls one row, and the observer types that row. The row's accuracy times the number of rows estimates how many letters were available when the cue came: about twice the 4 or so a whole report gives, falling to that span within a second as the cue is delayed. The paper's cue is a tone; this version uses a bar beside the row by default, because alhazen 2.16.0 cannot play an event-bound tone.",
+  "methods": "docs/methods.md",
+  "references": [
+    "Sperling, G. (1960). The information available in brief visual presentations. Psychological Monographs: General and Applied, 74(11, Whole No. 498), 1-29. https://doi.org/10.1037/h0093759",
+    "Averbach, E., & Coriell, A. S. (1961). Short-term memory in vision. Bell System Technical Journal, 40(1), 19-31."
+  ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
+  "deviations": [
+    {
+      "item": "Row cue",
+      "original": "A tone after the exposure: high 2500, middle 650, low 250 cps, about 0.5 s, from an audio oscillator switched by the light's off-go microswitch (p. 6-7)",
+      "here": "Default cue_mode: visual, a bar beside the cued row for 0.5 s, starting at the same frame the tone would (an Averbach and Coriell style marker). cue_mode: tone binds the paper's three tones to the CUE_HIGH, CUE_MID and CUE_LOW events, but refuses to load on alhazen 2.16.0",
+      "reason": "alhazen 2.16.0 cannot play a tone bound to a task event. A visual cue near the array is not equivalent to an auditory one: it can mask or attract attention to the location, so results can differ from the paper's"
+    },
+    {
+      "item": "Display",
+      "original": "Gerbrands two-field mirror tachistoscope, 4-watt daylight fluorescent lamps, a 50 ms flash whose phosphor afterglow decays in two parts (about 40% of the energy in under 1 ms, the yellow rest with a time constant of about 15 ms; Fig. 1, p. 3)",
+      "here": "A computer display: the card is shown for whole frames at the measured refresh rate (3 frames = 50.0 ms at 60 Hz; 7 = 48.6 ms at 144 Hz), recorded per trial with the flip-stamped exposure. An LCD holds each frame and its pixels settle in a few ms; an OLED switches in well under 1 ms. Neither reproduces the lamp's 15 ms afterglow",
+      "reason": "No tachistoscope. The exposure's energy profile and offset differ from Fig. 1; docs/methods.md, Apparatus, sets out what that changes"
+    },
+    {
+      "item": "Response",
+      "original": "Written on a response grid on the table below the tachistoscope, by room light; S slid the paper under a cover after each report (p. 4)",
+      "here": "Typed into a row of boxes on the screen; BACKSPACE corrects, ENTER commits once every box is filled",
+      "reason": "Keyboard entry keeps the response in the data file; scoring by position (p. 4) is unchanged"
+    },
+    {
+      "item": "Alphabet",
+      "original": "The 21 consonants (in a few card sets also without Y, p. 3); 20 letters plus the ten digits on letters-and-numbers cards (17.9 bits per row, p. 4)",
+      "here": "17 consonants, BDFGJKLMNQSTVWXYZ: C, H, P and R are left out, on every material",
+      "reason": "alhazen 2.16.0 reads its experimenter keys (p pause, c calibrate, r reward, h hold stage) from the same keyboard before the subject's keys, so a subject cannot type those letters. Fewer alternatives make a guess slightly likelier (1/17 vs 1/21 per position)"
+    },
+    {
+      "item": "Row balance",
+      "original": "High, middle and low tones exactly equally often per material, balanced over several sessions, usually two (p. 7)",
+      "here": "Balanced within every delay block: 6 test trials per block, 2 per row for three rows (3 per row for two), in random order",
+      "reason": "A session is analysed on its own here, so each block carries its own balance"
+    },
+    {
+      "item": "Wrong row",
+      "original": "An observer who wrote the wrong row was asked to write what he could remember of the correct row; only the indicated row was scored (p. 7)",
+      "here": "Only the cued row is scored; reports that match another row better are counted (other_row_max_correct) but there is no second report",
+      "reason": "Software cannot tell a misheard cue from a poor report while the trial runs"
+    },
+    {
+      "item": "Training and sessions",
+      "original": "Twelve sessions per observer, three a week; 30 training trials per two-row material in each of the first two sessions; up to 150 more for one observer; strategy instructions changed half-way (p. 4, p. 7, p. 11)",
+      "here": "One session per parameter set; training is the sample trials (2 per block) only",
+      "reason": "The multi-session training schedule is the experimenter's to run, by repeating sessions"
+    },
+    {
+      "item": "Between trials",
+      "original": "The dark field and the dim fixation field were always present (p. 3)",
+      "here": "The task draws the dark field and cross on every frame of a trial; for the frames between one trial's end and the next trial's start, and on instruction and pause screens, the window shows alhazen's mid-grey background",
+      "reason": "alhazen 2.16.0 has no setting for the window's background colour"
+    },
+    {
+      "item": "Stimulus cards",
+      "original": "Over 500 hand-lettered 5x8 in cards; no observer reported the same part of a card more than two or three times (p. 3)",
+      "here": "A new random card is generated for every trial (independent uniform draws, as the paper's information values assume)",
+      "reason": "Generated arrays are reproducible from the session seed and never repeat by design"
+    },
+    {
+      "item": "Viewing",
+      "original": "Binocular, through the tachistoscope, at about 24 in (cards at 22 in, p. 3)",
+      "here": "Binocular, at the rig file's viewing distance; every size is in degrees of visual angle",
+      "reason": "Sizes are kept in visual angle rather than inches"
+    },
+    {
+      "item": "Instructions",
+      "original": "Part 2's wording (p. 11): \"You will hear a tone during the flash or while it is fading which will indicate which letters you are to attempt to read. Do not read the card until you hear the tone\"",
+      "here": "The same wording with the bar in place of the tone (instructions.md); instructions-tone.md keeps the tone; both add the key rules",
+      "reason": "The cue modality changed, and the keyboard needs explaining"
+    }
+  ],
+  "assumed": [
+    {
+      "item": "Test trials per delay block",
+      "value": "6",
+      "reason": "The paper says five or more consecutive trials per delay (p. 8); 6 lets two and three rows balance within a block",
+      "key": "paradigm.n_per_condition"
+    },
+    {
+      "item": "Test trials per material, Experiment 3 set",
+      "value": "12",
+      "reason": "The paper says series of 10 or more test trials (p. 7); 12 balances two and three rows",
+      "key": "paradigm.n_per_condition",
+      "file": "configs/task-exp3.yaml"
+    },
+    {
+      "item": "Start key",
+      "value": "SPACE",
+      "reason": "The paper says the observer pressed a button (p. 4); SPACE is alhazen's convention",
+      "key": "start_key"
+    },
+    {
+      "item": "Start deadline",
+      "value": "60 s, then the trial is served again",
+      "reason": "Not in the paper (self-paced); a cap so an unattended session cannot hang",
+      "key": "start_timeout"
+    },
+    {
+      "item": "Report deadline",
+      "value": "60 s, then the trial is served again",
+      "reason": "Not in the paper (writing was self-paced); a cap so an unattended session cannot hang",
+      "key": "report_timeout"
+    },
+    {
+      "item": "Visual cue duration",
+      "value": "500 ms",
+      "reason": "The tone lasted about 0.5 s (p. 7); the bar, this version's substitute, lasts as long",
+      "key": "cue_duration"
+    },
+    {
+      "item": "Tone loudness",
+      "value": "volume 1.0 for all three tones; the rig's system volume is set by ear",
+      "reason": "The paper set the high tone 'loud but not uncomfortable' (p. 7) and gives no level",
+      "key": "tone_volume"
+    },
+    {
+      "item": "Viewing distance used for sizes",
+      "value": "22 in (letters 1.17 dva high)",
+      "reason": "The paper gives about 24 in for the tachistoscope and 22 in for the cards (p. 3); the card paragraph is the one about the stimuli",
+      "key": "letter_height_dva"
+    },
+    {
+      "item": "Letter spacing",
+      "value": "1.70 dva centre to centre (1.45 x letter height)",
+      "reason": "Not stated; estimated from the proportions of Fig. 2, which is not to scale",
+      "key": "letter_pitch_dva"
+    },
+    {
+      "item": "Row spacing, two-row cards",
+      "value": "3.16 dva (2.7 x letter height)",
+      "reason": "Not stated; estimated from Fig. 2 (3/3, 4/4)",
+      "key": "row_pitch_two_rows_dva"
+    },
+    {
+      "item": "Row spacing, three-row cards",
+      "value": "1.70 dva (1.45 x letter height)",
+      "reason": "Not stated; estimated from Fig. 2 (3/3/3, 4/4/4)",
+      "key": "row_pitch_three_rows_dva"
+    },
+    {
+      "item": "Typeface",
+      "value": "Arial bold capitals",
+      "reason": "The letters were hand-lettered with a Leroy No. 5 pen (p. 3), a monoline capital; Arial bold is the nearest common face",
+      "key": "font"
+    },
+    {
+      "item": "Card orientation",
+      "value": "Landscape: 20.6 x 13.0 dva (8 x 5 in at 22 in)",
+      "reason": "The paper gives 5x8 in cards (p. 3), not which way up",
+      "key": "card_width_dva"
+    },
+    {
+      "item": "Fixation cross luminance",
+      "value": "15% of the display's range (signed RGB -0.7)",
+      "reason": "The paper says 'dimly illuminated' (p. 3) and gives no luminance",
+      "key": "fixation_color"
+    },
+    {
+      "item": "Card luminance",
+      "value": "The display's white",
+      "reason": "Not stated; the card was lit by the tachistoscope's fluorescent lamps",
+      "key": "card_color"
+    },
+    {
+      "item": "Letter colour",
+      "value": "Black",
+      "reason": "Not stated; pen ink on a white card",
+      "key": "letter_color"
+    },
+    {
+      "item": "Cue bar luminance",
+      "value": "75% of the display's range (signed RGB 0.5); drawn black while the lit card is on",
+      "reason": "The bar is this version's substitute for the tone",
+      "key": "cue_color"
+    },
+    {
+      "item": "Cue bar length",
+      "value": "1.17 dva (one letter height)",
+      "reason": "Substitute cue, not in the paper",
+      "key": "cue_bar_length_dva"
+    },
+    {
+      "item": "Cue bar width",
+      "value": "0.2 dva",
+      "reason": "Substitute cue, not in the paper",
+      "key": "cue_bar_width_dva"
+    },
+    {
+      "item": "Cue bar position",
+      "value": "Left of the cued row, its right end 0.6 dva from the first letter",
+      "reason": "Substitute cue, not in the paper",
+      "key": "cue_bar_gap_dva"
+    },
+    {
+      "item": "Response box colour",
+      "value": "Mid-grey (signed RGB 0)",
+      "reason": "The typed boxes replace the paper's response grid",
+      "key": "response_color"
+    },
+    {
+      "item": "Response box position",
+      "value": "9 dva below the centre",
+      "reason": "The paper's grid was on the table, outside the tachistoscope; the boxes sit below where the array was",
+      "key": "response_y_dva"
+    },
+    {
+      "item": "Response box size",
+      "value": "1.6 dva",
+      "reason": "Not in the paper",
+      "key": "response_box_dva"
+    },
+    {
+      "item": "Fixation cross size",
+      "value": "0.6 dva",
+      "reason": "Not stated",
+      "key": "fix_size_dva"
+    },
+    {
+      "item": "Fixation cross line width",
+      "value": "0.08 dva",
+      "reason": "Not stated",
+      "key": "fix_line_dva"
+    },
+    {
+      "item": "Fixation cross position",
+      "value": "The centre of the array",
+      "reason": "Not stated; the fixation field was the tachistoscope's other field",
+      "file": "src/sperling1960/stimuli.py"
+    },
+    {
+      "item": "Fixation cross during the exposure",
+      "value": "Not drawn while the card is lit",
+      "reason": "Not stated; in a mirror tachistoscope the dim fixation field adds to the bright card and would be invisible",
+      "file": "src/sperling1960/task.py"
+    },
+    {
+      "item": "When the response boxes appear",
+      "value": "When the cue ends (0.5 s after its onset; for a whole report 0.5 s after the array's offset); keys count from the frame after the cue starts (after the card, for a cue before it)",
+      "reason": "The paper's grid was outside the tachistoscope; nothing new lights the dark post-exposure field before the cue is over",
+      "file": "src/sperling1960/task.py"
+    },
+    {
+      "item": "Response keys",
+      "value": "Letters and digits as typed, BACKSPACE to correct, ENTER to commit (only with every box filled)",
+      "reason": "The paper used pen and paper; 'fill in all the required squares' (p. 4) is kept",
+      "file": "src/sperling1960/phases.py"
+    },
+    {
+      "item": "Cued row on sample trials",
+      "value": "Random, not balanced",
+      "reason": "The paper does not say how sample trials were cued",
+      "file": "src/sperling1960/schedule.py"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "partial-report",
+      "title": "Partial report with a delayed row cue",
+      "summary": "SPACE starts; 0.5 s later the card is shown for 50 ms; a cue at a set delay from its offset calls a row; the observer types that row and presses ENTER.",
+      "description": "One task runs every parameter set: Experiment 4's decay (configs/task.yaml, 12 letters and numbers; configs/task-9.yaml, 9 letters), Experiment 3 at zero delay on all four materials (configs/task-exp3.yaml), and Experiment 1's whole report (configs/task-whole.yaml).",
+      "parameters_file": "configs/task.yaml",
+      "parameters": [
+        {
+          "name": "report",
+          "label": "Report",
+          "group": "Design",
+          "type": "choice",
+          "default": "partial",
+          "meaning": "partial: type the cued row (Exp. 3 and 4). whole: type every symbol (Exp. 1, the immediate-memory baseline).",
+          "source": "paper p. 5, p. 6"
+        },
+        {
+          "name": "materials",
+          "label": "Materials",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            "4/4/4-LN"
+          ],
+          "meaning": "Cards run in this session, in order: 3/3, 4/4, 3/3/3, 4/4/4-LN (two letters and two numbers per row).",
+          "source": "paper p. 3-4, p. 10"
+        },
+        {
+          "name": "cue_mode",
+          "label": "Cue",
+          "group": "Cue",
+          "type": "choice",
+          "default": "visual",
+          "meaning": "visual: a bar beside the cued row (the default; a deviation). tone: the paper's high, middle and low tones; refuses to load until alhazen has Tone.",
+          "source": "paper p. 6-7 (tone)"
+        },
+        {
+          "name": "cue_delays_s",
+          "label": "Cue delays",
+          "group": "Cue",
+          "type": "object",
+          "default": [
+            -0.1,
+            0.0,
+            0.15,
+            0.3,
+            0.5,
+            1.0
+          ],
+          "meaning": "Cue onset from the array's offset, one block per delay; -0.10 is 0.05 s before the array's onset.",
+          "unit": "s",
+          "source": "paper p. 8"
+        },
+        {
+          "name": "cue_duration",
+          "label": "Cue duration",
+          "group": "Cue",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "The tone's length; the bar lasts as long (ASSUMED for the bar).",
+          "source": "paper p. 7"
+        },
+        {
+          "name": "first_series",
+          "label": "First series",
+          "group": "Design",
+          "type": "choice",
+          "default": "ascending",
+          "meaning": "Direction of the first series of delay blocks; series alternate.",
+          "source": "paper p. 8, p. 10"
+        },
+        {
+          "name": "n_series",
+          "label": "Series",
+          "group": "Design",
+          "type": "integer",
+          "default": 4,
+          "meaning": "Series of delay blocks per material.",
+          "source": "paper p. 8"
+        },
+        {
+          "name": "samples_per_block",
+          "label": "Samples per block",
+          "group": "Design",
+          "type": "integer",
+          "default": 2,
+          "meaning": "Sample (practice) trials before each delay block; not analysed.",
+          "source": "paper p. 8"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Test trials per block",
+          "group": "Design",
+          "type": "integer",
+          "default": 6,
+          "meaning": "Test trials in each delay block, rows balanced within it. ASSUMED, not in the paper (it says five or more)."
+        },
+        {
+          "name": "exposure",
+          "label": "Exposure",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 50
+          },
+          "meaning": "How long the card is shown, in whole frames at the measured refresh rate.",
+          "source": "paper p. 3"
+        },
+        {
+          "name": "start_delay",
+          "label": "Start delay",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "From the observer's SPACE press to the card.",
+          "source": "paper p. 4"
+        },
+        {
+          "name": "report_timeout",
+          "label": "Report deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "A trial with no committed report by then is served again. ASSUMED, not in the paper."
+        },
+        {
+          "name": "tone_high_hz",
+          "label": "High tone",
+          "group": "Cue",
+          "type": "number",
+          "default": 2500,
+          "meaning": "Tone for the top row (tone mode).",
+          "unit": "Hz",
+          "source": "paper p. 6"
+        },
+        {
+          "name": "tone_mid_hz",
+          "label": "Middle tone",
+          "group": "Cue",
+          "type": "number",
+          "default": 650,
+          "meaning": "Tone for the middle row of three-row cards (tone mode).",
+          "unit": "Hz",
+          "source": "paper p. 7"
+        },
+        {
+          "name": "tone_low_hz",
+          "label": "Low tone",
+          "group": "Cue",
+          "type": "number",
+          "default": 250,
+          "meaning": "Tone for the bottom row (tone mode).",
+          "unit": "Hz",
+          "source": "paper p. 6"
+        },
+        {
+          "name": "consonants",
+          "label": "Consonants",
+          "group": "Stimuli",
+          "type": "string",
+          "default": "BDFGJKLMNQSTVWXYZ",
+          "meaning": "Letters drawn for the cards; C, H, P and R are refused (alhazen's experimenter keys).",
+          "source": "paper p. 3"
+        },
+        {
+          "name": "letter_height_dva",
+          "label": "Letter height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 1.17,
+          "meaning": "Capital height: 0.45 in at 22 in.",
+          "unit": "dva",
+          "source": "paper p. 3"
+        },
+        {
+          "name": "letter_pitch_dva",
+          "label": "Letter spacing",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 1.7,
+          "meaning": "Centre-to-centre. ASSUMED, not in the paper (estimated from Fig. 2).",
+          "unit": "dva"
+        },
+        {
+          "name": "row_pitch_three_rows_dva",
+          "label": "Row spacing, three rows",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 1.7,
+          "meaning": "Centre-to-centre. ASSUMED, not in the paper (estimated from Fig. 2).",
+          "unit": "dva"
+        },
+        {
+          "name": "card_width_dva",
+          "label": "Card width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 20.6,
+          "meaning": "8 in at 22 in; landscape is ASSUMED.",
+          "unit": "dva",
+          "source": "paper p. 3"
+        },
+        {
+          "name": "fixation_color",
+          "label": "Fixation cross colour",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            -0.7,
+            -0.7,
+            -0.7
+          ],
+          "meaning": "Signed RGB; 'dimly illuminated' (paper p. 3), the value ASSUMED."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "REPORTED",
+          "completed": true,
+          "meaning": "A full report was committed with ENTER; it is scored per position afterwards (n_correct, letters_available)."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No committed report before the deadline; served again at the end of its block."
+        },
+        {
+          "name": "NO_START",
+          "completed": false,
+          "meaning": "SPACE was not pressed before the start deadline; served again at the end of its block."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "The dark field and dim cross; the trial waits for SPACE."
+        },
+        {
+          "name": "ARRAY_ON",
+          "meaning": "The card's first frame; payload: material and rows."
+        },
+        {
+          "name": "ARRAY_OFF",
+          "meaning": "The first frame of the dark post-exposure field; cue delays are measured from it."
+        },
+        {
+          "name": "CUE_HIGH",
+          "meaning": "The cue for the top row starts (the high tone in tone mode); payload: row and delay."
+        },
+        {
+          "name": "CUE_MID",
+          "meaning": "The cue for the middle row of a three-row card (the 650 Hz tone)."
+        },
+        {
+          "name": "CUE_LOW",
+          "meaning": "The cue for the bottom row (the low tone)."
+        },
+        {
+          "name": "REPORT_ON",
+          "meaning": "Keys count from this frame; payload: what to report."
+        },
+        {
+          "name": "RESPONSE_BOXES_ON",
+          "meaning": "The response boxes appear (when the cue ends)."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The report committed with ENTER; payload: the response."
+        }
+      ]
+    }
+  ]
+}

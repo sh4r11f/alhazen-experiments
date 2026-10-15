@@ -1,0 +1,49 @@
+{
+  "status": "adaptation",
+  "status_reason": "Adaptation: the row cue is a visual bar instead of Sperling's tone (alhazen 2.16.0 cannot play an event-bound tone), the tachistoscope flash is whole display frames without the lamp's afterglow, responses are typed instead of written, and C, H, P, R are left out of the alphabet because alhazen reads them as experimenter keys. Timing, materials, delays and scoring follow the paper. Tone mode is built and refuses to load until alhazen has Tone; after that release and a repin the status can be revisited.",
+  "collection": "classics",
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
+  "original": {
+    "citation": "Sperling, G. (1960). The information available in brief visual presentations. Psychological Monographs: General and Applied, 74(11, Whole No. 498), 1-29.",
+    "year": 1960,
+    "doi": "10.1037/h0093759",
+    "url": "https://sites.socsci.uci.edu/~whipl/staff/sperling/PDFs/Sperling_PsychMonogr_1960.pdf",
+    "experiments": "Experiments 3 and 4 (partial report; cue delay), with Experiment 1's whole report as the baseline"
+  },
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": false,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human"
+  ],
+  "category": "memory",
+  "tags": [
+    "iconic memory",
+    "partial report",
+    "whole report",
+    "sensory memory",
+    "visual short-term memory",
+    "letters",
+    "tachistoscope"
+  ],
+  "art": "docs/preview.png",
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "CC-BY-4.0",
+      "source": "drawn by src/sperling1960/preview.py from configs/task.yaml"
+    }
+  ],
+  "notes": "audio is false because the default cue is visual; cue_mode: tone needs speakers and an alhazen release with event-bound tones (alhazen.Tone), which 2.16.0 does not have. No participant data: tests and a simulated session only."
+}
