@@ -67,3 +67,8 @@ def test_listing_states_status_hardware_and_the_original():
     assert listing["status"] in {"original-protocol", "adaptation", "demo"}
     assert listing["original"]["citation"] and listing["original"]["year"]
     assert listing["hardware"]["display"] is True
+
+
+def test_the_licence_block_is_the_repositorys():
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    assert doc["license"] == {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}

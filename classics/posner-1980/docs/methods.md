@@ -187,3 +187,8 @@ The simulated observer ignores the cue, so simulated data shows no cueing effect
 - Shulman, G. L., Remington, R. W., & McLean, J. P. (1979). Moving attention through visual space.
   *Journal of Experimental Psychology: Human Perception and Performance, 5*(3), 522–526. (The source
   of the 25% catch-trial rate Posner, 1980, reports on p. 10.)
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).
