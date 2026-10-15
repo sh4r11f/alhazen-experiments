@@ -91,5 +91,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for how community experiments get in.
 
 ## Licence
 
-Code: MIT (see `LICENSE`). Stimulus assets keep their own licences, stated in the folder
-that ships them (`docs/listing.json: assets`). Papers are cited, not redistributed.
+| What | Licence |
+|---|---|
+| All code (tasks, stimuli, tests, scripts, notebooks, configs) | [Apache-2.0](LICENSE) (see also [NOTICE](NOTICE)) |
+| Methods write-ups (`docs/methods.md` in each folder) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| Stimulus assets generated for this project (scene photographs, the mental-rotation bank, sounds) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| Third-party material taken from a paper | its own licence, credited in the folder that uses it |
+
+Every folder states this in `docs/experiment.json`:
+`"license": {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}`, and lists any
+third-party material with its licence and credit under `assets` in `docs/listing.json`.
+Papers are cited, not redistributed. SPDX headers in source files are optional.

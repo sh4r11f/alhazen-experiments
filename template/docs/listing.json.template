@@ -16,5 +16,6 @@
   "category": "attention",
   "tags": [],
   "art": "docs/preview.png",
-  "assets": []
+  "assets": [],
+  "notes": "Generated assets: CC-BY-4.0. Third-party assets: list each as {\"path\", \"source\", \"licence\", \"credit\"}."
 }
