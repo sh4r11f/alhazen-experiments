@@ -8,6 +8,11 @@
     "Sperling, G. (1960). The information available in brief visual presentations. Psychological Monographs: General and Applied, 74(11, Whole No. 498), 1-29. https://doi.org/10.1037/h0093759",
     "Averbach, E., & Coriell, A. S. (1961). Short-term memory in vision. Bell System Technical Journal, 40(1), 19-31."
   ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
   "deviations": [
     {
       "item": "Row cue",

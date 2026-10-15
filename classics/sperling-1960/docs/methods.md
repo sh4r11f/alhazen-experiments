@@ -266,3 +266,8 @@ are a check that the analysis runs, not evidence about perception.
   not read for this version).
 - Averbach, E., & Coriell, A. S. (1961). Short-term memory in vision. *Bell System
   Technical Journal, 40*(1), 19-31 (the bar-marker cue this version's visual cue follows).
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).
