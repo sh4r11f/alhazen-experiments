@@ -7,6 +7,7 @@ name = "alhazen-sternberg-1966"
 version = "0.1.0"
 description = "Sternberg (1966) memory scanning, rebuilt in alhazen (alhazen-experiments: classics/sternberg-1966)"
 requires-python = ">=3.10"
+license = "Apache-2.0"
 dependencies = [
   # alhazen-vision, not alhazen: the bare name on PyPI is an unrelated project.
   # uv takes it from GitHub at the tag in [tool.uv.sources]; the floor is what pip reads.

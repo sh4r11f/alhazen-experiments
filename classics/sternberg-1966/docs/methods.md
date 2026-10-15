@@ -200,3 +200,8 @@ folder has recorded no participant data and claims no replication of the origina
   https://doi.org/10.1126/science.153.3736.652
 - Hartley, H. O., & David, H. A. (1954). Universal bounds for mean range and extreme
   observation. *Annals of Mathematical Statistics*, 25(1), 85-99.
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).
