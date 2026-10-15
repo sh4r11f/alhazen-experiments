@@ -1,0 +1,568 @@
+{
+  "schema": "alhazen-documentation",
+  "schema_version": 1,
+  "title": "Flicker change blindness",
+  "summary": "Rensink, O'Regan & Clark's (1997) flicker paradigm: an original and a modified scene alternate (A, A, A', A', 240 ms each with 80-ms gray blanks) until the subject presses SPACE, then reports where the change was (one of four boxes) and what kind it was (appear/disappear, colour, location). The measure is the number of alternations needed to identify the change, compared between changes to central and marginal interests. Scenes are 12 generated photo pairs and procedural pairs; an adaptation, not the original images.",
+  "methods": "docs/methods.md",
+  "references": [
+    "Rensink, R. A., O'Regan, J. K., & Clark, J. J. (1997). To see or not to see: The need for attention to perceive changes in scenes. Psychological Science, 8(5), 368-373. https://doi.org/10.1111/j.1467-9280.1997.tb00427.x"
+  ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
+  "deviations": [
+    {
+      "item": "Scenes",
+      "original": "48 colour photographs of real-world scenes (p. 369), not redistributable",
+      "here": "12 photo pairs generated for this project (an image model made each scene and an edit removing one object) plus 36 procedural pairs drawn by src/rensink1997/procedural.py",
+      "reason": "the originals cannot be shipped; the procedural generator also gives unlimited new pairs"
+    },
+    {
+      "item": "How each change was made",
+      "original": "one change per image, made by the authors (p. 369)",
+      "here": "photos: the object's mask comes from the base/edit difference and A, A' are composited so they differ only inside it; colour changes rotate the hue of the object's blue pixels to red; location changes paste the object 114 px (3 dva) along x on a clean plate",
+      "reason": "image-model edits never keep the rest of the picture identical, which would add flicker everywhere"
+    },
+    {
+      "item": "Who decided interest",
+      "original": "five naive observers' brief descriptions; central = mentioned by >= 3, marginal = by none (p. 369)",
+      "here": "photos: the same rule applied to five independent requests to a vision-language model (gpt-6.1-sol, 2026-10-14); procedural: a placement rule (ASSUMED)",
+      "reason": "no human raters; model describers are not naive observers"
+    },
+    {
+      "item": "Balance of the photo set",
+      "original": "CI and MI changes for every type of change (p. 370)",
+      "here": "labels came out of the ratings: presence 1 central / 3 marginal, colour 2 / 2, location 2 / 2 (5 central, 7 marginal); the procedural pairs are balanced, 6 per cell",
+      "reason": "the photo labels were not adjusted after rating"
+    },
+    {
+      "item": "Change size and strength",
+      "original": "MI changes larger on average (22 vs 18 sq deg) with similar mean change in intensity and colour (p. 369)",
+      "here": "photos: central 20.8, marginal 18.3 dva² on average (pixels whose RGB changed by > 24 levels), intensity and colour not equated; procedural: 18 and 22 dva² by construction",
+      "reason": "the generated photographs could not be tuned to the paper's sizes"
+    },
+    {
+      "item": "Report of what changed",
+      "original": "the observer verbally described the type of change and the part that changed; correct = both right (pp. 368-370)",
+      "here": "after SPACE: press the numbered box (1 of 4) the change was in, then an arrow key for its type; correct = both right",
+      "reason": "alhazen has keys and a wheel, no voice key or pointer; chance of guessing both is 1/12 (the paper's verbal report was near guess-proof), and a box centred on an object may be easier to guess than chance"
+    },
+    {
+      "item": "Durations",
+      "original": "240 ms images, 80 ms blanks (p. 369)",
+      "here": "whole display frames: 14 and 5 frames at 60 Hz (233 and 83 ms), exact at 75, 100 or 125 Hz",
+      "reason": "a monitor shows whole frames"
+    },
+    {
+      "item": "Practice images",
+      "original": "six practice trials, two of each type (p. 369), images not described",
+      "here": "six procedural pairs, two of each type",
+      "reason": "no test scene may be seen in practice"
+    }
+  ],
+  "assumed": [
+    {
+      "item": "Gray level of the fields and blanks",
+      "value": "mid gray, signed RGB 0.0",
+      "reason": "the paper says \"gray\" (p. 369, Fig. 1) without a luminance",
+      "key": "background_gray"
+    },
+    {
+      "item": "Cue rectangle width",
+      "value": "8.0 dva",
+      "reason": "the white rectangle's size is not given (p. 369); wide enough for a word pair",
+      "key": "cue_box_width_dva"
+    },
+    {
+      "item": "Cue rectangle height",
+      "value": "2.5 dva",
+      "reason": "not given (p. 369)",
+      "key": "cue_box_height_dva"
+    },
+    {
+      "item": "Cue word size and colour",
+      "value": "1.0 dva high, black",
+      "reason": "not given (p. 370)",
+      "key": "cue_text_height_dva"
+    },
+    {
+      "item": "Detection key",
+      "value": "SPACE",
+      "reason": "the observer \"hits a key\" (p. 368); which key is not given",
+      "key": "detect_key"
+    },
+    {
+      "item": "Number of location boxes",
+      "value": "4 (chance 1/4)",
+      "reason": "the original had no keyed location probe (it replaces the spoken description)",
+      "key": "location_probe.n_choices"
+    },
+    {
+      "item": "Smallest box side",
+      "value": "3.0 dva",
+      "reason": "box sizes follow the change's bounding box, clamped so small changes get findable boxes",
+      "key": "location_probe.min_side_dva"
+    },
+    {
+      "item": "Largest box side",
+      "value": "7.0 dva",
+      "reason": "clamped so four separate boxes fit on a 27 x 18 dva image",
+      "key": "location_probe.max_side_dva"
+    },
+    {
+      "item": "Box keys",
+      "value": "1, 2, 3, 4, drawn on the boxes",
+      "reason": "no keyed probe in the original",
+      "key": "location_probe.keys"
+    },
+    {
+      "item": "Location report deadline",
+      "value": "20 s (outcome NO_REPORT)",
+      "reason": "the original report was spoken, with no deadline; a generous cap",
+      "key": "location_probe.timeout"
+    },
+    {
+      "item": "Change-type keys",
+      "value": "LEFT presence, DOWN colour, RIGHT location (arrows, labelled on screen)",
+      "reason": "no keyed probe in the original; P, C, R and H are alhazen's experimenter keys, so letters for the types would pause or recalibrate the session",
+      "key": "type_probe.keys"
+    },
+    {
+      "item": "Type report deadline",
+      "value": "20 s (outcome NO_REPORT)",
+      "reason": "as the location deadline",
+      "key": "type_probe.timeout"
+    },
+    {
+      "item": "Report prompt text size",
+      "value": "0.7 dva",
+      "reason": "no on-screen prompts in the original",
+      "key": "probe_text_height_dva"
+    },
+    {
+      "item": "Scene set composition",
+      "value": "12 photo pairs + 6 procedural pairs per change type x interest = 48",
+      "reason": "the paper had 48 images (p. 369) but does not give their split over change types and interest",
+      "key": "scenes.procedural_per_cell"
+    },
+    {
+      "item": "Procedural seed",
+      "value": "1997",
+      "reason": "arbitrary; fixes which procedural pairs a session shows",
+      "key": "scenes.procedural_seed"
+    },
+    {
+      "item": "Location shift",
+      "value": "3.0 dva for every procedural location change",
+      "reason": "the paper says \"a few degrees\" (p. 369); 3 dva is Fig. 2's example (p. 370)",
+      "key": "location_shift_dva"
+    },
+    {
+      "item": "Inter-trial interval",
+      "value": "500 ms",
+      "reason": "not given; each trial already opens with the 3-s cue field",
+      "key": "iti"
+    },
+    {
+      "item": "Presentations per scene",
+      "value": "each scene once per subject",
+      "reason": "inferred from \"Images were presented in random order for each subject\" (p. 370); not stated",
+      "key": "paradigm.n_per_condition"
+    },
+    {
+      "item": "No-blank control timing",
+      "value": "each image 640 ms, A A' A A'",
+      "reason": "the paper says only that the blanks were removed (p. 370); 640 ms keeps the 640-ms change rate implied by its 1.4 alternations = 0.9 s (p. 370)",
+      "key": "flicker.image",
+      "file": "configs/task-noblank.yaml"
+    },
+    {
+      "item": "Valid/invalid assignment with 50% valid cues",
+      "value": "valid and invalid alternate within each change type and source, in a fixed order",
+      "reason": "the paper says only that cues were divided equally (p. 371)",
+      "key": "cue",
+      "file": "configs/task-exp3-valid50.yaml"
+    },
+    {
+      "item": "Practice scenes",
+      "value": "6 procedural pairs from seeds 9000-9005, never used in a test set",
+      "reason": "the paper gave six practice trials, two per type (p. 369), without saying which images",
+      "key": "scenes.procedural_seed",
+      "file": "configs/task-practice.yaml"
+    },
+    {
+      "item": "Viewing distance (example rig)",
+      "value": "57 cm",
+      "reason": "the paper does not describe its apparatus; the rig file is an example to be measured",
+      "key": "monitor.distance_cm",
+      "file": "configs/rig-booth.yaml"
+    },
+    {
+      "item": "Refresh rate (example rig)",
+      "value": "60 Hz",
+      "reason": "not given; at 60 Hz 240/80 ms become 14/5 frames, exact at 75, 100 or 125 Hz",
+      "key": "monitor.refresh_rate_hz",
+      "file": "configs/rig-booth.yaml"
+    },
+    {
+      "item": "Which image of a pair comes first",
+      "value": "A: object present, blue, or in its first position",
+      "reason": "Fig. 1 (p. 369) shows the original (with the wall) first; generalised to every pair",
+      "file": "src/rensink1997/task.py"
+    },
+    {
+      "item": "Colours of a colour change",
+      "value": "blue in A, red in A'",
+      "reason": "the paper gives \"switch its color between blue and red\" as an example (p. 369); used for every colour change here",
+      "file": "src/rensink1997/procedural.py"
+    },
+    {
+      "item": "Order of the two reports",
+      "value": "place first, then type",
+      "reason": "the paper asked for both (p. 368) without an order",
+      "file": "src/rensink1997/task.py"
+    },
+    {
+      "item": "Probe box placement",
+      "value": "the true box centred on the change; three same-size foils at random, not overlapping",
+      "reason": "no keyed probe in the original",
+      "file": "src/rensink1997/scenes.py"
+    },
+    {
+      "item": "Interest of procedural pairs",
+      "value": "central = the focal foreground object; marginal = a background object near the left or right edge",
+      "reason": "a placement rule standing in for rated interest; nobody rated these scenes",
+      "file": "src/rensink1997/procedural.py"
+    },
+    {
+      "item": "Describer instruction for the photo ratings",
+      "value": "one short sentence of at most 12 words",
+      "reason": "the paper asked for \"a brief verbal description\" (p. 369); the first run with \"one or two sentences\" made the model describers list nearly every object",
+      "file": "scripts/rate_interest.py"
+    },
+    {
+      "item": "What counts as mentioning the changed object",
+      "value": "a keyword list per scene, written before any description was collected",
+      "reason": "the paper does not say how mentions were scored",
+      "file": "src/rensink1997/photos/spec.json"
+    },
+    {
+      "item": "Invalid cue words",
+      "value": "another named part of the same scene",
+      "reason": "the paper says invalid cues named \"some other part\" (p. 371) without saying which",
+      "file": "src/rensink1997/photos/spec.json"
+    },
+    {
+      "item": "A trial with no detection in 60 s",
+      "value": "ends as NO_DETECTION, no report asked, not served again",
+      "reason": "the paper ends the cycle at 60 s (Fig. 1) but does not say how such trials were scored",
+      "file": "src/rensink1997/task.py"
+    },
+    {
+      "item": "Image resolution",
+      "value": "1024 x 683 px shown at 27 x 18 dva (about 38 px/dva)",
+      "reason": "the originals' resolution is not given",
+      "file": "src/rensink1997/photos/pairs.json"
+    },
+    {
+      "item": "Size of a procedural change",
+      "value": "object footprint (presence, location) or painted body (colour) set to 18 dva² (central) or 22 dva² (marginal)",
+      "reason": "the paper gives these as the averages of its changes (p. 369), not as a rule for each one",
+      "file": "src/rensink1997/procedural.py"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "flicker-change-detection",
+      "title": "Flicker change detection",
+      "summary": "Cue field 3 s, gray 1 s, then A A A' A' flicker until SPACE (max 60 s), then where (box 1-4) and what kind (arrow keys).",
+      "parameters_file": "configs/task.yaml",
+      "parameters": [
+        {
+          "name": "image_width_dva",
+          "label": "Image width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 27.0,
+          "meaning": "Width of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "image_height_dva",
+          "label": "Image height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 18.0,
+          "meaning": "Height of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "background_gray",
+          "label": "Gray level",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.0,
+          "meaning": "Gray of the cue field, gray field and blanks, in signed RGB (-1 black, 1 white). ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_field",
+          "label": "Cue field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 3000
+          },
+          "meaning": "Gray field with a white rectangle that opens each trial (a cue word in it in Experiment 3).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "cue_box_width_dva",
+          "label": "Cue rectangle width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.0,
+          "meaning": "Width of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_box_height_dva",
+          "label": "Cue rectangle height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 2.5,
+          "meaning": "Height of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue",
+          "label": "Verbal cue",
+          "group": "Design",
+          "type": "choice",
+          "default": "none",
+          "meaning": "none (Experiment 1), valid (Exp. 3, completely valid) or valid50 (Exp. 3, half valid, half naming another part).",
+          "source": "paper pp. 370-371"
+        },
+        {
+          "name": "gray_field",
+          "label": "Gray field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "Plain gray field between the cue field and the flicker.",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "flicker.image",
+          "label": "Image duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 240
+          },
+          "meaning": "How long each image is shown in the flicker cycle.",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "flicker.blank",
+          "label": "Blank duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 80
+          },
+          "meaning": "Gray blank after each image (0 removes the blanks).",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "flicker.pattern",
+          "label": "Image order",
+          "group": "Timing",
+          "type": "object",
+          "default": [
+            "A",
+            "A",
+            "B",
+            "B"
+          ],
+          "meaning": "The cycle of images, each followed by a blank: A A A' A' (paper, Exp. 1), or A A' (Exp. 2).",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "max_flicker",
+          "label": "Time limit",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "The flicker runs until the detection key or this long (outcome NO_DETECTION).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "detect_key",
+          "label": "Detection key",
+          "group": "Response",
+          "type": "string",
+          "default": "space",
+          "meaning": "Key pressed when the change is seen. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "location_probe.n_choices",
+          "label": "Location boxes",
+          "group": "Response",
+          "type": "integer",
+          "default": 4,
+          "meaning": "Numbered boxes on image A after detection, one around the change (replaces the spoken description). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "type_probe.keys",
+          "label": "Change-type keys",
+          "group": "Response",
+          "type": "object",
+          "default": {
+            "left": "presence",
+            "down": "color",
+            "right": "location"
+          },
+          "meaning": "Keys for the type of change (replaces the spoken report). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "scenes.photos",
+          "label": "Photo pairs",
+          "group": "Design",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Show the 12 shipped photo pairs."
+        },
+        {
+          "name": "scenes.procedural_per_cell",
+          "label": "Procedural pairs per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 6,
+          "meaning": "Procedural pairs per change type x interest cell (6 gives 36, so 48 scenes with the photos). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "change_area_dva2",
+          "label": "Procedural change area",
+          "group": "Stimuli",
+          "type": "object",
+          "default": {
+            "central": 18.0,
+            "marginal": 22.0
+          },
+          "meaning": "Changed area of each procedural pair; the paper's averages.",
+          "unit": "dva²",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "location_shift_dva",
+          "label": "Location shift",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 3.0,
+          "meaning": "Shift of a procedural location change. ASSUMED (Fig. 2's example).",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Pause between trials. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Presentations per scene",
+          "group": "Design",
+          "type": "integer",
+          "default": 1,
+          "meaning": "Each scene once per subject, in random order. ASSUMED as once.",
+          "source": "ASSUMED"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "Detected, and both the place and the type of change reported correctly; the only trials in the alternation means."
+        },
+        {
+          "name": "MISIDENTIFIED",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but the box or the type was wrong (an identification error)."
+        },
+        {
+          "name": "NO_DETECTION",
+          "completed": true,
+          "success": false,
+          "meaning": "No key within the time limit; not served again (the scene is spoiled)."
+        },
+        {
+          "name": "NO_REPORT",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but a report deadline passed; not served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "CUE_ON",
+          "meaning": "The cue field (white rectangle) appears."
+        },
+        {
+          "name": "GRAY_ON",
+          "meaning": "The plain gray field appears."
+        },
+        {
+          "name": "FLICKER_ON",
+          "meaning": "The first image appears; the reaction time runs from this flip."
+        },
+        {
+          "name": "IMAGE_ON",
+          "meaning": "Each image onset in the flicker, with payload image (A or B) and n."
+        },
+        {
+          "name": "DETECTED",
+          "meaning": "The detection key."
+        },
+        {
+          "name": "LOCATION_PROBE",
+          "meaning": "Image A with the numbered boxes appears."
+        },
+        {
+          "name": "LOCATION_REPORT",
+          "meaning": "The box chosen."
+        },
+        {
+          "name": "TYPE_PROBE",
+          "meaning": "The change-type question appears."
+        },
+        {
+          "name": "TYPE_REPORT",
+          "meaning": "The type chosen."
+        }
+      ]
+    }
+  ]
+}
