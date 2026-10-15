@@ -221,3 +221,8 @@ no stimulator and claims no replication of the original result.
 - Moore, T., & Armstrong, K. M. (2003). Selective gating of visual signals by
   microstimulation of frontal cortex. *Nature, 421*(6921), 370–373.
   https://doi.org/10.1038/nature01341
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).

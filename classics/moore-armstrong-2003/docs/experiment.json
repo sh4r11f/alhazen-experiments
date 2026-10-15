@@ -7,6 +7,11 @@
   "references": [
     "Moore, T., & Armstrong, K. M. (2003). Selective gating of visual signals by microstimulation of frontal cortex. Nature, 421(6921), 370-373. https://doi.org/10.1038/nature01341"
   ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
   "deviations": [
     {
       "item": "Eye tracking",

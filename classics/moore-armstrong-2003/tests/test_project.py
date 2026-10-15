@@ -94,3 +94,8 @@ def test_the_listing_is_a_demo_needing_the_recording_hardware():
     assert listing["status"] == "demo"
     hw = listing["hardware"]
     assert hw["eye_tracker"] and hw["reward"] and hw["microstimulation"] and hw["recording"]
+
+
+def test_the_licence_block_is_the_repositorys():
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    assert doc["license"] == {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}
