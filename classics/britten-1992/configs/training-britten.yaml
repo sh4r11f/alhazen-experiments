@@ -1,0 +1,80 @@
+# The monkey training ladder: Britten et al. (1992), p. 4748.
+#
+#   (1) fixation, (2) fixation followed by a saccade to a single target, (3) saccade to a
+#   single target in the presence of random dot patterns, (4) choosing between two
+#   saccade targets on the direction of motion, at 100 % correlation at first, then
+#   (5) working down to threshold.
+#
+# The SEQUENCE is the paper's. Everything else here is ASSUMED (not in the paper): the
+# trial counts, the stage durations, the single target's coherence, the rewards and every
+# criterion. The paper reports only the time it took (about two weeks to learn the
+# two-choice task at 100 %, about four more to reach a stable threshold, then three to
+# five months of generalisation over aperture size and location, speed and axis).
+# Advancing a stage is always the operator's decision; criteria are recommendations.
+#
+#   uv run python run.py --mode training --stage fixate --rig monkey-example --sub m01 --ses 1 --initials MK
+#   uv run python run.py --mode simulate --stage single-target --headless   # rehearse a stage
+name: britten
+title: Direction discrimination (monkey)
+description: From a held fixation point to the two-choice task at threshold.
+task: britten1992.training:RdkTrainingTask
+params: task-monkey.yaml
+
+stages:
+  - id: fixate
+    title: Hold the fixation point
+    description: Acquire the fixation point and hold it for as long as the dots will run. Pays a held fixation.
+    overrides:
+      training_stage: fixate
+      stimulus_duration: {ms: 1000}      # ASSUMED (not in the paper): grows to 2000 ms within the stage
+      paradigm.n_per_condition: 4        # ASSUMED (not in the paper): 16 cells x 4 = 64 trials
+    success: FIXATION_HELD
+    criterion:
+      window: 50                         # ASSUMED (not in the paper)
+      min_trials: 30
+      promote_when: {completed_rate: 0.8}
+
+  - id: single-target
+    title: Saccade to a single target
+    description: Hold fixation, then saccade to the one target that appears. Pays CORRECT.
+    overrides:
+      training_stage: single-target
+      paradigm.n_per_condition: 4        # ASSUMED (not in the paper)
+    success: CORRECT
+    criterion:
+      window: 50                         # ASSUMED (not in the paper)
+      min_trials: 30
+      promote_when: {success_rate: 0.8, completed_rate: 0.7}
+
+  - id: single-target-dots
+    title: Single target with the dots on
+    description: The same, with 100 % correlated dots moving toward the target during the hold. Pays CORRECT.
+    overrides:
+      training_stage: single-target-dots
+      coherences_pct: [100.0]            # ASSUMED (not in the paper): strong motion, as in stage 4
+      correction_trials.enabled: false
+      paradigm.n_per_condition: 30       # ASSUMED (not in the paper): 2 directions x 30
+    success: CORRECT
+    criterion:
+      window: 50                         # ASSUMED (not in the paper)
+      min_trials: 30
+      promote_when: {success_rate: 0.8, completed_rate: 0.7}
+
+  - id: choice-strong
+    title: Two-choice task at 100 %
+    description: The experiment's trial with both targets, at 100 % correlation (p. 4748). Pays CORRECT.
+    task: rdk-direction
+    overrides:
+      coherences_pct: [100.0]            # paper: p. 4748 (strong motion signals, 100 % correlation)
+      paradigm.n_per_condition: 50       # ASSUMED (not in the paper): 2 directions x 50
+    success: CORRECT
+    criterion:
+      window: 100                        # ASSUMED (not in the paper)
+      min_trials: 60
+      promote_when: {success_rate: 0.9, completed_rate: 0.8}
+
+  - id: threshold
+    title: Down to threshold
+    description: The combined threshold series as configured (configs/task-monkey.yaml). Pays CORRECT.
+    task: rdk-direction
+    success: CORRECT

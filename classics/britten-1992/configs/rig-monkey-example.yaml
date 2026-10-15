@@ -1,0 +1,59 @@
+# A monkey rig for the MONKEY set (configs/task-monkey.yaml): a display, an eye tracker, a
+# juice line and TTL sync lines. EXAMPLE GEOMETRY AND DEVICES ONLY: measure your own panel
+# and viewing distance, and name your own tracker address and DAQ channels, before a real
+# session (`uv run alhazen check-rig --rig monkey-example --pulse` exercises the devices).
+#
+#   uv run python run.py --task rdk-direction --params configs/task-monkey.yaml \
+#       --rig monkey-example --sub m01 --ses 1 --initials MK
+#
+# The paper's display was a large CRT (p. 4746); a fast panel keeps the signal interval
+# close to the paper's 45 ms: 5 frames = 41.7 ms at 120 Hz (3 frames = 50 ms at 60 Hz).
+monitor:
+  name: monkey-example
+  width_px: 1920
+  height_px: 1080
+  width_cm: 53.0
+  distance_cm: 57.0
+  refresh_rate_hz: 120.0
+  fullscreen: true
+display:
+  backend: psychopy
+  frame_qa:
+    # A trial that dropped more than a tenth of its frames is served again: the dot
+    # stream advances one frame per flip, so dropped frames change the stimulus.
+    policy: recycle_trial
+    max_dropped_fraction: 0.10
+  feedback_beeps: false
+  # A photodiode over the bottom-right corner marks motion onset: the cheapest audit of
+  # the STIM_ON sync pulse below.
+  photodiode:
+    corner: br
+    size_px: 60
+    events: [STIM_ON]
+live_monitor:
+  enabled: true
+  auto_open: true
+  port: 0
+devices:
+  eyetracker:
+    backend: eyelink
+    host_ip: 100.1.1.1          # the EyeLink default
+    calibration_type: HV9
+    edf_host_filename: BRITTEN.EDF
+  reward:
+    backend: nidaq
+    device: Dev1
+    channel: ao0
+    voltage: 5.0
+  # Which task events go out on which TTL line, for aligning anything recorded beside
+  # the session (alhazen's align_run fits the clocks on the most frequent one).
+  sync:
+    backend: nidaq
+    pulse_ms: 2.0
+    event_lines:
+      TRIAL_START: Dev1/port0/line0
+      STIM_ON: Dev1/port0/line1
+      TARGETS_ON: Dev1/port0/line2
+      SACCADE_ONSET: Dev1/port0/line3
+data_root: data
+real_data: true

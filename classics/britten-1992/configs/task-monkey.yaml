@@ -1,0 +1,72 @@
+# Motion coherence discrimination (Britten et al., 1992): the MONKEY parameter set.
+#
+# The paper's combined threshold series (pp. 4747-4748, Fig. 2): acquire the fixation
+# point; hold it while the stochastic motion display runs for 2 s inside an aperture
+# placed over the receptive field; then the fixation point and the dots go off, two
+# targets appear on the motion axis, and the monkey saccades to the target of the
+# direction it saw, within 2.1 s. A correct choice earns a drop of juice; a wrong one a
+# brief time-out; at 0 % correlation a random half of the trials pay.
+#
+# The aperture, axis and speed are EXAMPLE values: the paper tailored them to each MT
+# neuron (aperture over the receptive field, preferred-null axis, preferred speed).
+# Change them for the neuron under study before the block.
+#
+# "# paper: p. N" cites Britten et al. (1992); "# ASSUMED (not in the paper): <reason>"
+# marks every value the paper does not state (docs/methods.md lists them all).
+subject_kind: monkey
+response_mode: saccade_and_reward  # paper: p. 4747 (saccade to one of two target LEDs)
+
+# --- the stochastic motion display (pp. 4746-4747) -------------------------------------
+coherences_pct: [0.0, 0.8, 1.6, 3.2, 6.4, 12.8, 25.6, 51.2]  # ASSUMED (not in the paper): the exact set; p. 4747 gives 6-10 levels spaced by factors of 2, typically with 0 %
+axis_deg: 0.0                    # ASSUMED (not in the paper): example axis; set to the neuron's preferred direction (p. 4747)
+speed_dva_s: 6.0                 # ASSUMED (not in the paper): example speed; set to the neuron's preferred speed, 0.4-28.4 deg/s (p. 4749)
+signal_dt: {ms: 45}              # paper: p. 4746 (rounded to whole frames of the display: a deviation)
+density_dots_deg2_s: 16.7        # paper: p. 4746
+field_dva: 20.0                  # ASSUMED (not in the paper): the 400 deg^2 unmasked area as a 20 x 20 deg plotting field centred on the aperture, wrapping at its edges
+aperture_dva: 7.0                # ASSUMED (not in the paper): example size inside the 2.5-20 deg range (p. 4749); match it to the receptive field
+aperture_center_dva: [6.0, -4.0] # ASSUMED (not in the paper): example receptive-field centre, 7.2 deg eccentric (the monkeys' geometric means were 6.8-10.3 deg, p. 4749)
+aperture_fill: [-1.0, -1.0, -1.0]  # deviation: dots on a black disc; the paper's whole display was dark (p. 4746)
+dot_size_dva: 0.1                # paper: p. 4746
+dot_color: [1.0, 1.0, 1.0]       # ASSUMED (not in the paper): the display's white; p. 4746 says bright dots on a white P4 phosphor
+stimulus_seed: per_trial         # paper: p. 4747 (fixed seed in 56 of 216 experiments: stimulus_seed: fixed)
+fixed_seed: 1                    # used only with stimulus_seed: fixed
+stimulus_duration: {ms: 2000}    # paper: p. 4747
+
+# --- fixation, targets, timing ----------------------------------------------------------
+fix_size_dva: 0.3                # ASSUMED (not in the paper): a conventional small fixation point
+fix_color: [1.0, 1.0, -1.0]      # paper: p. 4748 (yellow fixation point in the combined threshold series)
+fix_window_dva: 1.25             # paper: p. 4747 ("typically 1.25 deg" from the fixation point: a radius)
+target_size_dva: 0.5             # ASSUMED (not in the paper): on-screen discs stand in for the target LEDs
+target_color: [1.0, 1.0, 1.0]    # ASSUMED (not in the paper): the LEDs' colour is not stated
+target_ecc_dva: 10.0             # ASSUMED (not in the paper): targets on the motion axis, 10 deg either side of fixation
+target_window_dva: 3.0           # ASSUMED (not in the paper): radius of the window a saccade must land in
+acquire_timeout: {ms: 5000}      # ASSUMED (not in the paper): time to acquire fixation before the trial is served again
+acquire_hold: {ms: 200}          # ASSUMED (not in the paper): gaze held this long counts as acquired
+prestim_hold: {ms: 300}          # ASSUMED (not in the paper): fixation held before the dots appear
+response_timeout: {ms: 2100}     # paper: p. 4747 (decision within 2.1 s of target onset)
+landing_dwell: {ms: 200}         # ASSUMED (not in the paper): where the eye is 200 ms after it leaves fixation is the landing
+error_timeout: {ms: 1500}        # ASSUMED (not in the paper): the paper's "brief time-out interval" after a wrong choice (p. 4747)
+iti: {ms: 1000}                  # ASSUMED (not in the paper): inter-trial interval
+
+# Correction trials (p. 4748): three wrong choices on consecutive presentations of one
+# direction start a series in that direction until it is chosen correctly. Excluded from
+# every analysis (the trials table says correction = True).
+correction_trials:
+  enabled: true                  # paper: p. 4748
+  after_errors: 3                # paper: p. 4748
+  coherence_pct: null            # ASSUMED (not in the paper): each correction trial draws one of the non-zero levels
+
+# One block of the combined threshold series: 15 trials per direction per level, random
+# order (p. 4747). The paper ran up to six blocks per neuron while isolation lasted: run
+# another session for each further block.
+paradigm:
+  kind: sequence
+  n_per_condition: 15            # paper: p. 4747
+  shuffle: true                  # paper: p. 4747
+
+# --- reward -------------------------------------------------------------------------------
+# A drop of water or juice for a correct choice (p. 4747). At 0 % correlation the correct
+# target is the trial's nominal direction, so reward is random on half those trials.
+reward:
+  by_outcome:
+    CORRECT: {n_pulses: 1, pulse_ms: 200, inter_pulse_ms: 200}  # ASSUMED (not in the paper): one 200-ms pulse; set the volume on the rig
