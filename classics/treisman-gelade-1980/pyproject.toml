@@ -7,6 +7,7 @@ name = "alhazen-treisman-gelade-1980"
 version = "0.1.0"
 description = "Feature vs conjunction search, rebuilt in alhazen (alhazen-experiments: classics/treisman-gelade-1980)"
 requires-python = ">=3.10"
+license = "Apache-2.0"
 dependencies = [
   # alhazen-vision, not alhazen: the bare name on PyPI is an unrelated project.
   # uv takes it from GitHub at the tag in [tool.uv.sources]; the floor is what pip reads.

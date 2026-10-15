@@ -219,3 +219,8 @@ result.
 - Treisman, A., Sykes, M., & Gelade, G. (1977). Selective attention and stimulus
   integration. In S. Dornic (Ed.), *Attention and Performance VI* (pp. 333–361). Erlbaum.
   (The earlier experiment Experiment I replicates, p. 101.)
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).

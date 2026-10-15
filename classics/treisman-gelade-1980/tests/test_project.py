@@ -126,3 +126,8 @@ def test_the_listing_claims_no_participant_result():
                ("audio", "eye_tracker", "reward", "microstimulation", "recording"))
     methods = (PROJECT / "docs" / "methods.md").read_text(encoding="utf-8")
     assert "no participant data" in methods
+
+
+def test_the_licence_block_is_the_repositorys():
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    assert doc["license"] == {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}
