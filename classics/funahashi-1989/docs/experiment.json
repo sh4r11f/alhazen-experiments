@@ -1,0 +1,389 @@
+{
+  "schema": "alhazen-documentation",
+  "schema_version": 1,
+  "title": "Oculomotor delayed response",
+  "summary": "Funahashi, Bruce & Goldman-Rakic's (1989) oculomotor delayed-response task: hold fixation while a square flashes for 0.5 s at one of eight locations 13 deg out, keep fixating through a 1.5-, 3- or 6-s delay, then, when the fixation spot goes off, saccade to the remembered location within 0.5 s. A landing within 6 deg (diameter) of the cue is correct. Human and monkey parameter sets and a monkey training ladder; the paper's neuronal recordings are not part of it.",
+  "methods": "docs/methods.md",
+  "references": [
+    "Funahashi, S., Bruce, C. J., & Goldman-Rakic, P. S. (1989). Mnemonic coding of visual space in the monkey's dorsolateral prefrontal cortex. Journal of Neurophysiology, 61(2), 331–349. https://doi.org/10.1152/jn.1989.61.2.331",
+    "Wang, X.-J. (2005). Discovering spatial working memory fields in prefrontal cortex. Journal of Neurophysiology, 93, 3027-3028 (secondary source)."
+  ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
+  "deviations": [
+    {
+      "item": "Subjects",
+      "original": "Three adult rhesus monkeys, trained for 3-4 months (p. 332)",
+      "here": "A monkey parameter set (configs/task-monkey.yaml) and a human parameter set (configs/task.yaml): the same trial, humans instructed (instructions.md) and never paid",
+      "reason": "The classic is used with human volunteers as well; the two files differ only in their subject block (tests/test_configs.py)"
+    },
+    {
+      "item": "Eye-position measurement",
+      "original": "Scleral search coil (Robinson's method), digitized at 500 Hz (pp. 332-333)",
+      "here": "A video eye tracker (example rigs: EyeLink), gaze read once per display frame. A blink loses the eye on a video tracker, and alhazen counts a lost sample during fixation as a break, so a blink before the go signal ends the trial as FIX_BREAK (the coil kept measuring through blinks)",
+      "reason": "Non-invasive and what most labs have; alhazen reads one gaze sample per frame"
+    },
+    {
+      "item": "Saccade detection",
+      "original": "Online velocity-based saccade detection (van Gisbergen et al. algorithm) on differentiated eye position (p. 333)",
+      "here": "Onset = the first frame gaze is outside the 1.5-deg fixation window; endpoint = the first new sample slower than 30 deg/s (alhazen's StimulusResponse and LandingSample)",
+      "reason": "alhazen's frame-based gaze phases; latencies are quantized to frames and include the time to leave the fixation window"
+    },
+    {
+      "item": "Display",
+      "original": "Monochrome 19-in. CRT subtending 48 x 38 deg, PDP-11/23 with a GRAPH-11 card (p. 332)",
+      "here": "The rig's monitor through PsychoPy; durations rounded to whole frames; a screen that cannot show the 13-deg cues is refused",
+      "reason": "Hardware; the paper's CRT is not available"
+    },
+    {
+      "item": "Background",
+      "original": "Not stated in the paper; a dark screen in a dark room according to a later account (Wang 2005, p. 3028)",
+      "here": "alhazen's mid-grey field",
+      "reason": "alhazen v2.16 fixes the window colour at mid-grey; a dark field needs an alhazen capability (docs/methods.md, Verification)"
+    },
+    {
+      "item": "Neural recording and microstimulation",
+      "original": "Single-neuron recording in the principal sulcus and frontal eye fields, microstimulation to identify FEF sites (pp. 332-334)",
+      "here": "Not included. Task events can drive TTL sync lines (configs/rig-gaze-example.yaml) for a lab's own recording system",
+      "reason": "This folder is the behavioural task; the recording and stimulation systems are the lab's"
+    },
+    {
+      "item": "Reward delivery",
+      "original": "0.2-ml drops of lightly sweetened water via an electronic metering pump (p. 332)",
+      "here": "A pulse train on the rig's reward line, set in the monkey file (or volume_ul once the rig's juice per pulse is measured)",
+      "reason": "A pulse-driven line delivers a volume that depends on the pump; alhazen meters by pulses or by a measured volume per pulse"
+    }
+  ],
+  "assumed": [
+    {
+      "item": "Fixation window",
+      "value": "1.5 deg radius (3 deg across), the same through fixation, cue and delay",
+      "reason": "The paper gives no fixation window; chosen to tolerate video-tracker noise while keeping the eye near the spot",
+      "key": "fix_window_dva"
+    },
+    {
+      "item": "Time allowed to look at the fixation spot",
+      "value": "2 s, then NO_FIXATION",
+      "reason": "Not stated; a trial must end if the subject never looks",
+      "key": "acquire_timeout"
+    },
+    {
+      "item": "Where the saccade ends",
+      "value": "The first new gaze sample slower than 30 deg/s after gaze leaves the fixation window",
+      "reason": "The paper used a velocity algorithm but gives no threshold; 30 deg/s is a conventional saccade-offset threshold",
+      "key": "landing_settle_speed_dva_s"
+    },
+    {
+      "item": "Wait for the eye to settle",
+      "value": "150 ms after saccade onset; if it has not settled, the last sample is judged",
+      "reason": "Not stated; a 13-deg saccade lasts about 50 ms, so 150 ms leaves room without reaching a corrective saccade",
+      "key": "landing_max_wait"
+    },
+    {
+      "item": "Trials per location and delay",
+      "value": "3 per block, 6 per session (144 completed trials)",
+      "reason": "Not stated (the paper's data files held 50-100 trials, p. 333); 6 per cell gives a usable endpoint distribution in a 23-30-min session",
+      "key": "paradigm.n_per_condition"
+    },
+    {
+      "item": "How delays are mixed",
+      "value": "Delays interleaved at random with the eight locations, each block a shuffled complete replicate",
+      "reason": "The paper states only that location was randomized (pp. 332-333) and that delays were sometimes combined",
+      "key": "paradigm.shuffle"
+    },
+    {
+      "item": "Blocks",
+      "value": "2 blocks with a rest (and a chance to recalibrate) between them",
+      "reason": "Not stated; a rest halfway through a 23-30-min session",
+      "key": "paradigm.blocks.n_blocks"
+    },
+    {
+      "item": "Reading of the response period",
+      "value": "The saccade must start (gaze leave the fixation window) within 0.5 s of the go signal; its endpoint is judged when the eye lands",
+      "reason": "\"If the monkeys made a saccadic eye movement within the next 0.5 s\" (pp. 332-333) does not say whether onset or landing must fall within 0.5 s"
+    },
+    {
+      "item": "Trials without a response",
+      "value": "A trial ended by NO_FIXATION, FIX_BREAK or NO_SACCADE is served again later in its block; INACCURATE responses are kept and not repeated",
+      "reason": "Not stated; repeating aborted trials keeps every cell filled, and keeping errors keeps the large-error trials the paper examined (p. 331, Summary 9)"
+    },
+    {
+      "item": "Screen after the saccade",
+      "value": "Nothing is shown: the cue does not reappear, there is no feedback, and the trial ends at the landing",
+      "reason": "The paper describes no feedback other than the reward"
+    },
+    {
+      "item": "Background luminance",
+      "value": "Mid-grey (alhazen's window colour)",
+      "reason": "Not stated in the paper (a later account says the screen was dark, Wang 2005); alhazen v2.16 does not let a task set the window colour (also a deviation)"
+    },
+    {
+      "item": "Monkey reward train",
+      "value": "1 pulse of 200 ms per CORRECT trial",
+      "reason": "The paper gives a volume (0.2 ml), not a pulse train; the volume per pulse depends on the rig's pump and must be measured",
+      "key": "reward.by_outcome.CORRECT",
+      "file": "configs/task-monkey.yaml"
+    },
+    {
+      "item": "Monkey training ladder",
+      "value": "fixate -> visually guided saccade (the square appears as the spot goes off) -> memory saccade with 0.25/0.5/1-s delays -> the full task, with the windows, response periods, trial counts, rewards and criteria in the ladder file",
+      "reason": "The paper says only that training took 3-4 months (p. 332); this is the usual route to a memory-guided saccade",
+      "key": "stages",
+      "file": "configs/training-odr.yaml"
+    },
+    {
+      "item": "Human instructions",
+      "value": "The wording in instructions.md; SPACE starts the session",
+      "reason": "The paper's subjects were monkeys; humans need instructions"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "oculomotor-delayed-response",
+      "title": "Oculomotor delayed response",
+      "summary": "Fixate; a 0.5-s cue at one of eight locations 13 deg out; a 1.5/3/6-s delay with fixation held; the spot goes off; saccade to the remembered location within 0.5 s.",
+      "parameters_file": "configs/task.yaml",
+      "parameters": [
+        {
+          "name": "fix_size_dva",
+          "label": "Fixation spot diameter",
+          "group": "Stimuli",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.1,
+          "meaning": "Diameter of the white fixation spot. Paper: p. 332.",
+          "source": "paper p. 332"
+        },
+        {
+          "name": "cue_size_dva",
+          "label": "Cue size",
+          "group": "Stimuli",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.7,
+          "meaning": "Side of the filled white square cue. Paper: p. 332.",
+          "source": "paper p. 332"
+        },
+        {
+          "name": "cue_ecc_dva",
+          "label": "Cue eccentricity",
+          "group": "Stimuli",
+          "type": "number",
+          "unit": "dva",
+          "default": 13.0,
+          "meaning": "Distance of the cue's centre from fixation. Paper: p. 332, Fig. 2.",
+          "source": "paper p. 332"
+        },
+        {
+          "name": "cue_angles_deg",
+          "label": "Cue locations",
+          "group": "Stimuli",
+          "type": "object",
+          "unit": "deg",
+          "default": [
+            0.0,
+            45.0,
+            90.0,
+            135.0,
+            180.0,
+            225.0,
+            270.0,
+            315.0
+          ],
+          "meaning": "Polar angles of the eight cue locations, counter-clockwise from the right (90 = up). Paper: p. 331, p. 332.",
+          "source": "paper pp. 331-332"
+        },
+        {
+          "name": "fix_window_dva",
+          "label": "Fixation window radius",
+          "group": "Gaze",
+          "type": "number",
+          "unit": "dva",
+          "default": 1.5,
+          "meaning": "Gaze must stay within this radius of the spot until the go signal. ASSUMED, not in the paper."
+        },
+        {
+          "name": "target_window_dva",
+          "label": "Response window radius",
+          "group": "Gaze",
+          "type": "number",
+          "unit": "dva",
+          "default": 3.0,
+          "meaning": "A saccade endpoint within this radius of the cue location is correct (6 deg diameter). Paper: pp. 332-333.",
+          "source": "paper pp. 332-333"
+        },
+        {
+          "name": "fixation_period",
+          "label": "Fixation period",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 750
+          },
+          "meaning": "Fixation held before the cue. Paper: p. 332, Fig. 1.",
+          "source": "paper p. 332"
+        },
+        {
+          "name": "cue_duration",
+          "label": "Cue period",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "How long the cue is shown. Paper: p. 332, Fig. 1.",
+          "source": "paper p. 332"
+        },
+        {
+          "name": "delays",
+          "label": "Delays",
+          "group": "Timing",
+          "type": "object",
+          "default": [
+            {
+              "ms": 1500
+            },
+            {
+              "ms": 3000
+            },
+            {
+              "ms": 6000
+            }
+          ],
+          "meaning": "The delays, one per condition, interleaved with the locations. The paper's three-delay combination (pp. 332-333); it usually used 3 s alone.",
+          "source": "paper pp. 332-333"
+        },
+        {
+          "name": "response_period",
+          "label": "Response period",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Time after the spot goes off within which the saccade must start. Paper: pp. 332-333 (reading it as a limit on the start is ASSUMED).",
+          "source": "paper pp. 332-333"
+        },
+        {
+          "name": "landing_settle_speed_dva_s",
+          "label": "Saccade end speed",
+          "group": "Gaze",
+          "type": "number",
+          "unit": "deg/s",
+          "default": 30.0,
+          "meaning": "The endpoint is the first gaze sample slower than this after leaving fixation. ASSUMED, not in the paper."
+        },
+        {
+          "name": "landing_max_wait",
+          "label": "Landing wait",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 150
+          },
+          "meaning": "How long after saccade onset to wait for the eye to settle. ASSUMED, not in the paper."
+        },
+        {
+          "name": "acquire_timeout",
+          "label": "Fixation acquisition limit",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 2000
+          },
+          "meaning": "Time allowed to look at the spot before the trial ends as NO_FIXATION. ASSUMED, not in the paper."
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 5000
+          },
+          "meaning": "Blank interval between trials. Paper: p. 332.",
+          "source": "paper p. 332"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Trials per condition per block",
+          "group": "Design",
+          "type": "integer",
+          "default": 3,
+          "meaning": "Completed trials of each location x delay per block. ASSUMED, not in the paper."
+        },
+        {
+          "name": "paradigm.blocks.n_blocks",
+          "label": "Blocks",
+          "group": "Design",
+          "type": "integer",
+          "default": 2,
+          "meaning": "Blocks, with a rest between them. ASSUMED, not in the paper."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The saccade started within the response period and its endpoint fell within the 6-deg-diameter window around the cue location. A monkey is paid juice."
+        },
+        {
+          "name": "INACCURATE",
+          "completed": true,
+          "success": false,
+          "meaning": "The saccade started in time and landed outside the window (or its endpoint was not measured). Kept, not repeated."
+        },
+        {
+          "name": "NO_FIXATION",
+          "completed": false,
+          "meaning": "Gaze never reached the fixation window within the acquisition limit; served again."
+        },
+        {
+          "name": "FIX_BREAK",
+          "completed": false,
+          "meaning": "Gaze left the fixation window (or was lost) before the go signal; served again."
+        },
+        {
+          "name": "NO_SACCADE",
+          "completed": false,
+          "meaning": "Gaze did not leave the fixation window within the 0.5-s response period; served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation spot shown."
+        },
+        {
+          "name": "FIX_ACQUIRED",
+          "meaning": "Gaze entered the fixation window; the 0.75-s fixation period starts on the next frame."
+        },
+        {
+          "name": "CUE_ON",
+          "meaning": "Cue square shown (0.5 s)."
+        },
+        {
+          "name": "CUE_OFF",
+          "meaning": "Cue off: the delay starts."
+        },
+        {
+          "name": "FIX_OFF",
+          "meaning": "Fixation spot off: the go signal; latency is measured from this flip."
+        },
+        {
+          "name": "SACCADE_ONSET",
+          "meaning": "Gaze left the fixation window."
+        },
+        {
+          "name": "LANDED",
+          "meaning": "The saccade's endpoint was measured (the eye settled)."
+        }
+      ],
+      "timeline": "ITI 5 s | fixation 0.75 s | cue 0.5 s | delay 1.5/3/6 s | go: saccade within 0.5 s | landing"
+    }
+  ]
+}
