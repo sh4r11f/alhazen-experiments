@@ -1,0 +1,9 @@
+alhazen-experiments
+Copyright 2026 Sharif Saleki
+
+Code in this repository is licensed under the Apache License, Version 2.0 (LICENSE).
+Methods write-ups (docs/methods.md in each experiment folder) and the stimulus assets
+generated for this project are licensed under Creative Commons Attribution 4.0
+International (CC BY 4.0, https://creativecommons.org/licenses/by/4.0/).
+Third-party material taken from a paper keeps its own licence and is credited in the
+experiment folder that uses it (docs/experiment.json, docs/listing.json "assets").
