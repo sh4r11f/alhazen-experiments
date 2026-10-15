@@ -221,3 +221,8 @@ exercised by these tests; check them in `--mode test` on the rig before a sessio
   Human Perception and Performance, 18*(3), 849–860. doi:10.1037/0096-1523.18.3.849
 - Weichselgartner, E., & Sperling, G. (1987). Dynamics of automatic and controlled visual
   attention. *Science, 238*, 778–780.
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).

@@ -39,11 +39,12 @@
   "assets": [
     {
       "path": "docs/preview.png",
-      "licence": "MIT (drawn by src/raymond1992/preview.py)"
+      "licence": "CC-BY-4.0"
     },
     {
       "path": "letter glyphs (rendered at run time)",
-      "licence": "DejaVu Sans Bold, Bitstream Vera / DejaVu font licence, read from matplotlib's bundled copy; not shipped in this folder"
+      "licence": "Bitstream Vera / DejaVu font licence (third-party; not shipped in this folder)",
+      "credit": "DejaVu fonts (dejavu-fonts.github.io), based on Bitstream Vera; read from matplotlib's bundled copy at run time"
     }
   ],
   "notes": "Needs a display at 100, 120, 144, 200 or 240 Hz for the paper's timing (60 Hz is refused in run mode), and a gamma-corrected display whose white luminance is entered in configs/task.yaml. Software-verified only; no participant data."
