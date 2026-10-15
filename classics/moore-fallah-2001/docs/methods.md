@@ -184,3 +184,8 @@ stimulator, and claims no replication of the original result, neural or behaviou
   1273–1276. https://doi.org/10.1073/pnas.98.3.1273 (correction: *PNAS*, 98(7), 4276).
 - Wurtz, R. H., & Mohler, C. W. (1976). Enhancement of visual responses in monkey striate cortex and
   frontal eye fields. *J. Neurophysiol.*, 39, 766–772 (the dimming-detection task the paper cites).
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).

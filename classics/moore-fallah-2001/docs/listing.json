@@ -42,7 +42,7 @@
   "assets": [
     {
       "path": "docs/preview.png",
-      "licence": "MIT",
+      "licence": "CC-BY-4.0",
       "source": "drawn by src/moore_fallah2001/preview.py from the parameters"
     }
   ],

@@ -110,3 +110,8 @@ def test_the_example_rigs_load_and_map_the_stimulation_trigger():
     assert rig.devices.sync.event_lines["STIM_TRIGGER"]
     assert rig.devices.reward is not None and rig.devices.eyetracker is not None
     assert load_rig(PROJECT / "configs" / "rig-booth.yaml").devices.eyetracker is not None
+
+
+def test_the_licence_block_is_the_repositorys():
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    assert doc["license"] == {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}
