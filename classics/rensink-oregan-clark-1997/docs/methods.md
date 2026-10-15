@@ -36,7 +36,7 @@ of visual angle (dva); durations are rounded to whole display frames.
   degrees; [[param:location_shift_dva]] for procedural pairs, ASSUMED from Fig. 2, p. 370).
 - The paper's 48 photographs are not redistributable. This folder ships 12 photo pairs and
   makes the rest procedurally (deviation):
-  - **Photo pairs** (`src/rensink1997/photos/`, licence: generated for this project). Each
+  - **Photo pairs** (`src/rensink1997/photos/`, licence: CC BY 4.0, generated for this project). Each
     scene was generated as a photograph with an image model (gpt-image-2.5-flare, base) and
     edited with one object removed (gpt-image-2.5-sunburst, edit of the base), on
     2026-10-14. The prompts are in `photos/spec.json` (and `docs/listing.json: assets`).
@@ -222,3 +222,8 @@ replication of the original result.
 - Rensink, R. A., O'Regan, J. K., & Clark, J. J. (1997). To see or not to see: The need for
   attention to perceive changes in scenes. *Psychological Science, 8*(5), 368–373.
   https://doi.org/10.1111/j.1467-9280.1997.tb00427.x
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).

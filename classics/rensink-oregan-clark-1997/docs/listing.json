@@ -41,7 +41,7 @@
     {
       "path": "src/rensink1997/photos/",
       "what": "12 photo scene pairs (24 JPEG, 4.7 MB) composited by scripts/build_photo_pairs.py from images an image model generated for this project",
-      "licence": "generated for this project (no third-party material); distributed with this repository",
+      "licence": "CC-BY-4.0",
       "generator": {
         "base": "gpt-image-2.5-flare",
         "removal_edit": "gpt-image-2.5-sunburst (reference image = the base)",
@@ -101,17 +101,17 @@
     {
       "path": "src/rensink1997/photos/interest_ratings.json",
       "what": "interest labels from five model describers per scene (gpt-6.1-sol, 2026-10-14), with their descriptions",
-      "licence": "generated for this project (no third-party material); distributed with this repository"
+      "licence": "CC-BY-4.0"
     },
     {
       "path": "docs/preview.png",
       "what": "stimulus preview drawn by src/rensink1997/preview.py",
-      "licence": "MIT (repository code licence)"
+      "licence": "CC-BY-4.0"
     },
     {
       "path": "src/rensink1997/procedural.py",
       "what": "procedural scene pairs, generated at run time from a seed (no files)",
-      "licence": "MIT (repository code licence)"
+      "licence": "CC-BY-4.0"
     }
   ],
   "notes": "Software verification only (tests and a simulated session); no participant data. Experiments 1-3 share the scenes, so each subject takes one of them."
