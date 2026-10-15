@@ -185,3 +185,8 @@ location, so simulated data show no delay or location effect by construction.
 - Wang, X.-J. (2005). Discovering spatial working memory fields in prefrontal cortex.
   *Journal of Neurophysiology*, 93, 3027–3028. https://doi.org/10.1152/classicessays.00028.2005
   (secondary source; used only for the dark screen).
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).

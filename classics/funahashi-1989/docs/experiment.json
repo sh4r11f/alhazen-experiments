@@ -8,6 +8,11 @@
     "Funahashi, S., Bruce, C. J., & Goldman-Rakic, P. S. (1989). Mnemonic coding of visual space in the monkey's dorsolateral prefrontal cortex. Journal of Neurophysiology, 61(2), 331–349. https://doi.org/10.1152/jn.1989.61.2.331",
     "Wang, X.-J. (2005). Discovering spatial working memory fields in prefrontal cortex. Journal of Neurophysiology, 93, 3027-3028 (secondary source)."
   ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
   "deviations": [
     {
       "item": "Subjects",
