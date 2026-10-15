@@ -30,7 +30,8 @@ STATUSES = {"original-protocol", "adaptation", "demo"}
 HARDWARE = {"display", "keyboard", "audio", "eye_tracker", "reward", "microstimulation",
             "recording", "mouse"}
 DOC_TOP = {"schema", "schema_version", "title", "summary", "methods", "references", "tasks",
-           "assumed", "deviations"}
+           "assumed", "deviations", "license"}
+LICENSE_BLOCK = {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}
 DOC_TASK = {"id", "title", "summary", "description", "parameters_file", "parameters",
             "outcomes", "events", "timeline", "diagram"}
 DOC_PARAM = {"name", "label", "group", "type", "unit", "default", "constraints", "meaning",
@@ -147,6 +148,8 @@ def check(folder: Path, lock: bool) -> list[str]:
         errs.append("docs/experiment.json: title <=160, summary 1..1000 characters")
     if not doc.get("tasks"):
         errs.append("docs/experiment.json: no tasks")
+    if doc.get("license") != LICENSE_BLOCK:
+        errs.append(f"docs/experiment.json: license must be {LICENSE_BLOCK} (README, Licence)")
     try:
         import yaml  # PyYAML, when present, lets the defaults be checked against the files
     except ModuleNotFoundError:
@@ -192,6 +195,8 @@ def check(folder: Path, lock: bool) -> list[str]:
     for ref in re.findall(r"\[\[task:([^\]]+)\]\]", methods):
         if ref not in task_ids:
             errs.append(f"docs/methods.md: [[task:{ref}]] is not a task")
+    if "CC BY 4.0" not in methods:
+        errs.append("docs/methods.md: state its CC BY 4.0 licence (see template/docs/methods.md.template)")
     if "(template)" in methods or "template placeholder" in methods or "CITATION" in methods:
         errs.append("docs/methods.md still holds template text")
     assumed = doc.get("assumed")
@@ -236,6 +241,11 @@ def check(folder: Path, lock: bool) -> list[str]:
     hw = lst.get("hardware") or {}
     if set(hw) - HARDWARE or hw.get("display") is not True:
         errs.append(f"docs/listing.json: hardware keys {sorted(HARDWARE)}, display true")
+    for a in lst.get("assets") or []:
+        if not isinstance(a, dict) or not a.get("path") or not (a.get("licence") or a.get("license")):
+            errs.append(f"docs/listing.json: every asset needs path and licence: {a}")
+        elif str(a.get("licence") or a.get("license")) not in ("CC-BY-4.0",) and not a.get("credit"):
+            errs.append(f"docs/listing.json: third-party asset {a.get('path')} needs a credit")
     if not (folder / lst.get("art", "docs/preview.png")).is_file():
         errs.append("docs/listing.json: art file missing")
 
@@ -268,12 +278,26 @@ def check(folder: Path, lock: bool) -> list[str]:
     return errs
 
 
+def check_repo() -> list[str]:
+    errs = []
+    lic = (ROOT / "LICENSE").read_text(encoding="utf-8") if (ROOT / "LICENSE").is_file() else ""
+    if "Apache License" not in lic or "Version 2.0, January 2004" not in lic:
+        errs.append("LICENSE is not the Apache-2.0 text")
+    notice = (ROOT / "NOTICE").read_text(encoding="utf-8") if (ROOT / "NOTICE").is_file() else ""
+    if "alhazen-experiments" not in notice or "Copyright 2026 Sharif Saleki" not in notice:
+        errs.append("NOTICE missing or without 'alhazen-experiments, Copyright 2026 Sharif Saleki'")
+    return errs
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("folders", nargs="*")
     ap.add_argument("--no-lock", action="store_true")
     a = ap.parse_args()
     bad = 0
+    for e in check_repo():
+        bad += 1
+        print(f"FAIL repository: {e}")
     for folder in folders(a.folders):
         errs = check(folder, lock=not a.no_lock)
         rel = folder.relative_to(ROOT).as_posix()
