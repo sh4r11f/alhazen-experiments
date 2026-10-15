@@ -5,6 +5,7 @@
   "summary": "One or two sentences on what the experiment asks and what a trial is.",
   "methods": "docs/methods.md",
   "references": ["CITATION"],
+  "license": {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"},
   "deviations": [
     {"item": "(template)", "original": "(template)", "here": "(template)", "reason": "(template)"}
   ],

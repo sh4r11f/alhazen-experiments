@@ -62,6 +62,11 @@ def test_every_assumption_is_in_the_methods_table_the_descriptor_and_the_yaml():
             assert "ASSUMED" in line, f"{item['key']} is not flagged ASSUMED in {file.name}"
 
 
+def test_the_licence_block_is_the_repositorys():
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    assert doc["license"] == {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}
+
+
 def test_listing_states_status_hardware_and_the_original():
     listing = json.loads((PROJECT / "docs" / "listing.json").read_text(encoding="utf-8"))
     assert listing["status"] in {"original-protocol", "adaptation", "demo"}
