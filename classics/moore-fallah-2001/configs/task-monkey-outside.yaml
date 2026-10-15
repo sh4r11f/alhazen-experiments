@@ -1,0 +1,93 @@
+# Saccade planning and attention (Moore & Fallah 2001): the MONKEY parameter
+# set, target OUTSIDE the movement field (MF).
+#
+# Same task as configs/task.yaml (the human file) with three differences: the
+# subject is a monkey paid juice for HITs and CORRECT_REJECTIONs, the
+# stimulation seam is on (a STIM_TRIGGER event one stimulation-onset
+# asynchrony before the dimming, on the stimulation staircase's trials, blink
+# and catch alike), and the target sits outside the MF the lab mapped this
+# session. ASSUMED and paper markers as in task.yaml.
+subject_kind: monkey
+reward:
+  by_outcome:
+    HIT: {n_pulses: 2, pulse_ms: 150, inter_pulse_ms: 150}               # ASSUMED (not in the paper): reward size not stated; tune per animal
+    CORRECT_REJECTION: {n_pulses: 2, pulse_ms: 150, inter_pulse_ms: 150} # ASSUMED (not in the paper): reward size not stated; tune per animal
+
+# --- display photometry (the RIG's, not the paper's) --------------------------
+# The paper states luminances in cd/m². They reach the screen through a
+# linearised display (the gamma `alhazen calibrate gamma` stores beside the rig
+# file) whose luminance at level 0 and level 1 you MEASURE with a photometer and
+# enter here. The two numbers below are EXAMPLES of a typical LCD, not measured.
+photometry:
+  black_cd_m2: 0.3             # ASSUMED (not in the paper): example display black; measure your rig
+  white_cd_m2: 100.0           # ASSUMED (not in the paper): example display white; measure your rig
+
+# --- luminances, cd/m² ----------------------------------------------------------
+background_cd_m2: 1.0          # paper: p. 1273 (background 1 cd/m²)
+target_cd_m2: 26.0             # paper: p. 1273 (initial target luminance 26 cd/m²)
+distractor_cd_m2: 26.0         # paper: p. 1273 (same luminance as the target)
+fixation_cd_m2: 26.0           # ASSUMED (not in the paper): fixation point drawn white like the target
+
+# --- fixation -------------------------------------------------------------------
+fix_size_dva: 0.5              # ASSUMED (not in the paper): the 0.5° spot of the MF-mapping task (p. 1274)
+fix_window_radius_dva: 1.5     # ASSUMED (not in the paper): "3° fixation window" (p. 1273) read as 3° across
+fix_acquire_timeout: {ms: 2000}  # ASSUMED (not in the paper): convention; a timeout is served again
+fix_acquire_hold: {ms: 200}    # ASSUMED (not in the paper): convention; target appears after this hold
+
+# --- target and distractors -----------------------------------------------------
+target_area_deg2: 0.75         # ASSUMED (not in the paper): middle of the stated 0.25–1.25 deg² (p. 1273)
+distractor_area_deg2: 0.55     # ASSUMED (not in the paper): middle of the stated 0.1–1 deg² (p. 1273)
+distractor_flash: {ms: 16}     # paper: p. 1273 (flashed for 16 ms)
+distractor_period: {ms: 32}    # paper: p. 1273 (replotted every 32 ms; "32 Hz", p. 1274)
+distractor_exclusion_dva: 3.5  # ASSUMED (not in the paper): middle of the stated 2–5° exclusion circle (p. 1273)
+distractor_fixation_clearance_dva: 1.5  # ASSUMED (not in the paper): keep distractors off the fixation window
+
+# --- the dimming ("blink") and the response -----------------------------------
+dim_onset_min: {ms: 500}       # paper: p. 1274 (random time 500–1,300 ms, Fig. 1 legend)
+dim_onset_max: {ms: 1300}      # paper: p. 1274
+dim_duration_min: {ms: 32}     # paper: p. 1274 (dims for 32–48 ms)
+dim_duration_max: {ms: 48}     # paper: p. 1274
+response_window: {ms: 800}     # ASSUMED (not in the paper): the stated 600–800 ms window read as a deadline; 800 + 1,300 = the 2,100 ms catch trial
+min_rt: {ms: 100}              # ASSUMED (not in the paper): presses within 100 ms of the dimming count as early
+catch_duration: {ms: 2100}     # paper: p. 1274 (hold for the duration of the trial, 2,100 ms)
+response_key: space            # ASSUMED (not in the paper): a key press stands in for the lever release
+
+# --- where the target goes ------------------------------------------------------
+# movement_field_dva is where suprathreshold stimulation at today's site sent
+# the eyes (the lab maps it before the session, p. 1274; this task does not).
+field:
+  movement_field_dva: [10.0, -6.0]  # ASSUMED (not in the paper): example MF; enter today's mapped MF (6–18° eccentric, p. 1275)
+  target_field: outside        # paper: p. 1274 (target at the MF, or outside it)
+  outside_rotation_deg: 90.0   # paper: p. 1274 (90° θ from the MF, same eccentricity and hemifield)
+
+# --- the microstimulation seam ------------------------------------------------
+# This software emits STIM_TRIGGER only; map it to a TTL line in the rig file
+# (devices.sync.event_lines, see configs/rig-lab-example.yaml). The stimulator,
+# its train and its current are the lab's. The train values below are the
+# paper's, recorded in every session's snapshot so the data say what the
+# stimulator was meant to deliver; they drive nothing.
+stimulation:
+  enabled: true                # paper: p. 1273 (stimulation and control trials randomly interleaved)
+  soa: {ms: 175}               # paper: pp. 1274–1275 (50–175 ms; 175 ms in the Fig. 2c example)
+  train: {ms: 100}             # paper: p. 1273 (100-ms train)
+  pulse_width_ms: 0.2          # paper: p. 1273 (biphasic pulses, 0.2 ms)
+  pulse_rate_hz: 200.0         # paper: p. 1273 (200 Hz)
+  biphasic: true               # paper: p. 1273
+  max_fraction_of_movement_threshold: 0.5  # paper: p. 1274 (currents <= 50% of the movement threshold)
+  current_ua: null             # entered by the lab per session (the paper's median 10 µA, p. 1276)
+  movement_threshold_ua: null  # entered by the lab per session (current evoking saccades half the time)
+
+# --- the simultaneous block staircase (p. 1274) --------------------------------
+# One block = blink_per_block blink trials + catch_per_block catch trials PER
+# STAIRCASE, shuffled together. A block with >= 1 of the 2 blinks detected AND
+# its catch trial held lowers dim_pct by one step; any other block raises it,
+# never above start_pct. dim_pct is the % Michelson contrast of the dimming.
+staircase:
+  start_pct: 60.0              # ASSUMED (not in the paper): starting level not stated
+  step_pct: 4.0                # ASSUMED (not in the paper): step not stated ("constant within a set of blocks")
+  min_pct: 2.0                 # ASSUMED (not in the paper): floor so the dimming never vanishes
+  n_blocks: 20                # ASSUMED (not in the paper): the paper fitted 10–25 blocks per staircase
+  blink_per_block: 2           # paper: p. 1274 (two blink trials per condition per block)
+  catch_per_block: 1           # paper: p. 1274 (one catch trial per condition per block)
+
+iti: {ms: 1000}                # ASSUMED (not in the paper): inter-trial interval not stated

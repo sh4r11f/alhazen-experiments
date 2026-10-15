@@ -1,0 +1,62 @@
+# An EXAMPLE monkey rig for the monkey parameter sets: an EyeLink on its own
+# Host PC, a juice solenoid on a National Instruments DAQ, and TTL lines out of
+# the same DAQ. EXAMPLE GEOMETRY AND DEVICES ONLY: copy it to a rig file of your
+# own, measure the monitor, and name your DAQ's real device and lines.
+#
+# THE MICROSTIMULATION SEAM. This experiment does not drive a stimulator. On a
+# stimulation trial the task emits STIM_TRIGGER on the display flip one
+# stimulation-onset asynchrony before the target dims (on catch trials, before
+# the dimming that never comes). `devices.sync.event_lines` below maps that
+# event to a TTL line; wire the line to your stimulator's trigger input. The
+# stimulator, the isolation units, the 100-ms train of biphasic 0.2-ms pulses at
+# 200 Hz and the current (<= 50% of the movement threshold) are the lab's to set
+# (the paper's values: configs/task-monkey-*.yaml, docs/methods.md). A sync
+# pulse is pulse_ms wide; it is a trigger edge, not the train.
+#
+# THE RESPONSE. The paper's monkeys held a lever and released it when the
+# target dimmed. alhazen reads key events, not a held lever, so the response
+# arrives as a key: a lever box that sends `space` on release works with the
+# shipped params (response_key), and holding the lever to start a trial is not
+# checked (docs/methods.md, Deviations).
+monitor:
+  name: lab-example
+  width_px: 1920
+  height_px: 1080
+  width_cm: 52.0
+  distance_cm: 57.0
+  refresh_rate_hz: 60.0
+  fullscreen: true
+display:
+  backend: psychopy
+  frame_qa:
+    policy: recycle_trial
+    max_dropped_fraction: 0.10
+  feedback_beeps: false
+  photodiode:
+    corner: br
+    size_px: 60
+    events: [DIM_ON]            # a diode edge on the dimming audits the display timing
+live_monitor:
+  enabled: true
+  auto_open: true
+  port: 0
+devices:
+  eyetracker:
+    backend: eyelink
+    host_ip: 100.1.1.1          # the EyeLink default address
+    edf_host_filename: mf2001.EDF
+    calibration_type: HV9
+  reward:
+    backend: nidaq
+    device: Dev1
+    channel: ao0
+    voltage: 5.0
+  sync:
+    backend: nidaq
+    pulse_ms: 2.0
+    event_lines:
+      STIM_TRIGGER: Dev1/port0/line0   # -> the stimulator's trigger input
+      DIM_ON: Dev1/port0/line1         # alignment marks for a recording system, if any
+      TARGET_ON: Dev1/port0/line2
+data_root: data
+real_data: true

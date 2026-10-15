@@ -1,0 +1,487 @@
+{
+  "schema": "alhazen-documentation",
+  "schema_version": 1,
+  "title": "Saccade planning and attention (Moore & Fallah)",
+  "summary": "Moore & Fallah (2001) asked whether preparing an eye movement directs attention: monkeys detected a brief dimming of a peripheral target among flashing distractors while the frontal eye field was stimulated below the saccade threshold. This is the behavioural task: fixate, watch a target inside or outside a configurable movement field, press a key when it dims (or hold off on catch trials), with the dimming titrated by the paper's simultaneous block staircase for stimulation and control trials. Microstimulation is a timed STIM_TRIGGER event for the lab's stimulator.",
+  "methods": "docs/methods.md",
+  "references": [
+    "Moore, T., & Fallah, M. (2001). Control of eye movements and spatial attention. PNAS, 98(3), 1273–1276. https://doi.org/10.1073/pnas.98.3.1273"
+  ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
+  "deviations": [
+    {
+      "item": "Response",
+      "original": "Monkey depresses a lever to start the trial and releases it when the target dims (p. 1273)",
+      "here": "A key press (`space`) when the target dims; the trial starts on fixation alone. On a monkey rig a lever box must send the key on release",
+      "reason": "alhazen reads key presses, not a held lever; holding the lever before and during the trial is not checked"
+    },
+    {
+      "item": "Microstimulation",
+      "original": "A 100-ms train of biphasic pulses (0.2 ms, 200 Hz) from a Grass S88 with two PSIU-6 isolation units, at ≤ 50% of the movement-threshold current, through Pt/Ir electrodes in the FEF (pp. 1273–1274)",
+      "here": "A STIM_TRIGGER event on the display flip one SOA before the (would-be) dimming, mapped to a TTL line in the rig file; the stimulator, train and current are the lab's. The paper's train values are recorded in each session's params",
+      "reason": "This software drives no stimulator; the seam is a declared event and a sync line"
+    },
+    {
+      "item": "Movement-field mapping",
+      "original": "A separate paradigm each session: suprathreshold stimulation from five fixation positions; the endpoints from the centre define the MF, and the target is placed there (p. 1274)",
+      "here": "Not implemented: the lab maps the MF and enters it as field.movement_field_dva",
+      "reason": "It needs the stimulator and a site; it is the lab's procedure, not the behavioural task"
+    },
+    {
+      "item": "Eye tracking",
+      "original": "Scleral search coil, 200 Hz (p. 1273)",
+      "here": "Any alhazen eye tracker (the example rigs use an EyeLink)",
+      "reason": "Hardware; the fixation-window rule is the same"
+    },
+    {
+      "item": "Display and timing",
+      "original": "CORTEX on a 60-Hz monitor, 40 × 30 cm at about 57 cm (p. 1273)",
+      "here": "PsychoPy on the rig's monitor; every duration in whole frames at the measured rate. The 16/32-ms distractor cycle is exact only near 60 Hz, and the 175-ms SOA becomes 11 frames (183 ms) at 60 Hz; the realised SOA is recorded per trial",
+      "reason": "alhazen times stimuli in display frames"
+    },
+    {
+      "item": "Subjects",
+      "original": "Two rhesus monkeys (p. 1273)",
+      "here": "Monkey parameter sets, and a human set: no stimulation (one control staircase), the target at a designated location, written instructions",
+      "reason": "So the behavioural task can be piloted with volunteers; a human run says nothing about FEF stimulation"
+    },
+    {
+      "item": "First, fixed-level experiments",
+      "original": "With the first monkey, % correct on stimulation vs control trials at arbitrary sub-threshold currents (17 sites, p. 1275)",
+      "here": "Only the staircase procedure; the notebook reports % correct by condition from the staircase trials",
+      "reason": "The threshold procedure is the paper's main measure; the fixed-level variant differs only in holding the dimming constant"
+    }
+  ],
+  "assumed": [
+    {
+      "item": "Display black luminance (photometry)",
+      "value": "0.3 cd/m² (example)",
+      "reason": "The paper gives stimulus luminances, not the display's range; an example LCD value, to be replaced by the rig's photometer measurement",
+      "key": "photometry.black_cd_m2"
+    },
+    {
+      "item": "Display white luminance (photometry)",
+      "value": "100 cd/m² (example)",
+      "reason": "As above: the rig's measured white at the linearised display's level 1",
+      "key": "photometry.white_cd_m2"
+    },
+    {
+      "item": "Fixation point luminance",
+      "value": "26 cd/m²",
+      "reason": "Not stated; drawn white like the target",
+      "key": "fixation_cd_m2"
+    },
+    {
+      "item": "Fixation point size",
+      "value": "0.5° disc",
+      "reason": "Not stated for the attention task; the 0.5° spot of the MF-mapping paradigm (p. 1274), drawn as alhazen's fixation disc",
+      "key": "fix_size_dva"
+    },
+    {
+      "item": "Fixation window",
+      "value": "circle of 1.5° radius",
+      "reason": "The paper's \"3° fixation window\" (p. 1273) read as 3° across; shape not stated",
+      "key": "fix_window_radius_dva"
+    },
+    {
+      "item": "Fixation acquisition timeout",
+      "value": "2000 ms",
+      "reason": "Not stated; convention. A timeout ends the attempt as NO_FIXATION, served again",
+      "key": "fix_acquire_timeout"
+    },
+    {
+      "item": "Fixation hold before the target appears",
+      "value": "200 ms",
+      "reason": "Not stated (the target appeared when the monkey fixated and pressed the lever); convention",
+      "key": "fix_acquire_hold"
+    },
+    {
+      "item": "Target size",
+      "value": "0.75 deg² (0.87° square)",
+      "reason": "The paper gives a range, 0.25–1.25 deg² (p. 1273); its middle",
+      "key": "target_area_deg2"
+    },
+    {
+      "item": "Distractor size",
+      "value": "0.55 deg² (0.74° square)",
+      "reason": "The paper gives a range, 0.1–1 deg² (p. 1273); its middle",
+      "key": "distractor_area_deg2"
+    },
+    {
+      "item": "Distractor exclusion circle around the target",
+      "value": "3.5° radius",
+      "reason": "The paper gives a range, 2–5° (p. 1273); its middle, read as a radius",
+      "key": "distractor_exclusion_dva"
+    },
+    {
+      "item": "Distractor clearance around fixation",
+      "value": "1.5° (the fixation window)",
+      "reason": "Not stated; keeps distractors off the fixation point",
+      "key": "distractor_fixation_clearance_dva"
+    },
+    {
+      "item": "Response window",
+      "value": "800 ms after the dimming",
+      "reason": "The paper's \"600–800 ms\" (p. 1273) read as a deadline range; 800 ms makes the latest dimming (1,300 ms) plus the window equal the 2,100-ms catch trial (p. 1274)",
+      "key": "response_window"
+    },
+    {
+      "item": "Minimum reaction time",
+      "value": "100 ms",
+      "reason": "Not stated; presses within 100 ms of the dimming cannot be responses to it and count as EARLY_RESPONSE",
+      "key": "min_rt"
+    },
+    {
+      "item": "Response key",
+      "value": "space",
+      "reason": "The paper's lever release has no alhazen input; a key press stands in (see Deviations)",
+      "key": "response_key"
+    },
+    {
+      "item": "Movement field location (example)",
+      "value": "(10, −6)° (11.7° eccentric)",
+      "reason": "Mapped per session by the lab; an example within the paper's 6–18° (p. 1275) that fits the example screens",
+      "key": "field.movement_field_dva"
+    },
+    {
+      "item": "Staircase starting level",
+      "value": "60% Michelson contrast",
+      "reason": "Not stated; above the 30–44% thresholds of the paper's example (p. 1275)",
+      "key": "staircase.start_pct"
+    },
+    {
+      "item": "Staircase step",
+      "value": "4% Michelson contrast",
+      "reason": "Not stated (\"step sizes were always constant within a set of blocks\", p. 1274)",
+      "key": "staircase.step_pct"
+    },
+    {
+      "item": "Staircase floor",
+      "value": "2% Michelson contrast",
+      "reason": "Not stated; keeps the dimming visible in principle",
+      "key": "staircase.min_pct"
+    },
+    {
+      "item": "Blocks per staircase",
+      "value": "20",
+      "reason": "Not stated how many were run; the paper fitted 10–25 blocks (p. 1274)",
+      "key": "staircase.n_blocks"
+    },
+    {
+      "item": "Inter-trial interval",
+      "value": "1000 ms",
+      "reason": "Not stated; convention",
+      "key": "iti"
+    },
+    {
+      "item": "Juice for a HIT",
+      "value": "2 pulses of 150 ms, 150 ms apart",
+      "reason": "The paper rewards HITs (p. 1273) without stating the amount; tune per animal",
+      "key": "reward.by_outcome.HIT",
+      "file": "configs/task-monkey-inside.yaml"
+    },
+    {
+      "item": "Juice for a CORRECT_REJECTION",
+      "value": "2 pulses of 150 ms, 150 ms apart",
+      "reason": "The paper rewards held catch trials (p. 1273) without stating the amount; tune per animal",
+      "key": "reward.by_outcome.CORRECT_REJECTION",
+      "file": "configs/task-monkey-inside.yaml"
+    },
+    {
+      "item": "Dimming time distribution",
+      "value": "uniform over whole frames from 500 to 1,300 ms",
+      "reason": "The paper gives the range (p. 1274), not the distribution"
+    },
+    {
+      "item": "Dimming duration per trial",
+      "value": "uniform over whole frames from 32 to 48 ms (2 or 3 frames at 60 Hz)",
+      "reason": "The paper gives the range (p. 1274), not whether it varied per trial"
+    },
+    {
+      "item": "When distractors flash",
+      "value": "from target onset to the end of the trial",
+      "reason": "\"Throughout each trial\" (p. 1274); the fixation-acquisition period before the target is read as outside the trial"
+    },
+    {
+      "item": "Distractor positions",
+      "value": "uniform over the screen, each square wholly on screen",
+      "reason": "\"Random locations\" (p. 1273), distribution not stated"
+    },
+    {
+      "item": "Which way the outside location is rotated",
+      "value": "the 90° rotation that keeps the MF's sign of x (left/right hemifield); counter-clockwise on a meridian",
+      "reason": "\"90° θ from the MF ... within the same hemifield\" (p. 1274) without saying which hemifield split"
+    },
+    {
+      "item": "\"Unsuccessful beyond the starting level\"",
+      "value": "the dimming never rises above its starting level; a failed block at the start stays there",
+      "reason": "One reading of p. 1274's wording"
+    },
+    {
+      "item": "Trials with no measurement",
+      "value": "a fixation break or failed acquisition is served again later in the same block",
+      "reason": "Not stated; keeps every block's 2 blink + 1 catch trials per staircase complete"
+    },
+    {
+      "item": "Early responses",
+      "value": "a press before the dimming (or within the minimum reaction time) is a completed, failed blink trial",
+      "reason": "Not stated how premature lever releases entered the block verdict"
+    },
+    {
+      "item": "End of a trial",
+      "value": "a blink trial ends at the response or the deadline; no penalty timeout and no visual feedback",
+      "reason": "Not stated"
+    },
+    {
+      "item": "Threshold fit",
+      "value": "y = a·x/(b + x) fitted to the staircase's progress below its start; threshold = start − a",
+      "reason": "The paper calls a \"the threshold\" (p. 1274), but the function rises from 0 while the staircase falls; this reading makes the fit possible",
+      "file": "notebooks/analysis.ipynb"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "target-dimming-detection",
+      "title": "Target dimming detection among flashing distractors",
+      "summary": "Hold fixation; a target appears and distractors flash every 32 ms; press when the target dims, or hold off on a catch trial. On stimulation trials STIM_TRIGGER goes out one SOA before the dimming.",
+      "parameters_file": "configs/task-monkey-inside.yaml",
+      "parameters": [
+        {
+          "name": "target_area_deg2",
+          "label": "Target size",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.75,
+          "meaning": "Area of the target square. ASSUMED within the paper's 0.25–1.25 deg².",
+          "unit": "deg²"
+        },
+        {
+          "name": "distractor_area_deg2",
+          "label": "Distractor size",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.55,
+          "meaning": "Area of the distractor square. ASSUMED within the paper's 0.1–1 deg².",
+          "unit": "deg²"
+        },
+        {
+          "name": "distractor_exclusion_dva",
+          "label": "Distractor exclusion",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 3.5,
+          "meaning": "Radius around the target where no distractor flashes. ASSUMED within the paper's 2–5°.",
+          "unit": "dva"
+        },
+        {
+          "name": "fix_size_dva",
+          "label": "Fixation point size",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.5,
+          "meaning": "Diameter of the fixation disc. ASSUMED, not in the paper.",
+          "unit": "dva"
+        },
+        {
+          "name": "fix_window_radius_dva",
+          "label": "Fixation window",
+          "group": "Fixation",
+          "type": "number",
+          "default": 1.5,
+          "meaning": "Radius of the window gaze must stay inside all trial. The paper's 3° window read as 3° across.",
+          "unit": "dva"
+        },
+        {
+          "name": "field.movement_field_dva",
+          "label": "Movement field",
+          "group": "Target",
+          "type": "object",
+          "default": [
+            10.0,
+            -6.0
+          ],
+          "meaning": "Where suprathreshold stimulation sent the eyes this session, mapped by the lab. Example value.",
+          "unit": "dva"
+        },
+        {
+          "name": "field.target_field",
+          "label": "Target field",
+          "group": "Target",
+          "type": "choice",
+          "default": "inside",
+          "meaning": "inside: the target at the movement field; outside: rotated 90° about fixation, same eccentricity and hemifield."
+        },
+        {
+          "name": "dim_onset_min",
+          "label": "Earliest dimming",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Earliest dimming after target onset (paper: 500 ms)."
+        },
+        {
+          "name": "dim_onset_max",
+          "label": "Latest dimming",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1300
+          },
+          "meaning": "Latest dimming after target onset (paper: 1,300 ms)."
+        },
+        {
+          "name": "response_window",
+          "label": "Response window",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 800
+          },
+          "meaning": "Deadline for the response after the dimming. ASSUMED reading of the paper's 600–800 ms."
+        },
+        {
+          "name": "min_rt",
+          "label": "Minimum reaction time",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 100
+          },
+          "meaning": "Presses sooner than this after the dimming count as early. ASSUMED."
+        },
+        {
+          "name": "catch_duration",
+          "label": "Catch trial",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 2100
+          },
+          "meaning": "How long the subject must hold off on a catch trial (paper: 2,100 ms)."
+        },
+        {
+          "name": "stimulation.soa",
+          "label": "Stimulation-onset asynchrony",
+          "group": "Stimulation",
+          "type": "duration",
+          "default": {
+            "ms": 175
+          },
+          "meaning": "STIM_TRIGGER precedes the dimming by this much (paper: 50–175 ms; 175 ms in Fig. 2c)."
+        },
+        {
+          "name": "stimulation.enabled",
+          "label": "Stimulation trials",
+          "group": "Stimulation",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Whether a stimulation staircase runs beside the control one (monkey sets only)."
+        },
+        {
+          "name": "staircase.start_pct",
+          "label": "Starting dimming",
+          "group": "Staircase",
+          "type": "number",
+          "default": 60.0,
+          "meaning": "The staircases' starting level and ceiling. ASSUMED.",
+          "unit": "% Michelson"
+        },
+        {
+          "name": "staircase.step_pct",
+          "label": "Step",
+          "group": "Staircase",
+          "type": "number",
+          "default": 4.0,
+          "meaning": "Constant step per block. ASSUMED.",
+          "unit": "% Michelson"
+        },
+        {
+          "name": "staircase.n_blocks",
+          "label": "Blocks per staircase",
+          "group": "Staircase",
+          "type": "integer",
+          "default": 20,
+          "meaning": "Blocks each staircase runs. ASSUMED (the paper fitted 10–25)."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "HIT",
+          "completed": true,
+          "success": true,
+          "meaning": "A press within the response window after the dimming. Rewarded in monkey sessions."
+        },
+        {
+          "name": "MISS",
+          "completed": true,
+          "success": false,
+          "meaning": "No press within the response window after the dimming."
+        },
+        {
+          "name": "EARLY_RESPONSE",
+          "completed": true,
+          "success": false,
+          "meaning": "A press before the dimming, or sooner than the minimum reaction time after it."
+        },
+        {
+          "name": "FALSE_ALARM",
+          "completed": true,
+          "success": false,
+          "meaning": "A press on a catch trial."
+        },
+        {
+          "name": "CORRECT_REJECTION",
+          "completed": true,
+          "success": true,
+          "meaning": "No press for the whole catch trial. Rewarded in monkey sessions."
+        },
+        {
+          "name": "FIX_BREAK",
+          "completed": false,
+          "meaning": "Gaze left the fixation window; served again later in the same block."
+        },
+        {
+          "name": "NO_FIXATION",
+          "completed": false,
+          "meaning": "Fixation never acquired; served again later in the same block."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation point shown."
+        },
+        {
+          "name": "FIX_ACQUIRED",
+          "meaning": "Gaze held inside the fixation window."
+        },
+        {
+          "name": "TARGET_ON",
+          "meaning": "Target shown; the distractor cycle starts."
+        },
+        {
+          "name": "STIM_TRIGGER",
+          "meaning": "Stimulation trials: one SOA before the (would-be) dimming. Map it to the stimulator's TTL line."
+        },
+        {
+          "name": "DIM_ON",
+          "meaning": "First frame of the dimming; payload dim_pct (% Michelson) and dim_frames."
+        },
+        {
+          "name": "DIM_OFF",
+          "meaning": "First frame back at full luminance."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The subject's key; payload the outcome it produced."
+        }
+      ]
+    }
+  ]
+}
