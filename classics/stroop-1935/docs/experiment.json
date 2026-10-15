@@ -1,0 +1,695 @@
+{
+  "schema": "alhazen-documentation",
+  "schema_version": 1,
+  "title": "Stroop color-word interference (Stroop, 1935), trial-wise by key",
+  "summary": "How much does a printed colour word slow the naming of the ink it is printed in, and how much does the ink slow responding to the word? Stroop's Experiments 1 and 2 used 100-item printed sheets read aloud and timed per sheet. Here each item is one trial: a fixation point, then a colour square or a colour word, answered with one key per colour and corrected when wrong. The colour-naming task compares squares (NC) with words in another colour's ink (NCWd); the word-reading task compares words in black (RCNb) with words in another ink (RCNd), which by key is not the same task as reading aloud.",
+  "methods": "docs/methods.md",
+  "references": [
+    "Stroop, J. R. (1935). Studies of interference in serial verbal reactions. Journal of Experimental Psychology, 18(6), 643–662.",
+    "Stroop, J. R. (1992). Studies of interference in serial verbal reactions. Journal of Experimental Psychology: General, 121(1), 15–23 (reprint of the 1935 article, public domain).",
+    "MacLeod, C. M. (1991). Half a century of research on the Stroop effect: An integrative review. Psychological Bulletin, 109(2), 163–203."
+  ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
+  "deviations": [
+    {
+      "item": "Response",
+      "original": "Each item named aloud (Exp. 2) or read aloud (Exp. 1); the experimenter followed on a key sheet (p. 17)",
+      "here": "One key per colour (D F J K L by default), one item per trial",
+      "reason": "alhazen has no voice key; a key response gives a per-item reaction time. Keys are an arbitrary learned mapping, not the habitual spoken response, which matters most for word reading (see 'Word reading')"
+    },
+    {
+      "item": "Presentation",
+      "original": "A printed sheet of 100 items, ten lines of ten, held by the subject and read continuously (pp. 16-17)",
+      "here": "One item per trial at the centre of a monitor, after a fixation point, in the sheet's reading order",
+      "reason": "Trial-wise reaction times and per-item errors; the sheet's arrangement and its two forms are kept as the trial order"
+    },
+    {
+      "item": "Measure",
+      "original": "Time to read the whole sheet, by stop watch to a fifth of a second (p. 17)",
+      "here": "Reaction time per item from the stimulus flip; the analysis also sums the items' times to the right key into a time per 100 items",
+      "reason": "The summed time excludes eye movements between items, the fixation point and the inter-trial gap, so its absolute value is not comparable with Stroop's seconds; D over the control is the comparable quantity"
+    },
+    {
+      "item": "Word reading",
+      "original": "Colour words read aloud, in black (RCNb) and in another ink (RCNd) (pp. 16-17)",
+      "here": "A key press for the word named, black vs ink (task stroop-word-reading)",
+      "reason": "Reading aloud is the over-learned response to a word; a key mapped to a word is not. Manual responses to words suffer colour interference (MacLeod, 1991), so this task is not expected to reproduce Stroop's near-null RCNd-RCNb difference and is not presented as Experiment 1"
+    },
+    {
+      "item": "Error correction",
+      "original": "Subjects corrected their own errors aloud; in Exp. 2 each uncorrected error added twice the sheet's mean time per item (p. 17)",
+      "here": "The item stays on screen after a wrong key until the right key or the deadline; a wrong key never corrected is UNCORRECTED and the analysis charges it twice the sheet's mean time per item",
+      "reason": "The closest key-press equivalent of self-correction; the charge is Stroop's own rule"
+    },
+    {
+      "item": "Missed items",
+      "original": "Every item was named in sequence",
+      "here": "An item with no key before the deadline (NO_RESPONSE) is served again at the end of its block",
+      "reason": "alhazen's rule that a trial without a measurement is re-served"
+    },
+    {
+      "item": "Key-mapping practice",
+      "original": "None (spoken colour names need no training)",
+      "here": "25 trials of the control stimulus (squares, or black words) before block 1, five per colour",
+      "reason": "An arbitrary five-key mapping has to be learned before the timed sheets"
+    },
+    {
+      "item": "Medium and type",
+      "original": "Inks printed on paper, daylight from the left; 14-point Franklin lower case type, squares from 24-point type (pp. 16-17)",
+      "here": "Monitor colours on a light page-coloured background; Arial lower case",
+      "reason": "A monitor replaces print; Franklin Gothic is not freely available, Arial is a sans serif of similar build"
+    }
+  ],
+  "assumed": [
+    {
+      "item": "Page (background) colour",
+      "value": "rgb 0.8 (230/255 grey, near white)",
+      "reason": "Printed paper is implied, not described; slightly below full white to limit glare",
+      "key": "background_rgb"
+    },
+    {
+      "item": "Ink colour coordinates",
+      "value": "red (255,0,0), blue (0,0,255), green (0,128,0), brown (128,64,0), purple (128,0,160)",
+      "reason": "The paper names the inks (p. 16) but gives no specification; saturated, mutually distinct and legible on the page colour",
+      "key": "colors"
+    },
+    {
+      "item": "Letter height",
+      "value": "0.7 dva",
+      "reason": "14-point type (p. 16) is about 4.9 mm; at an assumed 40 cm reading distance that is 0.7 dva",
+      "key": "letter_height_dva"
+    },
+    {
+      "item": "Square size",
+      "value": "0.75 dva",
+      "reason": "A solid square from 24-point type (p. 17) is about 5 mm wide; 0.75 dva at the same assumed 40 cm",
+      "key": "patch_size_dva"
+    },
+    {
+      "item": "Fixation point size",
+      "value": "0.15 dva",
+      "reason": "The printed lists had no fixation point; a small point marks where the item will appear",
+      "key": "fixation_size_dva"
+    },
+    {
+      "item": "Fixation point colour",
+      "value": "black",
+      "reason": "Same as the print",
+      "key": "fixation_rgb"
+    },
+    {
+      "item": "Fixation duration",
+      "value": "500 ms",
+      "reason": "A common foreperiod in trial-wise Stroop tasks",
+      "key": "fixation_duration"
+    },
+    {
+      "item": "Response deadline",
+      "value": "5000 ms",
+      "reason": "Reading was self-paced; a cap far above Stroop's slowest mean time per item (about 1.1 s)",
+      "key": "response_timeout"
+    },
+    {
+      "item": "Inter-trial interval",
+      "value": "500 ms",
+      "reason": "Reading was continuous; a short gap between items",
+      "key": "iti"
+    },
+    {
+      "item": "Key for each colour",
+      "value": "red D, blue F, green J, brown K, purple L",
+      "reason": "Responses were spoken; one finger per colour on the home row, the same mapping for every subject",
+      "key": "keys"
+    },
+    {
+      "item": "Assignment to the two block orders",
+      "value": "Order A for odd subject numbers, B for even (CRC-32 parity for ids without a number)",
+      "reason": "The paper assigned halves 'selected at random' (p. 17); a fixed rule makes the halves exact",
+      "key": "block_order"
+    },
+    {
+      "item": "Forms per block, colour naming",
+      "value": "1, 2, 1, 2",
+      "reason": "Experiment 2 gives the order of tests, not of forms; Experiment 1's form pattern (p. 17) is reused",
+      "key": "form_sequence"
+    },
+    {
+      "item": "Forms per block, word reading, order B",
+      "value": "1, 2, 1, 2",
+      "reason": "Experiment 1 gives the forms for order A only (p. 17); the same pattern is used for order B",
+      "key": "form_sequence",
+      "file": "configs/task-word-reading.yaml"
+    },
+    {
+      "item": "The sheet's arrangement",
+      "value": "Generated from the paper's rules with seed 1935",
+      "reason": "The rules are the paper's (p. 16); the printed arrangement (Appendix B) is not in the copy read",
+      "key": "sheet_seed"
+    },
+    {
+      "item": "The ten practice items",
+      "value": "One generated line obeying the sheet's rules",
+      "reason": "The paper says a ten-word sample was read (p. 17), not which items"
+    },
+    {
+      "item": "How an error is signalled",
+      "value": "No feedback; the item stays on screen until the right key",
+      "reason": "Stroop's subjects noticed their own errors and the experimenter pointed out uncorrected ones after the sheet (p. 17)"
+    },
+    {
+      "item": "Rest between sheets",
+      "value": "Self-paced: the next sheet starts when the subject presses SPACE",
+      "reason": "The paper gives no interval between the four sheets of one sitting (p. 17)"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "stroop-color-naming",
+      "title": "Colour naming: squares vs incongruent words (Experiment 2)",
+      "summary": "Give the INK colour by key. Four sheets of 100 items in the order NC, NCWd, NCWd, NC (or the reverse), each item a trial: fixation 500 ms, then the item until the right key.",
+      "parameters_file": "configs/task.yaml",
+      "parameters": [
+        {
+          "name": "background_rgb",
+          "label": "Page colour",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            0.8,
+            0.8,
+            0.8
+          ],
+          "meaning": "The window's background, PsychoPy rgb (-1..1). ASSUMED, not in the paper: printed paper.",
+          "unit": "rgb"
+        },
+        {
+          "name": "colors",
+          "label": "Ink colours",
+          "group": "Stimuli",
+          "type": "object",
+          "default": {
+            "red": [
+              1.0,
+              -1.0,
+              -1.0
+            ],
+            "blue": [
+              -1.0,
+              -1.0,
+              1.0
+            ],
+            "green": [
+              -1.0,
+              0.0,
+              -1.0
+            ],
+            "brown": [
+              0.0,
+              -0.5,
+              -1.0
+            ],
+            "purple": [
+              0.0,
+              -1.0,
+              0.25
+            ]
+          },
+          "meaning": "The five inks, PsychoPy rgb (-1..1). The paper names them (red, blue, green, brown, purple; p. 16); the coordinates are ASSUMED.",
+          "unit": "rgb"
+        },
+        {
+          "name": "black_rgb",
+          "label": "Black print",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            -1.0,
+            -1.0,
+            -1.0
+          ],
+          "meaning": "The ink of the RCNb control words (p. 16).",
+          "unit": "rgb",
+          "source": "paper p. 16"
+        },
+        {
+          "name": "font",
+          "label": "Typeface",
+          "group": "Stimuli",
+          "type": "string",
+          "default": "Arial",
+          "meaning": "Typeface for the words, lower case. DEVIATION: the paper used 14-point Franklin lower case type (p. 16)."
+        },
+        {
+          "name": "letter_height_dva",
+          "label": "Letter height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.7,
+          "meaning": "Text height (em) of the words. ASSUMED, not in the paper: 14-point type at an assumed 40 cm.",
+          "unit": "dva"
+        },
+        {
+          "name": "patch_size_dva",
+          "label": "Square size",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.75,
+          "meaning": "Side of the NC solid square. ASSUMED, not in the paper: a 24-point square (p. 17) at 40 cm.",
+          "unit": "dva"
+        },
+        {
+          "name": "fixation_size_dva",
+          "label": "Fixation point size",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.15,
+          "meaning": "Diameter of the fixation point. ASSUMED, not in the paper.",
+          "unit": "dva"
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "How long the fixation point is shown before each item. ASSUMED, not in the paper."
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 5000
+          },
+          "meaning": "How long an item waits for the right key. ASSUMED, not in the paper (reading was self-paced)."
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Blank gap after each item. ASSUMED, not in the paper."
+        },
+        {
+          "name": "keys",
+          "label": "Key for each colour",
+          "group": "Response",
+          "type": "object",
+          "default": {
+            "red": "d",
+            "blue": "f",
+            "green": "j",
+            "brown": "k",
+            "purple": "l"
+          },
+          "meaning": "One key per colour. ASSUMED, not in the paper (responses were spoken)."
+        },
+        {
+          "name": "require_correction",
+          "label": "Correct every error",
+          "group": "Response",
+          "type": "boolean",
+          "default": true,
+          "meaning": "After a wrong key the item stays until the right key, as Stroop's subjects corrected their errors (p. 17). False ends the trial at the first key (outcome WRONG).",
+          "source": "paper p. 17"
+        },
+        {
+          "name": "practice_trials",
+          "label": "Practice items per test",
+          "group": "Design",
+          "type": "integer",
+          "default": 10,
+          "meaning": "Items of a practice sample before the first sheet of each test: Stroop's ten-word sample (p. 17).",
+          "source": "paper p. 17"
+        },
+        {
+          "name": "key_practice_trials",
+          "label": "Key-mapping practice",
+          "group": "Design",
+          "type": "integer",
+          "default": 25,
+          "meaning": "Control-stimulus trials before block 1 to learn the keys. DEVIATION: not in the paper."
+        },
+        {
+          "name": "sheet_items",
+          "label": "Items per sheet",
+          "group": "Design",
+          "type": "integer",
+          "default": 100,
+          "meaning": "Items of each 100-item sheet served (p. 17). Test and simulate modes cut this to rehearsal.sheet_items.",
+          "source": "paper p. 17"
+        },
+        {
+          "name": "block_order",
+          "label": "Block order",
+          "group": "Design",
+          "type": "choice",
+          "default": "by_subject",
+          "meaning": "A: control, interference, interference, control; B: the reverse (p. 17). by_subject: odd subject numbers A, even B (the rule is ASSUMED)."
+        },
+        {
+          "name": "form_sequence",
+          "label": "Form of each sheet",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            1,
+            2,
+            1,
+            2
+          ],
+          "meaning": "Which form (1, or 2 = reverse order) each of the four sheets uses. ASSUMED for Experiment 2 and for order B."
+        },
+        {
+          "name": "sheet_seed",
+          "label": "Sheet seed",
+          "group": "Design",
+          "type": "integer",
+          "default": 1935,
+          "meaning": "Seed of the generated sheet arrangement, built to the paper's rules (p. 16). ASSUMED: the printed arrangement is not in the copy read."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The first key was the right colour."
+        },
+        {
+          "name": "CORRECTED",
+          "completed": true,
+          "success": false,
+          "meaning": "A wrong key first, then the right key before the deadline (Stroop's self-correction)."
+        },
+        {
+          "name": "UNCORRECTED",
+          "completed": true,
+          "success": false,
+          "meaning": "A wrong key never corrected before the deadline; the analysis charges it twice the sheet's mean time per item (p. 17)."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "Only with require_correction false: the first key was wrong and ended the trial."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No bound key before the deadline; the item is served again at the end of its block."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation point shown."
+        },
+        {
+          "name": "RESPONSE_CUE",
+          "meaning": "The item (square or word) shown; reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The first bound key, right or wrong."
+        },
+        {
+          "name": "CORRECTION",
+          "meaning": "The right key after a wrong one."
+        }
+      ]
+    },
+    {
+      "id": "stroop-word-reading",
+      "title": "Word reading by key: black vs ink (Experiment 1's comparison)",
+      "summary": "Give the WORD by key. Four sheets in the order RCNb, RCNd, RCNd, RCNb (or the reverse). Keys are not speech: colour interference on key responses to words is expected, so this does not reproduce Experiment 1.",
+      "parameters_file": "configs/task-word-reading.yaml",
+      "parameters": [
+        {
+          "name": "background_rgb",
+          "label": "Page colour",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            0.8,
+            0.8,
+            0.8
+          ],
+          "meaning": "The window's background, PsychoPy rgb (-1..1). ASSUMED, not in the paper: printed paper.",
+          "unit": "rgb"
+        },
+        {
+          "name": "colors",
+          "label": "Ink colours",
+          "group": "Stimuli",
+          "type": "object",
+          "default": {
+            "red": [
+              1.0,
+              -1.0,
+              -1.0
+            ],
+            "blue": [
+              -1.0,
+              -1.0,
+              1.0
+            ],
+            "green": [
+              -1.0,
+              0.0,
+              -1.0
+            ],
+            "brown": [
+              0.0,
+              -0.5,
+              -1.0
+            ],
+            "purple": [
+              0.0,
+              -1.0,
+              0.25
+            ]
+          },
+          "meaning": "The five inks, PsychoPy rgb (-1..1). The paper names them (red, blue, green, brown, purple; p. 16); the coordinates are ASSUMED.",
+          "unit": "rgb"
+        },
+        {
+          "name": "black_rgb",
+          "label": "Black print",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            -1.0,
+            -1.0,
+            -1.0
+          ],
+          "meaning": "The ink of the RCNb control words (p. 16).",
+          "unit": "rgb",
+          "source": "paper p. 16"
+        },
+        {
+          "name": "font",
+          "label": "Typeface",
+          "group": "Stimuli",
+          "type": "string",
+          "default": "Arial",
+          "meaning": "Typeface for the words, lower case. DEVIATION: the paper used 14-point Franklin lower case type (p. 16)."
+        },
+        {
+          "name": "letter_height_dva",
+          "label": "Letter height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.7,
+          "meaning": "Text height (em) of the words. ASSUMED, not in the paper: 14-point type at an assumed 40 cm.",
+          "unit": "dva"
+        },
+        {
+          "name": "patch_size_dva",
+          "label": "Square size",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.75,
+          "meaning": "Side of the NC solid square. ASSUMED, not in the paper: a 24-point square (p. 17) at 40 cm.",
+          "unit": "dva"
+        },
+        {
+          "name": "fixation_size_dva",
+          "label": "Fixation point size",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.15,
+          "meaning": "Diameter of the fixation point. ASSUMED, not in the paper.",
+          "unit": "dva"
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "How long the fixation point is shown before each item. ASSUMED, not in the paper."
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 5000
+          },
+          "meaning": "How long an item waits for the right key. ASSUMED, not in the paper (reading was self-paced)."
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Blank gap after each item. ASSUMED, not in the paper."
+        },
+        {
+          "name": "keys",
+          "label": "Key for each colour",
+          "group": "Response",
+          "type": "object",
+          "default": {
+            "red": "d",
+            "blue": "f",
+            "green": "j",
+            "brown": "k",
+            "purple": "l"
+          },
+          "meaning": "One key per colour. ASSUMED, not in the paper (responses were spoken)."
+        },
+        {
+          "name": "require_correction",
+          "label": "Correct every error",
+          "group": "Response",
+          "type": "boolean",
+          "default": true,
+          "meaning": "After a wrong key the item stays until the right key, as Stroop's subjects corrected their errors (p. 17). False ends the trial at the first key (outcome WRONG).",
+          "source": "paper p. 17"
+        },
+        {
+          "name": "practice_trials",
+          "label": "Practice items per test",
+          "group": "Design",
+          "type": "integer",
+          "default": 10,
+          "meaning": "Items of a practice sample before the first sheet of each test: Stroop's ten-word sample (p. 17).",
+          "source": "paper p. 17"
+        },
+        {
+          "name": "key_practice_trials",
+          "label": "Key-mapping practice",
+          "group": "Design",
+          "type": "integer",
+          "default": 25,
+          "meaning": "Control-stimulus trials before block 1 to learn the keys. DEVIATION: not in the paper."
+        },
+        {
+          "name": "sheet_items",
+          "label": "Items per sheet",
+          "group": "Design",
+          "type": "integer",
+          "default": 100,
+          "meaning": "Items of each 100-item sheet served (p. 17). Test and simulate modes cut this to rehearsal.sheet_items.",
+          "source": "paper p. 17"
+        },
+        {
+          "name": "block_order",
+          "label": "Block order",
+          "group": "Design",
+          "type": "choice",
+          "default": "by_subject",
+          "meaning": "A: control, interference, interference, control; B: the reverse (p. 17). by_subject: odd subject numbers A, even B (the rule is ASSUMED)."
+        },
+        {
+          "name": "form_sequence",
+          "label": "Form of each sheet",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            1,
+            2,
+            1,
+            2
+          ],
+          "meaning": "Which form (1, or 2 = reverse order) each of the four sheets uses. ASSUMED for Experiment 2 and for order B."
+        },
+        {
+          "name": "sheet_seed",
+          "label": "Sheet seed",
+          "group": "Design",
+          "type": "integer",
+          "default": 1935,
+          "meaning": "Seed of the generated sheet arrangement, built to the paper's rules (p. 16). ASSUMED: the printed arrangement is not in the copy read."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The first key was the right colour."
+        },
+        {
+          "name": "CORRECTED",
+          "completed": true,
+          "success": false,
+          "meaning": "A wrong key first, then the right key before the deadline (Stroop's self-correction)."
+        },
+        {
+          "name": "UNCORRECTED",
+          "completed": true,
+          "success": false,
+          "meaning": "A wrong key never corrected before the deadline; the analysis charges it twice the sheet's mean time per item (p. 17)."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "Only with require_correction false: the first key was wrong and ended the trial."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No bound key before the deadline; the item is served again at the end of its block."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation point shown."
+        },
+        {
+          "name": "RESPONSE_CUE",
+          "meaning": "The item (square or word) shown; reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The first bound key, right or wrong."
+        },
+        {
+          "name": "CORRECTION",
+          "meaning": "The right key after a wrong one."
+        }
+      ]
+    }
+  ]
+}

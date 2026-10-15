@@ -1,0 +1,44 @@
+# Stroop (1935) Experiment 1's comparison, by key: colour words in black (RCNb) vs in another
+# ink (RCNd). The subject gives the WORD. Human subjects. Keys are not speech: see docs/methods.md.
+#
+# Every key is validated against StroopParams (src/stroop1935/task.py): a typo fails at load.
+# Values the original paper does not state are marked "# ASSUMED (not in the paper): <reason>";
+# they are listed with their reasons in docs/methods.md, "Assumed, not in the paper", and under
+# "assumed" in docs/experiment.json. Values the paper states cite it: "# paper: p. N". Page
+# numbers are those of the 1992 reprint (J. Exp. Psychol.: General 121, 15-23), the copy read.
+# Intended changes from the original are marked "# DEVIATION" and are in the deviations table.
+subject_kind: human            # paper: p. 17, college undergraduates and graduate students
+
+background_rgb: [0.8, 0.8, 0.8]  # ASSUMED (not in the paper): white printing paper; 90% white limits glare
+colors:                        # ASSUMED (not in the paper): the inks are named (p. 16) but not specified
+  red: [1.0, -1.0, -1.0]       #   (255, 0, 0)
+  blue: [-1.0, -1.0, 1.0]      #   (0, 0, 255)
+  green: [-1.0, 0.0, -1.0]     #   (0, 128, 0)
+  brown: [0.0, -0.5, -1.0]     #   (128, 64, 0)
+  purple: [0.0, -1.0, 0.25]    #   (128, 0, 160)
+black_rgb: [-1.0, -1.0, -1.0]  # paper: p. 16, the word test duplicated "in black print"
+font: Arial                    # DEVIATION: the paper used 14-point Franklin lower case type (p. 16)
+letter_height_dva: 0.7         # ASSUMED (not in the paper): 14-point type (p. 16) read at an assumed 40 cm
+patch_size_dva: 0.75           # ASSUMED (not in the paper): a 24-point solid square (p. 17) at 40 cm
+fixation_size_dva: 0.15        # ASSUMED (not in the paper): the paper's lists had no fixation point
+fixation_rgb: [-1.0, -1.0, -1.0]  # ASSUMED (not in the paper): black, like the print
+fixation_duration: {ms: 500}   # ASSUMED (not in the paper): a common trial-wise Stroop foreperiod
+response_timeout: {ms: 5000}   # ASSUMED (not in the paper): reading was self-paced; a generous cap
+iti: {ms: 500}                 # ASSUMED (not in the paper): reading was continuous; a short gap
+keys:                          # ASSUMED (not in the paper): responses were spoken; one finger per colour
+  red: d
+  blue: f
+  green: j
+  brown: k
+  purple: l
+require_correction: true       # paper: p. 17, "to correct all errors" / "leave no errors uncorrected"
+practice_trials: 10            # paper: p. 17, a ten-word sample before the first reading of each test
+key_practice_trials: 25        # DEVIATION: key-mapping practice before block 1 (spoken names need none)
+sheet_items: 100               # paper: p. 17, one hundred items per sheet
+block_order: by_subject        # ASSUMED (not in the paper): halves were "selected at random" (p. 17); here by subject number
+form_sequence: [1, 2, 1, 2]    # ASSUMED (not in the paper): forms given for order A only (p. 17); reused for B
+sheet_seed: 1935               # ASSUMED (not in the paper): the printed arrangement (Appendix B) is not in the copy read
+rehearsal:                     # software only: test and simulate modes serve this much of each list
+  sheet_items: 5
+  practice_trials: 2
+  key_practice_trials: 3
