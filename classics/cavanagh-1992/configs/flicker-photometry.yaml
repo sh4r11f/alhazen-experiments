@@ -1,0 +1,29 @@
+# Heterochromatic flicker photometry: an ALTERNATIVE to the paper's minimum-speed criterion (deviation). Set k where the flicker is least.
+#
+# Every key is validated against FlickerParams: a typo fails at load. Values the original
+# paper states cite it ("# paper: p. N", Cavanagh 1992, Science 257, 1563-1565). Values
+# it does not state are marked "# ASSUMED (not in the paper): <reason>" and listed in
+# docs/methods.md ("Assumed, not in the paper") and docs/experiment.json ("assumed").
+subject_kind: human            # paper: p. 1564, "Observers had normal or corrected-to-normal visual acuity and normal color vision"
+annulus_inner_dva: 4.0         # paper: p. 1564, Fig. 1 legend: inner radius 4.0 deg
+annulus_outer_dva: 8.4         # paper: p. 1564, Fig. 1 legend: outer radius 8.4 deg
+bullseye_radius_dva: 1.0       # paper: p. 1564, Fig. 1 legend: "high-contrast, black and white bull's-eye with a radius of 1 deg"
+bullseye_rings: 4              # ASSUMED (not in the paper): the ring count is not given; four equal rings, white centre (Fig. 1A shows concentric rings)
+n_cycles: 8                    # paper: p. 1564, Fig. 1 legend: eight-cycle sinusoidal gratings
+rate_hz: 2.0                   # paper: p. 1564, Fig. 1 legend: 2.0 Hz (0.25 revolutions per second)
+mean_luminance_cd_m2: 45.0     # paper: p. 1564, Fig. 1 legend: mean combined value of 45 cd/m2
+red_phosphor_xy: [0.608, 0.348]    # paper: p. 1564, Fig. 1 legend: CIE x, y of the red phosphor
+green_phosphor_xy: [0.249, 0.602]  # paper: p. 1564, Fig. 1 legend: CIE x, y of the green phosphor
+mean_xy: [0.409, 0.488]        # paper: p. 1564, Fig. 1 legend: the yellow mean; fixes the red:green luminance split (31.7 : 68.3)
+color_contrast: 0.40           # paper: p. 1563, "40% of the maximum available contrast between the red and green phosphors"
+photometry_file: photometry-booth.yaml  # this rig's gun luminances; the shipped file holds EXAMPLE values, not a measurement
+fixation_duration: {ms: 500}   # ASSUMED (not in the paper): bull's-eye on the mean field before the stimulus, to re-fixate after the inter-trial grey
+iti: {ms: 500}                 # ASSUMED (not in the paper): inter-trial interval not given
+k_start_range: [0.6, 1.6]      # ASSUMED (not in the paper): each setting starts at a random k in this range (k = 1 is photometric equiluminance)
+k_step: 1.02                   # ASSUMED (not in the paper): 2% change of k per wheel notch or arrow press
+k_limits: [0.25, 4.0]          # ASSUMED (not in the paper): the knob's range
+adjust_timeout: {ms: 60000}    # ASSUMED (not in the paper): a setting not committed in 60 s is served again
+flicker_hz: 15.0               # ASSUMED (not in the paper, which used minimum apparent speed): a conventional flicker photometry rate, locked to whole frames
+paradigm:
+  kind: adjustment
+  n_per_condition: 6           # ASSUMED (not in the paper): six settings

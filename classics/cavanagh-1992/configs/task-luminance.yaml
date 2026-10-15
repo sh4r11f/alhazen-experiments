@@ -1,0 +1,45 @@
+# Attentive tracking, luminance-bar sessions (Experiment 1, Fig. 1B).
+#
+# Every key is validated against AttentiveTrackingTaskParams: a typo fails at load. Values the original
+# paper states cite it ("# paper: p. N", Cavanagh 1992, Science 257, 1563-1565). Values
+# it does not state are marked "# ASSUMED (not in the paper): <reason>" and listed in
+# docs/methods.md ("Assumed, not in the paper") and docs/experiment.json ("assumed").
+subject_kind: human            # paper: p. 1564, "Observers had normal or corrected-to-normal visual acuity and normal color vision"
+annulus_inner_dva: 4.0         # paper: p. 1564, Fig. 1 legend: inner radius 4.0 deg
+annulus_outer_dva: 8.4         # paper: p. 1564, Fig. 1 legend: outer radius 8.4 deg
+bullseye_radius_dva: 1.0       # paper: p. 1564, Fig. 1 legend: "high-contrast, black and white bull's-eye with a radius of 1 deg"
+bullseye_rings: 4              # ASSUMED (not in the paper): the ring count is not given; four equal rings, white centre (Fig. 1A shows concentric rings)
+n_cycles: 8                    # paper: p. 1564, Fig. 1 legend: eight-cycle sinusoidal gratings
+rate_hz: 2.0                   # paper: p. 1564, Fig. 1 legend: 2.0 Hz (0.25 revolutions per second)
+mean_luminance_cd_m2: 45.0     # paper: p. 1564, Fig. 1 legend: mean combined value of 45 cd/m2
+red_phosphor_xy: [0.608, 0.348]    # paper: p. 1564, Fig. 1 legend: CIE x, y of the red phosphor
+green_phosphor_xy: [0.249, 0.602]  # paper: p. 1564, Fig. 1 legend: CIE x, y of the green phosphor
+mean_xy: [0.409, 0.488]        # paper: p. 1564, Fig. 1 legend: the yellow mean; fixes the red:green luminance split (31.7 : 68.3)
+color_contrast: 0.40           # paper: p. 1563, "40% of the maximum available contrast between the red and green phosphors"
+photometry_file: photometry-booth.yaml  # this rig's gun luminances; the shipped file holds EXAMPLE values, not a measurement
+fixation_duration: {ms: 500}   # ASSUMED (not in the paper): bull's-eye on the mean field before the stimulus, to re-fixate after the inter-trial grey
+iti: {ms: 500}                 # ASSUMED (not in the paper): inter-trial interval not given
+equiluminance:
+  source: calibration          # paper: p. 1563, red/green modulation set to each observer's equiluminance
+  method: equiluminance-speed  # paper: p. 1563 and note 10, "a minimum apparent speed criterion"
+pointer:
+  inner_dva: 1.3               # ASSUMED (not in the paper): Fig. 1A draws the pointers in the disc inside the annulus; sizes are not given
+  outer_dva: 3.9               # ASSUMED (not in the paper): ends just inside the annulus's inner edge (4.0 deg), per Fig. 1A
+  width_inner_dva: 0.08        # ASSUMED (not in the paper): tapered needle as drawn in Fig. 1A
+  width_outer_dva: 0.35        # ASSUMED (not in the paper): tapered needle as drawn in Fig. 1A
+target_grating: luminance         # paper: p. 1564, half the sessions colour bars, half luminance bars as targets
+contrast_min: 0.05             # paper: p. 1563, eight values uniformly spaced from 5%
+contrast_max: 0.40             # paper: p. 1563, upper value 25 to 45% per observer (note 11); 40% is observer T.W.'s (Fig. 1B). SET PER OBSERVER above their tracking threshold
+n_contrasts: 8                 # paper: p. 1563, "one of eight values"
+pre_cue: {ms: 500}             # ASSUMED (not in the paper): gratings turning before the pointer appears; the paper says only that the pointer "began the trial"
+cue_duration: {ms: 1000}       # paper: p. 1564, pointer rotates with the pair for 1.0 s
+track_duration: {ms: 1500}     # paper: p. 1564, tracking without the pointer for an additional 1.5 s
+test_duration: {ms: 240}       # paper: p. 1564, test pointer for 240 ms
+response_timeout: {ms: 4000}   # ASSUMED (not in the paper): no deadline given; a trial without a key is served again
+yes_key: j                     # ASSUMED (not in the paper): "pressed a key"; which keys is not given
+no_key: f                      # ASSUMED (not in the paper): see yes_key
+target_polarity: random        # ASSUMED (not in the paper): which polarity of bar (red or green; light or dark) is tracked is not given
+paradigm:
+  kind: sequence
+  n_per_condition: 5           # ASSUMED (not in the paper): trials per contrast not given; 8 contrasts x 2 test pointers x 5 = 80 per session ("at least four sessions", p. 1564)
+  shuffle: true                # ASSUMED (not in the paper): trial order not given; contrasts and test pointers interleaved at random
