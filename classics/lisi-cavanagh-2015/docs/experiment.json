@@ -10,6 +10,11 @@
     "Watson, A. B. (2017). QUEST+: A general multidimensional Bayesian adaptive psychometric method. Journal of Vision, 17(3):10.",
     "Engbert, R., & Mergenthaler, K. (2006). Microsaccades are triggered by low retinal image slip. PNAS, 103(18), 7192-7197."
   ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
   "deviations": [
     {
       "here": "Experiment 1 only: both of its tasks",

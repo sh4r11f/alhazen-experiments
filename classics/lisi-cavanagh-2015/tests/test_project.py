@@ -125,3 +125,8 @@ def test_the_listing_is_honest_about_what_was_verified():
     assert "no participant data" in listing["notes"].lower()
     methods = (PROJECT / "docs" / "methods.md").read_text(encoding="utf-8")
     assert "claims no\nreplication" in methods or "claims no replication" in methods
+
+
+def test_the_licence_block_is_the_repositorys():
+    doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
+    assert doc["license"] == {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}

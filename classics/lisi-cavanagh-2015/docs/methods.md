@@ -247,3 +247,8 @@ GratingStim mapping tested above; check it once with a real window), the EyeLink
   method. *Journal of Vision, 17*(3):10.
 - Engbert, R., & Mergenthaler, K. (2006). Microsaccades are triggered by low retinal image
   slip. *PNAS, 103*(18), 7192–7197.
+
+---
+
+This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
+the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).
