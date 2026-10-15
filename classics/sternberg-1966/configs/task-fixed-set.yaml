@@ -1,0 +1,47 @@
+# Sternberg (1966), experiment 2: the fixed-set procedure (human).
+#
+# Every key is validated against FixedSetParams (src/sternberg1966/task.py): a typo fails at
+# load. "# paper: p. N" cites Science 153, 652-654; "# ASSUMED (not in the paper)" marks a
+# value the paper does not state (docs/methods.md lists them with their reasons).
+#
+# The positive sets (sizes 1, 2 and 4, non-intersecting) and the test-stimulus population
+# (x1 4/15, each y 2/15, each z 1/15, each w 1/15) are the paper's (p. 653) and live in
+# src/sternberg1966/design.py, not here: they are the design, not a setting.
+subject_kind: human
+
+part_order: null                  # ASSUMED (not in the paper): order of the s = 1, 2, 4 parts not stated; null = random per session, or list them to counterbalance
+
+digit_height_dva: 1.5             # ASSUMED (not in the paper): the display is not described; font size (PsychoPy text height), digits ~0.73 of it
+digit_color: [1.0, 1.0, 1.0]      # ASSUMED (not in the paper): white digits on the rig's mid-grey background
+announcement_text: "Your digits for this part:"  # ASSUMED (not in the paper): the set was "announced"; how is not stated (shown on screen here)
+announcement_hint: "Press SPACE to start"         # ASSUMED (not in the paper): see announcement_text
+prompt_height_dva: 0.8            # ASSUMED (not in the paper): size of the announcement's letters
+
+warning_symbol: "+"               # ASSUMED (not in the paper): modality and form not stated; a visual cross at the locus
+warning_duration: {ms: 500}       # ASSUMED (not in the paper): duration and warning-to-digit interval not stated; digit follows at its offset
+
+positive_key: j                   # ASSUMED (not in the paper): which lever (hand) meant "yes" is not stated; counterbalance across subjects
+negative_key: f                   # ASSUMED (not in the paper): see positive_key
+response_timeout: {ms: 5000}      # ASSUMED (not in the paper): no deadline is described; an unanswered trial is served again later
+
+feedback_duration: {ms: 500}      # ASSUMED (not in the paper): how long the light stayed on is not stated
+feedback_size_dva: 1.0            # ASSUMED (not in the paper): a lamp, here an on-screen disc of this diameter
+feedback_offset_dva: 2.5          # ASSUMED (not in the paper): disc centre this far below the digit locus
+correct_color: [-1.0, 1.0, -1.0]  # ASSUMED (not in the paper): green for correct
+wrong_color: [1.0, -1.0, -1.0]    # ASSUMED (not in the paper): red for wrong
+
+# 3.7 s from a response to the next test digit (paper: p. 653) = feedback light + iti +
+# warning signal. The split is not stated; the params refuse a split that does not add up.
+response_to_next_probe: {ms: 3700}  # paper: p. 653 ("between a response and the next test digit, 3.7 seconds elapsed")
+iti: {ms: 2700}                   # ASSUMED (not in the paper): 3.7 s minus the assumed light (0.5 s) and warning (0.5 s)
+
+# Per part: 60 practice and 120 test trials (paper: p. 652), each a random permutation of
+# whole copies of the 15-stimulus population (p. 653): 4 copies and 8 copies.
+practice:
+  kind: sequence
+  n_per_condition: 4              # paper: p. 652-653 (60 practice trials = 4 x the 15-stimulus population)
+  shuffle: true                   # paper: p. 653 ("random permutation of the fixed population")
+paradigm:
+  kind: sequence
+  n_per_condition: 8              # paper: p. 652-653 (120 test trials = 8 x the 15-stimulus population)
+  shuffle: true                   # paper: p. 653 ("random permutation of the fixed population")
