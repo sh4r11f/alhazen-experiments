@@ -17,5 +17,8 @@ uv run alhazen dashboard --project .
 uv run python -m $package.preview     # redraws docs/preview.png
 ```
 
+Licence: code Apache-2.0; `docs/methods.md` and generated assets CC BY 4.0 (see the
+repository's LICENSE and NOTICE).
+
 A real session needs a rig file with your machine's measured geometry:
 `configs/rig-booth.yaml` is the starting point (`--rig booth`).
