@@ -1,9 +1,9 @@
 """One simulated session, run once and shared by the tests that read its files.
 
 `--mode simulate` paces the simulated display in real time, so the session uses a
-shortened copy of configs/task.yaml (same paradigm, shorter fields and flicker, three photo
-pairs plus one procedural pair per cell). The timing values here are test values, not the
-paper's: they only make the session short.
+shortened copy of configs/task.yaml (same paradigm, shorter fields and flicker, one valid
+and one invalid trial per plane x change-type cell). The timing values here are test
+values: they only make the session short.
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ import pytest
 import yaml
 
 PROJECT = Path(__file__).resolve().parents[1]
-N_TRIALS = 9  # 3 photo pairs + 6 procedural (1 per change type x interest)
+N_TRIALS = 12  # 2 planes x 3 change types x (1 valid + 1 invalid)
 
 
 def write_rig(folder: Path) -> Path:
@@ -35,7 +35,7 @@ def write_fast_params(folder: Path) -> Path:
     p.update({"cue_field": {"ms": 200}, "gray_field": {"ms": 100}, "max_flicker": {"ms": 2500},
               "iti": {"ms": 50}})
     p["flicker"].update({"image": {"frames": 3}, "blank": {"frames": 1}})
-    p["scenes"].update({"photo_ids": ["car", "harbor", "lake"], "procedural_per_cell": 1})
+    p["cue_counts"] = {"valid": 1, "invalid": 1, "neutral": 0, "none": 0}
     out = folder / "task-fast.yaml"
     out.write_text(yaml.safe_dump(p), encoding="utf-8")
     return out
@@ -43,7 +43,7 @@ def write_fast_params(folder: Path) -> Path:
 
 def run_simulated(folder: Path, seed: int = 1,
                   params: Path | None = None) -> subprocess.CompletedProcess:
-    cmd = [sys.executable, str(PROJECT / "run.py"), "--task", "flicker-change-detection",
+    cmd = [sys.executable, str(PROJECT / "run.py"), "--task", "depth-cued-flicker",
            "--mode", "simulate", "--headless", "--rig", str(write_rig(folder)),
            "--sub", "sim", "--ses", "1", "--seed", str(seed),
            "--params", str(params or write_fast_params(folder)), "--no-live-monitor"]

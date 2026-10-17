@@ -1,35 +1,39 @@
-# Flicker change blindness
+# Depth-cued change blindness
 
-Part of [alhazen-experiments](../../README.md) (classics/rensink-oregan-clark-1997). A standalone
-[alhazen](https://github.com/sh4r11f/alhazen) project: this folder alone is everything a
-session needs.
+Does knowing *where in depth* to look help you find a change? A flicker change-blindness
+experiment ([Rensink, O'Regan & Clark, 1997](https://doi.org/10.1111/j.1467-9280.1997.tb00427.x))
+in which the cue names a depth plane, NEAR or FAR, instead of a place or an object.
 
-Rensink, O'Regan & Clark (1997), *To see or not to see*: an original and a modified scene
-alternate, A A A' A', with 80-ms gray blanks between the 240-ms images, until the subject
-sees the change; then they report where it was and what kind of change it was. Status:
-**adaptation** (generated photo pairs and procedural pairs instead of the paper's
-photographs, a keyed report instead of a spoken one).
+Each scene is a far surface behind a layer of near objects, drawn on an ordinary 2-D
+screen with monocular depth cues only: relative size, occlusion, cast shadows, defocus
+blur, aerial perspective and surface texture. Near and far objects are interleaved over
+the whole picture, two of each in every quadrant, so a depth plane is not a region of
+the screen and the cue cannot be turned into a spatial cue. On 75% of trials the cue
+names the plane the change is on.
 
-- **Original:** see `docs/methods.md` (citation, what was replicated).
-- **Status and hardware:** `docs/listing.json`.
-- **Deviations and assumptions:** the two tables in `docs/methods.md`.
+The measure is the number of A/A' alternations needed to find and identify the change,
+on valid against invalid trials, for near-plane and far-plane changes.
 
-```bash
-uv sync --locked                      # --extra psychopy on a machine with a screen
-uv run pytest -q
-uv run python run.py --task flicker-change-detection --mode simulate --headless --sub sim --ses 1 --seed 1
-uv run python run.py --task flicker-change-detection --mode demo
+## Run it
+
+```
+uv sync --locked                     # add --extra psychopy on a machine that opens a window
+uv run python run.py --task depth-cued-flicker --mode demo
+uv run python run.py --task depth-cued-flicker --mode simulate --headless --sub sim --ses 1
+uv run python run.py --task depth-cued-flicker --rig booth --sub s01 --ses 1 --initials AB
 uv run alhazen dashboard --project .
-uv run python -m rensink1997.preview     # redraws docs/preview.png
 ```
 
-Parameter sets (`run.py PARAMETERS`): practice (6 trials), Experiment 1 and its no-blank
-control, Experiment 2 (extended display), Experiment 3 (valid and 50 %-valid cues). Every
-scene is shown once per subject, so a subject takes one experiment.
+Parameter sets (dashboard menu): Practice (6 trials), Main (96 trials, 75% valid), With
+neutral cues (90 trials, a NEAR OR FAR baseline) and Size-matched planes (near and far
+objects equal in size, so a change is as large on either plane).
 
-Rebuilding the photo pairs needs the raw generator output (not shipped) and the `assets`
-extra: `uv run --extra assets python scripts/build_photo_pairs.py --raw <folder>`;
-`scripts/rate_interest.py` re-rates their interest with any OpenAI-compatible endpoint.
+## Files
 
-A real session needs a rig file with your machine's measured geometry:
-`configs/rig-booth.yaml` is the starting point (`--rig booth`).
+- `src/depthcb/scenes.py` draws every scene pair from its id (`depth/<seed>/<plane>/<type>`); nothing is stored.
+- `src/depthcb/task.py` is the trial; `phases.py` the flicker and keyed reports.
+- `notebooks/analysis.ipynb` computes alternations by plane and cue and the cue effect.
+- `docs/methods.md` lists what comes from Rensink et al., the design choices, and what is assumed.
+
+Software verification only (tests and simulated sessions); no participant data.
+Code Apache-2.0; methods and generated stimuli CC BY 4.0.
