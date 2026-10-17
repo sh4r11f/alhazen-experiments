@@ -43,7 +43,7 @@ double-drift-saccades = "lisi_cavanagh2015.task:DoubleDriftSaccadesTask"
 # alhazen from its GitHub repository at a release tag, never from an index. Moving to a
 # newer release is this tag and `uv lock`, committed together.
 [tool.uv.sources]
-alhazen-vision = { git = "https://github.com/sh4r11f/alhazen", tag = "v3.0.0" }
+alhazen-vision = { git = "https://github.com/sh4r11f/alhazen", tag = "v3.1.0" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
