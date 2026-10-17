@@ -6,7 +6,7 @@ One trial, as the paper describes it (p. 4, p. 6-8; docs/methods.md is the speci
 2. 0.5 s later the lit card with its letters is exposed for 50 ms (whole frames at the
    measured refresh rate), then the dark field and cross return.
 3. A cue calls one row: a high, middle or low tone in the paper; here by default a bar
-   beside the row (``cue_mode: visual``), because alhazen 2.16.0 cannot play a tone bound
+   beside the row (``cue_mode: visual``), because alhazen 3.0.0 cannot play a tone bound
    to an event. The cue starts at a delay measured from the array's offset (-0.10 s =
    50 ms before onset, 0, 0.15, 0.30, 0.50, 1.0 s).
 4. The observer types the cued row's letters into boxes and presses Enter. Scored per
@@ -39,7 +39,7 @@ from sperling1960.stimuli import Layout, make_stimuli
 HERE = Path(__file__).resolve().parent
 PROJECT = HERE.parents[1]
 
-# Letters the subject cannot type through alhazen 2.16.0: the experimenter's session keys
+# Letters the subject cannot type through alhazen 3.0.0: the experimenter's session keys
 # (core/commands.py DEFAULT_KEYMAP: p pause, c calibrate, r manual reward, h hold stage)
 # are read from the same keyboard before the subject's keys and never reach the task.
 EXPERIMENTER_KEYS = frozenset("CHPR")
@@ -150,7 +150,7 @@ class PartialReportTaskParams(SubjectParams):
         if blocked:
             raise ValueError(
                 f"consonants: {''.join(sorted(blocked))} cannot be typed by the subject in "
-                f"alhazen 2.16.0, because those keys are the experimenter's session commands "
+                f"alhazen 3.0.0, because those keys are the experimenter's session commands "
                 f"(pause, calibrate, reward, hold); leave them out"
             )
         if not self.digits.isdigit() or len(set(self.digits)) != len(self.digits):

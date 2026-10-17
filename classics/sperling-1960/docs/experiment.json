@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Sperling partial report (Sperling, 1960, Experiments 3 and 4)",
-  "summary": "A card of 6 to 12 letters (or letters and numbers) is flashed for 50 ms. A cue then calls one row, and the observer types that row. The row's accuracy times the number of rows estimates how many letters were available when the cue came: about twice the 4 or so a whole report gives, falling to that span within a second as the cue is delayed. The paper's cue is a tone; this version uses a bar beside the row by default, because alhazen 2.16.0 cannot play an event-bound tone.",
+  "summary": "A card of 6 to 12 letters (or letters and numbers) is flashed for 50 ms. A cue then calls one row, and the observer types that row. The row's accuracy times the number of rows estimates how many letters were available when the cue came: about twice the 4 or so a whole report gives, falling to that span within a second as the cue is delayed. The paper's cue is a tone; this version uses a bar beside the row by default, because alhazen 3.0.0 cannot play an event-bound tone.",
   "methods": "docs/methods.md",
   "references": [
     "Sperling, G. (1960). The information available in brief visual presentations. Psychological Monographs: General and Applied, 74(11, Whole No. 498), 1-29. https://doi.org/10.1037/h0093759",
@@ -17,8 +17,8 @@
     {
       "item": "Row cue",
       "original": "A tone after the exposure: high 2500, middle 650, low 250 cps, about 0.5 s, from an audio oscillator switched by the light's off-go microswitch (p. 6-7)",
-      "here": "Default cue_mode: visual, a bar beside the cued row for 0.5 s, starting at the same frame the tone would (an Averbach and Coriell style marker). cue_mode: tone binds the paper's three tones to the CUE_HIGH, CUE_MID and CUE_LOW events, but refuses to load on alhazen 2.16.0",
-      "reason": "alhazen 2.16.0 cannot play a tone bound to a task event. A visual cue near the array is not equivalent to an auditory one: it can mask or attract attention to the location, so results can differ from the paper's"
+      "here": "Default cue_mode: visual, a bar beside the cued row for 0.5 s, starting at the same frame the tone would (an Averbach and Coriell style marker). cue_mode: tone binds the paper's three tones to the CUE_HIGH, CUE_MID and CUE_LOW events, but refuses to load on alhazen 3.0.0",
+      "reason": "alhazen 3.0.0 cannot play a tone bound to a task event. A visual cue near the array is not equivalent to an auditory one: it can mask or attract attention to the location, so results can differ from the paper's"
     },
     {
       "item": "Display",
@@ -36,7 +36,7 @@
       "item": "Alphabet",
       "original": "The 21 consonants (in a few card sets also without Y, p. 3); 20 letters plus the ten digits on letters-and-numbers cards (17.9 bits per row, p. 4)",
       "here": "17 consonants, BDFGJKLMNQSTVWXYZ: C, H, P and R are left out, on every material",
-      "reason": "alhazen 2.16.0 reads its experimenter keys (p pause, c calibrate, r reward, h hold stage) from the same keyboard before the subject's keys, so a subject cannot type those letters. Fewer alternatives make a guess slightly likelier (1/17 vs 1/21 per position)"
+      "reason": "alhazen 3.0.0 reads its experimenter keys (p pause, c calibrate, r reward, h hold stage) from the same keyboard before the subject's keys, so a subject cannot type those letters. Fewer alternatives make a guess slightly likelier (1/17 vs 1/21 per position)"
     },
     {
       "item": "Row balance",
@@ -60,7 +60,7 @@
       "item": "Between trials",
       "original": "The dark field and the dim fixation field were always present (p. 3)",
       "here": "The task draws the dark field and cross on every frame of a trial; for the frames between one trial's end and the next trial's start, and on instruction and pause screens, the window shows alhazen's mid-grey background",
-      "reason": "alhazen 2.16.0 has no setting for the window's background colour"
+      "reason": "alhazen 3.0.0 has no setting for the window's background colour"
     },
     {
       "item": "Stimulus cards",

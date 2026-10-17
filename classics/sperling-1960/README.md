@@ -11,7 +11,7 @@ row's accuracy times the number of rows estimates the letters available when the
 delaying the cue from 0.05 s before the flash to 1 s after traces how fast that store
 decays.
 
-- **Status: adaptation.** The paper's cue is a tone; alhazen 2.16.0 cannot play a tone bound
+- **Status: adaptation.** The paper's cue is a tone; alhazen 3.0.0 cannot play a tone bound
   to an event, so the default cue is a bar beside the row (`cue_mode: visual`).
   `cue_mode: tone` is built and refuses to load until alhazen has `Tone`. The display is a
   monitor rather than a tachistoscope, the report is typed, and C, H, P, R are left out of

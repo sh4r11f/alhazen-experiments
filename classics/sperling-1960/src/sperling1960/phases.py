@@ -1,4 +1,4 @@
-"""The three phases alhazen 2.16 does not have, each the smallest thing that does the job.
+"""The three phases alhazen 3.0 does not have, each the smallest thing that does the job.
 
 - `WaitForKey`: the subject starts the trial. Sperling's observer looked at the fixation
   cross until it was in focus and pressed a button, and the presentation followed 0.5 s

@@ -42,7 +42,7 @@
       "item": "Background",
       "original": "Not stated in the paper; a dark screen in a dark room according to a later account (Wang 2005, p. 3028)",
       "here": "alhazen's mid-grey field",
-      "reason": "alhazen v2.16 fixes the window colour at mid-grey; a dark field needs an alhazen capability (docs/methods.md, Verification)"
+      "reason": "alhazen v3.0 fixes the window colour at mid-grey; a dark field needs an alhazen capability (docs/methods.md, Verification)"
     },
     {
       "item": "Neural recording and microstimulation",
@@ -118,7 +118,7 @@
     {
       "item": "Background luminance",
       "value": "Mid-grey (alhazen's window colour)",
-      "reason": "Not stated in the paper (a later account says the screen was dark, Wang 2005); alhazen v2.16 does not let a task set the window colour (also a deviation)"
+      "reason": "Not stated in the paper (a later account says the screen was dark, Wang 2005); alhazen v3.0 does not let a task set the window colour (also a deviation)"
     },
     {
       "item": "Monkey reward train",

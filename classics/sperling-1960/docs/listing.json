@@ -1,6 +1,6 @@
 {
   "status": "adaptation",
-  "status_reason": "Adaptation: the row cue is a visual bar instead of Sperling's tone (alhazen 2.16.0 cannot play an event-bound tone), the tachistoscope flash is whole display frames without the lamp's afterglow, responses are typed instead of written, and C, H, P, R are left out of the alphabet because alhazen reads them as experimenter keys. Timing, materials, delays and scoring follow the paper. Tone mode is built and refuses to load until alhazen has Tone; after that release and a repin the status can be revisited.",
+  "status_reason": "Adaptation: the row cue is a visual bar instead of Sperling's tone (alhazen 3.0.0 cannot play an event-bound tone), the tachistoscope flash is whole display frames without the lamp's afterglow, responses are typed instead of written, and C, H, P, R are left out of the alphabet because alhazen reads them as experimenter keys. Timing, materials, delays and scoring follow the paper. Tone mode is built and refuses to load until alhazen has Tone; after that release and a repin the status can be revisited.",
   "collection": "classics",
   "authors": [
     {
@@ -45,5 +45,5 @@
       "source": "drawn by src/sperling1960/preview.py from configs/task.yaml"
     }
   ],
-  "notes": "audio is false because the default cue is visual; cue_mode: tone needs speakers and an alhazen release with event-bound tones (alhazen.Tone), which 2.16.0 does not have. No participant data: tests and a simulated session only."
+  "notes": "audio is false because the default cue is visual; cue_mode: tone needs speakers and an alhazen release with event-bound tones (alhazen.Tone), which 3.0.0 does not have. No participant data: tests and a simulated session only."
 }

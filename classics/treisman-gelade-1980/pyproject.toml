@@ -11,7 +11,7 @@ license = "Apache-2.0"
 dependencies = [
   # alhazen-vision, not alhazen: the bare name on PyPI is an unrelated project.
   # uv takes it from GitHub at the tag in [tool.uv.sources]; the floor is what pip reads.
-  "alhazen-vision>=2.16.0",
+  "alhazen-vision>=3.0.0",
   "numpy>=1.24",
   "pandas>=2.0",
   "pyyaml>=6.0",
@@ -42,7 +42,7 @@ feature-conjunction-search = "treisman_gelade1980.task:FeatureConjunctionSearchT
 # alhazen from its GitHub repository at a release tag, never from an index. Moving to a
 # newer release is this tag and `uv lock`, committed together.
 [tool.uv.sources]
-alhazen-vision = { git = "https://github.com/sh4r11f/alhazen", tag = "v2.16.0" }
+alhazen-vision = { git = "https://github.com/sh4r11f/alhazen", tag = "v3.0.0" }
 
 [tool.setuptools.packages.find]
 where = ["src"]

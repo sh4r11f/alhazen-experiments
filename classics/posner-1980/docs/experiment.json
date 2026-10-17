@@ -30,7 +30,7 @@
       "item": "Background",
       "original": "Luminance increments in a dark field (p. 6)",
       "here": "alhazen's mid-grey window, with a white square as the luminance increment",
-      "reason": "alhazen 2.16 fixes the window colour at mid-grey and has no per-task background. Drawing a dark field inside each trial would flash grey between trials. The increment's contrast therefore differs from the original"
+      "reason": "alhazen 3.0 fixes the window colour at mid-grey and has no per-task background. Drawing a dark field inside each trial would flash grey between trials. The increment's contrast therefore differs from the original"
     },
     {
       "item": "Display and timing apparatus",
