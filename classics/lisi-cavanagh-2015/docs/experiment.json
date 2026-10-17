@@ -23,7 +23,7 @@
       "reason": "The comparison of perceived path orientation and saccade landings is Experiment 1; Experiment 2 (the position-vs-direction test) is a separate design and is not built here."
     },
     {
-      "here": "alhazen v3.1.0 (PsychoPy renderer, EyeLink backend)",
+      "here": "alhazen v3.2.0 (PsychoPy renderer, EyeLink backend)",
       "item": "Software",
       "original": "MATLAB with the Psychophysics and EyeLink toolboxes on an Apple computer",
       "reason": "The repository's toolkit."
