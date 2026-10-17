@@ -37,6 +37,7 @@ PALETTE = {
 HAZE = (196, 202, 212)
 WALL = (190, 194, 200)
 SS = 2  # supersampling factor for anti-aliased edges
+Box = tuple[float, float, float, float]
 
 
 @dataclass(frozen=True)
@@ -210,7 +211,8 @@ def _texture(spec: SceneSpec, seed: int, w: int, h: int) -> Image.Image:
 
 def render(objs: list[Obj], spec: SceneSpec, seed: int) -> Image.Image:
     ppd = spec.px_per_dva * SS
-    w, h = int(round(spec.width_dva * spec.px_per_dva)), int(round(spec.height_dva * spec.px_per_dva))
+    w = int(round(spec.width_dva * spec.px_per_dva))
+    h = int(round(spec.height_dva * spec.px_per_dva))
     W, H = w * SS, h * SS
 
     def px(o: Obj) -> tuple[float, float, float]:
@@ -271,7 +273,8 @@ def _shift(objs: list[Obj], i: int, spec: SceneSpec) -> tuple[float, float]:
         a = 2 * math.pi * k / 16
         x = o.x + spec.location_shift_dva * math.cos(a)
         y = o.y + spec.location_shift_dva * math.sin(a)
-        if abs(x) > spec.width_dva / 2 - o.size * 0.75 or abs(y) > spec.height_dva / 2 - o.size * 0.75:
+        margin = o.size * 0.75
+        if abs(x) > spec.width_dva / 2 - margin or abs(y) > spec.height_dva / 2 - margin:
             continue
         clear = min(math.hypot(x - p.x, y - p.y) - (p.size + o.size) / 2
                     for j, p in enumerate(objs) if j != i)
@@ -323,7 +326,7 @@ def generate(seed: int, plane: str, change_type: str, spec: SceneSpec | None = N
 
 
 def probe_boxes(pair: DepthPair, n: int, side_dva: float, spec: SceneSpec,
-                rng: np.random.Generator) -> tuple[list[tuple[float, float, float, float]], int, list[str]]:
+                rng: np.random.Generator) -> tuple[list[Box], int, list[str]]:
     """``n`` equal square boxes (image fractions): one on the change, the others on other
     objects, half of them on each depth plane, so neither a box's place nor its plane
     gives the answer away. Returns (boxes in reading order, index of the correct one,

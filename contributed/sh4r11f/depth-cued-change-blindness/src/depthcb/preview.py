@@ -1,12 +1,11 @@
-"""Draw the stimulus preview, docs/preview.png: what one trial's display looks like.
+"""Draw the stimulus preview, docs/preview.png: one trial's displays, in order.
 
-    uv run python -m rensink1997.preview            # writes docs/preview.png
+    uv run python -m depthcb.preview            # writes docs/preview.png
 
-Six panels in trial order, each a whole screen of the example booth rig
-(configs/rig-booth.yaml) drawn at the sizes the task computes from configs/task.yaml:
-the cue field, the gray field, A, the blank, A' (the flicker repeats A A A' A'), and the
-location probe. The scene is the shipped photo pair "car" (a colour change).
-No window is needed.
+Six panels, each a whole screen of the example booth rig (configs/rig-booth.yaml) drawn
+at the sizes configs/task.yaml gives: the cue field (here FAR), the gray field, A, the
+blank, A' (a far object changes colour; the flicker repeats A A A' A'), and the location
+probe with two boxes on near objects and two on far ones. No window is needed.
 """
 
 from __future__ import annotations
@@ -18,80 +17,74 @@ from pathlib import Path
 import numpy as np
 import yaml
 from alhazen.config.loader import load_params
-from alhazen.display.screen import Screen
 from PIL import Image, ImageDraw, ImageFont
 
-from rensink1997 import scenes
-from rensink1997.task import PROJECT, FlickerChangeDetectionTaskParams
+from depthcb import scenes
+from depthcb.task import PROJECT, DepthCuedFlickerTaskParams, scene_spec
 
-PANEL_W = 400  # px per panel in the preview
-SCENE = "photo/car"
-
-
-def _screen() -> tuple[Screen, int, int]:
-    rig = yaml.safe_load((PROJECT / "configs" / "rig-booth.yaml").read_text(encoding="utf-8"))
-    m = rig["monitor"]
-    deg = float(np.degrees(2 * np.arctan(m["width_cm"] / 2 / m["distance_cm"])))
-    return Screen(width_px=m["width_px"], height_px=m["height_px"],
-                  px_per_deg=m["width_px"] / deg), m["width_px"], m["height_px"]
+PANEL_W = 520
+SEED, PLANE, CHANGE = 11, "far", "color"
 
 
-def _gray(p: FlickerChangeDetectionTaskParams) -> tuple[int, int, int]:
-    v = int(round((p.background_gray + 1) / 2 * 255))
-    return (v, v, v)
+def _font(size: int):
+    try:
+        return ImageFont.truetype("DejaVuSans-Bold.ttf", size)
+    except OSError:
+        return ImageFont.load_default(size=size)
 
 
 def render(out: Path) -> Path:
-    p = load_params(PROJECT / "configs" / "task.yaml", FlickerChangeDetectionTaskParams)
-    screen, sw, sh = _screen()
-    scale = PANEL_W / sw
-    ph = int(round(sh * scale))
-    pair = scenes.load(SCENE)
-    iw, ih = screen.deg2px(p.image_width_dva) * scale, screen.deg2px(p.image_height_dva) * scale
-    x0, y0 = (PANEL_W - iw) / 2, (ph - ih) / 2
-    img_a = pair.image_a.resize((int(iw), int(ih)), Image.LANCZOS)
-    img_b = pair.image_b.resize((int(iw), int(ih)), Image.LANCZOS)
+    p = load_params(PROJECT / "configs" / "task.yaml", DepthCuedFlickerTaskParams)
+    rig = yaml.safe_load((PROJECT / "configs" / "rig-booth.yaml").read_text(encoding="utf-8"))
+    m = rig["monitor"]
+    deg = float(np.degrees(2 * np.arctan(m["width_cm"] / 2 / m["distance_cm"])))
+    ppd = m["width_px"] / deg * PANEL_W / m["width_px"]
+    ph = int(round(m["height_px"] * PANEL_W / m["width_px"]))
+    spec = scene_spec(p)
+    pair = scenes.generate(SEED, PLANE, CHANGE, spec)
+    iw, ih = int(p.image_width_dva * ppd), int(p.image_height_dva * ppd)
+    x0, y0 = (PANEL_W - iw) // 2, (ph - ih) // 2
+    gray = (128, 128, 128)
 
-    def panel():
-        im = Image.new("RGB", (PANEL_W, ph), _gray(p))
+    def panel(img=None):
+        im = Image.new("RGB", (PANEL_W, ph), gray)
+        if img is not None:
+            im.paste(img.resize((iw, ih), Image.LANCZOS), (x0, y0))
         return im, ImageDraw.Draw(im)
 
     cue, d = panel()
-    bw, bh = screen.deg2px(p.cue_box_width_dva) * scale, screen.deg2px(p.cue_box_height_dva) * scale
+    bw, bh = p.cue_box_width_dva * ppd, p.cue_box_height_dva * ppd
     d.rectangle(((PANEL_W - bw) / 2, (ph - bh) / 2, (PANEL_W + bw) / 2, (ph + bh) / 2),
                 fill="white")
-    gray, _ = panel()
-    a, _ = panel()
-    a.paste(img_a, (int(x0), int(y0)))
+    f = _font(int(p.cue_text_height_dva * ppd))
+    d.text((PANEL_W / 2, ph / 2), p.cue_words.far, fill="black", font=f, anchor="mm")
+    blank_g, _ = panel()
+    a, _ = panel(pair.image_a)
     blank, _ = panel()
-    b, _ = panel()
-    b.paste(img_b, (int(x0), int(y0)))
-    probe, d = panel()
-    probe.paste(img_a, (int(x0), int(y0)))
-    boxes, _ = scenes.probe_boxes(pair, p.location_probe.n_choices,
-                                  (p.location_probe.min_side_dva / p.image_width_dva,
-                                   p.location_probe.max_side_dva / p.image_width_dva),
-                                  p.image_width_dva / p.image_height_dva,
-                                  np.random.default_rng(4))
-    font = ImageFont.load_default(size=11)
+    b, _ = panel(pair.image_b)
+    probe, d = panel(pair.image_a)
+    boxes, _, _ = scenes.probe_boxes(pair, p.location_probe.n_choices,
+                                     p.location_probe.box_side_dva, spec,
+                                     np.random.default_rng(4))
+    lf = _font(11)
     for key, bx in zip(p.location_probe.keys, boxes, strict=False):
         r = (x0 + bx[0] * iw, y0 + bx[1] * ih, x0 + bx[2] * iw, y0 + bx[3] * ih)
-        d.rectangle(r, outline=(255, 255, 0), width=2)
-        d.text((r[0] + 3, r[1] + 1), key, fill=(255, 255, 0), font=font)
+        d.rectangle(r, outline=(15, 15, 20), width=2)
+        d.text((r[0] + 4, r[1] + 2), key, fill=(15, 15, 20), font=lf)
 
     fr = lambda d_: f"{d_.ms:g} ms" if d_.ms is not None else f"{d_.frames} frames"  # noqa: E731
-    labels = [f"cue field {fr(p.cue_field)}", f"gray field {fr(p.gray_field)}",
+    labels = [f"depth cue {fr(p.cue_field)}: NEAR or FAR", f"gray {fr(p.gray_field)}",
               f"A {fr(p.flicker.image)}", f"blank {fr(p.flicker.blank)}",
               f"A' {fr(p.flicker.image)} (A A A' A' ...)",
-              "where? keys 1-4, then the kind (arrows)"]
-    gap, label_h = 8, 22
+              "where? 1-4, then what kind (arrows)"]
+    gap, label_h = 10, 24
     sheet = Image.new("RGB", (3 * PANEL_W + 2 * gap, 2 * (ph + label_h) + gap), (250, 250, 248))
     ds = ImageDraw.Draw(sheet)
-    lf = ImageFont.load_default(size=14)
-    for i, (im, text) in enumerate(zip([cue, gray, a, blank, b, probe], labels, strict=False)):
+    tf = _font(14)
+    for i, (im, text) in enumerate(zip([cue, blank_g, a, blank, b, probe], labels, strict=True)):
         x, y = (i % 3) * (PANEL_W + gap), (i // 3) * (ph + label_h + gap)
         sheet.paste(im, (x, y))
-        ds.text((x + 4, y + ph + 3), text, fill=(30, 30, 30), font=lf)
+        ds.text((x + 4, y + ph + 4), text, fill=(30, 30, 30), font=tf)
     out.parent.mkdir(parents=True, exist_ok=True)
     buf = io.BytesIO()
     sheet.quantize(colors=256, method=Image.Quantize.MEDIANCUT).save(buf, "PNG", optimize=True)
