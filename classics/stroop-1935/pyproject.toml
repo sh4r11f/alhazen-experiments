@@ -42,7 +42,7 @@ stroop-word-reading = "stroop1935.task:StroopWordReadingTask"
 # alhazen from its GitHub repository at a release tag, never from an index. Moving to a
 # newer release is this tag and `uv lock`, committed together.
 [tool.uv.sources]
-alhazen-vision = { git = "https://github.com/sh4r11f/alhazen", tag = "v3.2.0" }
+alhazen-vision = { git = "https://github.com/sh4r11f/alhazen", tag = "v3.4.1" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
