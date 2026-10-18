@@ -33,7 +33,7 @@ of the internal drift at saccade onset, while perception accumulates a large pos
 60 cm from a gamma-linearised Compaq P1220 CRT at 120 Hz; right-eye gaze recorded with an
 EyeLink 1000 (desktop mount) at 1 kHz; MATLAB with the Psychophysics and EyeLink toolboxes.
 
-*Here*: alhazen v3.2.0 with its PsychoPy renderer and EyeLink backend. `configs/rig-booth.yaml`
+*Here*: alhazen v3.4.1 with its PsychoPy renderer and EyeLink backend. `configs/rig-booth.yaml`
 is an example rig (EXAMPLE geometry: 60 cm, 120 Hz) with an EyeLink at its default address;
 enter the real geometry, gamma-linearise the display (`alhazen calibrate gamma`), and measure
 its mid-grey, which is the background (the paper's was 5.3 cd/m², kept as
@@ -156,7 +156,7 @@ Intended changes. Each row: what the paper did, what this version does, and why.
 | Item | Original | Here | Reason |
 |---|---|---|---|
 | Experiments included | Experiment 1 (perceptual task, saccade task) and Experiment 2 (mid-path gap, jump direction judgement) | Experiment 1 only: both of its tasks | The comparison of perceived path orientation and saccade landings is Experiment 1; Experiment 2 (the position-vs-direction test) is a separate design and is not built here. |
-| Software | MATLAB with the Psychophysics and EyeLink toolboxes on an Apple computer | alhazen v3.2.0 (PsychoPy renderer, EyeLink backend) | The repository's toolkit. |
+| Software | MATLAB with the Psychophysics and EyeLink toolboxes on an Apple computer | alhazen v3.4.1 (PsychoPy renderer, EyeLink backend) | The repository's toolkit. |
 | Display and background | Gamma-linearised Compaq P1220 CRT at 120 Hz; uniform grey background of 5.3 cd/m2 | The rig's gamma-linearised display at its measured refresh rate (the example rig says 120 Hz); background = the display's mid-grey, whose luminance the software does not set | Hardware is the lab's. The rig file asks for gamma linearisation and for the mid-grey to be measured with a photometer; background_cd_m2 records the paper's value. |
 | Adaptive procedure | Multiple interleaved QUEST staircases (Watson & Pelli 1983) converging on 50% 'right' reports | alhazen's QUEST+ (Watson 2017) with one free parameter (the threshold) and the same log-Weibull psychometric family, four staircases picked at random each trial | alhazen ships QUEST+, not QUEST. QUEST+ places each trial by minimum expected entropy instead of at the threshold estimate, so placements differ; the PSE is fitted afterwards to every trial, as in the paper. |
 | Perceptual response deadline | Stimulus displayed until the response | Until the response or 30 s; a trial with no response is re-served | An alhazen response window needs a deadline; 30 s is ten motion cycles. |
