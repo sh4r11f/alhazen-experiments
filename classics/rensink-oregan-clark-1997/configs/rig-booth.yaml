@@ -15,8 +15,9 @@ display:
   frame_qa:
     # mark_trial, not recycle_trial: every scene is shown once, and serving a scene again
     # after a dropped-frame trial would show the subject a change they may already have seen.
+    # Dropped frames are counted on each trial record (n_dropped_frames); no threshold applies
+    # under mark_trial, so none is set.
     policy: mark_trial
-    max_dropped_fraction: 0.10
 live_monitor:
   enabled: true
   auto_open: true
