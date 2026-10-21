@@ -21,8 +21,8 @@ inside that mask:
             the object pasted back; A' = plate with the object pasted ``location_shift_dva``
             further along x, toward the picture's vertical midline.
 
-Both images are resized to ``out_px`` (27 x 18 dva) and saved as JPEG of about 95 KB. The geometry of the
-change (bounding box, centroid, area) is measured from |A - A'| and written to
+Both images are resized to ``out_px`` (27 x 18 dva) and saved as JPEG of about 95 KB. The
+geometry of the change (bounding box, centroid, area) is measured from |A - A'| and written to
 photos/pairs.json together with the foils of the location report (spec.json: ``foils``,
 other named objects on each layer, placed by hand on the base photograph).
 """
