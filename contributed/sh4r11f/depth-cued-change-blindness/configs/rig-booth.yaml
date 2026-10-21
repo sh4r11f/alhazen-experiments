@@ -1,0 +1,26 @@
+# A behavioural booth: a display, a keyboard, no other devices. EXAMPLE GEOMETRY ONLY.
+# Measure your own panel and viewing distance and enter them here before a real session;
+# `uv run alhazen calibrate ruler --rig booth` checks them with a tape measure.
+# Add devices (eyetracker, reward, sync) inside `devices:` as alhazen's docs/rigs.md shows.
+monitor:
+  name: booth
+  width_px: 1920
+  height_px: 1080
+  width_cm: 53.0
+  distance_cm: 57.0            # example only (27 deg images need a ~27 cm wide picture at 57 cm)
+  refresh_rate_hz: 60.0        # example; at 60 Hz 240/80 ms become 14/5 frames (233/83 ms), exact at 75, 100 or 125 Hz
+  fullscreen: true
+display:
+  backend: psychopy
+  frame_qa:
+    # mark_trial, not recycle_trial: every scene is shown once, and serving a scene again
+    # after a dropped-frame trial would show the subject a change they may already have seen.
+    policy: mark_trial
+    max_dropped_fraction: 0.10
+live_monitor:
+  enabled: true
+  auto_open: true
+  port: 0
+devices: {}
+data_root: data
+real_data: true

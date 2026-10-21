@@ -1,0 +1,85 @@
+# Depth-cued change blindness: with neutral cues (human). 2 x 3 x 15 = 90 trials: 9 valid, 3 invalid, 3 neutral per cell (75% of the depth cues valid); neutral trials give a baseline for benefits and costs.
+#
+# Built on the flicker paradigm of Rensink, O'Regan & Clark (1997), Psychological Science
+# 8(5), 368-373 ("Rensink" below; page numbers are the journal's). Their Experiment 3 cued
+# the changing object with a word; here the word names a DEPTH PLANE (NEAR or FAR) in a
+# two-plane scene drawn on an ordinary 2-D screen with monocular depth cues only.
+#
+# Every key is validated against DepthCuedFlickerTask's params model: a typo fails at load.
+#   "# Rensink: p. N"   the value is the original paradigm's
+#   "# DESIGN: ..."     a choice of this new experiment (docs/methods.md, "Design")
+#   "# ASSUMED (not in the paper): ..."  a value Rensink does not state, inherited from the
+#                       rensink-oregan-clark-1997 classic (docs/methods.md, "Assumed")
+subject_kind: human
+
+image_width_dva: 27.0          # Rensink: p. 369 (images 27 deg wide)
+image_height_dva: 18.0         # Rensink: p. 369 (and 18 deg high)
+background_gray: 0.0           # ASSUMED (not in the paper): "gray" fields, luminance not given; mid gray (signed RGB 0)
+cue_field: {ms: 3000}          # Rensink: p. 369, Fig. 1 (3-s field with a white rectangle holding the cue word)
+cue_box_width_dva: 8.0         # ASSUMED (not in the paper): rectangle size not given
+cue_box_height_dva: 2.5        # ASSUMED (not in the paper): rectangle size not given
+cue_cap_height_dva: 0.9        # ASSUMED (not in the paper): cue word size not given; capital-letter height
+cue_style:                     # DESIGN: how the cue word is typeset (the paper gives no typeface)
+  weight: bold                 # DESIGN: Atkinson Hyperlegible Bold, bundled (src/depthcb/fonts, SIL OFL)
+  tracking_em: 0.12            # DESIGN: letter spacing for an upper-case word
+  ink: [-0.86, -0.86, -0.86]   # ASSUMED (not in the paper): near-black ink (the colour is not given)
+  card: [1.0, 1.0, 1.0]        # Rensink: p. 369, Fig. 1 (white rectangle)
+cue_words:                     # DESIGN: the cue names a depth plane, not an object
+  near: NEAR
+  far: FAR
+  neutral: NEAR OR FAR         # DESIGN: shown on neutral-cue trials (none in this set)
+cue_counts:                    # DESIGN: trials per plane x change-type cell; 2 x 3 x 16 = 96 trials, 75% valid
+  valid: 9
+  invalid: 3
+  neutral: 3
+  none: 0
+gray_field: {ms: 1000}         # Rensink: p. 369, Fig. 1
+fixation:                      # DESIGN: Rensink had none (free viewing); see docs/methods.md
+  show_on_gray: true           # DESIGN: on the 1-s gray field, so every search starts at the centre
+  show_during_flicker: false   # DESIGN: free viewing during the flicker, as in Rensink
+  outer_dva: 0.6               # DESIGN: Thaler et al. (2013) ABC target, outer diameter
+  inner_dva: 0.2               # DESIGN: Thaler et al. (2013) ABC target, cross width and centre dot
+  color: [-1.0, -1.0, -1.0]    # DESIGN: black on the mid-gray field
+flicker:
+  image: {ms: 240}             # Rensink: p. 369
+  blank: {ms: 80}              # Rensink: p. 369
+  pattern: [A, A, B, B]        # Rensink: p. 369 (A, A, A', A', ...)
+max_flicker: {ms: 60000}       # Rensink: p. 369, Fig. 1 (60 s or until the response)
+detect_key: space              # ASSUMED (not in the paper): "hits a key"; which key is not given
+location_probe:                # DESIGN: keyed report of where (Rensink: spoken description)
+  n_choices: 4                 # DESIGN: 4 boxes, 2 on near objects and 2 on far ones, so a box's plane gives nothing away
+  box_side_dva: 3.6            # DESIGN: a near object (2.4 deg) with a 0.6-deg margin
+  keys: ['1', '2', '3', '4']   # DESIGN: number keys, labelled on the boxes
+  timeout: {ms: 20000}         # ASSUMED (not in the paper): no report deadline in the original; generous cap
+type_probe:                    # DESIGN: keyed report of the kind of change
+  keys: {left: presence, down: color, right: location}   # DESIGN: arrow keys (P, C, R, H are alhazen experimenter keys)
+  timeout: {ms: 20000}         # DESIGN: generous cap, as the location probe
+probe_cap_height_dva: 0.45     # DESIGN: capital-letter height of the report prompts
+scene:
+  source: procedural           # DESIGN: drawn two-plane scenes (scenes.py); "photo" uses photos/
+  photo_set: main              # DESIGN: which photograph set when source is photo (unused here)
+  seed: 2026                   # DESIGN: first scene seed; trial k uses seed + k, so every scene is new
+  n_near: 8                    # DESIGN: 2 near objects in each quadrant (4 x 4 grid)
+  n_far: 8                     # DESIGN: 2 far objects in each quadrant: planes interleaved over the picture
+  n_occluded: 3                # DESIGN: extra far objects partly behind near ones (occlusion), never changed
+  near_size_dva: 2.4           # DESIGN: near object size
+  far_size_dva: 1.5            # DESIGN: far object size (relative size cue, 0.63 of near)
+  target_eccentricity_dva: [3.0, 11.0]   # DESIGN: changed object between 3 and 11 deg from the centre, both planes
+  location_shift_dva: 2.0      # DESIGN: location changes move the object 2 deg, toward the most open space
+  far_blur_dva: 0.06           # DESIGN: Gaussian defocus of the far layer (sigma)
+  aerial_mix: 0.45             # DESIGN: far colours mixed 45% toward the haze colour
+  shadow_offset_dva: 0.35      # DESIGN: near objects' cast shadow offset on the far surface
+  shadow_opacity: 0.40         # DESIGN: cast shadow darkness
+  render_px_per_dva: 40.0      # DESIGN: scenes are drawn at 40 px/deg and scaled to the screen
+  cues:                        # DESIGN: monocular depth cues in the scenes (each can be switched off)
+    relative_size: true
+    occlusion: true
+    cast_shadows: true
+    blur: true
+    aerial: true
+    texture: true
+iti: {ms: 500}                 # ASSUMED (not in the paper): no inter-trial interval given
+paradigm:
+  kind: sequence
+  n_per_condition: 1           # DESIGN: each scene once
+  shuffle: true                # Rensink: p. 370 (random order for each subject)

@@ -1,0 +1,67 @@
+{
+ "status": "adaptation",
+ "status_reason": "A new experiment built on Rensink, O'Regan & Clark's flicker paradigm and timing. Their Experiment 3 cued the changing object with a word; here the word names a depth plane (NEAR or FAR), is 75% valid, and the report is keyed. The main set uses 48 generated photograph pairs (each place photographed with a near and with a far change); drawn two-plane scenes remain as separate sets. Not a replication of any published result.",
+ "collection": "contributed",
+ "authors": [
+  {
+   "name": "Sharif Saleki",
+   "role": "design and implementation"
+  }
+ ],
+ "original": {
+  "citation": "Rensink, R. A., O'Regan, J. K., & Clark, J. J. (1997). To see or not to see: The need for attention to perceive changes in scenes. Psychological Science, 8(5), 368-373.",
+  "year": 1997,
+  "doi": "10.1111/j.1467-9280.1997.tb00427.x",
+  "url": "https://www.cs.ubc.ca/~rensink/publications/download/PsychSci97-RR.pdf",
+  "experiments": "the flicker paradigm and Experiment 3's verbal cue, with the cue changed to a depth plane"
+ },
+ "hardware": {
+  "display": true,
+  "keyboard": true,
+  "audio": false,
+  "eye_tracker": false,
+  "reward": false,
+  "microstimulation": false,
+  "recording": false
+ },
+ "subjects": [
+  "human"
+ ],
+ "category": "attention",
+ "tags": [
+  "attention",
+  "change blindness",
+  "cueing",
+  "depth",
+  "depth-based attention",
+  "fixation",
+  "flicker paradigm",
+  "monocular depth cues",
+  "photographs"
+ ],
+ "art": "docs/preview.png",
+ "assets": [
+  {
+   "path": "src/depthcb/scenes.py",
+   "what": "two-plane scene pairs, drawn at run time from a seed (no image files)",
+   "licence": "CC-BY-4.0"
+  },
+  {
+   "path": "docs/preview.png",
+   "what": "stimulus preview drawn by src/depthcb/preview.py",
+   "licence": "CC-BY-4.0"
+  },
+  {
+   "path": "src/depthcb/photos/",
+   "what": "54 photograph pairs (A, A'): 27 places, each with a near-layer and a far-layer change; generated with an image model for this experiment (prompts and models in photos/spec.json), composited so A and A' differ only at the change (scripts/build_photo_pairs.py)",
+   "licence": "CC-BY-4.0"
+  },
+  {
+   "path": "src/depthcb/fonts/",
+   "what": "Atkinson Hyperlegible Regular and Bold (Braille Institute), used for the cue word and the report prompts",
+   "licence": "OFL-1.1",
+   "credit": "Atkinson Hyperlegible, designed by Applied Design Works for the Braille Institute of America (github.com/googlefonts/atkinson-hyperlegible); SIL Open Font License 1.1, licence text in fonts/OFL.txt"
+  }
+ ],
+ "notes": "Software verification only (tests and simulated sessions); no participant data. Four parameter sets: practice, main (75% valid), with neutral cues, and size-matched planes."
+}

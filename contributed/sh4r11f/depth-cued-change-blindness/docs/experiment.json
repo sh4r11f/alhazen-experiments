@@ -1,0 +1,635 @@
+{
+ "schema": "alhazen-documentation",
+ "schema_version": 1,
+ "title": "Depth-cued change blindness",
+ "summary": "A flicker change-blindness task (Rensink, O'Regan & Clark, 1997) in which the cue names a depth plane instead of a place or an object. The main set uses 48 photograph pairs of real-looking places with two separate depths, a near layer within arm's reach of the camera and a far layer 10 to 30 m away; each place was photographed twice, once with the change on a near object and once on a far object. A word, NEAR or FAR, names the plane of the change on 75% of trials; a fixation target on the gray field starts every search at the centre; then A A A' A' flicker until SPACE, and a keyed report of where and what. Drawn two-plane scenes with switchable monocular depth cues remain as separate sets. The measure is alternations to identification on valid against invalid trials, for each plane.",
+ "methods": "docs/methods.md",
+ "references": [
+  "Rensink, R. A., O'Regan, J. K., & Clark, J. J. (1997). To see or not to see: The need for attention to perceive changes in scenes. Psychological Science, 8(5), 368-373. https://doi.org/10.1111/j.1467-9280.1997.tb00427.x",
+  "Posner, M. I. (1980). Orienting of attention. Quarterly Journal of Experimental Psychology, 32(1), 3-25. https://doi.org/10.1080/00335558008248231",
+  "Downing, C. J., & Pinker, S. (1985). The spatial structure of visual attention. In M. I. Posner & O. S. M. Marin (Eds.), Attention and Performance XI (pp. 171-187). Erlbaum.",
+  "Atchley, P., Kramer, A. F., Andersen, G. J., & Theeuwes, J. (1997). Spatial cuing in a stereoscopic display: Evidence for a 'depth-aware' attentional focus. Psychonomic Bulletin & Review, 4(4), 524-529. https://doi.org/10.3758/BF03214343",
+  "Ghirardelli, T. G., & Folk, C. L. (1996). Spatial cuing in a stereoscopic display: Evidence for a \"depth-blind\" attentional spotlight. Psychonomic Bulletin & Review, 3(1), 81-86. https://doi.org/10.3758/BF03210744",
+  "He, Z. J., & Nakayama, K. (1995). Visual attention to surfaces in three-dimensional space. PNAS, 92(24), 11155-11159. https://doi.org/10.1073/pnas.92.24.11155",
+  "Thaler, L., Schütz, A. C., Goodale, M. A., & Gegenfurtner, K. R. (2013). What is the best fixation target? The effect of target shape on stability of fixational eye movements. Vision Research, 76, 31-42. https://doi.org/10.1016/j.visres.2012.10.012",
+  "Atkinson Hyperlegible typeface, Braille Institute of America (SIL Open Font License 1.1)."
+ ],
+ "license": {
+  "code": "Apache-2.0",
+  "docs": "CC-BY-4.0",
+  "assets": "CC-BY-4.0"
+ },
+ "tasks": [
+  {
+   "id": "depth-cued-flicker",
+   "title": "Depth-cued flicker change detection",
+   "summary": "Cue word NEAR or FAR 3 s, gray field with a central fixation target 1 s, then A A A' A' flicker (240 ms images, 80 ms blanks) until SPACE (max 60 s), then where (box 1-4) and what kind (arrow keys).",
+   "parameters_file": "configs/task-photos.yaml",
+   "parameters": [
+    {
+     "name": "image_width_dva",
+     "label": "Image width",
+     "group": "Stimuli",
+     "type": "number",
+     "default": 27.0,
+     "meaning": "Width of each scene.",
+     "source": "Rensink p. 369",
+     "unit": "dva"
+    },
+    {
+     "name": "image_height_dva",
+     "label": "Image height",
+     "group": "Stimuli",
+     "type": "number",
+     "default": 18.0,
+     "meaning": "Height of each scene.",
+     "source": "Rensink p. 369",
+     "unit": "dva"
+    },
+    {
+     "name": "background_gray",
+     "label": "Gray level",
+     "group": "Stimuli",
+     "type": "number",
+     "default": 0.0,
+     "meaning": "Gray of the cue field, gray field and blanks, signed RGB. ASSUMED, not in the paper.",
+     "source": "ASSUMED"
+    },
+    {
+     "name": "cue_field",
+     "label": "Cue field",
+     "group": "Timing",
+     "type": "duration",
+     "default": {
+      "ms": 3000
+     },
+     "meaning": "White rectangle with the depth-cue word that opens each trial.",
+     "source": "Rensink p. 369, Fig. 1"
+    },
+    {
+     "name": "cue_words.near",
+     "label": "Near cue word",
+     "group": "Cue",
+     "type": "string",
+     "default": "NEAR",
+     "meaning": "Word that names the near plane.",
+     "source": "design"
+    },
+    {
+     "name": "cue_words.far",
+     "label": "Far cue word",
+     "group": "Cue",
+     "type": "string",
+     "default": "FAR",
+     "meaning": "Word that names the far plane.",
+     "source": "design"
+    },
+    {
+     "name": "cue_words.neutral",
+     "label": "Neutral cue word",
+     "group": "Cue",
+     "type": "string",
+     "default": "NEAR OR FAR",
+     "meaning": "Word on neutral-cue trials.",
+     "source": "design"
+    },
+    {
+     "name": "cue_counts.valid",
+     "label": "Valid trials per cell",
+     "group": "Design",
+     "type": "integer",
+     "default": 6,
+     "meaning": "Trials per plane x change-type cell whose cue names the plane of the change.",
+     "source": "design"
+    },
+    {
+     "name": "cue_counts.invalid",
+     "label": "Invalid trials per cell",
+     "group": "Design",
+     "type": "integer",
+     "default": 2,
+     "meaning": "Trials per cell whose cue names the other plane.",
+     "source": "design"
+    },
+    {
+     "name": "cue_counts.neutral",
+     "label": "Neutral trials per cell",
+     "group": "Design",
+     "type": "integer",
+     "default": 0,
+     "meaning": "Trials per cell with the neutral word (a baseline).",
+     "source": "design"
+    },
+    {
+     "name": "cue_counts.none",
+     "label": "No-cue trials per cell",
+     "group": "Design",
+     "type": "integer",
+     "default": 0,
+     "meaning": "Trials per cell with an empty rectangle.",
+     "source": "design"
+    },
+    {
+     "name": "gray_field",
+     "label": "Gray field",
+     "group": "Timing",
+     "type": "duration",
+     "default": {
+      "ms": 1000
+     },
+     "meaning": "Plain gray field between cue and flicker.",
+     "source": "Rensink p. 369, Fig. 1"
+    },
+    {
+     "name": "flicker.image",
+     "label": "Image duration",
+     "group": "Timing",
+     "type": "duration",
+     "default": {
+      "ms": 240
+     },
+     "meaning": "Each image of the flicker cycle.",
+     "source": "Rensink p. 369"
+    },
+    {
+     "name": "flicker.blank",
+     "label": "Blank duration",
+     "group": "Timing",
+     "type": "duration",
+     "default": {
+      "ms": 80
+     },
+     "meaning": "Gray blank after each image.",
+     "source": "Rensink p. 369"
+    },
+    {
+     "name": "flicker.pattern",
+     "label": "Image order",
+     "group": "Timing",
+     "type": "object",
+     "default": [
+      "A",
+      "A",
+      "B",
+      "B"
+     ],
+     "meaning": "The cycle of images, each followed by a blank.",
+     "source": "Rensink p. 369"
+    },
+    {
+     "name": "max_flicker",
+     "label": "Time limit",
+     "group": "Timing",
+     "type": "duration",
+     "default": {
+      "ms": 60000
+     },
+     "meaning": "Flicker ends without a key after this (NO_DETECTION).",
+     "source": "Rensink p. 369"
+    },
+    {
+     "name": "detect_key",
+     "label": "Detection key",
+     "group": "Response",
+     "type": "string",
+     "default": "space",
+     "meaning": "Key pressed on seeing the change. ASSUMED.",
+     "source": "ASSUMED"
+    },
+    {
+     "name": "location_probe.n_choices",
+     "label": "Location boxes",
+     "group": "Response",
+     "type": "integer",
+     "default": 4,
+     "meaning": "Boxes on the picture after detection: one on the change; half the boxes on near objects, half on far ones.",
+     "source": "design"
+    },
+    {
+     "name": "location_probe.box_side_dva",
+     "label": "Box size",
+     "group": "Response",
+     "type": "number",
+     "default": 3.6,
+     "meaning": "Side of each square box (larger if the change is larger).",
+     "source": "design",
+     "unit": "dva"
+    },
+    {
+     "name": "type_probe.keys",
+     "label": "Change-type keys",
+     "group": "Response",
+     "type": "object",
+     "default": {
+      "left": "presence",
+      "down": "color",
+      "right": "location"
+     },
+     "meaning": "Keys for the kind of change.",
+     "source": "design"
+    },
+    {
+     "name": "scene.seed",
+     "label": "Scene seed",
+     "group": "Scenes",
+     "type": "integer",
+     "default": 2026,
+     "meaning": "First scene seed; trial k draws scene seed + k, so every scene is new.",
+     "source": "design"
+    },
+    {
+     "name": "scene.near_size_dva",
+     "label": "Near object size",
+     "group": "Scenes",
+     "type": "number",
+     "default": 2.4,
+     "meaning": "Size of near objects.",
+     "source": "design",
+     "unit": "dva"
+    },
+    {
+     "name": "scene.far_size_dva",
+     "label": "Far object size",
+     "group": "Scenes",
+     "type": "number",
+     "default": 1.5,
+     "meaning": "Size of far objects (relative size cue).",
+     "source": "design",
+     "unit": "dva"
+    },
+    {
+     "name": "scene.n_occluded",
+     "label": "Occluded far objects",
+     "group": "Scenes",
+     "type": "integer",
+     "default": 3,
+     "meaning": "Extra far objects partly behind near ones (occlusion cue); never changed.",
+     "source": "design"
+    },
+    {
+     "name": "scene.target_eccentricity_dva",
+     "label": "Target eccentricity",
+     "group": "Scenes",
+     "type": "object",
+     "default": [
+      3.0,
+      11.0
+     ],
+     "meaning": "The changed object lies this far from the picture centre, on either plane.",
+     "source": "design",
+     "unit": "dva"
+    },
+    {
+     "name": "scene.location_shift_dva",
+     "label": "Location shift",
+     "group": "Scenes",
+     "type": "number",
+     "default": 2.0,
+     "meaning": "Distance a location change moves the object.",
+     "source": "design",
+     "unit": "dva"
+    },
+    {
+     "name": "scene.far_blur_dva",
+     "label": "Far blur",
+     "group": "Scenes",
+     "type": "number",
+     "default": 0.06,
+     "meaning": "Gaussian defocus of the far layer (sigma).",
+     "source": "design",
+     "unit": "dva"
+    },
+    {
+     "name": "scene.aerial_mix",
+     "label": "Haze",
+     "group": "Scenes",
+     "type": "number",
+     "default": 0.45,
+     "meaning": "Fraction of far colours mixed toward the haze colour.",
+     "source": "design"
+    },
+    {
+     "name": "scene.shadow_offset_dva",
+     "label": "Shadow offset",
+     "group": "Scenes",
+     "type": "number",
+     "default": 0.35,
+     "meaning": "Offset of the near objects' cast shadows on the far surface.",
+     "source": "design",
+     "unit": "dva"
+    },
+    {
+     "name": "scene.cues.relative_size",
+     "label": "Relative size",
+     "group": "Depth cues",
+     "type": "boolean",
+     "default": true,
+     "meaning": "Near objects larger than far ones.",
+     "source": "design"
+    },
+    {
+     "name": "scene.cues.occlusion",
+     "label": "Occlusion",
+     "group": "Depth cues",
+     "type": "boolean",
+     "default": true,
+     "meaning": "Some far objects partly hidden by near ones.",
+     "source": "design"
+    },
+    {
+     "name": "scene.cues.cast_shadows",
+     "label": "Cast shadows",
+     "group": "Depth cues",
+     "type": "boolean",
+     "default": true,
+     "meaning": "Near objects cast soft shadows on the far surface.",
+     "source": "design"
+    },
+    {
+     "name": "scene.cues.blur",
+     "label": "Defocus",
+     "group": "Depth cues",
+     "type": "boolean",
+     "default": true,
+     "meaning": "Far layer slightly blurred.",
+     "source": "design"
+    },
+    {
+     "name": "scene.cues.aerial",
+     "label": "Aerial perspective",
+     "group": "Depth cues",
+     "type": "boolean",
+     "default": true,
+     "meaning": "Far colours paler and lower in contrast.",
+     "source": "design"
+    },
+    {
+     "name": "scene.cues.texture",
+     "label": "Surface texture",
+     "group": "Depth cues",
+     "type": "boolean",
+     "default": true,
+     "meaning": "Far surface carries a fine speckle texture.",
+     "source": "design"
+    },
+    {
+     "name": "iti",
+     "label": "Inter-trial interval",
+     "group": "Timing",
+     "type": "duration",
+     "default": {
+      "ms": 500
+     },
+     "meaning": "Pause after each trial. ASSUMED.",
+     "source": "ASSUMED"
+    },
+    {
+     "name": "cue_cap_height_dva",
+     "label": "Cue word size",
+     "group": "Cue",
+     "type": "number",
+     "default": 0.9,
+     "meaning": "Capital-letter height of the cue word, typeset in the bundled Atkinson Hyperlegible Bold.",
+     "source": "ASSUMED (not in the paper)",
+     "unit": "dva"
+    },
+    {
+     "name": "cue_style.tracking_em",
+     "label": "Cue letter spacing",
+     "group": "Cue",
+     "type": "number",
+     "default": 0.12,
+     "meaning": "Extra space between the cue word's letters.",
+     "source": "design",
+     "unit": "em"
+    },
+    {
+     "name": "fixation.show_on_gray",
+     "label": "Fixation on the gray field",
+     "group": "Fixation",
+     "type": "boolean",
+     "default": true,
+     "meaning": "Show the fixation target during the 1-s gray field, so every search starts at the centre.",
+     "source": "design"
+    },
+    {
+     "name": "fixation.show_during_flicker",
+     "label": "Fixation during the flicker",
+     "group": "Fixation",
+     "type": "boolean",
+     "default": false,
+     "meaning": "Keep the fixation target over the images and blanks (off: free viewing, as in Rensink).",
+     "source": "design"
+    },
+    {
+     "name": "fixation.outer_dva",
+     "label": "Fixation target diameter",
+     "group": "Fixation",
+     "type": "number",
+     "default": 0.6,
+     "meaning": "Outer diameter of the ABC fixation target (disc with a cross-hair and a centre dot).",
+     "source": "Thaler et al. 2013",
+     "unit": "dva"
+    },
+    {
+     "name": "fixation.inner_dva",
+     "label": "Fixation cross and dot width",
+     "group": "Fixation",
+     "type": "number",
+     "default": 0.2,
+     "meaning": "Width of the cross-hair and diameter of the centre dot.",
+     "source": "Thaler et al. 2013",
+     "unit": "dva"
+    },
+    {
+     "name": "scene.source",
+     "label": "Scenes",
+     "group": "Stimuli",
+     "type": "string",
+     "default": "photo",
+     "meaning": "photo: the photograph pairs in src/depthcb/photos; procedural: drawn two-plane scenes.",
+     "source": "design"
+    },
+    {
+     "name": "scene.photo_set",
+     "label": "Photograph set",
+     "group": "Stimuli",
+     "type": "string",
+     "default": "main",
+     "meaning": "main: 48 pairs (8 per plane x change type); practice: 6 pairs from other settings.",
+     "source": "design"
+    }
+   ],
+   "outcomes": [
+    {
+     "name": "CORRECT",
+     "completed": true,
+     "success": true,
+     "meaning": "Detected, and both the box and the kind of change reported correctly; the only trials in the alternation means."
+    },
+    {
+     "name": "MISIDENTIFIED",
+     "completed": true,
+     "success": false,
+     "meaning": "Detected, but the box or the kind was wrong."
+    },
+    {
+     "name": "NO_DETECTION",
+     "completed": true,
+     "success": false,
+     "meaning": "No key within the time limit; not served again."
+    },
+    {
+     "name": "NO_REPORT",
+     "completed": true,
+     "success": false,
+     "meaning": "Detected, but a report deadline passed; not served again."
+    }
+   ],
+   "events": [
+    {
+     "name": "CUE_ON",
+     "meaning": "The cue rectangle with its word appears."
+    },
+    {
+     "name": "GRAY_ON",
+     "meaning": "The plain gray field appears."
+    },
+    {
+     "name": "FLICKER_ON",
+     "meaning": "The first image of the flicker; reaction time runs from here. Payload: plane, cue, change type."
+    },
+    {
+     "name": "IMAGE_ON",
+     "meaning": "Each image onset (A or A'), with its count."
+    },
+    {
+     "name": "DETECTED",
+     "meaning": "SPACE pressed: the subject saw the change."
+    },
+    {
+     "name": "LOCATION_PROBE",
+     "meaning": "Image A with the numbered boxes appears."
+    },
+    {
+     "name": "LOCATION_REPORT",
+     "meaning": "A box key pressed."
+    },
+    {
+     "name": "TYPE_PROBE",
+     "meaning": "The kind-of-change question appears."
+    },
+    {
+     "name": "TYPE_REPORT",
+     "meaning": "An arrow key pressed."
+    }
+   ]
+  }
+ ],
+ "assumed": [
+  {
+   "item": "Gray level of the fields and blanks",
+   "value": "mid gray, signed RGB 0.0",
+   "reason": "Rensink et al. say \"gray\" (p. 369, Fig. 1) without a luminance",
+   "key": "background_gray"
+  },
+  {
+   "item": "Cue rectangle width",
+   "value": "8.0 dva",
+   "reason": "the white rectangle's size is not given (p. 369)",
+   "key": "cue_box_width_dva"
+  },
+  {
+   "item": "Cue rectangle height",
+   "value": "2.5 dva",
+   "reason": "not given (p. 369)",
+   "key": "cue_box_height_dva"
+  },
+  {
+   "item": "Cue word size",
+   "value": "0.9 dva capital-letter height",
+   "reason": "not given (p. 370)",
+   "key": "cue_cap_height_dva"
+  },
+  {
+   "item": "Cue word colour",
+   "value": "near-black ink, signed RGB -0.86",
+   "reason": "not given (p. 370)",
+   "key": "cue_style.ink"
+  },
+  {
+   "item": "Detection key",
+   "value": "SPACE",
+   "reason": "the paper says the observer \"hits a key\" (p. 369)",
+   "key": "detect_key"
+  },
+  {
+   "item": "Report deadline",
+   "value": "20 s per question",
+   "reason": "the original report was spoken, with no deadline",
+   "key": "timeout"
+  },
+  {
+   "item": "Inter-trial interval",
+   "value": "500 ms",
+   "reason": "not given; the 3-s cue field opens each trial",
+   "key": "iti"
+  }
+ ],
+ "deviations": [
+  {
+   "item": "What the cue names",
+   "original": "Experiment 3: a word naming the changing object (p. 370)",
+   "here": "a word naming the depth plane of the change: NEAR or FAR",
+   "reason": "the question of this experiment: does attention to a depth plane, rather than to an object or a place, speed change detection"
+  },
+  {
+   "item": "Cue validity",
+   "original": "Experiment 3: cues always valid (p. 370)",
+   "here": "75% valid, 25% invalid (main set); a set adds neutral NEAR OR FAR trials",
+   "reason": "invalid trials are needed to measure what the cue buys; neutral trials split it into benefit and cost"
+  },
+  {
+   "item": "Scenes (main sets)",
+   "original": "48 colour photographs of real-world scenes (p. 369)",
+   "here": "48 generated photographs of real-looking places (27 places, each photographed with a near and a far change; 6 more for practice), composited so A and A' differ only at the change",
+   "reason": "the paper's photographs are not available, and the changed object's plane has to be controlled: each place has one change on each plane"
+  },
+  {
+   "item": "Scenes (drawn sets)",
+   "original": "48 colour photographs of real-world scenes (p. 369)",
+   "here": "generated two-plane displays: 8 near and 8 far shapes, two of each per quadrant, 3 far shapes partly occluded; depth from monocular cues only (relative size, occlusion, cast shadows, blur, aerial perspective, texture); one new scene per trial, drawn from its seed",
+   "reason": "the planes must be interleaved over the picture so that a depth cue is not a spatial cue, and the changed object's plane must be controlled"
+  },
+  {
+   "item": "Interest manipulation",
+   "original": "central vs marginal interest (p. 369)",
+   "here": "not manipulated; the change is on the near or the far plane, within the same 3-11 dva eccentricity band on both",
+   "reason": "plane of the change is the factor here; eccentricity is matched instead"
+  },
+  {
+   "item": "Report of the change",
+   "original": "spoken description of the change (p. 369)",
+   "here": "keyed: one of four boxes (two on near objects, two on far ones), then the kind of change with an arrow key",
+   "reason": "no experimenter needed to score; equal boxes per plane so the report does not reveal the plane"
+  },
+  {
+   "item": "Number of trials",
+   "original": "48 scenes, each once (p. 369)",
+   "here": "96 trials (2 planes x 3 change types x 16), each scene once",
+   "reason": "enough invalid trials (24) for a within-subject cue effect per plane"
+  },
+  {
+   "item": "Location change size",
+   "original": "\"a few degrees\" (p. 369)",
+   "here": "2.0 dva: drawn scenes toward the most open space, photographs toward the vertical midline",
+   "reason": "keeps moved objects clear of their neighbours and inside the picture"
+  },
+  {
+   "item": "Fixation target",
+   "original": "none: free viewing (p. 369)",
+   "here": "Thaler et al.'s (2013) ABC target on the 1-s gray field; free viewing during the flicker",
+   "reason": "every search starts at the centre, from where the changes' eccentricity is matched across planes"
+  }
+ ]
+}
