@@ -10,22 +10,22 @@
    "image_a": "canal-cafe-near_a.jpg",
    "image_b": "canal-cafe-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1517,
-    0.1175,
-    0.3725,
-    0.3612
+    0.151,
+    0.1188,
+    0.3729,
+    0.3625
    ],
    "centroid": [
     0.2646,
-    0.2517
+    0.2518
    ],
-   "area_fraction": 0.02948,
+   "area_fraction": 0.02925,
    "eccentricity_dva": 7.77,
-   "area_dva2": 14.33,
+   "area_dva2": 14.22,
    "foils": [
     {
      "name": "Potted cactus",
@@ -91,22 +91,22 @@
    "image_a": "canal-cafe-far_a.jpg",
    "image_b": "canal-cafe-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.2475,
-    0.3912,
-    0.39,
-    0.52
+    0.2469,
+    0.3922,
+    0.3896,
+    0.5203
    ],
    "centroid": [
     0.3274,
     0.4484
    ],
-   "area_fraction": 0.00961,
+   "area_fraction": 0.00956,
    "eccentricity_dva": 4.75,
-   "area_dva2": 4.67,
+   "area_dva2": 4.65,
    "foils": [
     {
      "name": "white ceramic teapot",
@@ -172,22 +172,22 @@
    "image_a": "park-balcony-near_a.jpg",
    "image_b": "park-balcony-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.6783,
-    0.635,
-    0.9325,
+    0.6781,
+    0.6359,
+    0.9312,
     0.9125
    ],
    "centroid": [
-    0.832,
-    0.7747
+    0.8315,
+    0.7749
    ],
-   "area_fraction": 0.02774,
-   "eccentricity_dva": 10.24,
-   "area_dva2": 13.48,
+   "area_fraction": 0.02749,
+   "eccentricity_dva": 10.23,
+   "area_dva2": 13.36,
    "foils": [
     {
      "name": "hanging glass lantern",
@@ -253,22 +253,22 @@
    "image_a": "park-balcony-far_a.jpg",
    "image_b": "park-balcony-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.7908,
-    0.3512,
-    0.9192,
-    0.52
+    0.7906,
+    0.35,
+    0.9188,
+    0.5203
    ],
    "centroid": [
-    0.8483,
-    0.4508
+    0.8481,
+    0.4504
    ],
-   "area_fraction": 0.00951,
-   "eccentricity_dva": 9.45,
-   "area_dva2": 4.62,
+   "area_fraction": 0.00938,
+   "eccentricity_dva": 9.44,
+   "area_dva2": 4.56,
    "foils": [
     {
      "name": "hanging glass lantern",
@@ -334,22 +334,22 @@
    "image_a": "orchard-near_a.jpg",
    "image_b": "orchard-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.6475,
-    0.105,
-    0.8067,
-    0.4288
+    0.6479,
+    0.1062,
+    0.8052,
+    0.4297
    ],
    "centroid": [
     0.7213,
     0.2916
    ],
-   "area_fraction": 0.03144,
+   "area_fraction": 0.0314,
    "eccentricity_dva": 7.06,
-   "area_dva2": 15.28,
+   "area_dva2": 15.26,
    "foils": [
     {
      "name": "red apple at upper left",
@@ -415,22 +415,22 @@
    "image_a": "orchard-far_a.jpg",
    "image_b": "orchard-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
     0.6625,
-    0.2725,
-    0.7225,
-    0.3288
+    0.2719,
+    0.7229,
+    0.3281
    ],
    "centroid": [
-    0.6951,
-    0.3057
+    0.6949,
+    0.3052
    ],
-   "area_fraction": 0.00217,
+   "area_fraction": 0.0022,
    "eccentricity_dva": 6.32,
-   "area_dva2": 1.05,
+   "area_dva2": 1.07,
    "foils": [
     {
      "name": "straw hat",
@@ -496,20 +496,20 @@
    "image_a": "boat-deck-near_a.jpg",
    "image_b": "boat-deck-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1358,
+    0.1354,
     0.35,
-    0.2683,
+    0.2677,
     0.7812
    ],
    "centroid": [
-    0.2019,
+    0.2018,
     0.6408
    ],
-   "area_fraction": 0.02671,
+   "area_fraction": 0.0267,
    "eccentricity_dva": 8.44,
    "area_dva2": 12.98,
    "foils": [
@@ -577,22 +577,22 @@
    "image_a": "boat-deck-far_a.jpg",
    "image_b": "boat-deck-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1675,
-    0.3388,
-    0.2558,
+    0.1667,
+    0.3375,
+    0.2562,
     0.5625
    ],
    "centroid": [
-    0.2156,
-    0.4926
+    0.2155,
+    0.4909
    ],
-   "area_fraction": 0.00578,
+   "area_fraction": 0.00581,
    "eccentricity_dva": 7.68,
-   "area_dva2": 2.81,
+   "area_dva2": 2.82,
    "foils": [
     {
      "name": "brass lantern",
@@ -658,22 +658,22 @@
    "image_a": "kitchen-window-near_a.jpg",
    "image_b": "kitchen-window-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.2133,
+    0.2146,
     0.4188,
-    0.3533,
-    0.9175
+    0.3531,
+    0.9172
    ],
    "centroid": [
-    0.3093,
-    0.7055
+    0.3092,
+    0.705
    ],
-   "area_fraction": 0.0338,
+   "area_fraction": 0.03377,
    "eccentricity_dva": 6.34,
-   "area_dva2": 16.43,
+   "area_dva2": 16.41,
    "foils": [
     {
      "name": "hanging copper pan",
@@ -739,20 +739,20 @@
    "image_a": "kitchen-window-far_a.jpg",
    "image_b": "kitchen-window-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
     0.2792,
-    0.4538,
+    0.4547,
     0.375,
     0.5312
    ],
    "centroid": [
-    0.3196,
-    0.4943
+    0.3195,
+    0.4942
    ],
-   "area_fraction": 0.00348,
+   "area_fraction": 0.00347,
    "eccentricity_dva": 4.87,
    "area_dva2": 1.69,
    "foils": [
@@ -820,22 +820,22 @@
    "image_a": "market-stall-near_a.jpg",
    "image_b": "market-stall-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.6933,
+    0.6927,
     0.0,
-    0.7942,
+    0.7948,
     0.4438
    ],
    "centroid": [
-    0.7433,
-    0.2459
+    0.7432,
+    0.2454
    ],
-   "area_fraction": 0.02493,
-   "eccentricity_dva": 8.0,
-   "area_dva2": 12.12,
+   "area_fraction": 0.02491,
+   "eccentricity_dva": 8.01,
+   "area_dva2": 12.11,
    "foils": [
     {
      "name": "hanging bunch of dried chillies",
@@ -901,22 +901,22 @@
    "image_a": "market-stall-far_a.jpg",
    "image_b": "market-stall-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.7592,
-    0.4138,
-    0.8325,
+    0.7594,
+    0.4125,
+    0.8344,
     0.4938
    ],
    "centroid": [
-    0.7955,
-    0.4595
+    0.7954,
+    0.4588
    ],
-   "area_fraction": 0.00326,
+   "area_fraction": 0.0031,
    "eccentricity_dva": 8.01,
-   "area_dva2": 1.58,
+   "area_dva2": 1.51,
    "foils": [
     {
      "name": "Hanging bunch of garlic",
@@ -982,22 +982,22 @@
    "image_a": "greenhouse-near_a.jpg",
    "image_b": "greenhouse-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
     0.3125,
     0.0,
-    0.5508,
-    0.3025
+    0.549,
+    0.3016
    ],
    "centroid": [
-    0.4216,
-    0.1225
+    0.422,
+    0.1224
    ],
-   "area_fraction": 0.04013,
+   "area_fraction": 0.04011,
    "eccentricity_dva": 7.12,
-   "area_dva2": 19.5,
+   "area_dva2": 19.49,
    "foils": [
     {
      "name": "hanging fern pot",
@@ -1051,22 +1051,22 @@
    "image_a": "greenhouse-far_a.jpg",
    "image_b": "greenhouse-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
     0.7083,
-    0.4725,
-    0.7842,
-    0.6112
+    0.4734,
+    0.7844,
+    0.6109
    ],
    "centroid": [
-    0.7456,
-    0.544
+    0.7455,
+    0.5435
    ],
-   "area_fraction": 0.00345,
-   "eccentricity_dva": 6.68,
-   "area_dva2": 1.68,
+   "area_fraction": 0.00343,
+   "eccentricity_dva": 6.67,
+   "area_dva2": 1.67,
    "foils": [
     {
      "name": "hanging fern pot",
@@ -1120,22 +1120,22 @@
    "image_a": "cabin-porch-near_a.jpg",
    "image_b": "cabin-porch-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1767,
+    0.1771,
     0.0,
-    0.2567,
-    0.29
+    0.2573,
+    0.2906
    ],
    "centroid": [
     0.2185,
-    0.179
+    0.1787
    ],
-   "area_fraction": 0.01208,
+   "area_fraction": 0.01209,
    "eccentricity_dva": 9.55,
-   "area_dva2": 5.87,
+   "area_dva2": 5.88,
    "foils": [
     {
      "name": "hiking boot",
@@ -1201,21 +1201,21 @@
    "image_a": "cabin-porch-far_a.jpg",
    "image_b": "cabin-porch-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.255,
-    0.295,
-    0.31,
+    0.2552,
+    0.2953,
+    0.3094,
     0.3188
    ],
    "centroid": [
-    0.2825,
-    0.3067
+    0.282,
+    0.3066
    ],
    "area_fraction": 0.00086,
-   "eccentricity_dva": 6.83,
+   "eccentricity_dva": 6.84,
    "area_dva2": 0.42,
    "foils": [
     {
@@ -1276,22 +1276,22 @@
    "image_a": "beach-terrace-near_a.jpg",
    "image_b": "beach-terrace-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1617,
-    0.565,
-    0.3933,
-    0.9338
+    0.1604,
+    0.5641,
+    0.3927,
+    0.9344
    ],
    "centroid": [
-    0.2849,
-    0.7569
+    0.2845,
+    0.7563
    ],
-   "area_fraction": 0.05168,
-   "eccentricity_dva": 7.42,
-   "area_dva2": 25.12,
+   "area_fraction": 0.05164,
+   "eccentricity_dva": 7.43,
+   "area_dva2": 25.1,
    "foils": [
     {
      "name": "drinking glass",
@@ -1357,22 +1357,22 @@
    "image_a": "beach-terrace-far_a.jpg",
    "image_b": "beach-terrace-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.2475,
-    0.2775,
-    0.345,
-    0.465
+    0.2469,
+    0.2781,
+    0.3458,
+    0.4641
    ],
    "centroid": [
-    0.294,
-    0.3808
+    0.2937,
+    0.3809
    ],
-   "area_fraction": 0.00886,
-   "eccentricity_dva": 5.96,
-   "area_dva2": 4.31,
+   "area_fraction": 0.00888,
+   "eccentricity_dva": 5.97,
+   "area_dva2": 4.32,
    "foils": [
     {
      "name": "straw hat",
@@ -1438,22 +1438,22 @@
    "image_a": "street-window-near_a.jpg",
    "image_b": "street-window-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.2392,
-    0.2037,
+    0.2396,
+    0.2047,
     0.3292,
-    0.3713
+    0.3719
    ],
    "centroid": [
     0.2832,
     0.2888
    ],
-   "area_fraction": 0.01068,
+   "area_fraction": 0.01063,
    "eccentricity_dva": 6.98,
-   "area_dva2": 5.19,
+   "area_dva2": 5.17,
    "foils": [
     {
      "name": "blue ceramic vase on left shelf",
@@ -1519,21 +1519,21 @@
    "image_a": "street-window-far_a.jpg",
    "image_b": "street-window-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.29,
-    0.3025,
-    0.3758,
+    0.2906,
+    0.3016,
+    0.376,
     0.3625
    ],
    "centroid": [
-    0.333,
-    0.3389
+    0.3327,
+    0.3386
    ],
-   "area_fraction": 0.00266,
-   "eccentricity_dva": 5.36,
+   "area_fraction": 0.00265,
+   "eccentricity_dva": 5.37,
    "area_dva2": 1.29,
    "foils": [
     {
@@ -1600,18 +1600,18 @@
    "image_a": "bird-garden-near_a.jpg",
    "image_b": "bird-garden-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.755,
-    0.5325,
-    0.9175,
-    0.73
+    0.7552,
+    0.5328,
+    0.9167,
+    0.7297
    ],
    "centroid": [
-    0.859,
-    0.6483
+    0.8589,
+    0.6481
    ],
    "area_fraction": 0.01487,
    "eccentricity_dva": 10.05,
@@ -1681,22 +1681,22 @@
    "image_a": "bird-garden-far_a.jpg",
    "image_b": "bird-garden-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.7933,
-    0.465,
-    0.8275,
-    0.5662
+    0.7938,
+    0.4641,
+    0.8271,
+    0.5656
    ],
    "centroid": [
-    0.8106,
-    0.5168
+    0.8104,
+    0.5169
    ],
-   "area_fraction": 0.00303,
+   "area_fraction": 0.00296,
    "eccentricity_dva": 8.39,
-   "area_dva2": 1.47,
+   "area_dva2": 1.44,
    "foils": [
     {
      "name": "Left hanging bird feeder",
@@ -1762,22 +1762,22 @@
    "image_a": "workshop-near_a.jpg",
    "image_b": "workshop-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.6592,
-    0.0862,
+    0.6594,
+    0.0859,
     0.9208,
     0.2562
    ],
    "centroid": [
-    0.7895,
-    0.1856
+    0.7894,
+    0.1854
    ],
-   "area_fraction": 0.03179,
+   "area_fraction": 0.03173,
    "eccentricity_dva": 9.65,
-   "area_dva2": 15.45,
+   "area_dva2": 15.42,
    "foils": [
     {
      "name": "hanging wrench",
@@ -1843,22 +1843,22 @@
    "image_a": "workshop-far_a.jpg",
    "image_b": "workshop-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.645,
-    0.3412,
+    0.6448,
+    0.3422,
     0.6917,
-    0.4338
+    0.4344
    ],
    "centroid": [
-    0.6673,
-    0.3877
+    0.667,
+    0.3876
    ],
-   "area_fraction": 0.00402,
-   "eccentricity_dva": 4.95,
-   "area_dva2": 1.95,
+   "area_fraction": 0.00403,
+   "eccentricity_dva": 4.94,
+   "area_dva2": 1.96,
    "foils": [
     {
      "name": "metal toolbox",
@@ -1924,22 +1924,22 @@
    "image_a": "beach-railing-near_a.jpg",
    "image_b": "beach-railing-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1908,
-    0.64,
-    0.3533,
-    0.92
+    0.1906,
+    0.6406,
+    0.3531,
+    0.9203
    ],
    "centroid": [
-    0.2739,
-    0.7672
+    0.2737,
+    0.7671
    ],
-   "area_fraction": 0.03319,
+   "area_fraction": 0.03321,
    "eccentricity_dva": 7.77,
-   "area_dva2": 16.13,
+   "area_dva2": 16.14,
    "foils": [
     {
      "name": "blue-and-white striped towel",
@@ -2005,22 +2005,22 @@
    "image_a": "beach-railing-far_a.jpg",
    "image_b": "beach-railing-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1608,
-    0.1825,
+    0.1615,
+    0.1828,
     0.25,
-    0.2912
+    0.2906
    ],
    "centroid": [
-    0.206,
-    0.2105
+    0.2057,
+    0.2095
    ],
-   "area_fraction": 0.00271,
-   "eccentricity_dva": 9.5,
-   "area_dva2": 1.32,
+   "area_fraction": 0.00267,
+   "eccentricity_dva": 9.51,
+   "area_dva2": 1.3,
    "foils": [
     {
      "name": "striped beach towel",
@@ -2086,22 +2086,22 @@
    "image_a": "fish-quay-near_a.jpg",
    "image_b": "fish-quay-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
     0.1833,
-    0.535,
-    0.45,
-    0.74
+    0.5359,
+    0.4208,
+    0.7344
    ],
    "centroid": [
-    0.2928,
-    0.6285
+    0.2925,
+    0.6284
    ],
-   "area_fraction": 0.02956,
-   "eccentricity_dva": 6.05,
-   "area_dva2": 14.37,
+   "area_fraction": 0.02935,
+   "eccentricity_dva": 6.06,
+   "area_dva2": 14.26,
    "foils": [
     {
      "name": "hanging lantern",
@@ -2167,22 +2167,22 @@
    "image_a": "fish-quay-far_a.jpg",
    "image_b": "fish-quay-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.26,
-    0.3775,
-    0.3717,
-    0.5288
+    0.2594,
+    0.3781,
+    0.3719,
+    0.5281
    ],
    "centroid": [
     0.315,
-    0.449
+    0.4486
    ],
-   "area_fraction": 0.00586,
+   "area_fraction": 0.00572,
    "eccentricity_dva": 5.08,
-   "area_dva2": 2.85,
+   "area_dva2": 2.78,
    "foils": [
     {
      "name": "orange buoy on the left",
@@ -2248,22 +2248,22 @@
    "image_a": "farm-fence-near_a.jpg",
    "image_b": "farm-fence-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.71,
-    0.115,
-    0.84,
+    0.7094,
+    0.1141,
+    0.8406,
     0.3938
    ],
    "centroid": [
-    0.7791,
-    0.2601
+    0.7789,
+    0.26
    ],
-   "area_fraction": 0.02723,
-   "eccentricity_dva": 8.69,
-   "area_dva2": 13.23,
+   "area_fraction": 0.02713,
+   "eccentricity_dva": 8.68,
+   "area_dva2": 13.19,
    "foils": [
     {
      "name": "hanging cow bell",
@@ -2329,21 +2329,21 @@
    "image_a": "farm-fence-far_a.jpg",
    "image_b": "farm-fence-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.8142,
+    0.8135,
     0.2188,
-    0.9025,
-    0.26
+    0.9021,
+    0.2609
    ],
    "centroid": [
-    0.8567,
-    0.2427
+    0.8564,
+    0.2426
    ],
    "area_fraction": 0.00192,
-   "eccentricity_dva": 10.69,
+   "eccentricity_dva": 10.68,
    "area_dva2": 0.93,
    "foils": [
     {
@@ -2404,22 +2404,22 @@
    "image_a": "plaza-cafe-near_a.jpg",
    "image_b": "plaza-cafe-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.6408,
+    0.6406,
     0.4938,
     0.8875,
-    0.7512
+    0.7516
    ],
    "centroid": [
-    0.7567,
-    0.6297
+    0.7566,
+    0.6295
    ],
-   "area_fraction": 0.03415,
+   "area_fraction": 0.03417,
    "eccentricity_dva": 7.31,
-   "area_dva2": 16.6,
+   "area_dva2": 16.61,
    "foils": [
     {
      "name": "potted lavender",
@@ -2485,22 +2485,22 @@
    "image_a": "plaza-cafe-far_a.jpg",
    "image_b": "plaza-cafe-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.8275,
-    0.2988,
-    0.955,
+    0.8281,
+    0.3,
+    0.9552,
     0.425
    ],
    "centroid": [
-    0.8872,
-    0.3522
+    0.8876,
+    0.3515
    ],
-   "area_fraction": 0.00265,
-   "eccentricity_dva": 10.79,
-   "area_dva2": 1.29,
+   "area_fraction": 0.00258,
+   "eccentricity_dva": 10.8,
+   "area_dva2": 1.25,
    "foils": [
     {
      "name": "coffee cup",
@@ -2566,22 +2566,22 @@
    "image_a": "snow-cabin-near_a.jpg",
    "image_b": "snow-cabin-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
     0.2,
-    0.2088,
-    0.31,
-    0.6587
+    0.2078,
+    0.3094,
+    0.6578
    ],
    "centroid": [
     0.2487,
-    0.4644
+    0.4648
    ],
-   "area_fraction": 0.03432,
-   "eccentricity_dva": 6.82,
-   "area_dva2": 16.68,
+   "area_fraction": 0.03418,
+   "eccentricity_dva": 6.81,
+   "area_dva2": 16.61,
    "foils": [
     {
      "name": "left ceramic mug",
@@ -2647,22 +2647,22 @@
    "image_a": "snow-cabin-far_a.jpg",
    "image_b": "snow-cabin-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.235,
-    0.2512,
-    0.2883,
-    0.2825
+    0.2354,
+    0.2516,
+    0.2885,
+    0.2828
    ],
    "centroid": [
-    0.2606,
-    0.2665
+    0.2604,
+    0.2663
    ],
-   "area_fraction": 0.00123,
-   "eccentricity_dva": 7.71,
-   "area_dva2": 0.6,
+   "area_fraction": 0.00122,
+   "eccentricity_dva": 7.72,
+   "area_dva2": 0.59,
    "foils": [
     {
      "name": "left mug",
@@ -2728,22 +2728,22 @@
    "image_a": "lake-dock-near_a.jpg",
    "image_b": "lake-dock-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1142,
-    0.1962,
-    0.3092,
-    0.685
+    0.1146,
+    0.1953,
+    0.3094,
+    0.6844
    ],
    "centroid": [
     0.2114,
-    0.4962
+    0.496
    ],
-   "area_fraction": 0.03381,
+   "area_fraction": 0.03374,
    "eccentricity_dva": 7.79,
-   "area_dva2": 16.43,
+   "area_dva2": 16.4,
    "foils": [
     {
      "name": "lantern",
@@ -2791,18 +2791,18 @@
    "image_a": "lake-dock-far_a.jpg",
    "image_b": "lake-dock-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.2558,
+    0.2562,
     0.3562,
-    0.3633,
+    0.3635,
     0.425
    ],
    "centroid": [
     0.3087,
-    0.3878
+    0.3877
    ],
    "area_fraction": 0.00493,
    "eccentricity_dva": 5.55,
@@ -2866,22 +2866,22 @@
    "image_a": "rooftop-sill-near_a.jpg",
    "image_b": "rooftop-sill-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1967,
+    0.1979,
     0.2438,
-    0.4283,
-    0.4038
+    0.4281,
+    0.4031
    ],
    "centroid": [
-    0.3457,
+    0.3455,
     0.3229
    ],
-   "area_fraction": 0.02223,
+   "area_fraction": 0.02204,
    "eccentricity_dva": 5.25,
-   "area_dva2": 10.8,
+   "area_dva2": 10.71,
    "foils": [
     {
      "name": "radio",
@@ -2947,18 +2947,18 @@
    "image_a": "rooftop-sill-far_a.jpg",
    "image_b": "rooftop-sill-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.27,
-    0.18,
-    0.4533,
-    0.3787
+    0.2719,
+    0.1797,
+    0.4531,
+    0.3781
    ],
    "centroid": [
-    0.351,
-    0.2839
+    0.3511,
+    0.2837
    ],
    "area_fraction": 0.01701,
    "eccentricity_dva": 5.6,
@@ -3028,22 +3028,22 @@
    "image_a": "sheep-fence-near_a.jpg",
    "image_b": "sheep-fence-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.6525,
-    0.3588,
-    0.9492,
-    0.62
+    0.6531,
+    0.3594,
+    0.949,
+    0.6172
    ],
    "centroid": [
-    0.8171,
-    0.4903
+    0.8166,
+    0.4897
    ],
-   "area_fraction": 0.04011,
-   "eccentricity_dva": 8.56,
-   "area_dva2": 19.49,
+   "area_fraction": 0.03968,
+   "eccentricity_dva": 8.55,
+   "area_dva2": 19.28,
    "foils": [
     {
      "name": "wooden birdhouse",
@@ -3109,18 +3109,18 @@
    "image_a": "sheep-fence-far_a.jpg",
    "image_b": "sheep-fence-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
     0.7542,
-    0.5025,
-    0.885,
-    0.5738
+    0.5016,
+    0.8844,
+    0.5734
    ],
    "centroid": [
-    0.8169,
-    0.5325
+    0.817,
+    0.5323
    ],
    "area_fraction": 0.00499,
    "eccentricity_dva": 8.58,
@@ -3190,22 +3190,22 @@
    "image_a": "harbour-rail-near_a.jpg",
    "image_b": "harbour-rail-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
     0.55,
-    0.3212,
-    0.7783,
-    0.495
+    0.3219,
+    0.7792,
+    0.4938
    ],
    "centroid": [
-    0.6813,
-    0.4156
+    0.6812,
+    0.4153
    ],
-   "area_fraction": 0.01814,
-   "eccentricity_dva": 5.13,
-   "area_dva2": 8.82,
+   "area_fraction": 0.01807,
+   "eccentricity_dva": 5.12,
+   "area_dva2": 8.78,
    "foils": [
     {
      "name": "lamp post",
@@ -3253,22 +3253,22 @@
    "image_a": "harbour-rail-far_a.jpg",
    "image_b": "harbour-rail-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.5658,
+    0.5656,
     0.2438,
-    0.7883,
-    0.3838
+    0.7885,
+    0.3828
    ],
    "centroid": [
-    0.6821,
-    0.3288
+    0.6819,
+    0.3286
    ],
-   "area_fraction": 0.01526,
+   "area_fraction": 0.01512,
    "eccentricity_dva": 5.8,
-   "area_dva2": 7.42,
+   "area_dva2": 7.35,
    "foils": [
     {
      "name": "lamp post",
@@ -3328,22 +3328,22 @@
    "image_a": "desk-window-near_a.jpg",
    "image_b": "desk-window-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.0917,
-    0.6462,
-    0.3633,
-    0.9925
+    0.0927,
+    0.6469,
+    0.3635,
+    0.9922
    ],
    "centroid": [
-    0.2511,
+    0.251,
     0.8174
    ],
-   "area_fraction": 0.06405,
+   "area_fraction": 0.0639,
    "eccentricity_dva": 8.82,
-   "area_dva2": 31.13,
+   "area_dva2": 31.06,
    "foils": [
     {
      "name": "desk lamp",
@@ -3403,22 +3403,22 @@
    "image_a": "desk-window-far_a.jpg",
    "image_b": "desk-window-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.14,
-    0.3425,
-    0.3758,
-    0.47
+    0.1396,
+    0.3422,
+    0.376,
+    0.4688
    ],
    "centroid": [
     0.2537,
-    0.4081
+    0.4078
    ],
-   "area_fraction": 0.01937,
+   "area_fraction": 0.01917,
    "eccentricity_dva": 6.85,
-   "area_dva2": 9.41,
+   "area_dva2": 9.32,
    "foils": [
     {
      "name": "desk lamp",
@@ -3472,22 +3472,22 @@
    "image_a": "hill-picnic-near_a.jpg",
    "image_b": "hill-picnic-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1,
-    0.3288,
-    0.3717,
-    0.8075
+    0.1052,
+    0.3281,
+    0.3729,
+    0.8078
    ],
    "centroid": [
-    0.2787,
-    0.6024
+    0.2785,
+    0.602
    ],
-   "area_fraction": 0.06104,
-   "eccentricity_dva": 6.25,
-   "area_dva2": 29.67,
+   "area_fraction": 0.06111,
+   "eccentricity_dva": 6.26,
+   "area_dva2": 29.7,
    "foils": [
     {
      "name": "open book",
@@ -3553,22 +3553,22 @@
    "image_a": "hill-picnic-far_a.jpg",
    "image_b": "hill-picnic-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.28,
-    0.29,
-    0.3975,
-    0.3388
+    0.2802,
+    0.2891,
+    0.3979,
+    0.3375
    ],
    "centroid": [
-    0.3363,
-    0.3082
+    0.3362,
+    0.3079
    ],
-   "area_fraction": 0.00181,
+   "area_fraction": 0.00184,
    "eccentricity_dva": 5.61,
-   "area_dva2": 0.88,
+   "area_dva2": 0.89,
    "foils": [
     {
      "name": "wicker picnic basket",
@@ -3634,21 +3634,21 @@
    "image_a": "reed-lake-near_a.jpg",
    "image_b": "reed-lake-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.5883,
-    0.4875,
-    0.8567,
-    0.64
+    0.5885,
+    0.4891,
+    0.8562,
+    0.6406
    ],
    "centroid": [
-    0.7157,
-    0.5726
+    0.7154,
+    0.5724
    ],
    "area_fraction": 0.02246,
-   "eccentricity_dva": 5.97,
+   "eccentricity_dva": 5.96,
    "area_dva2": 10.92,
    "foils": [
     {
@@ -3715,22 +3715,22 @@
    "image_a": "reed-lake-far_a.jpg",
    "image_b": "reed-lake-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.6825,
-    0.2388,
-    0.8342,
-    0.28
+    0.6823,
+    0.2391,
+    0.826,
+    0.2797
    ],
    "centroid": [
-    0.7538,
-    0.2559
+    0.7533,
+    0.2561
    ],
-   "area_fraction": 0.00302,
-   "eccentricity_dva": 8.14,
-   "area_dva2": 1.47,
+   "area_fraction": 0.00297,
+   "eccentricity_dva": 8.13,
+   "area_dva2": 1.44,
    "foils": [
     {
      "name": "wooden duck decoy",
@@ -3796,22 +3796,22 @@
    "image_a": "alpine-meadow-near_a.jpg",
    "image_b": "alpine-meadow-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.5333,
-    0.365,
-    0.8942,
-    0.7962
+    0.5323,
+    0.3656,
+    0.8969,
+    0.7969
    ],
    "centroid": [
-    0.724,
-    0.5878
+    0.7235,
+    0.5876
    ],
-   "area_fraction": 0.09972,
-   "eccentricity_dva": 6.25,
-   "area_dva2": 48.46,
+   "area_fraction": 0.09922,
+   "eccentricity_dva": 6.24,
+   "area_dva2": 48.22,
    "foils": [
     {
      "name": "hiking pole",
@@ -3877,22 +3877,22 @@
    "image_a": "alpine-meadow-far_a.jpg",
    "image_b": "alpine-meadow-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.6642,
-    0.4325,
-    0.795,
+    0.6646,
+    0.4328,
+    0.7948,
     0.5
    ],
    "centroid": [
     0.7282,
-    0.4597
+    0.4595
    ],
-   "area_fraction": 0.0042,
+   "area_fraction": 0.00418,
    "eccentricity_dva": 6.2,
-   "area_dva2": 2.04,
+   "area_dva2": 2.03,
    "foils": [
     {
      "name": "red hiking backpack",
@@ -3958,22 +3958,22 @@
    "image_a": "garden-table-near_a.jpg",
    "image_b": "garden-table-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.0492,
-    0.0538,
-    0.4217,
-    0.635
+    0.049,
+    0.0531,
+    0.4219,
+    0.6359
    ],
    "centroid": [
-    0.2389,
-    0.3244
+    0.2386,
+    0.3241
    ],
-   "area_fraction": 0.12526,
-   "eccentricity_dva": 7.73,
-   "area_dva2": 60.88,
+   "area_fraction": 0.12471,
+   "eccentricity_dva": 7.74,
+   "area_dva2": 60.61,
    "foils": [
     {
      "name": "sunflower seed packet",
@@ -4027,22 +4027,22 @@
    "image_a": "garden-table-far_a.jpg",
    "image_b": "garden-table-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.2033,
+    0.2031,
     0.1875,
-    0.3642,
-    0.2525
+    0.3635,
+    0.2531
    ],
    "centroid": [
     0.286,
-    0.2196
+    0.2194
    ],
-   "area_fraction": 0.0078,
+   "area_fraction": 0.00783,
    "eccentricity_dva": 7.67,
-   "area_dva2": 3.79,
+   "area_dva2": 3.81,
    "foils": [
     {
      "name": "Terracotta pot of basil",
@@ -4096,22 +4096,22 @@
    "image_a": "river-bank-near_a.jpg",
    "image_b": "river-bank-near_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.1642,
-    0.665,
-    0.5108,
+    0.1729,
+    0.6656,
+    0.5115,
     0.9
    ],
    "centroid": [
-    0.3363,
-    0.7648
+    0.3371,
+    0.764
    ],
-   "area_fraction": 0.03798,
-   "eccentricity_dva": 6.5,
-   "area_dva2": 18.46,
+   "area_fraction": 0.03745,
+   "eccentricity_dva": 6.48,
+   "area_dva2": 18.2,
    "foils": [
     {
      "name": "fishing rod",
@@ -4177,22 +4177,22 @@
    "image_a": "river-bank-far_a.jpg",
    "image_b": "river-bank-far_b.jpg",
    "size_px": [
-    1200,
-    800
+    960,
+    640
    ],
    "bbox": [
-    0.2775,
-    0.3088,
-    0.4267,
-    0.3575
+    0.2771,
+    0.3078,
+    0.4271,
+    0.3578
    ],
    "centroid": [
-    0.3544,
-    0.333
+    0.3543,
+    0.3328
    ],
-   "area_fraction": 0.00544,
+   "area_fraction": 0.00545,
    "eccentricity_dva": 4.95,
-   "area_dva2": 2.64,
+   "area_dva2": 2.65,
    "foils": [
     {
      "name": "green tackle box",

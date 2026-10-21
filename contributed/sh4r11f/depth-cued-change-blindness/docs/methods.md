@@ -61,7 +61,7 @@ blue pixels turn red, with its shading kept) or location (the object moves 2.0 d
 sideways, toward the vertical midline). The geometry of every change is measured from
 |A − A'| and stored in `photos/pairs.json`, with the positions of other named objects on
 each layer (the foils of the location report, located by a vision model and checked by
-eye). Images are 1200 × 800 px, shown at 27 × 18 dva.
+eye). Images are 960 × 640 px JPEGs (about 100 KB each, so the 108 images fit an Experiment Platform bundle), shown at 27 × 18 dva.
 
 Measured over the main set: the change lies 4.8 to 10.8 dva from the centre on both planes
 (mean 7.6 dva near, 7.2 far); its area is a median 14.8 dva² on the near plane (5.2 to 61)
