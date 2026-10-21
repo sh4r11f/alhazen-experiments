@@ -33,6 +33,11 @@ valid), and four drawn-scene sets: practice (6), main (96 trials, 75% valid), wi
 cues (90 trials, a NEAR OR FAR baseline) and size-matched planes (near and far objects
 equal in size, so a change is as large on either plane).
 
+## Changes
+
+- **0.2.0** (2026-10-21): photograph sets (48 main + 6 practice pairs) as the main sets; Thaler et al.'s ABC fixation target on the gray field; the cue word typeset in Atkinson Hyperlegible Bold; realised frame durations recorded per trial; timing checked against Rensink et al. (1997), unchanged; locked to alhazen v3.6.0.
+- **0.1.0** (2026-10-17): first version, drawn two-plane scenes.
+
 ## Files
 
 - `src/depthcb/photos/` holds the 54 photograph pairs, `pairs.json` (plane, change, measured geometry, foils) and `spec.json` (the prompts and models that made them); `scripts/build_photo_pairs.py` rebuilds the pairs from the raw generated images.
