@@ -72,3 +72,12 @@ def test_listing_states_status_hardware_and_the_original():
 def test_the_licence_block_is_the_repositorys():
     doc = json.loads((PROJECT / "docs" / "experiment.json").read_text(encoding="utf-8"))
     assert doc["license"] == {"code": "Apache-2.0", "docs": "CC-BY-4.0", "assets": "CC-BY-4.0"}
+
+
+def test_every_rig_file_loads_with_the_pinned_alhazen():
+    from alhazen.config.loader import load_rig
+
+    rigs = sorted((PROJECT / "configs").glob("rig-*.yaml"))
+    assert rigs
+    for rig in rigs:
+        load_rig(rig)
