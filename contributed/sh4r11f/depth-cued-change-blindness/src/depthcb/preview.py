@@ -4,8 +4,8 @@
 
 Six panels, each a whole screen of the example booth rig (configs/rig-booth.yaml) drawn
 at the sizes configs/task.yaml gives: the cue field (here FAR), the gray field, A, the
-blank, A' (a far object changes colour; the flicker repeats A A A' A'), and the location
-probe with two boxes on near objects and two on far ones. No window is needed.
+blank, A' (a far bicycle turns from blue to red; the flicker repeats A A A' A'), and the
+location probe with two boxes on near objects and two on far ones. No window is needed.
 """
 
 from __future__ import annotations
@@ -19,12 +19,13 @@ import yaml
 from alhazen.config.loader import load_params
 from PIL import Image, ImageDraw, ImageFont
 
-from depthcb import scenes
+from depthcb import photos, scenes
 from depthcb.stimuli import render_text
 from depthcb.task import PROJECT, DepthCuedFlickerTaskParams, scene_spec
 
 PANEL_W = 520
 SEED, PLANE, CHANGE = 11, "far", "color"
+PHOTO = "plaza-cafe-far"  # the preview's pair: a far bicycle turns from blue to red
 
 
 def _font(size: int):
@@ -35,14 +36,15 @@ def _font(size: int):
 
 
 def render(out: Path) -> Path:
-    p = load_params(PROJECT / "configs" / "task.yaml", DepthCuedFlickerTaskParams)
+    p = load_params(PROJECT / "configs" / "task-photos.yaml", DepthCuedFlickerTaskParams)
     rig = yaml.safe_load((PROJECT / "configs" / "rig-booth.yaml").read_text(encoding="utf-8"))
     m = rig["monitor"]
     deg = float(np.degrees(2 * np.arctan(m["width_cm"] / 2 / m["distance_cm"])))
     ppd = m["width_px"] / deg * PANEL_W / m["width_px"]
     ph = int(round(m["height_px"] * PANEL_W / m["width_px"]))
     spec = scene_spec(p)
-    pair = scenes.generate(SEED, PLANE, CHANGE, spec)
+    pair = (photos.load_pair(photos.scene_id(PHOTO), spec) if PHOTO in photos.catalogue()
+            else scenes.generate(SEED, PLANE, CHANGE, spec))
     iw, ih = int(p.image_width_dva * ppd), int(p.image_height_dva * ppd)
     x0, y0 = (PANEL_W - iw) // 2, (ph - ih) // 2
     gray = (128, 128, 128)
@@ -76,11 +78,14 @@ def render(out: Path) -> Path:
     boxes, _, _ = scenes.probe_boxes(pair, p.location_probe.n_choices,
                                      p.location_probe.box_side_dva, spec,
                                      np.random.default_rng(4))
-    lf = _font(11)
     for key, bx in zip(p.location_probe.keys, boxes, strict=False):
         r = (x0 + bx[0] * iw, y0 + bx[1] * ih, x0 + bx[2] * iw, y0 + bx[3] * ih)
         d.rectangle(r, outline=(15, 15, 20), width=2)
-        d.text((r[0] + 4, r[1] + 2), key, fill=(15, 15, 20), font=lf)
+        tag = 0.9 * ppd
+        d.rectangle((r[0], r[1], r[0] + tag, r[1] + tag), fill=(15, 15, 20))
+        label = render_text(key, tag * 0.55, (1.0, 1.0, 1.0))
+        probe.paste(label, (int(r[0] + tag / 2 - label.width / 2),
+                            int(r[1] + tag / 2 - label.height / 2)), label)
 
     fr = lambda d_: f"{d_.ms:g} ms" if d_.ms is not None else f"{d_.frames} frames"  # noqa: E731
     labels = [f"depth cue {fr(p.cue_field)}: NEAR or FAR", f"gray {fr(p.gray_field)} + fixation",

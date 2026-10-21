@@ -2,7 +2,7 @@
  "schema": "alhazen-documentation",
  "schema_version": 1,
  "title": "Depth-cued change blindness",
- "summary": "A flicker change-blindness task (Rensink, O'Regan & Clark, 1997) in which the cue names a depth plane instead of a place or an object. Each scene is a far surface behind a layer of near objects, drawn on an ordinary 2-D screen with monocular depth cues only (relative size, occlusion, cast shadows, blur, aerial perspective, texture); near and far objects are interleaved over the whole picture, so the cue cannot be used as a spatial cue. A word, NEAR or FAR, names the plane of the change on 75% of trials; then A A A' A' flicker until SPACE, and a keyed report of where and what. The measure is alternations to identification on valid against invalid trials, for each plane.",
+ "summary": "A flicker change-blindness task (Rensink, O'Regan & Clark, 1997) in which the cue names a depth plane instead of a place or an object. The main set uses 48 photograph pairs of real-looking places with two separate depths, a near layer within arm's reach of the camera and a far layer 10 to 30 m away; each place was photographed twice, once with the change on a near object and once on a far object. A word, NEAR or FAR, names the plane of the change on 75% of trials; a fixation target on the gray field starts every search at the centre; then A A A' A' flicker until SPACE, and a keyed report of where and what. Drawn two-plane scenes with switchable monocular depth cues remain as separate sets. The measure is alternations to identification on valid against invalid trials, for each plane.",
  "methods": "docs/methods.md",
  "references": [
   "Rensink, R. A., O'Regan, J. K., & Clark, J. J. (1997). To see or not to see: The need for attention to perceive changes in scenes. Psychological Science, 8(5), 368-373. https://doi.org/10.1111/j.1467-9280.1997.tb00427.x",
@@ -10,7 +10,9 @@
   "Downing, C. J., & Pinker, S. (1985). The spatial structure of visual attention. In M. I. Posner & O. S. M. Marin (Eds.), Attention and Performance XI (pp. 171-187). Erlbaum.",
   "Atchley, P., Kramer, A. F., Andersen, G. J., & Theeuwes, J. (1997). Spatial cuing in a stereoscopic display: Evidence for a 'depth-aware' attentional focus. Psychonomic Bulletin & Review, 4(4), 524-529. https://doi.org/10.3758/BF03214343",
   "Ghirardelli, T. G., & Folk, C. L. (1996). Spatial cuing in a stereoscopic display: Evidence for a \"depth-blind\" attentional spotlight. Psychonomic Bulletin & Review, 3(1), 81-86. https://doi.org/10.3758/BF03210744",
-  "He, Z. J., & Nakayama, K. (1995). Visual attention to surfaces in three-dimensional space. PNAS, 92(24), 11155-11159. https://doi.org/10.1073/pnas.92.24.11155"
+  "He, Z. J., & Nakayama, K. (1995). Visual attention to surfaces in three-dimensional space. PNAS, 92(24), 11155-11159. https://doi.org/10.1073/pnas.92.24.11155",
+  "Thaler, L., Schütz, A. C., Goodale, M. A., & Gegenfurtner, K. R. (2013). What is the best fixation target? The effect of target shape on stability of fixational eye movements. Vision Research, 76, 31-42. https://doi.org/10.1016/j.visres.2012.10.012",
+  "Atkinson Hyperlegible typeface, Braille Institute of America (SIL Open Font License 1.1)."
  ],
  "license": {
   "code": "Apache-2.0",
@@ -21,8 +23,8 @@
   {
    "id": "depth-cued-flicker",
    "title": "Depth-cued flicker change detection",
-   "summary": "Cue word NEAR or FAR 3 s, gray 1 s, then A A A' A' flicker until SPACE (max 60 s), then where (box 1-4) and what kind (arrow keys).",
-   "parameters_file": "configs/task.yaml",
+   "summary": "Cue word NEAR or FAR 3 s, gray field with a central fixation target 1 s, then A A A' A' flicker (240 ms images, 80 ms blanks) until SPACE (max 60 s), then where (box 1-4) and what kind (arrow keys).",
+   "parameters_file": "configs/task-photos.yaml",
    "parameters": [
     {
      "name": "image_width_dva",
@@ -96,7 +98,7 @@
      "label": "Valid trials per cell",
      "group": "Design",
      "type": "integer",
-     "default": 12,
+     "default": 6,
      "meaning": "Trials per plane x change-type cell whose cue names the plane of the change.",
      "source": "design"
     },
@@ -105,7 +107,7 @@
      "label": "Invalid trials per cell",
      "group": "Design",
      "type": "integer",
-     "default": 4,
+     "default": 2,
      "meaning": "Trials per cell whose cue names the other plane.",
      "source": "design"
     },
@@ -380,6 +382,82 @@
      },
      "meaning": "Pause after each trial. ASSUMED.",
      "source": "ASSUMED"
+    },
+    {
+     "name": "cue_cap_height_dva",
+     "label": "Cue word size",
+     "group": "Cue",
+     "type": "number",
+     "default": 0.9,
+     "meaning": "Capital-letter height of the cue word, typeset in the bundled Atkinson Hyperlegible Bold.",
+     "source": "ASSUMED (not in the paper)",
+     "unit": "dva"
+    },
+    {
+     "name": "cue_style.tracking_em",
+     "label": "Cue letter spacing",
+     "group": "Cue",
+     "type": "number",
+     "default": 0.12,
+     "meaning": "Extra space between the cue word's letters.",
+     "source": "design",
+     "unit": "em"
+    },
+    {
+     "name": "fixation.show_on_gray",
+     "label": "Fixation on the gray field",
+     "group": "Fixation",
+     "type": "boolean",
+     "default": true,
+     "meaning": "Show the fixation target during the 1-s gray field, so every search starts at the centre.",
+     "source": "design"
+    },
+    {
+     "name": "fixation.show_during_flicker",
+     "label": "Fixation during the flicker",
+     "group": "Fixation",
+     "type": "boolean",
+     "default": false,
+     "meaning": "Keep the fixation target over the images and blanks (off: free viewing, as in Rensink).",
+     "source": "design"
+    },
+    {
+     "name": "fixation.outer_dva",
+     "label": "Fixation target diameter",
+     "group": "Fixation",
+     "type": "number",
+     "default": 0.6,
+     "meaning": "Outer diameter of the ABC fixation target (disc with a cross-hair and a centre dot).",
+     "source": "Thaler et al. 2013",
+     "unit": "dva"
+    },
+    {
+     "name": "fixation.inner_dva",
+     "label": "Fixation cross and dot width",
+     "group": "Fixation",
+     "type": "number",
+     "default": 0.2,
+     "meaning": "Width of the cross-hair and diameter of the centre dot.",
+     "source": "Thaler et al. 2013",
+     "unit": "dva"
+    },
+    {
+     "name": "scene.source",
+     "label": "Scenes",
+     "group": "Stimuli",
+     "type": "string",
+     "default": "photo",
+     "meaning": "photo: the photograph pairs in src/depthcb/photos; procedural: drawn two-plane scenes.",
+     "source": "design"
+    },
+    {
+     "name": "scene.photo_set",
+     "label": "Photograph set",
+     "group": "Stimuli",
+     "type": "string",
+     "default": "main",
+     "meaning": "main: 48 pairs (8 per plane x change type); practice: 6 pairs from other settings.",
+     "source": "design"
     }
    ],
    "outcomes": [
@@ -512,7 +590,13 @@
    "reason": "invalid trials are needed to measure what the cue buys; neutral trials split it into benefit and cost"
   },
   {
-   "item": "Scenes",
+   "item": "Scenes (main sets)",
+   "original": "48 colour photographs of real-world scenes (p. 369)",
+   "here": "48 generated photographs of real-looking places (27 places, each photographed with a near and a far change; 6 more for practice), composited so A and A' differ only at the change",
+   "reason": "the paper's photographs are not available, and the changed object's plane has to be controlled: each place has one change on each plane"
+  },
+  {
+   "item": "Scenes (drawn sets)",
    "original": "48 colour photographs of real-world scenes (p. 369)",
    "here": "generated two-plane displays: 8 near and 8 far shapes, two of each per quadrant, 3 far shapes partly occluded; depth from monocular cues only (relative size, occlusion, cast shadows, blur, aerial perspective, texture); one new scene per trial, drawn from its seed",
    "reason": "the planes must be interleaved over the picture so that a depth cue is not a spatial cue, and the changed object's plane must be controlled"
@@ -538,8 +622,14 @@
   {
    "item": "Location change size",
    "original": "\"a few degrees\" (p. 369)",
-   "here": "2.0 dva, toward the most open space",
-   "reason": "keeps moved objects clear of their neighbours in a 4 x 4 layout"
+   "here": "2.0 dva: drawn scenes toward the most open space, photographs toward the vertical midline",
+   "reason": "keeps moved objects clear of their neighbours and inside the picture"
+  },
+  {
+   "item": "Fixation target",
+   "original": "none: free viewing (p. 369)",
+   "here": "Thaler et al.'s (2013) ABC target on the 1-s gray field; free viewing during the flicker",
+   "reason": "every search starts at the centre, from where the changes' eccentricity is matched across planes"
   }
  ]
 }
