@@ -21,7 +21,7 @@ inside that mask:
             the object pasted back; A' = plate with the object pasted ``location_shift_dva``
             further along x, toward the picture's vertical midline.
 
-Both images are resized to ``out_px`` (27 x 18 dva) and saved as JPEG. The geometry of the
+Both images are resized to ``out_px`` (27 x 18 dva) and saved as JPEG of about 95 KB. The geometry of the
 change (bounding box, centroid, area) is measured from |A - A'| and written to
 photos/pairs.json together with the foils of the location report (spec.json: ``foils``,
 other named objects on each layer, placed by hand on the base photograph).
@@ -40,7 +40,7 @@ from PIL import Image
 from scipy import ndimage as ndi
 
 PHOTOS = Path(__file__).resolve().parents[1] / "src" / "depthcb" / "photos"
-MAX_BYTES = 220_000
+MAX_BYTES = 95_000  # 108 images must fit the Experiment Platform bundle (12 MB of binaries)
 
 
 def object_mask(base: np.ndarray, removed: np.ndarray, px_per_dva: float,
@@ -144,7 +144,7 @@ def compose(scene: dict, base: np.ndarray, removed: np.ndarray, spec: dict, swap
 
 
 def save_jpeg(arr: np.ndarray, path: Path) -> int:
-    for q in (90, 87, 84, 81, 78, 75, 72):
+    for q in (92, 90, 88, 86, 84, 82, 80, 78, 76, 74, 72, 70, 68, 66, 64, 62, 60):
         buf = io.BytesIO()
         Image.fromarray(arr).save(buf, "JPEG", quality=q, optimize=True, progressive=True)
         if buf.tell() <= MAX_BYTES:
