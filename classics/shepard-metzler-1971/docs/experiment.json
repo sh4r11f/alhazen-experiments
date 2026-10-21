@@ -41,7 +41,7 @@
       "item": "Warning signal",
       "original": "A warning tone, the pair half a second later",
       "here": "A small white dot between the apertures for the half second before the pair",
-      "reason": "alhazen v3.5.0 sounds tones only for trial feedback; it has no tone bound to an arbitrary task event yet, and faking one with the feedback beep would mislabel the event"
+      "reason": "alhazen v3.6.0 sounds tones only for trial feedback; it has no tone bound to an arbitrary task event yet, and faking one with the feedback beep would mislabel the event"
     },
     {
       "item": "Timing",
