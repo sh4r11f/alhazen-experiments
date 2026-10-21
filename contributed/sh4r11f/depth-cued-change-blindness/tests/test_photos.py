@@ -24,12 +24,12 @@ def test_every_pair_is_on_disk_and_differs_only_around_its_change():
     for p in PAIRS.values():
         a = np.asarray(Image.open(photos.PHOTOS / p["image_a"]).convert("RGB")).astype(int)
         b = np.asarray(Image.open(photos.PHOTOS / p["image_b"]).convert("RGB")).astype(int)
-        assert a.shape == b.shape == (800, 1200, 3), p["id"]
+        assert a.shape == b.shape == (640, 960, 3), p["id"]
         diff = np.abs(a - b).max(-1) > 24
         x0, y0, x1, y1 = p["bbox"]
         inside = np.zeros_like(diff)
-        inside[max(0, int(y0 * 800) - 4):int(y1 * 800) + 4,
-               max(0, int(x0 * 1200) - 4):int(x1 * 1200) + 4] = True
+        inside[max(0, int(y0 * 640) - 4):int(y1 * 640) + 4,
+               max(0, int(x0 * 960) - 4):int(x1 * 960) + 4] = True
         assert diff[~inside].mean() < 0.002, p["id"]  # JPEG noise only, outside the change
         assert 3.0 <= p["eccentricity_dva"] <= 11.0, p["id"]
 
