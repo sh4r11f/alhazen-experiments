@@ -21,6 +21,7 @@ so a session never stores images and any number of new scenes can be made.
 
 from __future__ import annotations
 
+import itertools
 import math
 from dataclasses import dataclass, field
 
@@ -326,14 +327,20 @@ def generate(seed: int, plane: str, change_type: str, spec: SceneSpec | None = N
 
 
 def probe_boxes(pair: DepthPair, n: int, side_dva: float, spec: SceneSpec,
-                rng: np.random.Generator) -> tuple[list[Box], int, list[str]]:
+                rng: np.random.Generator, max_side_dva: float = 5.0
+                ) -> tuple[list[Box], int, list[str]]:
     """``n`` equal square boxes (image fractions): one on the change, the others on other
     objects, half of them on each depth plane, so neither a box's place nor its plane
     gives the answer away. Returns (boxes in reading order, index of the correct one,
-    plane under each box)."""
+    plane under each box).
+
+    Boxes grow to hold the change but never beyond ``max_side_dva`` (a large photographed
+    object is then boxed around the centre of its change). A foil whose box would overlap
+    one already placed is tried once more, nudged by up to 40% of a box so that its
+    object's centre stays inside it."""
     W, H = spec.width_dva, spec.height_dva
     tx0, ty0, tx1, ty1 = pair.bbox
-    side = max(side_dva, (tx1 - tx0) * W + 0.4, (ty1 - ty0) * H + 0.4)
+    side = max(side_dva, min(max_side_dva, max((tx1 - tx0) * W + 0.4, (ty1 - ty0) * H + 0.4)))
     bw, bh = side / W, side / H
 
     def box(cx, cy):
@@ -348,15 +355,50 @@ def probe_boxes(pair: DepthPair, n: int, side_dva: float, spec: SceneSpec,
     boxes, planes = [true], [pair.plane]
     other = "far" if pair.plane == "near" else "near"
     want = [pair.plane] * (n // 2 - 1) + [other] * (n - n // 2)
+    nudges = [(dx, dy) for dx in (0.0, -0.4, 0.4) for dy in (0.0, -0.4, 0.4) if dx or dy]
     for plane in want:
         cands = [o for j, o in enumerate(pair.objects)
                  if j != pair.target_index and o["primary"] and o["plane"] == plane]
         rng.shuffle(cands)
+        placed = False
         for o in cands:
             b = box(o["x"], o["y"])
             if apart(b, boxes):
                 boxes.append(b)
                 planes.append(plane)
+                placed = True
+                break
+        if not placed:
+            break
+    if len(boxes) < n:
+        # Greedy placement failed (large boxes, crowded foils): search every combination of
+        # foils, each at its own or a nudged box, in an order drawn from rng.
+        boxes, planes = [true], [pair.plane]
+
+        def options(plane):
+            out = []
+            for j, o in enumerate(pair.objects):
+                if j == pair.target_index or not o["primary"] or o["plane"] != plane:
+                    continue
+                for dx, dy in [(0.0, 0.0)] + nudges:
+                    b = box(o["x"] + dx * bw, o["y"] + dy * bh)
+                    if b[0] <= o["x"] <= b[2] and b[1] <= o["y"] <= b[3] and apart(b, [true]):
+                        out.append((j, b))
+            return out
+
+        same, cross = options(pair.plane), options(other)
+        k_same, k_cross = n // 2 - 1, n - n // 2
+        combos = [list(c1) + list(c2)
+                  for c1 in itertools.combinations(same, k_same)
+                  for c2 in itertools.combinations(cross, k_cross)]
+        for i in rng.permutation(len(combos)):
+            chosen = combos[i]
+            if len({j for j, _ in chosen}) < len(chosen):
+                continue
+            bs = [b for _, b in chosen]
+            if all(apart(b, [true] + bs[:k] + bs[k + 1:]) for k, b in enumerate(bs)):
+                boxes += bs
+                planes += [pair.plane] * k_same + [other] * k_cross
                 break
     order = sorted(range(len(boxes)), key=lambda k: (round(boxes[k][1] * 3), boxes[k][0]))
     return [boxes[k] for k in order], order.index(0), [planes[k] for k in order]

@@ -468,10 +468,16 @@
    "key": "cue_box_height_dva"
   },
   {
-   "item": "Cue word size and colour",
-   "value": "1.0 dva, black",
+   "item": "Cue word size",
+   "value": "0.9 dva capital-letter height",
    "reason": "not given (p. 370)",
-   "key": "cue_text_height_dva"
+   "key": "cue_cap_height_dva"
+  },
+  {
+   "item": "Cue word colour",
+   "value": "near-black ink, signed RGB -0.86",
+   "reason": "not given (p. 370)",
+   "key": "cue_style.ink"
   },
   {
    "item": "Detection key",

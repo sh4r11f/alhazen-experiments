@@ -18,7 +18,12 @@ background_gray: 0.0           # ASSUMED (not in the paper): "gray" fields, lumi
 cue_field: {ms: 3000}          # Rensink: p. 369, Fig. 1 (3-s field with a white rectangle holding the cue word)
 cue_box_width_dva: 8.0         # ASSUMED (not in the paper): rectangle size not given
 cue_box_height_dva: 2.5        # ASSUMED (not in the paper): rectangle size not given
-cue_text_height_dva: 1.0       # ASSUMED (not in the paper): cue word size and colour (black) not given
+cue_cap_height_dva: 0.9        # ASSUMED (not in the paper): cue word size not given; capital-letter height
+cue_style:                     # DESIGN: how the cue word is typeset (the paper gives no typeface)
+  weight: bold                 # DESIGN: Atkinson Hyperlegible Bold, bundled (src/depthcb/fonts, SIL OFL)
+  tracking_em: 0.12            # DESIGN: letter spacing for an upper-case word
+  ink: [-0.86, -0.86, -0.86]   # ASSUMED (not in the paper): near-black ink (the colour is not given)
+  card: [1.0, 1.0, 1.0]        # Rensink: p. 369, Fig. 1 (white rectangle)
 cue_words:                     # DESIGN: the cue names a depth plane, not an object
   near: NEAR
   far: FAR
@@ -29,6 +34,12 @@ cue_counts:                    # DESIGN: trials per plane x change-type cell; 2 
   neutral: 3
   none: 0
 gray_field: {ms: 1000}         # Rensink: p. 369, Fig. 1
+fixation:                      # DESIGN: Rensink had none (free viewing); see docs/methods.md
+  show_on_gray: true           # DESIGN: on the 1-s gray field, so every search starts at the centre
+  show_during_flicker: false   # DESIGN: free viewing during the flicker, as in Rensink
+  outer_dva: 0.6               # DESIGN: Thaler et al. (2013) ABC target, outer diameter
+  inner_dva: 0.2               # DESIGN: Thaler et al. (2013) ABC target, cross width and centre dot
+  color: [-1.0, -1.0, -1.0]    # DESIGN: black on the mid-gray field
 flicker:
   image: {ms: 240}             # Rensink: p. 369
   blank: {ms: 80}              # Rensink: p. 369
@@ -43,8 +54,10 @@ location_probe:                # DESIGN: keyed report of where (Rensink: spoken 
 type_probe:                    # DESIGN: keyed report of the kind of change
   keys: {left: presence, down: color, right: location}   # DESIGN: arrow keys (P, C, R, H are alhazen experimenter keys)
   timeout: {ms: 20000}         # DESIGN: generous cap, as the location probe
-probe_text_height_dva: 0.7     # DESIGN: text size of the report prompts
+probe_cap_height_dva: 0.45     # DESIGN: capital-letter height of the report prompts
 scene:
+  source: procedural           # DESIGN: drawn two-plane scenes (scenes.py); "photo" uses photos/
+  photo_set: main              # DESIGN: which photograph set when source is photo (unused here)
   seed: 2026                   # DESIGN: first scene seed; trial k uses seed + k, so every scene is new
   n_near: 8                    # DESIGN: 2 near objects in each quadrant (4 x 4 grid)
   n_far: 8                     # DESIGN: 2 far objects in each quadrant: planes interleaved over the picture

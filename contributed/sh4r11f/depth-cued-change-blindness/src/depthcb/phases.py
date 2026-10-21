@@ -27,7 +27,8 @@ class FlickerPhase:
 
     ``cycle`` is a list of (stimulus key or None for a blank, frames). ``image_names`` maps
     an image stimulus key to the name recorded for it ("A" or "B"). Everything in
-    ``background_keys`` is drawn first on every frame (the gray field). Records:
+    ``background_keys`` is drawn first on every frame (the gray field), everything in
+    ``overlay_keys`` last (a fixation target over images and blanks alike). Records:
     ``rt_ms`` (from the first image's flip), ``detect_key``, ``flicker_frames`` (frames
     shown), ``images_shown`` and ``changes_shown`` (image onsets and A<->A' switches the
     subject had seen when they pressed), and ``flicker_cycles``.
@@ -40,7 +41,8 @@ class FlickerPhase:
                  on_timeout: Outcome | None = None, background_keys: list[str] | None = None,
                  onset_event: str = "FLICKER_ON", image_event: str = "IMAGE_ON",
                  response_event: str = "DETECTED", onset_payload: dict | None = None,
-                 alternation_s: float | None = None) -> None:
+                 alternation_s: float | None = None,
+                 overlay_keys: list[str] | None = None) -> None:
         if not cycle or any(n < 0 for _, n in cycle) or sum(n for _, n in cycle) <= 0:
             raise ValueError("the flicker cycle needs at least one frame")
         if cycle[0][0] is None or cycle[0][1] == 0:
@@ -61,6 +63,7 @@ class FlickerPhase:
         self._on_detect = on_detect
         self._on_timeout = on_timeout
         self._background = list(background_keys or [])
+        self._overlay = list(overlay_keys or [])
         self._onset_event = onset_event
         self._image_event = image_event
         self._response_event = response_event
@@ -138,7 +141,7 @@ class FlickerPhase:
                     self._changes += 1
                 self._last_image = name
                 ctx.emit_on_flip(self._image_event, {"image": name, "n": self._images})
-        draw_stimuli(ctx, keys)
+        draw_stimuli(ctx, keys + self._overlay)
         self._frame += 1
 
 

@@ -1,0 +1,4252 @@
+{
+ "pairs": [
+  {
+   "id": "canal-cafe-near",
+   "set": "main",
+   "setting": "canal-cafe",
+   "plane": "near",
+   "change_type": "presence",
+   "object": "the white ceramic teapot",
+   "image_a": "canal-cafe-near_a.jpg",
+   "image_b": "canal-cafe-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1517,
+    0.1175,
+    0.3725,
+    0.3612
+   ],
+   "centroid": [
+    0.2646,
+    0.2517
+   ],
+   "area_fraction": 0.02948,
+   "eccentricity_dva": 7.77,
+   "area_dva2": 14.33,
+   "foils": [
+    {
+     "name": "Potted cactus",
+     "plane": "near",
+     "x": 0.413,
+     "y": 0.282
+    },
+    {
+     "name": "Left copper mug",
+     "plane": "near",
+     "x": 0.752,
+     "y": 0.213
+    },
+    {
+     "name": "Right copper mug",
+     "plane": "near",
+     "x": 0.859,
+     "y": 0.207
+    },
+    {
+     "name": "Glass jar of mixed beans on lower shelf",
+     "plane": "near",
+     "x": 0.143,
+     "y": 0.689
+    },
+    {
+     "name": "Foreground moored boat on left",
+     "plane": "far",
+     "x": 0.342,
+     "y": 0.736
+    },
+    {
+     "name": "Moored boat behind foreground left boat",
+     "plane": "far",
+     "x": 0.367,
+     "y": 0.651
+    },
+    {
+     "name": "Small moored boat near opposite canal wall",
+     "plane": "far",
+     "x": 0.658,
+     "y": 0.623
+    },
+    {
+     "name": "Blue-covered moored boat on right",
+     "plane": "far",
+     "x": 0.775,
+     "y": 0.671
+    }
+   ],
+   "build": {
+    "mask_px": 54582,
+    "present_in": "A"
+   }
+  },
+  {
+   "id": "canal-cafe-far",
+   "set": "main",
+   "setting": "canal-cafe",
+   "plane": "far",
+   "change_type": "presence",
+   "object": "a small red canal boat moored on the water",
+   "image_a": "canal-cafe-far_a.jpg",
+   "image_b": "canal-cafe-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.2475,
+    0.3912,
+    0.39,
+    0.52
+   ],
+   "centroid": [
+    0.3274,
+    0.4484
+   ],
+   "area_fraction": 0.00961,
+   "eccentricity_dva": 4.75,
+   "area_dva2": 4.67,
+   "foils": [
+    {
+     "name": "white ceramic teapot",
+     "plane": "near",
+     "x": 0.27,
+     "y": 0.84
+    },
+    {
+     "name": "potted cactus",
+     "plane": "near",
+     "x": 0.42,
+     "y": 0.84
+    },
+    {
+     "name": "left hanging copper mug",
+     "plane": "near",
+     "x": 0.58,
+     "y": 0.15
+    },
+    {
+     "name": "hanging wicker plant basket",
+     "plane": "near",
+     "x": 0.33,
+     "y": 0.17
+    },
+    {
+     "name": "dark moored boat",
+     "plane": "far",
+     "x": 0.49,
+     "y": 0.44
+    },
+    {
+     "name": "white moored boat",
+     "plane": "far",
+     "x": 0.83,
+     "y": 0.46
+    },
+    {
+     "name": "bicycle on right side of bridge",
+     "plane": "far",
+     "x": 0.82,
+     "y": 0.34
+    },
+    {
+     "name": "tall brick canal house with peaked roof",
+     "plane": "far",
+     "x": 0.48,
+     "y": 0.21
+    }
+   ],
+   "build": {
+    "mask_px": 17149,
+    "present_in": "B"
+   }
+  },
+  {
+   "id": "park-balcony-near",
+   "set": "main",
+   "setting": "park-balcony",
+   "plane": "near",
+   "change_type": "presence",
+   "object": "the copper watering can",
+   "image_a": "park-balcony-near_a.jpg",
+   "image_b": "park-balcony-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.6783,
+    0.635,
+    0.9325,
+    0.9125
+   ],
+   "centroid": [
+    0.832,
+    0.7747
+   ],
+   "area_fraction": 0.02774,
+   "eccentricity_dva": 10.24,
+   "area_dva2": 13.48,
+   "foils": [
+    {
+     "name": "hanging glass lantern",
+     "plane": "near",
+     "x": 0.186,
+     "y": 0.163
+    },
+    {
+     "name": "wind chime",
+     "plane": "near",
+     "x": 0.814,
+     "y": 0.215
+    },
+    {
+     "name": "terracotta flowerpot",
+     "plane": "near",
+     "x": 0.142,
+     "y": 0.656
+    },
+    {
+     "name": "wooden herb box",
+     "plane": "near",
+     "x": 0.344,
+     "y": 0.727
+    },
+    {
+     "name": "white wooden gazebo",
+     "plane": "far",
+     "x": 0.672,
+     "y": 0.382
+    },
+    {
+     "name": "park bench",
+     "plane": "far",
+     "x": 0.775,
+     "y": 0.431
+    },
+    {
+     "name": "tall tree behind gazebo",
+     "plane": "far",
+     "x": 0.652,
+     "y": 0.185
+    },
+    {
+     "name": "tall tree left of pond",
+     "plane": "far",
+     "x": 0.292,
+     "y": 0.205
+    }
+   ],
+   "build": {
+    "mask_px": 55228,
+    "present_in": "A"
+   }
+  },
+  {
+   "id": "park-balcony-far",
+   "set": "main",
+   "setting": "park-balcony",
+   "plane": "far",
+   "change_type": "presence",
+   "object": "a white wooden gazebo in the park",
+   "image_a": "park-balcony-far_a.jpg",
+   "image_b": "park-balcony-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.7908,
+    0.3512,
+    0.9192,
+    0.52
+   ],
+   "centroid": [
+    0.8483,
+    0.4508
+   ],
+   "area_fraction": 0.00951,
+   "eccentricity_dva": 9.45,
+   "area_dva2": 4.62,
+   "foils": [
+    {
+     "name": "hanging glass lantern",
+     "plane": "near",
+     "x": 0.1,
+     "y": 0.2
+    },
+    {
+     "name": "copper watering can",
+     "plane": "near",
+     "x": 0.23,
+     "y": 0.77
+    },
+    {
+     "name": "central potted red geranium",
+     "plane": "near",
+     "x": 0.35,
+     "y": 0.64
+    },
+    {
+     "name": "wooden herb box",
+     "plane": "near",
+     "x": 0.49,
+     "y": 0.88
+    },
+    {
+     "name": "park bench",
+     "plane": "far",
+     "x": 0.58,
+     "y": 0.62
+    },
+    {
+     "name": "pond",
+     "plane": "far",
+     "x": 0.53,
+     "y": 0.52
+    },
+    {
+     "name": "weeping willow tree",
+     "plane": "far",
+     "x": 0.67,
+     "y": 0.48
+    },
+    {
+     "name": "tall tree on the left",
+     "plane": "far",
+     "x": 0.21,
+     "y": 0.26
+    }
+   ],
+   "build": {
+    "mask_px": 17102,
+    "present_in": "B"
+   }
+  },
+  {
+   "id": "orchard-near",
+   "set": "main",
+   "setting": "orchard",
+   "plane": "near",
+   "change_type": "presence",
+   "object": "the straw hat hanging on a branch",
+   "image_a": "orchard-near_a.jpg",
+   "image_b": "orchard-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.6475,
+    0.105,
+    0.8067,
+    0.4288
+   ],
+   "centroid": [
+    0.7213,
+    0.2916
+   ],
+   "area_fraction": 0.03144,
+   "eccentricity_dva": 7.06,
+   "area_dva2": 15.28,
+   "foils": [
+    {
+     "name": "red apple at upper left",
+     "plane": "near",
+     "x": 0.106,
+     "y": 0.143
+    },
+    {
+     "name": "wooden ladder leg",
+     "plane": "near",
+     "x": 0.18,
+     "y": 0.65
+    },
+    {
+     "name": "wicker basket",
+     "plane": "near",
+     "x": 0.905,
+     "y": 0.79
+    },
+    {
+     "name": "red apple at bottom centre",
+     "plane": "near",
+     "x": 0.475,
+     "y": 0.885
+    },
+    {
+     "name": "farmhouse",
+     "plane": "far",
+     "x": 0.52,
+     "y": 0.462
+    },
+    {
+     "name": "large round hay bale",
+     "plane": "far",
+     "x": 0.405,
+     "y": 0.586
+    },
+    {
+     "name": "light-coloured cow",
+     "plane": "far",
+     "x": 0.56,
+     "y": 0.58
+    },
+    {
+     "name": "dark cow on the right",
+     "plane": "far",
+     "x": 0.775,
+     "y": 0.57
+    }
+   ],
+   "build": {
+    "mask_px": 52594,
+    "present_in": "A"
+   }
+  },
+  {
+   "id": "orchard-far",
+   "set": "main",
+   "setting": "orchard",
+   "plane": "far",
+   "change_type": "presence",
+   "object": "a small red tractor in the field",
+   "image_a": "orchard-far_a.jpg",
+   "image_b": "orchard-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.6625,
+    0.2725,
+    0.7225,
+    0.3288
+   ],
+   "centroid": [
+    0.6951,
+    0.3057
+   ],
+   "area_fraction": 0.00217,
+   "eccentricity_dva": 6.32,
+   "area_dva2": 1.05,
+   "foils": [
+    {
+     "name": "straw hat",
+     "plane": "near",
+     "x": 0.235,
+     "y": 0.222
+    },
+    {
+     "name": "wicker basket",
+     "plane": "near",
+     "x": 0.872,
+     "y": 0.741
+    },
+    {
+     "name": "red apple at upper right",
+     "plane": "near",
+     "x": 0.914,
+     "y": 0.059
+    },
+    {
+     "name": "red apple beside hat",
+     "plane": "near",
+     "x": 0.355,
+     "y": 0.248
+    },
+    {
+     "name": "farmhouse",
+     "plane": "far",
+     "x": 0.545,
+     "y": 0.241
+    },
+    {
+     "name": "round hay bale",
+     "plane": "far",
+     "x": 0.423,
+     "y": 0.365
+    },
+    {
+     "name": "black and white cow",
+     "plane": "far",
+     "x": 0.454,
+     "y": 0.323
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.559,
+     "y": 0.325
+    }
+   ],
+   "build": {
+    "mask_px": 3815,
+    "present_in": "B"
+   }
+  },
+  {
+   "id": "boat-deck-near",
+   "set": "main",
+   "setting": "boat-deck",
+   "plane": "near",
+   "change_type": "presence",
+   "object": "an orange buoy hanging from the rail",
+   "image_a": "boat-deck-near_a.jpg",
+   "image_b": "boat-deck-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1358,
+    0.35,
+    0.2683,
+    0.7812
+   ],
+   "centroid": [
+    0.2019,
+    0.6408
+   ],
+   "area_fraction": 0.02671,
+   "eccentricity_dva": 8.44,
+   "area_dva2": 12.98,
+   "foils": [
+    {
+     "name": "brass lantern",
+     "plane": "near",
+     "x": 0.64,
+     "y": 0.35
+    },
+    {
+     "name": "metal bucket",
+     "plane": "near",
+     "x": 0.455,
+     "y": 0.9
+    },
+    {
+     "name": "orange life ring",
+     "plane": "near",
+     "x": 0.93,
+     "y": 0.67
+    },
+    {
+     "name": "coiled rope on the right rail",
+     "plane": "near",
+     "x": 0.75,
+     "y": 0.69
+    },
+    {
+     "name": "white lighthouse",
+     "plane": "far",
+     "x": 0.215,
+     "y": 0.26
+    },
+    {
+     "name": "white motorboat",
+     "plane": "far",
+     "x": 0.54,
+     "y": 0.365
+    },
+    {
+     "name": "white gabled harbour house",
+     "plane": "far",
+     "x": 0.82,
+     "y": 0.27
+    },
+    {
+     "name": "red harbour house",
+     "plane": "far",
+     "x": 0.86,
+     "y": 0.28
+    }
+   ],
+   "build": {
+    "mask_px": 43828,
+    "present_in": "A"
+   }
+  },
+  {
+   "id": "boat-deck-far",
+   "set": "main",
+   "setting": "boat-deck",
+   "plane": "far",
+   "change_type": "presence",
+   "object": "a white sailboat at anchor",
+   "image_a": "boat-deck-far_a.jpg",
+   "image_b": "boat-deck-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1675,
+    0.3388,
+    0.2558,
+    0.5625
+   ],
+   "centroid": [
+    0.2156,
+    0.4926
+   ],
+   "area_fraction": 0.00578,
+   "eccentricity_dva": 7.68,
+   "area_dva2": 2.81,
+   "foils": [
+    {
+     "name": "brass lantern",
+     "plane": "near",
+     "x": 0.36,
+     "y": 0.17
+    },
+    {
+     "name": "orange buoy",
+     "plane": "near",
+     "x": 0.18,
+     "y": 0.79
+    },
+    {
+     "name": "metal bucket",
+     "plane": "near",
+     "x": 0.68,
+     "y": 0.89
+    },
+    {
+     "name": "life ring",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.67
+    },
+    {
+     "name": "white lighthouse",
+     "plane": "far",
+     "x": 0.38,
+     "y": 0.38
+    },
+    {
+     "name": "anchored sailboat",
+     "plane": "far",
+     "x": 0.55,
+     "y": 0.46
+    },
+    {
+     "name": "anchored sailboat",
+     "plane": "far",
+     "x": 0.75,
+     "y": 0.46
+    },
+    {
+     "name": "pink harbour house",
+     "plane": "far",
+     "x": 0.84,
+     "y": 0.38
+    }
+   ],
+   "build": {
+    "mask_px": 10485,
+    "present_in": "B"
+   }
+  },
+  {
+   "id": "kitchen-window-near",
+   "set": "main",
+   "setting": "kitchen-window",
+   "plane": "near",
+   "change_type": "presence",
+   "object": "a glass bottle of olive oil",
+   "image_a": "kitchen-window-near_a.jpg",
+   "image_b": "kitchen-window-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.2133,
+    0.4188,
+    0.3533,
+    0.9175
+   ],
+   "centroid": [
+    0.3093,
+    0.7055
+   ],
+   "area_fraction": 0.0338,
+   "eccentricity_dva": 6.34,
+   "area_dva2": 16.43,
+   "foils": [
+    {
+     "name": "hanging copper pan",
+     "plane": "near",
+     "x": 0.21,
+     "y": 0.1
+    },
+    {
+     "name": "ceramic jug",
+     "plane": "near",
+     "x": 0.05,
+     "y": 0.3
+    },
+    {
+     "name": "fruit bowl",
+     "plane": "near",
+     "x": 0.1,
+     "y": 0.89
+    },
+    {
+     "name": "potted rosemary",
+     "plane": "near",
+     "x": 0.85,
+     "y": 0.61
+    },
+    {
+     "name": "wooden shed",
+     "plane": "far",
+     "x": 0.47,
+     "y": 0.37
+    },
+    {
+     "name": "wheelbarrow",
+     "plane": "far",
+     "x": 0.55,
+     "y": 0.51
+    },
+    {
+     "name": "white sheet on washing line",
+     "plane": "far",
+     "x": 0.66,
+     "y": 0.4
+    },
+    {
+     "name": "brick wall",
+     "plane": "far",
+     "x": 0.8,
+     "y": 0.38
+    }
+   ],
+   "build": {
+    "mask_px": 55216,
+    "present_in": "A"
+   }
+  },
+  {
+   "id": "kitchen-window-far",
+   "set": "main",
+   "setting": "kitchen-window",
+   "plane": "far",
+   "change_type": "presence",
+   "object": "a green wheelbarrow on the lawn",
+   "image_a": "kitchen-window-far_a.jpg",
+   "image_b": "kitchen-window-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.2792,
+    0.4538,
+    0.375,
+    0.5312
+   ],
+   "centroid": [
+    0.3196,
+    0.4943
+   ],
+   "area_fraction": 0.00348,
+   "eccentricity_dva": 4.87,
+   "area_dva2": 1.69,
+   "foils": [
+    {
+     "name": "hanging copper pan",
+     "plane": "near",
+     "x": 0.25,
+     "y": 0.13
+    },
+    {
+     "name": "olive oil bottle",
+     "plane": "near",
+     "x": 0.25,
+     "y": 0.79
+    },
+    {
+     "name": "fruit bowl",
+     "plane": "near",
+     "x": 0.58,
+     "y": 0.89
+    },
+    {
+     "name": "ceramic jug",
+     "plane": "near",
+     "x": 0.96,
+     "y": 0.8
+    },
+    {
+     "name": "wooden shed",
+     "plane": "far",
+     "x": 0.45,
+     "y": 0.34
+    },
+    {
+     "name": "washing line",
+     "plane": "far",
+     "x": 0.61,
+     "y": 0.38
+    },
+    {
+     "name": "fruit tree",
+     "plane": "far",
+     "x": 0.74,
+     "y": 0.23
+    },
+    {
+     "name": "brick wall",
+     "plane": "far",
+     "x": 0.77,
+     "y": 0.43
+    }
+   ],
+   "build": {
+    "mask_px": 6360,
+    "present_in": "B"
+   }
+  },
+  {
+   "id": "market-stall-near",
+   "set": "main",
+   "setting": "market-stall",
+   "plane": "near",
+   "change_type": "presence",
+   "object": "a bunch of garlic hanging from the stall frame",
+   "image_a": "market-stall-near_a.jpg",
+   "image_b": "market-stall-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.6933,
+    0.0,
+    0.7942,
+    0.4438
+   ],
+   "centroid": [
+    0.7433,
+    0.2459
+   ],
+   "area_fraction": 0.02493,
+   "eccentricity_dva": 8.0,
+   "area_dva2": 12.12,
+   "foils": [
+    {
+     "name": "hanging bunch of dried chillies",
+     "plane": "near",
+     "x": 0.32,
+     "y": 0.2
+    },
+    {
+     "name": "brass scale pan",
+     "plane": "near",
+     "x": 0.19,
+     "y": 0.51
+    },
+    {
+     "name": "woven basket",
+     "plane": "near",
+     "x": 0.05,
+     "y": 0.71
+    },
+    {
+     "name": "lemon",
+     "plane": "near",
+     "x": 0.57,
+     "y": 0.86
+    },
+    {
+     "name": "stone fountain",
+     "plane": "far",
+     "x": 0.49,
+     "y": 0.53
+    },
+    {
+     "name": "left cafe umbrella",
+     "plane": "far",
+     "x": 0.34,
+     "y": 0.5
+    },
+    {
+     "name": "right cafe umbrella",
+     "plane": "far",
+     "x": 0.56,
+     "y": 0.51
+    },
+    {
+     "name": "parked scooter",
+     "plane": "far",
+     "x": 0.85,
+     "y": 0.6
+    }
+   ],
+   "build": {
+    "mask_px": 45054,
+    "present_in": "A"
+   }
+  },
+  {
+   "id": "market-stall-far",
+   "set": "main",
+   "setting": "market-stall",
+   "plane": "far",
+   "change_type": "presence",
+   "object": "a parked yellow scooter",
+   "image_a": "market-stall-far_a.jpg",
+   "image_b": "market-stall-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.7592,
+    0.4138,
+    0.8325,
+    0.4938
+   ],
+   "centroid": [
+    0.7955,
+    0.4595
+   ],
+   "area_fraction": 0.00326,
+   "eccentricity_dva": 8.01,
+   "area_dva2": 1.58,
+   "foils": [
+    {
+     "name": "Hanging bunch of garlic",
+     "plane": "near",
+     "x": 0.15,
+     "y": 0.14
+    },
+    {
+     "name": "Brass hanging scale",
+     "plane": "near",
+     "x": 0.2,
+     "y": 0.38
+    },
+    {
+     "name": "Orange",
+     "plane": "near",
+     "x": 0.05,
+     "y": 0.67
+    },
+    {
+     "name": "Lemon",
+     "plane": "near",
+     "x": 0.39,
+     "y": 0.81
+    },
+    {
+     "name": "Stone fountain",
+     "plane": "far",
+     "x": 0.5,
+     "y": 0.41
+    },
+    {
+     "name": "Church",
+     "plane": "far",
+     "x": 0.71,
+     "y": 0.23
+    },
+    {
+     "name": "Parked black scooter left of excluded box",
+     "plane": "far",
+     "x": 0.73,
+     "y": 0.44
+    },
+    {
+     "name": "Parked scooter right of excluded box",
+     "plane": "far",
+     "x": 0.87,
+     "y": 0.44
+    }
+   ],
+   "build": {
+    "mask_px": 6783,
+    "present_in": "B"
+   }
+  },
+  {
+   "id": "greenhouse-near",
+   "set": "main",
+   "setting": "greenhouse",
+   "plane": "near",
+   "change_type": "presence",
+   "object": "a hanging fern in a pot",
+   "image_a": "greenhouse-near_a.jpg",
+   "image_b": "greenhouse-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.3125,
+    0.0,
+    0.5508,
+    0.3025
+   ],
+   "centroid": [
+    0.4216,
+    0.1225
+   ],
+   "area_fraction": 0.04013,
+   "eccentricity_dva": 7.12,
+   "area_dva2": 19.5,
+   "foils": [
+    {
+     "name": "hanging fern pot",
+     "plane": "near",
+     "x": 0.79,
+     "y": 0.35
+    },
+    {
+     "name": "watering can",
+     "plane": "near",
+     "x": 0.39,
+     "y": 0.64
+    },
+    {
+     "name": "trowel",
+     "plane": "near",
+     "x": 0.35,
+     "y": 0.8
+    },
+    {
+     "name": "terracotta pot",
+     "plane": "near",
+     "x": 0.16,
+     "y": 0.71
+    },
+    {
+     "name": "stone birdbath",
+     "plane": "far",
+     "x": 0.57,
+     "y": 0.51
+    },
+    {
+     "name": "garden gate",
+     "plane": "far",
+     "x": 0.65,
+     "y": 0.41
+    }
+   ],
+   "build": {
+    "mask_px": 68983,
+    "present_in": "A"
+   }
+  },
+  {
+   "id": "greenhouse-far",
+   "set": "main",
+   "setting": "greenhouse",
+   "plane": "far",
+   "change_type": "presence",
+   "object": "a stone birdbath in the garden",
+   "image_a": "greenhouse-far_a.jpg",
+   "image_b": "greenhouse-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.7083,
+    0.4725,
+    0.7842,
+    0.6112
+   ],
+   "centroid": [
+    0.7456,
+    0.544
+   ],
+   "area_fraction": 0.00345,
+   "eccentricity_dva": 6.68,
+   "area_dva2": 1.68,
+   "foils": [
+    {
+     "name": "hanging fern pot",
+     "plane": "near",
+     "x": 0.17,
+     "y": 0.12
+    },
+    {
+     "name": "terracotta pot on left bench",
+     "plane": "near",
+     "x": 0.2,
+     "y": 0.49
+    },
+    {
+     "name": "watering can",
+     "plane": "near",
+     "x": 0.35,
+     "y": 0.72
+    },
+    {
+     "name": "trowel",
+     "plane": "near",
+     "x": 0.37,
+     "y": 0.87
+    },
+    {
+     "name": "wooden garden bench",
+     "plane": "far",
+     "x": 0.4,
+     "y": 0.46
+    },
+    {
+     "name": "garden gate",
+     "plane": "far",
+     "x": 0.68,
+     "y": 0.42
+    }
+   ],
+   "build": {
+    "mask_px": 5926,
+    "present_in": "B"
+   }
+  },
+  {
+   "id": "cabin-porch-near",
+   "set": "main",
+   "setting": "cabin-porch",
+   "plane": "near",
+   "change_type": "presence",
+   "object": "the oil lantern hanging from a post",
+   "image_a": "cabin-porch-near_a.jpg",
+   "image_b": "cabin-porch-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1767,
+    0.0,
+    0.2567,
+    0.29
+   ],
+   "centroid": [
+    0.2185,
+    0.179
+   ],
+   "area_fraction": 0.01208,
+   "eccentricity_dva": 9.55,
+   "area_dva2": 5.87,
+   "foils": [
+    {
+     "name": "hiking boot",
+     "plane": "near",
+     "x": 0.81,
+     "y": 0.9
+    },
+    {
+     "name": "potted fir sapling",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.66
+    },
+    {
+     "name": "porch railing post",
+     "plane": "near",
+     "x": 0.67,
+     "y": 0.63
+    },
+    {
+     "name": "firewood log",
+     "plane": "near",
+     "x": 0.05,
+     "y": 0.71
+    },
+    {
+     "name": "red canoe",
+     "plane": "far",
+     "x": 0.38,
+     "y": 0.49
+    },
+    {
+     "name": "small cabin",
+     "plane": "far",
+     "x": 0.6,
+     "y": 0.37
+    },
+    {
+     "name": "pine tree on shore",
+     "plane": "far",
+     "x": 0.69,
+     "y": 0.23
+    },
+    {
+     "name": "mountain peak",
+     "plane": "far",
+     "x": 0.5,
+     "y": 0.18
+    }
+   ],
+   "build": {
+    "mask_px": 25828,
+    "present_in": "A"
+   }
+  },
+  {
+   "id": "cabin-porch-far",
+   "set": "main",
+   "setting": "cabin-porch",
+   "plane": "far",
+   "change_type": "presence",
+   "object": "a red canoe on the lake",
+   "image_a": "cabin-porch-far_a.jpg",
+   "image_b": "cabin-porch-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.255,
+    0.295,
+    0.31,
+    0.3188
+   ],
+   "centroid": [
+    0.2825,
+    0.3067
+   ],
+   "area_fraction": 0.00086,
+   "eccentricity_dva": 6.83,
+   "area_dva2": 0.42,
+   "foils": [
+    {
+     "name": "hanging oil lantern",
+     "plane": "near",
+     "x": 0.124,
+     "y": 0.182
+    },
+    {
+     "name": "potted fir sapling",
+     "plane": "near",
+     "x": 0.311,
+     "y": 0.625
+    },
+    {
+     "name": "hiking boot",
+     "plane": "near",
+     "x": 0.285,
+     "y": 0.882
+    },
+    {
+     "name": "right porch post",
+     "plane": "near",
+     "x": 0.843,
+     "y": 0.48
+    },
+    {
+     "name": "shoreline pine tree",
+     "plane": "far",
+     "x": 0.76,
+     "y": 0.27
+    },
+    {
+     "name": "pine tree beyond the railing",
+     "plane": "far",
+     "x": 0.53,
+     "y": 0.325
+    },
+    {
+     "name": "mountain",
+     "plane": "far",
+     "x": 0.658,
+     "y": 0.12
+    }
+   ],
+   "build": {
+    "mask_px": 1405,
+    "present_in": "B"
+   }
+  },
+  {
+   "id": "beach-terrace-near",
+   "set": "practice",
+   "setting": "beach-terrace",
+   "plane": "near",
+   "change_type": "presence",
+   "object": "the bowl of lemons",
+   "image_a": "beach-terrace-near_a.jpg",
+   "image_b": "beach-terrace-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1617,
+    0.565,
+    0.3933,
+    0.9338
+   ],
+   "centroid": [
+    0.2849,
+    0.7569
+   ],
+   "area_fraction": 0.05168,
+   "eccentricity_dva": 7.42,
+   "area_dva2": 25.12,
+   "foils": [
+    {
+     "name": "drinking glass",
+     "plane": "near",
+     "x": 0.593,
+     "y": 0.73
+    },
+    {
+     "name": "ceramic jug",
+     "plane": "near",
+     "x": 0.836,
+     "y": 0.625
+    },
+    {
+     "name": "straw hat",
+     "plane": "near",
+     "x": 0.83,
+     "y": 0.836
+    },
+    {
+     "name": "drinking glass",
+     "plane": "near",
+     "x": 0.053,
+     "y": 0.861
+    },
+    {
+     "name": "wooden lifeguard tower",
+     "plane": "far",
+     "x": 0.573,
+     "y": 0.373
+    },
+    {
+     "name": "sailboat",
+     "plane": "far",
+     "x": 0.373,
+     "y": 0.288
+    },
+    {
+     "name": "striped beach umbrella",
+     "plane": "far",
+     "x": 0.421,
+     "y": 0.433
+    },
+    {
+     "name": "striped beach umbrella",
+     "plane": "far",
+     "x": 0.665,
+     "y": 0.453
+    }
+   ],
+   "build": {
+    "mask_px": 85411,
+    "present_in": "A"
+   }
+  },
+  {
+   "id": "beach-terrace-far",
+   "set": "practice",
+   "setting": "beach-terrace",
+   "plane": "far",
+   "change_type": "presence",
+   "object": "a wooden lifeguard tower",
+   "image_a": "beach-terrace-far_a.jpg",
+   "image_b": "beach-terrace-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.2475,
+    0.2775,
+    0.345,
+    0.465
+   ],
+   "centroid": [
+    0.294,
+    0.3808
+   ],
+   "area_fraction": 0.00886,
+   "eccentricity_dva": 5.96,
+   "area_dva2": 4.31,
+   "foils": [
+    {
+     "name": "straw hat",
+     "plane": "near",
+     "x": 0.186,
+     "y": 0.848
+    },
+    {
+     "name": "clear drinking glass",
+     "plane": "near",
+     "x": 0.34,
+     "y": 0.786
+    },
+    {
+     "name": "bowl of lemons",
+     "plane": "near",
+     "x": 0.658,
+     "y": 0.855
+    },
+    {
+     "name": "ceramic jug",
+     "plane": "near",
+     "x": 0.842,
+     "y": 0.683
+    },
+    {
+     "name": "left sailboat",
+     "plane": "far",
+     "x": 0.164,
+     "y": 0.34
+    },
+    {
+     "name": "middle sailboat",
+     "plane": "far",
+     "x": 0.369,
+     "y": 0.34
+    },
+    {
+     "name": "large sailboat",
+     "plane": "far",
+     "x": 0.538,
+     "y": 0.321
+    },
+    {
+     "name": "striped beach umbrella",
+     "plane": "far",
+     "x": 0.455,
+     "y": 0.467
+    }
+   ],
+   "build": {
+    "mask_px": 17591,
+    "present_in": "B"
+   }
+  },
+  {
+   "id": "street-window-near",
+   "set": "main",
+   "setting": "street-window",
+   "plane": "near",
+   "change_type": "color",
+   "object": "the bright blue ceramic vase",
+   "image_a": "street-window-near_a.jpg",
+   "image_b": "street-window-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.2392,
+    0.2037,
+    0.3292,
+    0.3713
+   ],
+   "centroid": [
+    0.2832,
+    0.2888
+   ],
+   "area_fraction": 0.01068,
+   "eccentricity_dva": 6.98,
+   "area_dva2": 5.19,
+   "foils": [
+    {
+     "name": "blue ceramic vase on left shelf",
+     "plane": "near",
+     "x": 0.102,
+     "y": 0.328
+    },
+    {
+     "name": "brass lamp",
+     "plane": "near",
+     "x": 0.905,
+     "y": 0.602
+    },
+    {
+     "name": "small potted plant beside lamp",
+     "plane": "near",
+     "x": 0.856,
+     "y": 0.677
+    },
+    {
+     "name": "framed picture on lower left shelf",
+     "plane": "near",
+     "x": 0.049,
+     "y": 0.856
+    },
+    {
+     "name": "dark parked car near middle of street",
+     "plane": "far",
+     "x": 0.643,
+     "y": 0.518
+    },
+    {
+     "name": "silver parked car behind dark car",
+     "plane": "far",
+     "x": 0.665,
+     "y": 0.494
+    },
+    {
+     "name": "red parked car on left side of street",
+     "plane": "far",
+     "x": 0.571,
+     "y": 0.553
+    },
+    {
+     "name": "gray parked car on right side of street",
+     "plane": "far",
+     "x": 0.765,
+     "y": 0.55
+    }
+   ],
+   "build": {
+    "mask_px": 28120,
+    "recoloured_px": 17211
+   }
+  },
+  {
+   "id": "street-window-far",
+   "set": "main",
+   "setting": "street-window",
+   "plane": "far",
+   "change_type": "color",
+   "object": "the vivid blue parked car",
+   "image_a": "street-window-far_a.jpg",
+   "image_b": "street-window-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.29,
+    0.3025,
+    0.3758,
+    0.3625
+   ],
+   "centroid": [
+    0.333,
+    0.3389
+   ],
+   "area_fraction": 0.00266,
+   "eccentricity_dva": 5.36,
+   "area_dva2": 1.29,
+   "foils": [
+    {
+     "name": "blue-and-white ceramic vase",
+     "plane": "near",
+     "x": 0.036,
+     "y": 0.234
+    },
+    {
+     "name": "brass lamp",
+     "plane": "near",
+     "x": 0.932,
+     "y": 0.603
+    },
+    {
+     "name": "small potted plant",
+     "plane": "near",
+     "x": 0.799,
+     "y": 0.808
+    },
+    {
+     "name": "picture frame on left shelf",
+     "plane": "near",
+     "x": 0.038,
+     "y": 0.634
+    },
+    {
+     "name": "dark parked car",
+     "plane": "far",
+     "x": 0.553,
+     "y": 0.345
+    },
+    {
+     "name": "light-colored parked car farther up the street",
+     "plane": "far",
+     "x": 0.521,
+     "y": 0.287
+    },
+    {
+     "name": "gray parked car behind the dark car",
+     "plane": "far",
+     "x": 0.578,
+     "y": 0.328
+    },
+    {
+     "name": "iron garden gate",
+     "plane": "far",
+     "x": 0.497,
+     "y": 0.501
+    }
+   ],
+   "build": {
+    "mask_px": 9471,
+    "recoloured_px": 4956
+   }
+  },
+  {
+   "id": "bird-garden-near",
+   "set": "main",
+   "setting": "bird-garden",
+   "plane": "near",
+   "change_type": "color",
+   "object": "the bright blue watering can",
+   "image_a": "bird-garden-near_a.jpg",
+   "image_b": "bird-garden-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.755,
+    0.5325,
+    0.9175,
+    0.73
+   ],
+   "centroid": [
+    0.859,
+    0.6483
+   ],
+   "area_fraction": 0.01487,
+   "eccentricity_dva": 10.05,
+   "area_dva2": 7.23,
+   "foils": [
+    {
+     "name": "cylindrical seed feeder",
+     "plane": "near",
+     "x": 0.108,
+     "y": 0.275
+    },
+    {
+     "name": "wire mesh bird feeder",
+     "plane": "near",
+     "x": 0.248,
+     "y": 0.306
+    },
+    {
+     "name": "wooden bird feeder",
+     "plane": "near",
+     "x": 0.386,
+     "y": 0.275
+    },
+    {
+     "name": "blue checked bunting flag",
+     "plane": "near",
+     "x": 0.301,
+     "y": 0.104
+    },
+    {
+     "name": "cottage front door",
+     "plane": "far",
+     "x": 0.548,
+     "y": 0.505
+    },
+    {
+     "name": "upstairs cottage window",
+     "plane": "far",
+     "x": 0.613,
+     "y": 0.403
+    },
+    {
+     "name": "cottage chimney",
+     "plane": "far",
+     "x": 0.668,
+     "y": 0.22
+    },
+    {
+     "name": "wooden picket gate",
+     "plane": "far",
+     "x": 0.464,
+     "y": 0.652
+    }
+   ],
+   "build": {
+    "mask_px": 33981,
+    "recoloured_px": 24571
+   }
+  },
+  {
+   "id": "bird-garden-far",
+   "set": "main",
+   "setting": "bird-garden",
+   "plane": "far",
+   "change_type": "color",
+   "object": "the vivid blue front door of the cottage",
+   "image_a": "bird-garden-far_a.jpg",
+   "image_b": "bird-garden-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.7933,
+    0.465,
+    0.8275,
+    0.5662
+   ],
+   "centroid": [
+    0.8106,
+    0.5168
+   ],
+   "area_fraction": 0.00303,
+   "eccentricity_dva": 8.39,
+   "area_dva2": 1.47,
+   "foils": [
+    {
+     "name": "Left hanging bird feeder",
+     "plane": "near",
+     "x": 0.11,
+     "y": 0.31
+    },
+    {
+     "name": "Middle hanging bird feeder",
+     "plane": "near",
+     "x": 0.3,
+     "y": 0.35
+    },
+    {
+     "name": "Metal watering can",
+     "plane": "near",
+     "x": 0.29,
+     "y": 0.75
+    },
+    {
+     "name": "Terracotta pot of pansies",
+     "plane": "near",
+     "x": 0.8,
+     "y": 0.88
+    },
+    {
+     "name": "Cottage chimney",
+     "plane": "far",
+     "x": 0.81,
+     "y": 0.17
+    },
+    {
+     "name": "Left upper cottage window",
+     "plane": "far",
+     "x": 0.72,
+     "y": 0.38
+    },
+    {
+     "name": "Right upper cottage window",
+     "plane": "far",
+     "x": 0.84,
+     "y": 0.38
+    },
+    {
+     "name": "Wooden picket gate",
+     "plane": "far",
+     "x": 0.75,
+     "y": 0.7
+    }
+   ],
+   "build": {
+    "mask_px": 12020,
+    "recoloured_px": 5237
+   }
+  },
+  {
+   "id": "workshop-near",
+   "set": "main",
+   "setting": "workshop",
+   "plane": "near",
+   "change_type": "color",
+   "object": "the bright blue toolbox",
+   "image_a": "workshop-near_a.jpg",
+   "image_b": "workshop-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.6592,
+    0.0862,
+    0.9208,
+    0.2562
+   ],
+   "centroid": [
+    0.7895,
+    0.1856
+   ],
+   "area_fraction": 0.03179,
+   "eccentricity_dva": 9.65,
+   "area_dva2": 15.45,
+   "foils": [
+    {
+     "name": "hanging wrench",
+     "plane": "near",
+     "x": 0.22,
+     "y": 0.09
+    },
+    {
+     "name": "jar of screws",
+     "plane": "near",
+     "x": 0.33,
+     "y": 0.84
+    },
+    {
+     "name": "work lamp",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.38
+    },
+    {
+     "name": "bench vice",
+     "plane": "near",
+     "x": 0.87,
+     "y": 0.79
+    },
+    {
+     "name": "water barrel",
+     "plane": "far",
+     "x": 0.27,
+     "y": 0.58
+    },
+    {
+     "name": "wooden barn",
+     "plane": "far",
+     "x": 0.36,
+     "y": 0.39
+    },
+    {
+     "name": "chicken",
+     "plane": "far",
+     "x": 0.42,
+     "y": 0.66
+    },
+    {
+     "name": "stack of logs",
+     "plane": "far",
+     "x": 0.74,
+     "y": 0.51
+    }
+   ],
+   "build": {
+    "mask_px": 65817,
+    "recoloured_px": 53192
+   }
+  },
+  {
+   "id": "workshop-far",
+   "set": "main",
+   "setting": "workshop",
+   "plane": "far",
+   "change_type": "color",
+   "object": "the vivid blue water barrel",
+   "image_a": "workshop-far_a.jpg",
+   "image_b": "workshop-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.645,
+    0.3412,
+    0.6917,
+    0.4338
+   ],
+   "centroid": [
+    0.6673,
+    0.3877
+   ],
+   "area_fraction": 0.00402,
+   "eccentricity_dva": 4.95,
+   "area_dva2": 1.95,
+   "foils": [
+    {
+     "name": "metal toolbox",
+     "plane": "near",
+     "x": 0.46,
+     "y": 0.76
+    },
+    {
+     "name": "bench vice",
+     "plane": "near",
+     "x": 0.8,
+     "y": 0.8
+    },
+    {
+     "name": "jar of screws",
+     "plane": "near",
+     "x": 0.21,
+     "y": 0.73
+    },
+    {
+     "name": "work lamp",
+     "plane": "near",
+     "x": 0.92,
+     "y": 0.27
+    },
+    {
+     "name": "wooden barn",
+     "plane": "far",
+     "x": 0.23,
+     "y": 0.33
+    },
+    {
+     "name": "chicken",
+     "plane": "far",
+     "x": 0.265,
+     "y": 0.48
+    },
+    {
+     "name": "chicken",
+     "plane": "far",
+     "x": 0.345,
+     "y": 0.53
+    },
+    {
+     "name": "chicken",
+     "plane": "far",
+     "x": 0.485,
+     "y": 0.48
+    }
+   ],
+   "build": {
+    "mask_px": 7290,
+    "recoloured_px": 6495
+   }
+  },
+  {
+   "id": "beach-railing-near",
+   "set": "main",
+   "setting": "beach-railing",
+   "plane": "near",
+   "change_type": "color",
+   "object": "the bright blue beach bucket",
+   "image_a": "beach-railing-near_a.jpg",
+   "image_b": "beach-railing-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1908,
+    0.64,
+    0.3533,
+    0.92
+   ],
+   "centroid": [
+    0.2739,
+    0.7672
+   ],
+   "area_fraction": 0.03319,
+   "eccentricity_dva": 7.77,
+   "area_dva2": 16.13,
+   "foils": [
+    {
+     "name": "blue-and-white striped towel",
+     "plane": "near",
+     "x": 0.088,
+     "y": 0.525
+    },
+    {
+     "name": "sunglasses",
+     "plane": "near",
+     "x": 0.265,
+     "y": 0.275
+    },
+    {
+     "name": "cooler box",
+     "plane": "near",
+     "x": 0.906,
+     "y": 0.712
+    },
+    {
+     "name": "coiled rope",
+     "plane": "near",
+     "x": 0.743,
+     "y": 0.891
+    },
+    {
+     "name": "beach umbrella",
+     "plane": "far",
+     "x": 0.42,
+     "y": 0.235
+    },
+    {
+     "name": "lifeguard hut",
+     "plane": "far",
+     "x": 0.676,
+     "y": 0.203
+    },
+    {
+     "name": "left sailboat",
+     "plane": "far",
+     "x": 0.27,
+     "y": 0.133
+    },
+    {
+     "name": "right sailboat",
+     "plane": "far",
+     "x": 0.773,
+     "y": 0.139
+    }
+   ],
+   "build": {
+    "mask_px": 77243,
+    "recoloured_px": 53701
+   }
+  },
+  {
+   "id": "beach-railing-far",
+   "set": "main",
+   "setting": "beach-railing",
+   "plane": "far",
+   "change_type": "color",
+   "object": "the vivid blue beach umbrella",
+   "image_a": "beach-railing-far_a.jpg",
+   "image_b": "beach-railing-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1608,
+    0.1825,
+    0.25,
+    0.2912
+   ],
+   "centroid": [
+    0.206,
+    0.2105
+   ],
+   "area_fraction": 0.00271,
+   "eccentricity_dva": 9.5,
+   "area_dva2": 1.32,
+   "foils": [
+    {
+     "name": "striped beach towel",
+     "plane": "near",
+     "x": 0.113,
+     "y": 0.598
+    },
+    {
+     "name": "red beach bucket",
+     "plane": "near",
+     "x": 0.356,
+     "y": 0.841
+    },
+    {
+     "name": "sunglasses",
+     "plane": "near",
+     "x": 0.567,
+     "y": 0.349
+    },
+    {
+     "name": "coiled rope",
+     "plane": "near",
+     "x": 0.727,
+     "y": 0.416
+    },
+    {
+     "name": "lifeguard hut",
+     "plane": "far",
+     "x": 0.805,
+     "y": 0.209
+    },
+    {
+     "name": "sailboat",
+     "plane": "far",
+     "x": 0.462,
+     "y": 0.151
+    },
+    {
+     "name": "sailboat",
+     "plane": "far",
+     "x": 0.652,
+     "y": 0.149
+    },
+    {
+     "name": "sailboat",
+     "plane": "far",
+     "x": 0.921,
+     "y": 0.143
+    }
+   ],
+   "build": {
+    "mask_px": 4662,
+    "recoloured_px": 4532
+   }
+  },
+  {
+   "id": "fish-quay-near",
+   "set": "main",
+   "setting": "fish-quay",
+   "plane": "near",
+   "change_type": "color",
+   "object": "the bright blue fish crate",
+   "image_a": "fish-quay-near_a.jpg",
+   "image_b": "fish-quay-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1833,
+    0.535,
+    0.45,
+    0.74
+   ],
+   "centroid": [
+    0.2928,
+    0.6285
+   ],
+   "area_fraction": 0.02956,
+   "eccentricity_dva": 6.05,
+   "area_dva2": 14.37,
+   "foils": [
+    {
+     "name": "hanging lantern",
+     "plane": "near",
+     "x": 0.154,
+     "y": 0.183
+    },
+    {
+     "name": "left orange buoy",
+     "plane": "near",
+     "x": 0.048,
+     "y": 0.466
+    },
+    {
+     "name": "right orange buoy",
+     "plane": "near",
+     "x": 0.949,
+     "y": 0.235
+    },
+    {
+     "name": "mooring bollard",
+     "plane": "near",
+     "x": 0.505,
+     "y": 0.595
+    },
+    {
+     "name": "central fishing boat",
+     "plane": "far",
+     "x": 0.511,
+     "y": 0.341
+    },
+    {
+     "name": "white moored boat",
+     "plane": "far",
+     "x": 0.728,
+     "y": 0.335
+    },
+    {
+     "name": "lighthouse",
+     "plane": "far",
+     "x": 0.311,
+     "y": 0.276
+    },
+    {
+     "name": "gable-front harbour house",
+     "plane": "far",
+     "x": 0.758,
+     "y": 0.252
+    }
+   ],
+   "build": {
+    "mask_px": 58846,
+    "recoloured_px": 49215
+   }
+  },
+  {
+   "id": "fish-quay-far",
+   "set": "main",
+   "setting": "fish-quay",
+   "plane": "far",
+   "change_type": "color",
+   "object": "the small vivid blue fishing boat",
+   "image_a": "fish-quay-far_a.jpg",
+   "image_b": "fish-quay-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.26,
+    0.3775,
+    0.3717,
+    0.5288
+   ],
+   "centroid": [
+    0.315,
+    0.449
+   ],
+   "area_fraction": 0.00586,
+   "eccentricity_dva": 5.08,
+   "area_dva2": 2.85,
+   "foils": [
+    {
+     "name": "orange buoy on the left",
+     "plane": "near",
+     "x": 0.166,
+     "y": 0.152
+    },
+    {
+     "name": "hanging lantern",
+     "plane": "near",
+     "x": 0.655,
+     "y": 0.134
+    },
+    {
+     "name": "plastic fish crate",
+     "plane": "near",
+     "x": 0.398,
+     "y": 0.822
+    },
+    {
+     "name": "lobster pot on the right",
+     "plane": "near",
+     "x": 0.739,
+     "y": 0.666
+    },
+    {
+     "name": "lighthouse on the breakwater",
+     "plane": "far",
+     "x": 0.443,
+     "y": 0.302
+    },
+    {
+     "name": "white fishing boat left of centre",
+     "plane": "far",
+     "x": 0.522,
+     "y": 0.366
+    },
+    {
+     "name": "red-and-white fishing boat",
+     "plane": "far",
+     "x": 0.612,
+     "y": 0.365
+    },
+    {
+     "name": "blue-and-white fishing boat on the right",
+     "plane": "far",
+     "x": 0.835,
+     "y": 0.379
+    }
+   ],
+   "build": {
+    "mask_px": 15159,
+    "recoloured_px": 10841
+   }
+  },
+  {
+   "id": "farm-fence-near",
+   "set": "main",
+   "setting": "farm-fence",
+   "plane": "near",
+   "change_type": "color",
+   "object": "the bright blue milk can",
+   "image_a": "farm-fence-near_a.jpg",
+   "image_b": "farm-fence-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.71,
+    0.115,
+    0.84,
+    0.3938
+   ],
+   "centroid": [
+    0.7791,
+    0.2601
+   ],
+   "area_fraction": 0.02723,
+   "eccentricity_dva": 8.69,
+   "area_dva2": 13.23,
+   "foils": [
+    {
+     "name": "hanging cow bell",
+     "plane": "near",
+     "x": 0.85,
+     "y": 0.695
+    },
+    {
+     "name": "wooden fence rail",
+     "plane": "near",
+     "x": 0.49,
+     "y": 0.63
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.233,
+     "y": 0.657
+    },
+    {
+     "name": "purple thistle flower",
+     "plane": "near",
+     "x": 0.133,
+     "y": 0.468
+    },
+    {
+     "name": "pickup truck",
+     "plane": "far",
+     "x": 0.298,
+     "y": 0.371
+    },
+    {
+     "name": "barn",
+     "plane": "far",
+     "x": 0.274,
+     "y": 0.309
+    },
+    {
+     "name": "windmill",
+     "plane": "far",
+     "x": 0.472,
+     "y": 0.26
+    },
+    {
+     "name": "hay bale",
+     "plane": "far",
+     "x": 0.448,
+     "y": 0.362
+    }
+   ],
+   "build": {
+    "mask_px": 50014,
+    "recoloured_px": 44224
+   }
+  },
+  {
+   "id": "farm-fence-far",
+   "set": "main",
+   "setting": "farm-fence",
+   "plane": "far",
+   "change_type": "color",
+   "object": "the vivid blue pickup truck",
+   "image_a": "farm-fence-far_a.jpg",
+   "image_b": "farm-fence-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.8142,
+    0.2188,
+    0.9025,
+    0.26
+   ],
+   "centroid": [
+    0.8567,
+    0.2427
+   ],
+   "area_fraction": 0.00192,
+   "eccentricity_dva": 10.69,
+   "area_dva2": 0.93,
+   "foils": [
+    {
+     "name": "enamel milk can",
+     "plane": "near",
+     "x": 0.14,
+     "y": 0.3
+    },
+    {
+     "name": "hanging cow bell",
+     "plane": "near",
+     "x": 0.79,
+     "y": 0.85
+    },
+    {
+     "name": "wooden fence rail",
+     "plane": "near",
+     "x": 0.62,
+     "y": 0.67
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.15,
+     "y": 0.84
+    },
+    {
+     "name": "windmill",
+     "plane": "far",
+     "x": 0.41,
+     "y": 0.2
+    },
+    {
+     "name": "left haystack",
+     "plane": "far",
+     "x": 0.42,
+     "y": 0.27
+    },
+    {
+     "name": "right haystack",
+     "plane": "far",
+     "x": 0.57,
+     "y": 0.24
+    }
+   ],
+   "build": {
+    "mask_px": 5266,
+    "recoloured_px": 3873
+   }
+  },
+  {
+   "id": "plaza-cafe-near",
+   "set": "main",
+   "setting": "plaza-cafe",
+   "plane": "near",
+   "change_type": "color",
+   "object": "the bright blue teapot",
+   "image_a": "plaza-cafe-near_a.jpg",
+   "image_b": "plaza-cafe-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.6408,
+    0.4938,
+    0.8875,
+    0.7512
+   ],
+   "centroid": [
+    0.7567,
+    0.6297
+   ],
+   "area_fraction": 0.03415,
+   "eccentricity_dva": 7.31,
+   "area_dva2": 16.6,
+   "foils": [
+    {
+     "name": "potted lavender",
+     "plane": "near",
+     "x": 0.3,
+     "y": 0.5
+    },
+    {
+     "name": "bread basket",
+     "plane": "near",
+     "x": 0.12,
+     "y": 0.71
+    },
+    {
+     "name": "sugar bowl",
+     "plane": "near",
+     "x": 0.47,
+     "y": 0.66
+    },
+    {
+     "name": "coffee cup",
+     "plane": "near",
+     "x": 0.32,
+     "y": 0.88
+    },
+    {
+     "name": "bicycle",
+     "plane": "far",
+     "x": 0.1,
+     "y": 0.31
+    },
+    {
+     "name": "fountain",
+     "plane": "far",
+     "x": 0.74,
+     "y": 0.24
+    },
+    {
+     "name": "central shop awning",
+     "plane": "far",
+     "x": 0.49,
+     "y": 0.19
+    },
+    {
+     "name": "right shop awning",
+     "plane": "far",
+     "x": 0.93,
+     "y": 0.17
+    }
+   ],
+   "build": {
+    "mask_px": 93449,
+    "recoloured_px": 55021
+   }
+  },
+  {
+   "id": "plaza-cafe-far",
+   "set": "main",
+   "setting": "plaza-cafe",
+   "plane": "far",
+   "change_type": "color",
+   "object": "the vivid blue bicycle",
+   "image_a": "plaza-cafe-far_a.jpg",
+   "image_b": "plaza-cafe-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.8275,
+    0.2988,
+    0.955,
+    0.425
+   ],
+   "centroid": [
+    0.8872,
+    0.3522
+   ],
+   "area_fraction": 0.00265,
+   "eccentricity_dva": 10.79,
+   "area_dva2": 1.29,
+   "foils": [
+    {
+     "name": "coffee cup",
+     "plane": "near",
+     "x": 0.12,
+     "y": 0.82
+    },
+    {
+     "name": "ceramic teapot",
+     "plane": "near",
+     "x": 0.66,
+     "y": 0.67
+    },
+    {
+     "name": "sugar bowl",
+     "plane": "near",
+     "x": 0.49,
+     "y": 0.79
+    },
+    {
+     "name": "bread basket",
+     "plane": "near",
+     "x": 0.9,
+     "y": 0.69
+    },
+    {
+     "name": "fountain",
+     "plane": "far",
+     "x": 0.39,
+     "y": 0.26
+    },
+    {
+     "name": "green shop awning",
+     "plane": "far",
+     "x": 0.35,
+     "y": 0.2
+    },
+    {
+     "name": "large tree planter",
+     "plane": "far",
+     "x": 0.76,
+     "y": 0.36
+    },
+    {
+     "name": "wall lantern",
+     "plane": "far",
+     "x": 0.78,
+     "y": 0.05
+    }
+   ],
+   "build": {
+    "mask_px": 29254,
+    "recoloured_px": 5720
+   }
+  },
+  {
+   "id": "snow-cabin-near",
+   "set": "main",
+   "setting": "snow-cabin",
+   "plane": "near",
+   "change_type": "color",
+   "object": "the bright blue thermos flask",
+   "image_a": "snow-cabin-near_a.jpg",
+   "image_b": "snow-cabin-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.2,
+    0.2088,
+    0.31,
+    0.6587
+   ],
+   "centroid": [
+    0.2487,
+    0.4644
+   ],
+   "area_fraction": 0.03432,
+   "eccentricity_dva": 6.82,
+   "area_dva2": 16.68,
+   "foils": [
+    {
+     "name": "left ceramic mug",
+     "plane": "near",
+     "x": 0.435,
+     "y": 0.75
+    },
+    {
+     "name": "birch-wrapped candle",
+     "plane": "near",
+     "x": 0.73,
+     "y": 0.76
+    },
+    {
+     "name": "pine cone on windowsill",
+     "plane": "near",
+     "x": 0.795,
+     "y": 0.8
+    },
+    {
+     "name": "foreground wool mitten",
+     "plane": "near",
+     "x": 0.16,
+     "y": 0.84
+    },
+    {
+     "name": "sled",
+     "plane": "far",
+     "x": 0.445,
+     "y": 0.585
+    },
+    {
+     "name": "distant chalet",
+     "plane": "far",
+     "x": 0.73,
+     "y": 0.345
+    },
+    {
+     "name": "large right fir tree",
+     "plane": "far",
+     "x": 0.855,
+     "y": 0.35
+    },
+    {
+     "name": "small central fir tree",
+     "plane": "far",
+     "x": 0.595,
+     "y": 0.435
+    }
+   ],
+   "build": {
+    "mask_px": 63825,
+    "recoloured_px": 56485
+   }
+  },
+  {
+   "id": "snow-cabin-far",
+   "set": "main",
+   "setting": "snow-cabin",
+   "plane": "far",
+   "change_type": "color",
+   "object": "the vivid blue sled in the snow",
+   "image_a": "snow-cabin-far_a.jpg",
+   "image_b": "snow-cabin-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.235,
+    0.2512,
+    0.2883,
+    0.2825
+   ],
+   "centroid": [
+    0.2606,
+    0.2665
+   ],
+   "area_fraction": 0.00123,
+   "eccentricity_dva": 7.71,
+   "area_dva2": 0.6,
+   "foils": [
+    {
+     "name": "left mug",
+     "plane": "near",
+     "x": 0.1,
+     "y": 0.81
+    },
+    {
+     "name": "right mug",
+     "plane": "near",
+     "x": 0.585,
+     "y": 0.81
+    },
+    {
+     "name": "thermos flask",
+     "plane": "near",
+     "x": 0.405,
+     "y": 0.655
+    },
+    {
+     "name": "pillar candle",
+     "plane": "near",
+     "x": 0.805,
+     "y": 0.745
+    },
+    {
+     "name": "wooden chalet",
+     "plane": "far",
+     "x": 0.78,
+     "y": 0.31
+    },
+    {
+     "name": "large central fir tree",
+     "plane": "far",
+     "x": 0.54,
+     "y": 0.31
+    },
+    {
+     "name": "fir tree left of the central fir",
+     "plane": "far",
+     "x": 0.455,
+     "y": 0.225
+    },
+    {
+     "name": "wooden fence",
+     "plane": "far",
+     "x": 0.52,
+     "y": 0.59
+    }
+   ],
+   "build": {
+    "mask_px": 2074,
+    "recoloured_px": 1991
+   }
+  },
+  {
+   "id": "lake-dock-near",
+   "set": "practice",
+   "setting": "lake-dock",
+   "plane": "near",
+   "change_type": "color",
+   "object": "the bright blue life ring",
+   "image_a": "lake-dock-near_a.jpg",
+   "image_b": "lake-dock-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1142,
+    0.1962,
+    0.3092,
+    0.685
+   ],
+   "centroid": [
+    0.2114,
+    0.4962
+   ],
+   "area_fraction": 0.03381,
+   "eccentricity_dva": 7.79,
+   "area_dva2": 16.43,
+   "foils": [
+    {
+     "name": "lantern",
+     "plane": "near",
+     "x": 0.064,
+     "y": 0.781
+    },
+    {
+     "name": "fishing net",
+     "plane": "near",
+     "x": 0.841,
+     "y": 0.57
+    },
+    {
+     "name": "right dock post",
+     "plane": "near",
+     "x": 0.958,
+     "y": 0.4
+    },
+    {
+     "name": "rowing boat",
+     "plane": "far",
+     "x": 0.468,
+     "y": 0.31
+    },
+    {
+     "name": "boathouse",
+     "plane": "far",
+     "x": 0.814,
+     "y": 0.243
+    }
+   ],
+   "build": {
+    "mask_px": 104419,
+    "recoloured_px": 55334
+   }
+  },
+  {
+   "id": "lake-dock-far",
+   "set": "practice",
+   "setting": "lake-dock",
+   "plane": "far",
+   "change_type": "color",
+   "object": "the vivid blue rowing boat",
+   "image_a": "lake-dock-far_a.jpg",
+   "image_b": "lake-dock-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.2558,
+    0.3562,
+    0.3633,
+    0.425
+   ],
+   "centroid": [
+    0.3087,
+    0.3878
+   ],
+   "area_fraction": 0.00493,
+   "eccentricity_dva": 5.55,
+   "area_dva2": 2.4,
+   "foils": [
+    {
+     "name": "life ring",
+     "plane": "near",
+     "x": 0.11,
+     "y": 0.44
+    },
+    {
+     "name": "coil of rope",
+     "plane": "near",
+     "x": 0.58,
+     "y": 0.83
+    },
+    {
+     "name": "lantern",
+     "plane": "near",
+     "x": 0.72,
+     "y": 0.72
+    },
+    {
+     "name": "fishing net",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.57
+    },
+    {
+     "name": "boathouse",
+     "plane": "far",
+     "x": 0.7,
+     "y": 0.3
+    },
+    {
+     "name": "pine trees on the far shore",
+     "plane": "far",
+     "x": 0.55,
+     "y": 0.2
+    },
+    {
+     "name": "forested hill on the far shore",
+     "plane": "far",
+     "x": 0.33,
+     "y": 0.15
+    }
+   ],
+   "build": {
+    "mask_px": 7186,
+    "recoloured_px": 7921
+   }
+  },
+  {
+   "id": "rooftop-sill-near",
+   "set": "main",
+   "setting": "rooftop-sill",
+   "plane": "near",
+   "change_type": "location",
+   "object": "the white mug standing on the sill",
+   "image_a": "rooftop-sill-near_a.jpg",
+   "image_b": "rooftop-sill-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1967,
+    0.2438,
+    0.4283,
+    0.4038
+   ],
+   "centroid": [
+    0.3457,
+    0.3229
+   ],
+   "area_fraction": 0.02223,
+   "eccentricity_dva": 5.25,
+   "area_dva2": 10.8,
+   "foils": [
+    {
+     "name": "radio",
+     "plane": "near",
+     "x": 0.44,
+     "y": 0.82
+    },
+    {
+     "name": "candle in glass jar",
+     "plane": "near",
+     "x": 0.63,
+     "y": 0.79
+    },
+    {
+     "name": "green book on top of stack",
+     "plane": "near",
+     "x": 0.2,
+     "y": 0.67
+    },
+    {
+     "name": "potted succulent on lower right",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.71
+    },
+    {
+     "name": "wooden water tower",
+     "plane": "far",
+     "x": 0.66,
+     "y": 0.24
+    },
+    {
+     "name": "brick chimney with three flues",
+     "plane": "far",
+     "x": 0.83,
+     "y": 0.32
+    },
+    {
+     "name": "church spire on far right",
+     "plane": "far",
+     "x": 0.85,
+     "y": 0.18
+    },
+    {
+     "name": "church spire to the right of water tower",
+     "plane": "far",
+     "x": 0.75,
+     "y": 0.22
+    }
+   ],
+   "build": {
+    "mask_px": 20514,
+    "shift_px_raw": 114
+   }
+  },
+  {
+   "id": "rooftop-sill-far",
+   "set": "main",
+   "setting": "rooftop-sill",
+   "plane": "far",
+   "change_type": "location",
+   "object": "the wooden water tower on a roof",
+   "image_a": "rooftop-sill-far_a.jpg",
+   "image_b": "rooftop-sill-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.27,
+    0.18,
+    0.4533,
+    0.3787
+   ],
+   "centroid": [
+    0.351,
+    0.2839
+   ],
+   "area_fraction": 0.01701,
+   "eccentricity_dva": 5.6,
+   "area_dva2": 8.27,
+   "foils": [
+    {
+     "name": "potted succulent",
+     "plane": "near",
+     "x": 0.265,
+     "y": 0.706
+    },
+    {
+     "name": "white mug",
+     "plane": "near",
+     "x": 0.546,
+     "y": 0.808
+    },
+    {
+     "name": "radio",
+     "plane": "near",
+     "x": 0.776,
+     "y": 0.763
+    },
+    {
+     "name": "candle",
+     "plane": "near",
+     "x": 0.858,
+     "y": 0.863
+    },
+    {
+     "name": "church spire",
+     "plane": "far",
+     "x": 0.561,
+     "y": 0.285
+    },
+    {
+     "name": "church tower",
+     "plane": "far",
+     "x": 0.689,
+     "y": 0.265
+    },
+    {
+     "name": "light-colored chimney",
+     "plane": "far",
+     "x": 0.435,
+     "y": 0.559
+    },
+    {
+     "name": "tall rooftop chimney",
+     "plane": "far",
+     "x": 0.58,
+     "y": 0.594
+    }
+   ],
+   "build": {
+    "mask_px": 16461,
+    "shift_px_raw": 114
+   }
+  },
+  {
+   "id": "sheep-fence-near",
+   "set": "main",
+   "setting": "sheep-fence",
+   "plane": "near",
+   "change_type": "location",
+   "object": "the tin watering can on the rail",
+   "image_a": "sheep-fence-near_a.jpg",
+   "image_b": "sheep-fence-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.6525,
+    0.3588,
+    0.9492,
+    0.62
+   ],
+   "centroid": [
+    0.8171,
+    0.4903
+   ],
+   "area_fraction": 0.04011,
+   "eccentricity_dva": 8.56,
+   "area_dva2": 19.49,
+   "foils": [
+    {
+     "name": "wooden birdhouse",
+     "plane": "near",
+     "x": 0.095,
+     "y": 0.123
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.158,
+     "y": 0.846
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.349,
+     "y": 0.842
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.403,
+     "y": 0.758
+    },
+    {
+     "name": "stone barn",
+     "plane": "far",
+     "x": 0.374,
+     "y": 0.418
+    },
+    {
+     "name": "sheep",
+     "plane": "far",
+     "x": 0.224,
+     "y": 0.448
+    },
+    {
+     "name": "sheep",
+     "plane": "far",
+     "x": 0.332,
+     "y": 0.516
+    },
+    {
+     "name": "sheep",
+     "plane": "far",
+     "x": 0.54,
+     "y": 0.541
+    }
+   ],
+   "build": {
+    "mask_px": 47153,
+    "shift_px_raw": -114
+   }
+  },
+  {
+   "id": "sheep-fence-far",
+   "set": "main",
+   "setting": "sheep-fence",
+   "plane": "far",
+   "change_type": "location",
+   "object": "one white sheep standing alone on the grass",
+   "image_a": "sheep-fence-far_a.jpg",
+   "image_b": "sheep-fence-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.7542,
+    0.5025,
+    0.885,
+    0.5738
+   ],
+   "centroid": [
+    0.8169,
+    0.5325
+   ],
+   "area_fraction": 0.00499,
+   "eccentricity_dva": 8.58,
+   "area_dva2": 2.43,
+   "foils": [
+    {
+     "name": "tin watering can",
+     "plane": "near",
+     "x": 0.368,
+     "y": 0.515
+    },
+    {
+     "name": "wooden birdhouse",
+     "plane": "near",
+     "x": 0.105,
+     "y": 0.177
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.078,
+     "y": 0.683
+    },
+    {
+     "name": "right fence post",
+     "plane": "near",
+     "x": 0.956,
+     "y": 0.761
+    },
+    {
+     "name": "stone barn",
+     "plane": "far",
+     "x": 0.671,
+     "y": 0.356
+    },
+    {
+     "name": "sheep left of centre",
+     "plane": "far",
+     "x": 0.488,
+     "y": 0.431
+    },
+    {
+     "name": "sheep near centre",
+     "plane": "far",
+     "x": 0.532,
+     "y": 0.421
+    },
+    {
+     "name": "sheep beside the track on the right",
+     "plane": "far",
+     "x": 0.927,
+     "y": 0.434
+    }
+   ],
+   "build": {
+    "mask_px": 4395,
+    "shift_px_raw": -114
+   }
+  },
+  {
+   "id": "harbour-rail-near",
+   "set": "main",
+   "setting": "harbour-rail",
+   "plane": "near",
+   "change_type": "location",
+   "object": "the seagull standing on the railing",
+   "image_a": "harbour-rail-near_a.jpg",
+   "image_b": "harbour-rail-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.55,
+    0.3212,
+    0.7783,
+    0.495
+   ],
+   "centroid": [
+    0.6813,
+    0.4156
+   ],
+   "area_fraction": 0.01814,
+   "eccentricity_dva": 5.13,
+   "area_dva2": 8.82,
+   "foils": [
+    {
+     "name": "lamp post",
+     "plane": "near",
+     "x": 0.07,
+     "y": 0.45
+    },
+    {
+     "name": "hanging flower basket",
+     "plane": "near",
+     "x": 0.11,
+     "y": 0.29
+    },
+    {
+     "name": "mooring bollard",
+     "plane": "near",
+     "x": 0.22,
+     "y": 0.85
+    },
+    {
+     "name": "white yacht",
+     "plane": "far",
+     "x": 0.34,
+     "y": 0.48
+    },
+    {
+     "name": "red and white fishing boat",
+     "plane": "far",
+     "x": 0.94,
+     "y": 0.44
+    }
+   ],
+   "build": {
+    "mask_px": 18341,
+    "shift_px_raw": -114
+   }
+  },
+  {
+   "id": "harbour-rail-far",
+   "set": "main",
+   "setting": "harbour-rail",
+   "plane": "far",
+   "change_type": "location",
+   "object": "a moored white yacht",
+   "image_a": "harbour-rail-far_a.jpg",
+   "image_b": "harbour-rail-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.5658,
+    0.2438,
+    0.7883,
+    0.3838
+   ],
+   "centroid": [
+    0.6821,
+    0.3288
+   ],
+   "area_fraction": 0.01526,
+   "eccentricity_dva": 5.8,
+   "area_dva2": 7.42,
+   "foils": [
+    {
+     "name": "lamp post",
+     "plane": "near",
+     "x": 0.067,
+     "y": 0.425
+    },
+    {
+     "name": "hanging flower basket",
+     "plane": "near",
+     "x": 0.11,
+     "y": 0.38
+    },
+    {
+     "name": "seagull",
+     "plane": "near",
+     "x": 0.31,
+     "y": 0.53
+    },
+    {
+     "name": "mooring bollard",
+     "plane": "near",
+     "x": 0.81,
+     "y": 0.84
+    },
+    {
+     "name": "blue fishing boat",
+     "plane": "far",
+     "x": 0.255,
+     "y": 0.3
+    },
+    {
+     "name": "red fishing boat",
+     "plane": "far",
+     "x": 0.35,
+     "y": 0.315
+    },
+    {
+     "name": "lighthouse",
+     "plane": "far",
+     "x": 0.94,
+     "y": 0.265
+    }
+   ],
+   "build": {
+    "mask_px": 16923,
+    "shift_px_raw": -114
+   }
+  },
+  {
+   "id": "desk-window-near",
+   "set": "main",
+   "setting": "desk-window",
+   "plane": "near",
+   "change_type": "location",
+   "object": "the coffee cup on the desk",
+   "image_a": "desk-window-near_a.jpg",
+   "image_b": "desk-window-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.0917,
+    0.6462,
+    0.3633,
+    0.9925
+   ],
+   "centroid": [
+    0.2511,
+    0.8174
+   ],
+   "area_fraction": 0.06405,
+   "eccentricity_dva": 8.82,
+   "area_dva2": 31.13,
+   "foils": [
+    {
+     "name": "desk lamp",
+     "plane": "near",
+     "x": 0.79,
+     "y": 0.13
+    },
+    {
+     "name": "top notebook",
+     "plane": "near",
+     "x": 0.67,
+     "y": 0.73
+    },
+    {
+     "name": "pen holder",
+     "plane": "near",
+     "x": 0.93,
+     "y": 0.66
+    },
+    {
+     "name": "bus shelter",
+     "plane": "far",
+     "x": 0.48,
+     "y": 0.42
+    },
+    {
+     "name": "parked white van",
+     "plane": "far",
+     "x": 0.83,
+     "y": 0.46
+    },
+    {
+     "name": "street tree",
+     "plane": "far",
+     "x": 0.62,
+     "y": 0.3
+    },
+    {
+     "name": "shop front",
+     "plane": "far",
+     "x": 0.33,
+     "y": 0.39
+    }
+   ],
+   "build": {
+    "mask_px": 77005,
+    "shift_px_raw": 114
+   }
+  },
+  {
+   "id": "desk-window-far",
+   "set": "main",
+   "setting": "desk-window",
+   "plane": "far",
+   "change_type": "location",
+   "object": "the parked white van",
+   "image_a": "desk-window-far_a.jpg",
+   "image_b": "desk-window-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.14,
+    0.3425,
+    0.3758,
+    0.47
+   ],
+   "centroid": [
+    0.2537,
+    0.4081
+   ],
+   "area_fraction": 0.01937,
+   "eccentricity_dva": 6.85,
+   "area_dva2": 9.41,
+   "foils": [
+    {
+     "name": "desk lamp",
+     "plane": "near",
+     "x": 0.13,
+     "y": 0.44
+    },
+    {
+     "name": "coffee cup",
+     "plane": "near",
+     "x": 0.4,
+     "y": 0.85
+    },
+    {
+     "name": "pen holder",
+     "plane": "near",
+     "x": 0.95,
+     "y": 0.68
+    },
+    {
+     "name": "top spiral notebook",
+     "plane": "near",
+     "x": 0.81,
+     "y": 0.76
+    },
+    {
+     "name": "bus shelter",
+     "plane": "far",
+     "x": 0.59,
+     "y": 0.41
+    },
+    {
+     "name": "street tree",
+     "plane": "far",
+     "x": 0.74,
+     "y": 0.3
+    }
+   ],
+   "build": {
+    "mask_px": 24207,
+    "shift_px_raw": 114
+   }
+  },
+  {
+   "id": "hill-picnic-near",
+   "set": "main",
+   "setting": "hill-picnic",
+   "plane": "near",
+   "change_type": "location",
+   "object": "the green glass bottle",
+   "image_a": "hill-picnic-near_a.jpg",
+   "image_b": "hill-picnic-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1,
+    0.3288,
+    0.3717,
+    0.8075
+   ],
+   "centroid": [
+    0.2787,
+    0.6024
+   ],
+   "area_fraction": 0.06104,
+   "eccentricity_dva": 6.25,
+   "area_dva2": 29.67,
+   "foils": [
+    {
+     "name": "open book",
+     "plane": "near",
+     "x": 0.79,
+     "y": 0.77
+    },
+    {
+     "name": "bunch of grapes",
+     "plane": "near",
+     "x": 0.42,
+     "y": 0.91
+    },
+    {
+     "name": "knife",
+     "plane": "near",
+     "x": 0.55,
+     "y": 0.92
+    },
+    {
+     "name": "round cracker",
+     "plane": "near",
+     "x": 0.23,
+     "y": 0.9
+    },
+    {
+     "name": "windmill",
+     "plane": "far",
+     "x": 0.29,
+     "y": 0.23
+    },
+    {
+     "name": "brown horse",
+     "plane": "far",
+     "x": 0.605,
+     "y": 0.415
+    },
+    {
+     "name": "poplar tree",
+     "plane": "far",
+     "x": 0.72,
+     "y": 0.27
+    },
+    {
+     "name": "farmhouse",
+     "plane": "far",
+     "x": 0.85,
+     "y": 0.34
+    }
+   ],
+   "build": {
+    "mask_px": 58566,
+    "shift_px_raw": 114
+   }
+  },
+  {
+   "id": "hill-picnic-far",
+   "set": "main",
+   "setting": "hill-picnic",
+   "plane": "far",
+   "change_type": "location",
+   "object": "the brown horse standing in the field",
+   "image_a": "hill-picnic-far_a.jpg",
+   "image_b": "hill-picnic-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.28,
+    0.29,
+    0.3975,
+    0.3388
+   ],
+   "centroid": [
+    0.3363,
+    0.3082
+   ],
+   "area_fraction": 0.00181,
+   "eccentricity_dva": 5.61,
+   "area_dva2": 0.88,
+   "foils": [
+    {
+     "name": "wicker picnic basket",
+     "plane": "near",
+     "x": 0.12,
+     "y": 0.5
+    },
+    {
+     "name": "green glass bottle",
+     "plane": "near",
+     "x": 0.27,
+     "y": 0.58
+    },
+    {
+     "name": "bowl of strawberries",
+     "plane": "near",
+     "x": 0.16,
+     "y": 0.84
+    },
+    {
+     "name": "open book",
+     "plane": "near",
+     "x": 0.85,
+     "y": 0.68
+    },
+    {
+     "name": "windmill",
+     "plane": "far",
+     "x": 0.62,
+     "y": 0.18
+    },
+    {
+     "name": "farmhouse",
+     "plane": "far",
+     "x": 0.84,
+     "y": 0.3
+    },
+    {
+     "name": "poplar tree left of the windmill",
+     "plane": "far",
+     "x": 0.445,
+     "y": 0.23
+    },
+    {
+     "name": "poplar tree right of the windmill",
+     "plane": "far",
+     "x": 0.745,
+     "y": 0.21
+    }
+   ],
+   "build": {
+    "mask_px": 1714,
+    "shift_px_raw": 114
+   }
+  },
+  {
+   "id": "reed-lake-near",
+   "set": "main",
+   "setting": "reed-lake",
+   "plane": "near",
+   "change_type": "location",
+   "object": "the wooden duck decoy on the planks",
+   "image_a": "reed-lake-near_a.jpg",
+   "image_b": "reed-lake-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.5883,
+    0.4875,
+    0.8567,
+    0.64
+   ],
+   "centroid": [
+    0.7157,
+    0.5726
+   ],
+   "area_fraction": 0.02246,
+   "eccentricity_dva": 5.97,
+   "area_dva2": 10.92,
+   "foils": [
+    {
+     "name": "lantern",
+     "plane": "near",
+     "x": 0.148,
+     "y": 0.283
+    },
+    {
+     "name": "wooden post",
+     "plane": "near",
+     "x": 0.151,
+     "y": 0.552
+    },
+    {
+     "name": "tackle box",
+     "plane": "near",
+     "x": 0.212,
+     "y": 0.796
+    },
+    {
+     "name": "fishing reel",
+     "plane": "near",
+     "x": 0.35,
+     "y": 0.927
+    },
+    {
+     "name": "rowing boat",
+     "plane": "far",
+     "x": 0.375,
+     "y": 0.298
+    },
+    {
+     "name": "red boathouse",
+     "plane": "far",
+     "x": 0.694,
+     "y": 0.248
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.529,
+     "y": 0.407
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.492,
+     "y": 0.418
+    }
+   ],
+   "build": {
+    "mask_px": 26277,
+    "shift_px_raw": -114
+   }
+  },
+  {
+   "id": "reed-lake-far",
+   "set": "main",
+   "setting": "reed-lake",
+   "plane": "far",
+   "change_type": "location",
+   "object": "the small rowing boat on the water",
+   "image_a": "reed-lake-far_a.jpg",
+   "image_b": "reed-lake-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.6825,
+    0.2388,
+    0.8342,
+    0.28
+   ],
+   "centroid": [
+    0.7538,
+    0.2559
+   ],
+   "area_fraction": 0.00302,
+   "eccentricity_dva": 8.14,
+   "area_dva2": 1.47,
+   "foils": [
+    {
+     "name": "wooden duck decoy",
+     "plane": "near",
+     "x": 0.21,
+     "y": 0.79
+    },
+    {
+     "name": "lantern",
+     "plane": "near",
+     "x": 0.24,
+     "y": 0.4
+    },
+    {
+     "name": "wooden post",
+     "plane": "near",
+     "x": 0.19,
+     "y": 0.47
+    },
+    {
+     "name": "tackle box",
+     "plane": "near",
+     "x": 0.84,
+     "y": 0.82
+    },
+    {
+     "name": "red boathouse",
+     "plane": "far",
+     "x": 0.34,
+     "y": 0.21
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.39,
+     "y": 0.39
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.46,
+     "y": 0.39
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.67,
+     "y": 0.38
+    }
+   ],
+   "build": {
+    "mask_px": 2944,
+    "shift_px_raw": -114
+   }
+  },
+  {
+   "id": "alpine-meadow-near",
+   "set": "main",
+   "setting": "alpine-meadow",
+   "plane": "near",
+   "change_type": "location",
+   "object": "the red hiking backpack",
+   "image_a": "alpine-meadow-near_a.jpg",
+   "image_b": "alpine-meadow-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.5333,
+    0.365,
+    0.8942,
+    0.7962
+   ],
+   "centroid": [
+    0.724,
+    0.5878
+   ],
+   "area_fraction": 0.09972,
+   "eccentricity_dva": 6.25,
+   "area_dva2": 48.46,
+   "foils": [
+    {
+     "name": "hiking pole",
+     "plane": "near",
+     "x": 0.41,
+     "y": 0.83
+    },
+    {
+     "name": "yellow wildflower",
+     "plane": "near",
+     "x": 0.226,
+     "y": 0.945
+    },
+    {
+     "name": "purple wildflower",
+     "plane": "near",
+     "x": 0.173,
+     "y": 0.928
+    },
+    {
+     "name": "yellow wildflower",
+     "plane": "near",
+     "x": 0.281,
+     "y": 0.974
+    },
+    {
+     "name": "wooden chalet",
+     "plane": "far",
+     "x": 0.302,
+     "y": 0.403
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.13,
+     "y": 0.448
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.213,
+     "y": 0.462
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.296,
+     "y": 0.494
+    }
+   ],
+   "build": {
+    "mask_px": 133504,
+    "shift_px_raw": -114
+   }
+  },
+  {
+   "id": "alpine-meadow-far",
+   "set": "main",
+   "setting": "alpine-meadow",
+   "plane": "far",
+   "change_type": "location",
+   "object": "one brown cow standing alone",
+   "image_a": "alpine-meadow-far_a.jpg",
+   "image_b": "alpine-meadow-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.6642,
+    0.4325,
+    0.795,
+    0.5
+   ],
+   "centroid": [
+    0.7282,
+    0.4597
+   ],
+   "area_fraction": 0.0042,
+   "eccentricity_dva": 6.2,
+   "area_dva2": 2.04,
+   "foils": [
+    {
+     "name": "red hiking backpack",
+     "plane": "near",
+     "x": 0.19,
+     "y": 0.46
+    },
+    {
+     "name": "metal water bottle",
+     "plane": "near",
+     "x": 0.25,
+     "y": 0.6
+    },
+    {
+     "name": "map case",
+     "plane": "near",
+     "x": 0.26,
+     "y": 0.8
+    },
+    {
+     "name": "hiking pole",
+     "plane": "near",
+     "x": 0.6,
+     "y": 0.82
+    },
+    {
+     "name": "wooden chalet",
+     "plane": "far",
+     "x": 0.41,
+     "y": 0.38
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.42,
+     "y": 0.45
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.46,
+     "y": 0.46
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.555,
+     "y": 0.47
+    }
+   ],
+   "build": {
+    "mask_px": 3681,
+    "shift_px_raw": -114
+   }
+  },
+  {
+   "id": "garden-table-near",
+   "set": "main",
+   "setting": "garden-table",
+   "plane": "near",
+   "change_type": "location",
+   "object": "the terracotta pot of basil",
+   "image_a": "garden-table-near_a.jpg",
+   "image_b": "garden-table-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.0492,
+    0.0538,
+    0.4217,
+    0.635
+   ],
+   "centroid": [
+    0.2389,
+    0.3244
+   ],
+   "area_fraction": 0.12526,
+   "eccentricity_dva": 7.73,
+   "area_dva2": 60.88,
+   "foils": [
+    {
+     "name": "sunflower seed packet",
+     "plane": "near",
+     "x": 0.54,
+     "y": 0.7
+    },
+    {
+     "name": "purple-flower seed packet",
+     "plane": "near",
+     "x": 0.69,
+     "y": 0.73
+    },
+    {
+     "name": "pink-flower seed packet",
+     "plane": "near",
+     "x": 0.84,
+     "y": 0.78
+    },
+    {
+     "name": "trowel",
+     "plane": "near",
+     "x": 0.75,
+     "y": 0.87
+    },
+    {
+     "name": "red wooden bench",
+     "plane": "far",
+     "x": 0.6,
+     "y": 0.27
+    },
+    {
+     "name": "arch with climbing roses",
+     "plane": "far",
+     "x": 0.82,
+     "y": 0.23
+    }
+   ],
+   "build": {
+    "mask_px": 167336,
+    "shift_px_raw": 114
+   }
+  },
+  {
+   "id": "garden-table-far",
+   "set": "main",
+   "setting": "garden-table",
+   "plane": "far",
+   "change_type": "location",
+   "object": "the red wooden bench",
+   "image_a": "garden-table-far_a.jpg",
+   "image_b": "garden-table-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.2033,
+    0.1875,
+    0.3642,
+    0.2525
+   ],
+   "centroid": [
+    0.286,
+    0.2196
+   ],
+   "area_fraction": 0.0078,
+   "eccentricity_dva": 7.67,
+   "area_dva2": 3.79,
+   "foils": [
+    {
+     "name": "Terracotta pot of basil",
+     "plane": "near",
+     "x": 0.14,
+     "y": 0.53
+    },
+    {
+     "name": "Teacup",
+     "plane": "near",
+     "x": 0.34,
+     "y": 0.68
+    },
+    {
+     "name": "Gardening glove",
+     "plane": "near",
+     "x": 0.2,
+     "y": 0.89
+    },
+    {
+     "name": "Trowel",
+     "plane": "near",
+     "x": 0.66,
+     "y": 0.88
+    },
+    {
+     "name": "Pond",
+     "plane": "far",
+     "x": 0.56,
+     "y": 0.42
+    },
+    {
+     "name": "Arch with climbing roses",
+     "plane": "far",
+     "x": 0.8,
+     "y": 0.29
+    }
+   ],
+   "build": {
+    "mask_px": 7372,
+    "shift_px_raw": 114
+   }
+  },
+  {
+   "id": "river-bank-near",
+   "set": "practice",
+   "setting": "river-bank",
+   "plane": "near",
+   "change_type": "location",
+   "object": "the green tackle box",
+   "image_a": "river-bank-near_a.jpg",
+   "image_b": "river-bank-near_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.1642,
+    0.665,
+    0.5108,
+    0.9
+   ],
+   "centroid": [
+    0.3363,
+    0.7648
+   ],
+   "area_fraction": 0.03798,
+   "eccentricity_dva": 6.5,
+   "area_dva2": 18.46,
+   "foils": [
+    {
+     "name": "fishing rod",
+     "plane": "near",
+     "x": 0.565,
+     "y": 0.57
+    },
+    {
+     "name": "rod stand",
+     "plane": "near",
+     "x": 0.53,
+     "y": 0.61
+    },
+    {
+     "name": "thermos",
+     "plane": "near",
+     "x": 0.76,
+     "y": 0.74
+    },
+    {
+     "name": "folding stool",
+     "plane": "near",
+     "x": 0.9,
+     "y": 0.71
+    },
+    {
+     "name": "red boat",
+     "plane": "far",
+     "x": 0.375,
+     "y": 0.295
+    },
+    {
+     "name": "willow tree",
+     "plane": "far",
+     "x": 0.19,
+     "y": 0.15
+    },
+    {
+     "name": "stone bridge",
+     "plane": "far",
+     "x": 0.82,
+     "y": 0.25
+    },
+    {
+     "name": "cottage",
+     "plane": "far",
+     "x": 0.57,
+     "y": 0.16
+    }
+   ],
+   "build": {
+    "mask_px": 54389,
+    "shift_px_raw": 114
+   }
+  },
+  {
+   "id": "river-bank-far",
+   "set": "practice",
+   "setting": "river-bank",
+   "plane": "far",
+   "change_type": "location",
+   "object": "the small red boat by the far bank",
+   "image_a": "river-bank-far_a.jpg",
+   "image_b": "river-bank-far_b.jpg",
+   "size_px": [
+    1200,
+    800
+   ],
+   "bbox": [
+    0.2775,
+    0.3088,
+    0.4267,
+    0.3575
+   ],
+   "centroid": [
+    0.3544,
+    0.333
+   ],
+   "area_fraction": 0.00544,
+   "eccentricity_dva": 4.95,
+   "area_dva2": 2.64,
+   "foils": [
+    {
+     "name": "green tackle box",
+     "plane": "near",
+     "x": 0.14,
+     "y": 0.77
+    },
+    {
+     "name": "fishing rod",
+     "plane": "near",
+     "x": 0.46,
+     "y": 0.59
+    },
+    {
+     "name": "thermos",
+     "plane": "near",
+     "x": 0.73,
+     "y": 0.75
+    },
+    {
+     "name": "folding stool",
+     "plane": "near",
+     "x": 0.89,
+     "y": 0.74
+    },
+    {
+     "name": "stone bridge",
+     "plane": "far",
+     "x": 0.73,
+     "y": 0.28
+    },
+    {
+     "name": "left cottage",
+     "plane": "far",
+     "x": 0.14,
+     "y": 0.21
+    },
+    {
+     "name": "cottage with two chimneys",
+     "plane": "far",
+     "x": 0.26,
+     "y": 0.19
+    },
+    {
+     "name": "right-bank willow tree",
+     "plane": "far",
+     "x": 0.95,
+     "y": 0.23
+    }
+   ],
+   "build": {
+    "mask_px": 4603,
+    "shift_px_raw": 114
+   }
+  }
+ ]
+}

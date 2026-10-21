@@ -23,6 +23,8 @@ dependencies = [
 # The renderer: only a machine that opens a real window needs it.
 psychopy = ["alhazen-vision[psychopy]"]
 movie = ["alhazen-vision[movie]"]
+# Rebuilding the photograph pairs from the raw generated images (scripts/build_photo_pairs.py).
+assets = ["scipy>=1.10"]
 dev = [
   "pytest>=8",
   "ruff>=0.6",

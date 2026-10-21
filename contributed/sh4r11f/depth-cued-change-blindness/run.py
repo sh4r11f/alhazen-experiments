@@ -28,15 +28,22 @@ HERE = Path(__file__).parent
 
 # task name -> (Task class, params file it runs with when --params is not given)
 TASKS = {
-    "depth-cued-flicker": (DepthCuedFlickerTask, HERE / "configs" / "task.yaml"),
+    "depth-cued-flicker": (DepthCuedFlickerTask, HERE / "configs" / "task-photos.yaml"),
 }
 
 # The dashboard's parameter-set menu: display name -> (task name, params file).
 PARAMETERS = {
-    "Practice: 6 trials (human)": ("depth-cued-flicker", HERE / "configs" / "task-practice.yaml"),
-    "Main: 75% valid depth cues (human)": ("depth-cued-flicker", HERE / "configs" / "task.yaml"),
-    "With neutral cues (human)": ("depth-cued-flicker", HERE / "configs" / "task-neutral.yaml"),
-    "Size-matched planes (human)": (
+    "Practice: 6 photographs (human)": (
+        "depth-cued-flicker", HERE / "configs" / "task-photos-practice.yaml"),
+    "Main: 48 photographs, 75% valid depth cues (human)": (
+        "depth-cued-flicker", HERE / "configs" / "task-photos.yaml"),
+    "Drawn scenes, practice: 6 trials (human)": (
+        "depth-cued-flicker", HERE / "configs" / "task-practice.yaml"),
+    "Drawn scenes: 96 trials, 75% valid (human)": (
+        "depth-cued-flicker", HERE / "configs" / "task.yaml"),
+    "Drawn scenes with neutral cues (human)": (
+        "depth-cued-flicker", HERE / "configs" / "task-neutral.yaml"),
+    "Drawn scenes, size-matched planes (human)": (
         "depth-cued-flicker", HERE / "configs" / "task-matched-size.yaml"),
 }
 

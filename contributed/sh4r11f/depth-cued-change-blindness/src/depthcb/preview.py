@@ -20,6 +20,7 @@ from alhazen.config.loader import load_params
 from PIL import Image, ImageDraw, ImageFont
 
 from depthcb import scenes
+from depthcb.stimuli import render_text
 from depthcb.task import PROJECT, DepthCuedFlickerTaskParams, scene_spec
 
 PANEL_W = 520
@@ -54,11 +55,20 @@ def render(out: Path) -> Path:
 
     cue, d = panel()
     bw, bh = p.cue_box_width_dva * ppd, p.cue_box_height_dva * ppd
+    card = tuple(int(round((c + 1) / 2 * 255)) for c in p.cue_style.card)
     d.rectangle(((PANEL_W - bw) / 2, (ph - bh) / 2, (PANEL_W + bw) / 2, (ph + bh) / 2),
-                fill="white")
-    f = _font(int(p.cue_text_height_dva * ppd))
-    d.text((PANEL_W / 2, ph / 2), p.cue_words.far, fill="black", font=f, anchor="mm")
-    blank_g, _ = panel()
+                fill=card)
+    word = render_text(p.cue_words.far, p.cue_cap_height_dva * ppd, tuple(p.cue_style.ink),
+                       weight=p.cue_style.weight, tracking_em=p.cue_style.tracking_em)
+    cue.paste(word, (int(PANEL_W / 2 - word.width / 2), int(ph / 2 - word.height / 2)), word)
+    blank_g, d = panel()
+    if p.fixation.show_on_gray:  # the ABC target (Thaler et al. 2013)
+        ro, ri, c = p.fixation.outer_dva * ppd / 2, p.fixation.inner_dva * ppd / 2, PANEL_W / 2
+        ink = tuple(int(round((v + 1) / 2 * 255)) for v in p.fixation.color)
+        d.ellipse((c - ro, ph / 2 - ro, c + ro, ph / 2 + ro), fill=ink)
+        d.rectangle((c - ro - 1, ph / 2 - ri, c + ro + 1, ph / 2 + ri), fill=gray)
+        d.rectangle((c - ri, ph / 2 - ro - 1, c + ri, ph / 2 + ro + 1), fill=gray)
+        d.ellipse((c - ri, ph / 2 - ri, c + ri, ph / 2 + ri), fill=ink)
     a, _ = panel(pair.image_a)
     blank, _ = panel()
     b, _ = panel(pair.image_b)
@@ -73,7 +83,7 @@ def render(out: Path) -> Path:
         d.text((r[0] + 4, r[1] + 2), key, fill=(15, 15, 20), font=lf)
 
     fr = lambda d_: f"{d_.ms:g} ms" if d_.ms is not None else f"{d_.frames} frames"  # noqa: E731
-    labels = [f"depth cue {fr(p.cue_field)}: NEAR or FAR", f"gray {fr(p.gray_field)}",
+    labels = [f"depth cue {fr(p.cue_field)}: NEAR or FAR", f"gray {fr(p.gray_field)} + fixation",
               f"A {fr(p.flicker.image)}", f"blank {fr(p.flicker.blank)}",
               f"A' {fr(p.flicker.image)} (A A A' A' ...)",
               "where? 1-4, then what kind (arrows)"]

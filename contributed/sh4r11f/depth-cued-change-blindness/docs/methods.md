@@ -132,7 +132,8 @@ rensink-oregan-clark-1997 classic and flagged `# ASSUMED` in `configs/task.yaml`
 | Gray level of the fields and blanks | mid gray, signed RGB 0.0 | Rensink et al. say "gray" (p. 369, Fig. 1) without a luminance |
 | Cue rectangle width | 8.0 dva | the white rectangle's size is not given (p. 369) |
 | Cue rectangle height | 2.5 dva | not given (p. 369) |
-| Cue word size and colour | 1.0 dva, black | not given (p. 370) |
+| Cue word size | 0.9 dva capital-letter height | not given (p. 370) |
+| Cue word colour | near-black ink, signed RGB -0.86 | not given (p. 370) |
 | Detection key | SPACE | the paper says the observer "hits a key" (p. 369) |
 | Report deadline | 20 s per question | the original report was spoken, with no deadline |
 | Inter-trial interval | 500 ms | not given; the 3-s cue field opens each trial |

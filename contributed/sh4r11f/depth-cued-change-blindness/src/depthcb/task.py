@@ -9,8 +9,10 @@ cued plane against the uncued plane.
 
 One trial:
 
-1. CUE_ON    a white rectangle on gray with the cue word (NEAR, FAR, or the neutral word)
-2. GRAY_ON   a plain gray field
+1. CUE_ON    a white rectangle on gray with the cue word (NEAR, FAR, or the neutral word),
+             typeset in the bundled Atkinson Hyperlegible Bold
+2. GRAY_ON   a plain gray field with a central fixation target (Thaler et al.'s 2013 "ABC"),
+             so every search starts from the centre of the picture
 3. FLICKER   A, A, A', A', ... each image ``flicker.image``, a gray blank after each, until
              the subject presses SPACE or ``max_flicker`` has passed (NO_DETECTION)
 4. WHERE     image A with four numbered boxes (two on near objects, two on far ones);
@@ -38,9 +40,9 @@ from alhazen.task import phases
 from alhazen.task.duration import TrialTiming, fixed, wait
 from pydantic import model_validator
 
-from depthcb import scenes
+from depthcb import photos, scenes
 from depthcb.phases import FlickerPhase, KeyChoice
-from depthcb.stimuli import make_image, make_rect, make_text
+from depthcb.stimuli import make_fixation_abc, make_image, make_rect, make_text_image, render_text
 
 HERE = Path(__file__).resolve().parent
 PROJECT = HERE.parents[1]
@@ -79,8 +81,11 @@ class DepthCues(Model):
 
 
 class SceneParams(Model):
-    """How the two-plane scenes are drawn (scenes.py)."""
+    """Where the scenes come from: drawn two-plane scenes (scenes.py) or photographs
+    (photos.py). The drawing parameters below apply to the drawn scenes only."""
 
+    source: Literal["procedural", "photo"] = "procedural"
+    photo_set: Literal["main", "practice"] = "main"
     seed: int = 2026
     n_near: int = 8
     n_far: int = 8
@@ -128,6 +133,32 @@ class CueCounts(Model):
         return self.valid + self.invalid + self.neutral + self.none
 
 
+class Fixation(Model):
+    """The fixation target: shown on the gray field before the flicker (and optionally
+    over the flicker). Sizes are Thaler et al.'s (2013) ABC target."""
+
+    show_on_gray: bool = True
+    show_during_flicker: bool = False
+    outer_dva: float = 0.6
+    inner_dva: float = 0.2
+    color: tuple[float, float, float] = (-1.0, -1.0, -1.0)
+
+    @model_validator(mode="after")
+    def _sizes(self) -> Fixation:
+        if not 0 < self.inner_dva < self.outer_dva:
+            raise ValueError("0 < inner_dva < outer_dva")
+        return self
+
+
+class CueStyle(Model):
+    """How the cue word is typeset (bundled Atkinson Hyperlegible)."""
+
+    weight: Literal["bold", "regular"] = "bold"
+    tracking_em: float = 0.12
+    ink: tuple[float, float, float] = (-0.86, -0.86, -0.86)
+    card: tuple[float, float, float] = (1.0, 1.0, 1.0)
+
+
 class CueWords(Model):
     near: str = "NEAR"
     far: str = "FAR"
@@ -168,16 +199,18 @@ class DepthCuedFlickerTaskParams(SubjectParams):
     cue_field: Duration = Duration(ms=3000)
     cue_box_width_dva: float = 8.0
     cue_box_height_dva: float = 2.5
-    cue_text_height_dva: float = 1.0
+    cue_cap_height_dva: float = 0.9
+    cue_style: CueStyle = CueStyle()
     cue_words: CueWords = CueWords()
     cue_counts: CueCounts = CueCounts()
     gray_field: Duration = Duration(ms=1000)
+    fixation: Fixation = Fixation()
     flicker: FlickerTiming = FlickerTiming()
     max_flicker: Duration = Duration(ms=60000)
     detect_key: str = "space"
     location_probe: LocationProbe = LocationProbe()
     type_probe: TypeProbe = TypeProbe()
-    probe_text_height_dva: float = 0.7
+    probe_cap_height_dva: float = 0.45
     scene: SceneParams = SceneParams()
     iti: Duration = Duration(ms=500)
     paradigm: SchedulerConfig = SchedulerConfig(n_per_condition=1)
@@ -192,6 +225,14 @@ class DepthCuedFlickerTaskParams(SubjectParams):
         if taken:
             raise ValueError(f"{sorted(taken)} are alhazen experimenter keys (pause, calibrate, "
                              "skip, reward, ...); choose other response keys")
+        if self.scene.source == "photo":
+            per_cell = photos.cell_counts(self.scene.photo_set)
+            if per_cell and set(per_cell.values()) != {self.cue_counts.total}:
+                raise ValueError(
+                    f"the {self.scene.photo_set} photograph set has "
+                    f"{sorted(set(per_cell.values()))} "
+                    f"pairs per plane x change-type cell; cue_counts must add up to that "
+                    f"(they add up to {self.cue_counts.total})")
         return self
 
 
@@ -206,13 +247,28 @@ def scene_spec(p: DepthCuedFlickerTaskParams) -> scenes.SceneSpec:
         shadow_opacity=s.shadow_opacity, cues=scenes.DepthCueSet(**s.cues.model_dump()))
 
 
-def design(p: DepthCuedFlickerTaskParams) -> list[dict]:
-    """Every trial of a session: plane x change type x cue counts, one new scene each.
+def design(p: DepthCuedFlickerTaskParams, rng: np.random.Generator | None = None) -> list[dict]:
+    """Every trial of a session: plane x change type x cue counts, one scene each.
 
-    Cues are assigned in a fixed balanced order inside each plane x type cell (the
-    scheduler shuffles the trials), so every cell has exactly the stated counts."""
-    out, k = [], 0
+    Drawn scenes: cues are assigned in a fixed balanced order inside each plane x type
+    cell (the scheduler shuffles the trials), and every scene is new. Photographs: each
+    pair of the set is shown once, and which pairs of a cell get the valid, invalid or
+    neutral cue is drawn per session from ``rng``, so no photograph is tied to one cue
+    across subjects."""
     c = p.cue_counts
+    if p.scene.source == "photo":
+        rng = rng if rng is not None else np.random.default_rng(p.scene.seed)
+        out = []
+        for plane in scenes.PLANES:
+            for change_type in scenes.CHANGE_TYPES:
+                ids = photos.pair_ids(p.scene.photo_set, plane, change_type)
+                cues = (["valid"] * c.valid + ["invalid"] * c.invalid
+                        + ["neutral"] * c.neutral + ["none"] * c.none)
+                order = rng.permutation(len(ids))
+                out += [{"scene": photos.scene_id(ids[i]), "cue": cue}
+                        for i, cue in zip(order, cues, strict=True)]
+        return out
+    out, k = [], 0
     for plane in scenes.PLANES:
         for change_type in scenes.CHANGE_TYPES:
             cues = (["valid"] * c.valid + ["invalid"] * c.invalid + ["neutral"] * c.neutral
@@ -247,14 +303,14 @@ class DepthCuedFlickerTask(Task):
 
     @classmethod
     def default_params(cls) -> Path:
-        return PROJECT / "configs" / "task.yaml"
+        return PROJECT / "configs" / "task-photos.yaml"
 
     def instructions(self) -> str | None:
         return (PROJECT / "instructions.md").read_text(encoding="utf-8")
 
     def conditions(self, rng: np.random.Generator) -> list[Condition]:
         p: DepthCuedFlickerTaskParams = self.params  # type: ignore[assignment]
-        return [Condition(d) for d in design(p)]
+        return [Condition(d) for d in design(p, rng)]
 
     def _cycle(self, hz: float) -> tuple[list[tuple[str | None, int]], int, int]:
         p: DepthCuedFlickerTaskParams = self.params  # type: ignore[assignment]
@@ -268,9 +324,13 @@ class DepthCuedFlickerTask(Task):
         p: DepthCuedFlickerTaskParams = self.params  # type: ignore[assignment]
         hz = setup.refresh_rate_hz
         scene_id, cue = setup.condition.params["scene"], setup.condition.params["cue"]
-        seed, plane, change_type = scenes.parse_id(scene_id)
         spec = scene_spec(p)
-        pair = scenes.generate(seed, plane, change_type, spec)
+        if photos.is_photo(scene_id):
+            pair = photos.load_pair(scene_id, spec)
+            seed, plane, change_type = -1, pair.plane, pair.change_type
+        else:
+            seed, plane, change_type = scenes.parse_id(scene_id)
+            pair = scenes.generate(seed, plane, change_type, spec)
         word, named = cue_word(p, plane, cue)
         screen, display = setup.screen, setup.display
         iw, ih = screen.deg2px(p.image_width_dva), screen.deg2px(p.image_height_dva)
@@ -293,25 +353,31 @@ class DepthCuedFlickerTask(Task):
                                     fill=gray, name="background"),
             "cue_box": make_rect(display, (screen.deg2px(p.cue_box_width_dva),
                                            screen.deg2px(p.cue_box_height_dva)),
-                                 fill=(1.0, 1.0, 1.0), name="cue_box"),
+                                 fill=tuple(p.cue_style.card), name="cue_box"),
+            "fixation": make_fixation_abc(display, screen.deg2px(p.fixation.outer_dva),
+                                          screen.deg2px(p.fixation.inner_dva),
+                                          tuple(p.fixation.color), gray, name="fixation"),
             "image_a": make_image(display, pair.image_a, (iw, ih), name="image_a"),
             "image_b": make_image(display, pair.image_b, (iw, ih), name="image_b"),
-            "type_prompt": make_text(
-                display, "What kind of change was it?\n\n" + "\n".join(
+            "type_prompt": make_text_image(display, render_text(
+                "What kind of change was it?\n\n" + "\n".join(
                     f"{KEY_NAMES.get(k, k.upper())}   {TYPE_LABELS[v]}"
                     for k, v in p.type_probe.keys.items()),
-                screen.deg2px(p.probe_text_height_dva) * 1.3, wrap_px=screen.deg2px(20),
-                name="type_prompt"),
-            "where_prompt": make_text(
-                display, "Where was the change? Press the number of its box.",
-                screen.deg2px(p.probe_text_height_dva), pos=(0.0, -ih / 2 - screen.deg2px(1.2)),
-                name="where_prompt"),
+                screen.deg2px(p.probe_cap_height_dva) * 1.3, (0.92, 0.92, 0.92),
+                weight="regular", line_spacing=2.2), name="type_prompt"),
+            "where_prompt": make_text_image(display, render_text(
+                "Where was the change? Press the number of its box.",
+                screen.deg2px(p.probe_cap_height_dva), (0.92, 0.92, 0.92), weight="regular"),
+                pos=(0.0, -ih / 2 - screen.deg2px(1.2)), name="where_prompt"),
         }
         cue_keys = ["background", "cue_box"]
         if word:
-            stimuli["cue_text"] = make_text(display, word, screen.deg2px(p.cue_text_height_dva),
-                                            color=(-1.0, -1.0, -1.0), name="cue_text")
+            stimuli["cue_text"] = make_text_image(display, render_text(
+                word, screen.deg2px(p.cue_cap_height_dva), tuple(p.cue_style.ink),
+                weight=p.cue_style.weight, tracking_em=p.cue_style.tracking_em,
+                line_spacing=1.6), name="cue_text")
             cue_keys.append("cue_text")
+        gray_keys = ["background"] + (["fixation"] if p.fixation.show_on_gray else [])
         where_keys = ["background", "image_a", "where_prompt"]
         line_px = max(2.0, screen.deg2px(0.08))
         ink = (-0.9, -0.9, -0.85)
@@ -320,11 +386,14 @@ class DepthCuedFlickerTask(Task):
             w, h = (b[2] - b[0]) * iw, (b[3] - b[1]) * ih
             stimuli[f"box_{i}"] = make_rect(display, (w, h), (cx, cy), line=ink,
                                             line_px=line_px, name=f"box_{i}")
-            stimuli[f"box_label_{i}"] = make_text(
-                display, key, screen.deg2px(p.probe_text_height_dva) * 1.4,
-                pos=(cx - w / 2 + screen.deg2px(0.5), cy + h / 2 - screen.deg2px(0.5)),
-                color=ink, name=f"box_label_{i}")
-            where_keys += [f"box_{i}", f"box_label_{i}"]
+            tag = screen.deg2px(0.9)
+            stimuli[f"box_tag_{i}"] = make_rect(
+                display, (tag, tag), (cx - w / 2 + tag / 2, cy + h / 2 - tag / 2), fill=ink,
+                name=f"box_tag_{i}")
+            stimuli[f"box_label_{i}"] = make_text_image(display, render_text(
+                key, tag * 0.55, (1.0, 1.0, 1.0)), pos=(cx - w / 2 + tag / 2, cy + h / 2 - tag / 2),
+                name=f"box_label_{i}")
+            where_keys += [f"box_{i}", f"box_tag_{i}", f"box_label_{i}"]
 
         out = self.outcomes
 
@@ -337,10 +406,11 @@ class DepthCuedFlickerTask(Task):
 
         trial_phases = [
             phases.Feedback(cue_keys, p.cue_field.seconds(hz), onset_event="CUE_ON"),
-            phases.Feedback(["background"], p.gray_field.seconds(hz), onset_event="GRAY_ON"),
+            phases.Feedback(gray_keys, p.gray_field.seconds(hz), onset_event="GRAY_ON"),
             FlickerPhase(cycle, {"image_a": "A", "image_b": "B"}, p.detect_key,
                          p.max_flicker.seconds(hz), on_timeout=out["NO_DETECTION"],
                          background_keys=["background"],
+                         overlay_keys=["fixation"] if p.fixation.show_during_flicker else [],
                          onset_payload={"plane": plane, "cue": cue, "change_type": change_type,
                                         "blank_frames": blank_frames,
                                         "alternation_frames": round(alternation_s * hz, 3)},
@@ -357,7 +427,9 @@ class DepthCuedFlickerTask(Task):
                       response_event="TYPE_REPORT"),
         ]
         record = {
-            "scene": scene_id, "scene_seed": seed, "plane": plane, "change_type": change_type,
+            "scene": scene_id, "scene_seed": seed, "stimulus_source": p.scene.source,
+            "changed_object": getattr(pair, "object_name", pair.shape),
+            "plane": plane, "change_type": change_type,
             "cue": cue, "cue_word": word, "cued_plane": named,
             "shape": pair.shape, "color_a": pair.color_a, "color_b": pair.color_b,
             "present_in": pair.present_in, "eccentricity_dva": pair.eccentricity_dva,
@@ -365,6 +437,12 @@ class DepthCuedFlickerTask(Task):
             "change_cx": round(pair.centroid[0], 4), "change_cy": round(pair.centroid[1], 4),
             "depth_cues": ",".join(k for k, v in p.scene.cues.model_dump().items() if v),
             "image_frames": img_frames, "blank_frames": blank_frames,
+            # What the frame counts give at this refresh rate (240 and 80 ms are Rensink's):
+            # 233.3 / 83.3 ms at 60 Hz, exact at 75, 100 or 125 Hz.
+            "image_ms_realised": round(img_frames / hz * 1000, 2),
+            "blank_ms_realised": round(blank_frames / hz * 1000, 2),
+            "fixation_on_gray": p.fixation.show_on_gray,
+            "fixation_during_flicker": p.fixation.show_during_flicker,
             "alternation_s": round(alternation_s, 5),
             "probe_boxes": json.dumps([[round(v, 4) for v in b] for b in boxes]),
             "probe_planes": ",".join(box_planes),
@@ -378,10 +456,12 @@ class DepthCuedFlickerTask(Task):
         hz = refresh_rate_hz
         return TrialTiming([
             fixed("cue field", p.cue_field.seconds(hz), "Rensink et al. 1997, Fig. 1"),
-            fixed("gray field", p.gray_field.seconds(hz), "Rensink et al. 1997, Fig. 1"),
-            wait("flicker until SPACE", p.max_flicker.seconds(hz), 0.0, "up to 60 s"),
+            fixed("gray field + fixation", p.gray_field.seconds(hz), "Rensink et al. 1997, Fig. 1"),
+            wait("flicker until SPACE", p.max_flicker.seconds(hz), 0.0,
+                 "up to 60 s; 240/80 ms per image/blank (Rensink et al. 1997, p. 369)"),
             wait("where (box keys)", p.location_probe.timeout.seconds(hz), 0.0, "ASSUMED"),
             wait("what kind (arrows)", p.type_probe.timeout.seconds(hz), 0.0, "ASSUMED"),
+            fixed("inter-trial interval", p.iti.seconds(hz), "ASSUMED"),
         ])
 
     def simulation(self, seed: int):

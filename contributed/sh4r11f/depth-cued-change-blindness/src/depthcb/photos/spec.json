@@ -1,0 +1,4269 @@
+{
+ "about": "Inputs to scripts/build_photo_pairs.py. Each scene: one base photograph and one edit of it that removes ONE object, both generated with an image model for this experiment (licence: CC BY 4.0 with the rest of the experiment's stimuli). A setting is photographed twice, once with the changed object on the NEAR layer and once on the FAR layer, so the two planes' scenes are matched in content. 'target_xy' is the position the prompt asked for; the image model often placed the object elsewhere, so pairs.json records the MEASURED position. 'foils' are other named objects on each layer, placed by hand on the base photograph (image fractions), used as the other boxes of the location report.",
+ "image_model": {
+  "base": "gpt-image-2.5-flare (1536 x 1024)",
+  "removal_edit": "gpt-image-2.5-sunburst (reference image = the base)"
+ },
+ "generated": "2026-10-21",
+ "image_dva": [
+  27.0,
+  18.0
+ ],
+ "out_px": [
+  1200,
+  800
+ ],
+ "hue_shift": 0.4,
+ "location_shift_dva": 2.0,
+ "scenes": [
+  {
+   "id": "canal-cafe-near",
+   "setting_id": "canal-cafe",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "near",
+   "position": "ul-in",
+   "target_xy": [
+    0.36,
+    0.33
+   ],
+   "setting": "Looking out through the open window of a cafe onto a canal in an old Dutch town",
+   "near_layer": "wooden shelves and hanging hooks just inside the window holding glass jars of beans and pasta, a white ceramic teapot, a small cactus, copper mugs and a hanging basket",
+   "far_layer": "the canal with moored boats, bicycles on a stone bridge and brick canal houses across the water",
+   "target": "the white ceramic teapot",
+   "fill": "the shelf and the window view behind it",
+   "near_foils": [
+    "glass jar",
+    "cactus",
+    "copper mug",
+    "hanging basket"
+   ],
+   "far_foils": [
+    "stone bridge",
+    "bicycle",
+    "brick house",
+    "moored boat"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out through the open window of a cafe onto a canal in an old Dutch town. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): wooden shelves and hanging hooks just inside the window holding glass jars of beans and pasta, a white ceramic teapot, a small cactus, copper mugs and a hanging basket. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the canal with moored boats, bicycles on a stone bridge and brick canal houses across the water, visible through the gaps between the near things in every part of the frame. The white ceramic teapot (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-left part of the picture, about 36% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove the white ceramic teapot completely, including its shadow and reflection, and fill its area with the shelf and the window view behind it, as it would look if the object had never been there. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "Potted cactus",
+     "plane": "near",
+     "x": 0.413,
+     "y": 0.282
+    },
+    {
+     "name": "Left copper mug",
+     "plane": "near",
+     "x": 0.752,
+     "y": 0.213
+    },
+    {
+     "name": "Right copper mug",
+     "plane": "near",
+     "x": 0.859,
+     "y": 0.207
+    },
+    {
+     "name": "Glass jar of mixed beans on lower shelf",
+     "plane": "near",
+     "x": 0.143,
+     "y": 0.689
+    },
+    {
+     "name": "Foreground moored boat on left",
+     "plane": "far",
+     "x": 0.342,
+     "y": 0.736
+    },
+    {
+     "name": "Moored boat behind foreground left boat",
+     "plane": "far",
+     "x": 0.367,
+     "y": 0.651
+    },
+    {
+     "name": "Small moored boat near opposite canal wall",
+     "plane": "far",
+     "x": 0.658,
+     "y": 0.623
+    },
+    {
+     "name": "Blue-covered moored boat on right",
+     "plane": "far",
+     "x": 0.775,
+     "y": 0.671
+    }
+   ]
+  },
+  {
+   "id": "canal-cafe-far",
+   "setting_id": "canal-cafe",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "far",
+   "position": "ul-in",
+   "target_xy": [
+    0.36,
+    0.33
+   ],
+   "setting": "Looking out through the open window of a cafe onto a canal in an old Dutch town",
+   "near_layer": "wooden shelves and hanging hooks just inside the window holding glass jars of beans and pasta, a white ceramic teapot, a small cactus, copper mugs and a hanging basket",
+   "far_layer": "the canal with moored boats, bicycles on a stone bridge and brick canal houses across the water",
+   "target": "a small red canal boat moored on the water",
+   "fill": "the canal water and quay behind it",
+   "near_foils": [
+    "glass jar",
+    "cactus",
+    "copper mug",
+    "hanging basket"
+   ],
+   "far_foils": [
+    "stone bridge",
+    "bicycle",
+    "brick house",
+    "moored boat"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out through the open window of a cafe onto a canal in an old Dutch town. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): wooden shelves and hanging hooks just inside the window holding glass jars of beans and pasta, a white ceramic teapot, a small cactus, copper mugs and a hanging basket. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the canal with moored boats, bicycles on a stone bridge and brick canal houses across the water, visible through the gaps between the near things in every part of the frame. A small red canal boat moored on the water (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-left part of the picture, about 36% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent small red canal boat moored on the water, completely, including its shadow and reflection, and fill its area with the canal water and quay behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "white ceramic teapot",
+     "plane": "near",
+     "x": 0.27,
+     "y": 0.84
+    },
+    {
+     "name": "potted cactus",
+     "plane": "near",
+     "x": 0.42,
+     "y": 0.84
+    },
+    {
+     "name": "left hanging copper mug",
+     "plane": "near",
+     "x": 0.58,
+     "y": 0.15
+    },
+    {
+     "name": "hanging wicker plant basket",
+     "plane": "near",
+     "x": 0.33,
+     "y": 0.17
+    },
+    {
+     "name": "dark moored boat",
+     "plane": "far",
+     "x": 0.49,
+     "y": 0.44
+    },
+    {
+     "name": "white moored boat",
+     "plane": "far",
+     "x": 0.83,
+     "y": 0.46
+    },
+    {
+     "name": "bicycle on right side of bridge",
+     "plane": "far",
+     "x": 0.82,
+     "y": 0.34
+    },
+    {
+     "name": "tall brick canal house with peaked roof",
+     "plane": "far",
+     "x": 0.48,
+     "y": 0.21
+    }
+   ]
+  },
+  {
+   "id": "park-balcony-near",
+   "setting_id": "park-balcony",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "near",
+   "position": "lr-out",
+   "target_xy": [
+    0.78,
+    0.75
+   ],
+   "setting": "Standing on a city apartment balcony looking across a large green park",
+   "near_layer": "the balcony railing and a wire plant stand carrying potted red geraniums, a copper watering can, a hanging glass lantern, a wind chime and a small herb box",
+   "far_layer": "the park beyond: tall trees, a pond, a white wooden gazebo, park benches and a path",
+   "target": "the copper watering can",
+   "fill": "the railing and the park behind it",
+   "near_foils": [
+    "geranium pot",
+    "glass lantern",
+    "wind chime",
+    "herb box"
+   ],
+   "far_foils": [
+    "pond",
+    "park bench",
+    "tall tree",
+    "path"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on a city apartment balcony looking across a large green park. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the balcony railing and a wire plant stand carrying potted red geraniums, a copper watering can, a hanging glass lantern, a wind chime and a small herb box. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the park beyond: tall trees, a pond, a white wooden gazebo, park benches and a path, visible through the gaps between the near things in every part of the frame. The copper watering can (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-right part of the picture, about 78% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent copper watering can, completely, including its shadow and reflection, and fill its area with the railing and the park behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging glass lantern",
+     "plane": "near",
+     "x": 0.186,
+     "y": 0.163
+    },
+    {
+     "name": "wind chime",
+     "plane": "near",
+     "x": 0.814,
+     "y": 0.215
+    },
+    {
+     "name": "terracotta flowerpot",
+     "plane": "near",
+     "x": 0.142,
+     "y": 0.656
+    },
+    {
+     "name": "wooden herb box",
+     "plane": "near",
+     "x": 0.344,
+     "y": 0.727
+    },
+    {
+     "name": "white wooden gazebo",
+     "plane": "far",
+     "x": 0.672,
+     "y": 0.382
+    },
+    {
+     "name": "park bench",
+     "plane": "far",
+     "x": 0.775,
+     "y": 0.431
+    },
+    {
+     "name": "tall tree behind gazebo",
+     "plane": "far",
+     "x": 0.652,
+     "y": 0.185
+    },
+    {
+     "name": "tall tree left of pond",
+     "plane": "far",
+     "x": 0.292,
+     "y": 0.205
+    }
+   ]
+  },
+  {
+   "id": "park-balcony-far",
+   "setting_id": "park-balcony",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "far",
+   "position": "lr-out",
+   "target_xy": [
+    0.78,
+    0.75
+   ],
+   "setting": "Standing on a city apartment balcony looking across a large green park",
+   "near_layer": "the balcony railing and a wire plant stand carrying potted red geraniums, a copper watering can, a hanging glass lantern, a wind chime and a small herb box",
+   "far_layer": "the park beyond: tall trees, a pond, a white wooden gazebo, park benches and a path",
+   "target": "a white wooden gazebo in the park",
+   "fill": "the grass and trees behind it",
+   "near_foils": [
+    "geranium pot",
+    "glass lantern",
+    "wind chime",
+    "herb box"
+   ],
+   "far_foils": [
+    "pond",
+    "park bench",
+    "tall tree",
+    "path"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on a city apartment balcony looking across a large green park. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the balcony railing and a wire plant stand carrying potted red geraniums, a copper watering can, a hanging glass lantern, a wind chime and a small herb box. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the park beyond: tall trees, a pond, a white wooden gazebo, park benches and a path, visible through the gaps between the near things in every part of the frame. A white wooden gazebo in the park (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-right part of the picture, about 78% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent white wooden gazebo in the park, completely, including its shadow and reflection, and fill its area with the grass and trees behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging glass lantern",
+     "plane": "near",
+     "x": 0.1,
+     "y": 0.2
+    },
+    {
+     "name": "copper watering can",
+     "plane": "near",
+     "x": 0.23,
+     "y": 0.77
+    },
+    {
+     "name": "central potted red geranium",
+     "plane": "near",
+     "x": 0.35,
+     "y": 0.64
+    },
+    {
+     "name": "wooden herb box",
+     "plane": "near",
+     "x": 0.49,
+     "y": 0.88
+    },
+    {
+     "name": "park bench",
+     "plane": "far",
+     "x": 0.58,
+     "y": 0.62
+    },
+    {
+     "name": "pond",
+     "plane": "far",
+     "x": 0.53,
+     "y": 0.52
+    },
+    {
+     "name": "weeping willow tree",
+     "plane": "far",
+     "x": 0.67,
+     "y": 0.48
+    },
+    {
+     "name": "tall tree on the left",
+     "plane": "far",
+     "x": 0.21,
+     "y": 0.26
+    }
+   ]
+  },
+  {
+   "id": "orchard-near",
+   "setting_id": "orchard",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "near",
+   "position": "ur-in",
+   "target_xy": [
+    0.64,
+    0.33
+   ],
+   "setting": "Standing in an apple orchard under the branches, looking out toward a farm",
+   "near_layer": "apple branches close to the camera with red apples and green leaves hanging at the top and sides of the frame, a wooden ladder leg, a straw hat hanging on a branch and a wicker basket on a low branch",
+   "far_layer": "a farmhouse, round hay bales, a few cows and a field fence far away across the meadow",
+   "target": "the straw hat hanging on a branch",
+   "fill": "the leaves and the meadow behind it",
+   "near_foils": [
+    "red apples",
+    "wicker basket",
+    "ladder",
+    "green leaves"
+   ],
+   "far_foils": [
+    "farmhouse",
+    "hay bale",
+    "cow",
+    "fence"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing in an apple orchard under the branches, looking out toward a farm. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): apple branches close to the camera with red apples and green leaves hanging at the top and sides of the frame, a wooden ladder leg, a straw hat hanging on a branch and a wicker basket on a low branch. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): a farmhouse, round hay bales, a few cows and a field fence far away across the meadow, visible through the gaps between the near things in every part of the frame. The straw hat hanging on a branch (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-right part of the picture, about 64% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent straw hat hanging on a branch, completely, including its shadow and reflection, and fill its area with the leaves and the meadow behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "red apple at upper left",
+     "plane": "near",
+     "x": 0.106,
+     "y": 0.143
+    },
+    {
+     "name": "wooden ladder leg",
+     "plane": "near",
+     "x": 0.18,
+     "y": 0.65
+    },
+    {
+     "name": "wicker basket",
+     "plane": "near",
+     "x": 0.905,
+     "y": 0.79
+    },
+    {
+     "name": "red apple at bottom centre",
+     "plane": "near",
+     "x": 0.475,
+     "y": 0.885
+    },
+    {
+     "name": "farmhouse",
+     "plane": "far",
+     "x": 0.52,
+     "y": 0.462
+    },
+    {
+     "name": "large round hay bale",
+     "plane": "far",
+     "x": 0.405,
+     "y": 0.586
+    },
+    {
+     "name": "light-coloured cow",
+     "plane": "far",
+     "x": 0.56,
+     "y": 0.58
+    },
+    {
+     "name": "dark cow on the right",
+     "plane": "far",
+     "x": 0.775,
+     "y": 0.57
+    }
+   ]
+  },
+  {
+   "id": "orchard-far",
+   "setting_id": "orchard",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "far",
+   "position": "ur-in",
+   "target_xy": [
+    0.64,
+    0.33
+   ],
+   "setting": "Standing in an apple orchard under the branches, looking out toward a farm",
+   "near_layer": "apple branches close to the camera with red apples and green leaves hanging at the top and sides of the frame, a wooden ladder leg, a straw hat hanging on a branch and a wicker basket on a low branch",
+   "far_layer": "a farmhouse, round hay bales, a few cows and a field fence far away across the meadow",
+   "target": "a small red tractor in the field",
+   "fill": "the field behind it",
+   "near_foils": [
+    "red apples",
+    "wicker basket",
+    "ladder",
+    "green leaves"
+   ],
+   "far_foils": [
+    "farmhouse",
+    "hay bale",
+    "cow",
+    "fence"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing in an apple orchard under the branches, looking out toward a farm. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): apple branches close to the camera with red apples and green leaves hanging at the top and sides of the frame, a wooden ladder leg, a straw hat hanging on a branch and a wicker basket on a low branch. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): a farmhouse, round hay bales, a few cows and a field fence far away across the meadow, visible through the gaps between the near things in every part of the frame. A small red tractor in the field (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-right part of the picture, about 64% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent small red tractor in the field, completely, including its shadow and reflection, and fill its area with the field behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "straw hat",
+     "plane": "near",
+     "x": 0.235,
+     "y": 0.222
+    },
+    {
+     "name": "wicker basket",
+     "plane": "near",
+     "x": 0.872,
+     "y": 0.741
+    },
+    {
+     "name": "red apple at upper right",
+     "plane": "near",
+     "x": 0.914,
+     "y": 0.059
+    },
+    {
+     "name": "red apple beside hat",
+     "plane": "near",
+     "x": 0.355,
+     "y": 0.248
+    },
+    {
+     "name": "farmhouse",
+     "plane": "far",
+     "x": 0.545,
+     "y": 0.241
+    },
+    {
+     "name": "round hay bale",
+     "plane": "far",
+     "x": 0.423,
+     "y": 0.365
+    },
+    {
+     "name": "black and white cow",
+     "plane": "far",
+     "x": 0.454,
+     "y": 0.323
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.559,
+     "y": 0.325
+    }
+   ]
+  },
+  {
+   "id": "boat-deck-near",
+   "setting_id": "boat-deck",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "near",
+   "position": "ll-out",
+   "target_xy": [
+    0.22,
+    0.75
+   ],
+   "setting": "Standing on the deck of a fishing boat looking toward a harbour town",
+   "near_layer": "the boat rigging close to the camera: coiled ropes, orange buoys hanging from the rail, a brass lantern, a metal bucket and a life ring",
+   "far_layer": "the harbour far away: a white lighthouse, sailboats at anchor and colourful harbour houses on the shore",
+   "target": "an orange buoy hanging from the rail",
+   "fill": "the rail and the harbour behind it",
+   "near_foils": [
+    "coiled rope",
+    "brass lantern",
+    "metal bucket",
+    "life ring"
+   ],
+   "far_foils": [
+    "lighthouse",
+    "harbour house",
+    "sailboat",
+    "shore"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on the deck of a fishing boat looking toward a harbour town. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the boat rigging close to the camera: coiled ropes, orange buoys hanging from the rail, a brass lantern, a metal bucket and a life ring. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the harbour far away: a white lighthouse, sailboats at anchor and colourful harbour houses on the shore, visible through the gaps between the near things in every part of the frame. An orange buoy hanging from the rail (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-left part of the picture, about 22% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent orange buoy hanging from the rail, completely, including its shadow and reflection, and fill its area with the rail and the harbour behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "brass lantern",
+     "plane": "near",
+     "x": 0.64,
+     "y": 0.35
+    },
+    {
+     "name": "metal bucket",
+     "plane": "near",
+     "x": 0.455,
+     "y": 0.9
+    },
+    {
+     "name": "orange life ring",
+     "plane": "near",
+     "x": 0.93,
+     "y": 0.67
+    },
+    {
+     "name": "coiled rope on the right rail",
+     "plane": "near",
+     "x": 0.75,
+     "y": 0.69
+    },
+    {
+     "name": "white lighthouse",
+     "plane": "far",
+     "x": 0.215,
+     "y": 0.26
+    },
+    {
+     "name": "white motorboat",
+     "plane": "far",
+     "x": 0.54,
+     "y": 0.365
+    },
+    {
+     "name": "white gabled harbour house",
+     "plane": "far",
+     "x": 0.82,
+     "y": 0.27
+    },
+    {
+     "name": "red harbour house",
+     "plane": "far",
+     "x": 0.86,
+     "y": 0.28
+    }
+   ]
+  },
+  {
+   "id": "boat-deck-far",
+   "setting_id": "boat-deck",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "far",
+   "position": "ll-out",
+   "target_xy": [
+    0.22,
+    0.75
+   ],
+   "setting": "Standing on the deck of a fishing boat looking toward a harbour town",
+   "near_layer": "the boat rigging close to the camera: coiled ropes, orange buoys hanging from the rail, a brass lantern, a metal bucket and a life ring",
+   "far_layer": "the harbour far away: a white lighthouse, sailboats at anchor and colourful harbour houses on the shore",
+   "target": "a white sailboat at anchor",
+   "fill": "the sea behind it",
+   "near_foils": [
+    "coiled rope",
+    "brass lantern",
+    "metal bucket",
+    "life ring"
+   ],
+   "far_foils": [
+    "lighthouse",
+    "harbour house",
+    "sailboat",
+    "shore"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on the deck of a fishing boat looking toward a harbour town. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the boat rigging close to the camera: coiled ropes, orange buoys hanging from the rail, a brass lantern, a metal bucket and a life ring. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the harbour far away: a white lighthouse, sailboats at anchor and colourful harbour houses on the shore, visible through the gaps between the near things in every part of the frame. A white sailboat at anchor (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-left part of the picture, about 22% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent white sailboat at anchor, completely, including its shadow and reflection, and fill its area with the sea behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "brass lantern",
+     "plane": "near",
+     "x": 0.36,
+     "y": 0.17
+    },
+    {
+     "name": "orange buoy",
+     "plane": "near",
+     "x": 0.18,
+     "y": 0.79
+    },
+    {
+     "name": "metal bucket",
+     "plane": "near",
+     "x": 0.68,
+     "y": 0.89
+    },
+    {
+     "name": "life ring",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.67
+    },
+    {
+     "name": "white lighthouse",
+     "plane": "far",
+     "x": 0.38,
+     "y": 0.38
+    },
+    {
+     "name": "anchored sailboat",
+     "plane": "far",
+     "x": 0.55,
+     "y": 0.46
+    },
+    {
+     "name": "anchored sailboat",
+     "plane": "far",
+     "x": 0.75,
+     "y": 0.46
+    },
+    {
+     "name": "pink harbour house",
+     "plane": "far",
+     "x": 0.84,
+     "y": 0.38
+    }
+   ]
+  },
+  {
+   "id": "kitchen-window-near",
+   "setting_id": "kitchen-window",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "near",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Looking out of a kitchen window into a long back garden",
+   "near_layer": "on the windowsill and on hooks around the window: pots of basil and rosemary, glass bottles of olive oil, a fruit bowl, hanging copper pans and a ceramic jug",
+   "far_layer": "the garden far behind: a wooden shed, a wheelbarrow, fruit trees, a washing line and a brick wall",
+   "target": "a glass bottle of olive oil",
+   "fill": "the sill and the garden behind it",
+   "near_foils": [
+    "basil pot",
+    "fruit bowl",
+    "copper pan",
+    "ceramic jug"
+   ],
+   "far_foils": [
+    "wooden shed",
+    "fruit tree",
+    "washing line",
+    "brick wall"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out of a kitchen window into a long back garden. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the windowsill and on hooks around the window: pots of basil and rosemary, glass bottles of olive oil, a fruit bowl, hanging copper pans and a ceramic jug. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the garden far behind: a wooden shed, a wheelbarrow, fruit trees, a washing line and a brick wall, visible through the gaps between the near things in every part of the frame. A glass bottle of olive oil (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent glass bottle of olive oil, completely, including its shadow and reflection, and fill its area with the sill and the garden behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging copper pan",
+     "plane": "near",
+     "x": 0.21,
+     "y": 0.1
+    },
+    {
+     "name": "ceramic jug",
+     "plane": "near",
+     "x": 0.05,
+     "y": 0.3
+    },
+    {
+     "name": "fruit bowl",
+     "plane": "near",
+     "x": 0.1,
+     "y": 0.89
+    },
+    {
+     "name": "potted rosemary",
+     "plane": "near",
+     "x": 0.85,
+     "y": 0.61
+    },
+    {
+     "name": "wooden shed",
+     "plane": "far",
+     "x": 0.47,
+     "y": 0.37
+    },
+    {
+     "name": "wheelbarrow",
+     "plane": "far",
+     "x": 0.55,
+     "y": 0.51
+    },
+    {
+     "name": "white sheet on washing line",
+     "plane": "far",
+     "x": 0.66,
+     "y": 0.4
+    },
+    {
+     "name": "brick wall",
+     "plane": "far",
+     "x": 0.8,
+     "y": 0.38
+    }
+   ]
+  },
+  {
+   "id": "kitchen-window-far",
+   "setting_id": "kitchen-window",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "far",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Looking out of a kitchen window into a long back garden",
+   "near_layer": "on the windowsill and on hooks around the window: pots of basil and rosemary, glass bottles of olive oil, a fruit bowl, hanging copper pans and a ceramic jug",
+   "far_layer": "the garden far behind: a wooden shed, a wheelbarrow, fruit trees, a washing line and a brick wall",
+   "target": "a green wheelbarrow on the lawn",
+   "fill": "the lawn behind it",
+   "near_foils": [
+    "basil pot",
+    "fruit bowl",
+    "copper pan",
+    "ceramic jug"
+   ],
+   "far_foils": [
+    "wooden shed",
+    "fruit tree",
+    "washing line",
+    "brick wall"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out of a kitchen window into a long back garden. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the windowsill and on hooks around the window: pots of basil and rosemary, glass bottles of olive oil, a fruit bowl, hanging copper pans and a ceramic jug. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the garden far behind: a wooden shed, a wheelbarrow, fruit trees, a washing line and a brick wall, visible through the gaps between the near things in every part of the frame. A green wheelbarrow on the lawn (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent green wheelbarrow on the lawn, completely, including its shadow and reflection, and fill its area with the lawn behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging copper pan",
+     "plane": "near",
+     "x": 0.25,
+     "y": 0.13
+    },
+    {
+     "name": "olive oil bottle",
+     "plane": "near",
+     "x": 0.25,
+     "y": 0.79
+    },
+    {
+     "name": "fruit bowl",
+     "plane": "near",
+     "x": 0.58,
+     "y": 0.89
+    },
+    {
+     "name": "ceramic jug",
+     "plane": "near",
+     "x": 0.96,
+     "y": 0.8
+    },
+    {
+     "name": "wooden shed",
+     "plane": "far",
+     "x": 0.45,
+     "y": 0.34
+    },
+    {
+     "name": "washing line",
+     "plane": "far",
+     "x": 0.61,
+     "y": 0.38
+    },
+    {
+     "name": "fruit tree",
+     "plane": "far",
+     "x": 0.74,
+     "y": 0.23
+    },
+    {
+     "name": "brick wall",
+     "plane": "far",
+     "x": 0.77,
+     "y": 0.43
+    }
+   ]
+  },
+  {
+   "id": "market-stall-near",
+   "setting_id": "market-stall",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "near",
+   "position": "ur-out",
+   "target_xy": [
+    0.78,
+    0.25
+   ],
+   "setting": "Standing behind a market stall looking out onto a town square",
+   "near_layer": "the stall close to the camera: hanging bunches of garlic and dried chillies at the top, crates of oranges and lemons, a brass hanging scale and woven baskets",
+   "far_layer": "the square far away: a stone fountain, cafe umbrellas, a church facade and parked scooters",
+   "target": "a bunch of garlic hanging from the stall frame",
+   "fill": "the stall frame and the square behind it",
+   "near_foils": [
+    "dried chillies",
+    "crate of oranges",
+    "brass scale",
+    "woven basket"
+   ],
+   "far_foils": [
+    "stone fountain",
+    "cafe umbrella",
+    "church",
+    "scooter"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing behind a market stall looking out onto a town square. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the stall close to the camera: hanging bunches of garlic and dried chillies at the top, crates of oranges and lemons, a brass hanging scale and woven baskets. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the square far away: a stone fountain, cafe umbrellas, a church facade and parked scooters, visible through the gaps between the near things in every part of the frame. A bunch of garlic hanging from the stall frame (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-right part of the picture, about 78% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bunch of garlic hanging from the stall frame, completely, including its shadow and reflection, and fill its area with the stall frame and the square behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging bunch of dried chillies",
+     "plane": "near",
+     "x": 0.32,
+     "y": 0.2
+    },
+    {
+     "name": "brass scale pan",
+     "plane": "near",
+     "x": 0.19,
+     "y": 0.51
+    },
+    {
+     "name": "woven basket",
+     "plane": "near",
+     "x": 0.05,
+     "y": 0.71
+    },
+    {
+     "name": "lemon",
+     "plane": "near",
+     "x": 0.57,
+     "y": 0.86
+    },
+    {
+     "name": "stone fountain",
+     "plane": "far",
+     "x": 0.49,
+     "y": 0.53
+    },
+    {
+     "name": "left cafe umbrella",
+     "plane": "far",
+     "x": 0.34,
+     "y": 0.5
+    },
+    {
+     "name": "right cafe umbrella",
+     "plane": "far",
+     "x": 0.56,
+     "y": 0.51
+    },
+    {
+     "name": "parked scooter",
+     "plane": "far",
+     "x": 0.85,
+     "y": 0.6
+    }
+   ]
+  },
+  {
+   "id": "market-stall-far",
+   "setting_id": "market-stall",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "far",
+   "position": "ur-out",
+   "target_xy": [
+    0.78,
+    0.25
+   ],
+   "setting": "Standing behind a market stall looking out onto a town square",
+   "near_layer": "the stall close to the camera: hanging bunches of garlic and dried chillies at the top, crates of oranges and lemons, a brass hanging scale and woven baskets",
+   "far_layer": "the square far away: a stone fountain, cafe umbrellas, a church facade and parked scooters",
+   "target": "a parked yellow scooter",
+   "fill": "the paving behind it",
+   "near_foils": [
+    "dried chillies",
+    "crate of oranges",
+    "brass scale",
+    "woven basket"
+   ],
+   "far_foils": [
+    "stone fountain",
+    "cafe umbrella",
+    "church",
+    "scooter"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing behind a market stall looking out onto a town square. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the stall close to the camera: hanging bunches of garlic and dried chillies at the top, crates of oranges and lemons, a brass hanging scale and woven baskets. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the square far away: a stone fountain, cafe umbrellas, a church facade and parked scooters, visible through the gaps between the near things in every part of the frame. A parked yellow scooter (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-right part of the picture, about 78% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent parked yellow scooter, completely, including its shadow and reflection, and fill its area with the paving behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "Hanging bunch of garlic",
+     "plane": "near",
+     "x": 0.15,
+     "y": 0.14
+    },
+    {
+     "name": "Brass hanging scale",
+     "plane": "near",
+     "x": 0.2,
+     "y": 0.38
+    },
+    {
+     "name": "Orange",
+     "plane": "near",
+     "x": 0.05,
+     "y": 0.67
+    },
+    {
+     "name": "Lemon",
+     "plane": "near",
+     "x": 0.39,
+     "y": 0.81
+    },
+    {
+     "name": "Stone fountain",
+     "plane": "far",
+     "x": 0.5,
+     "y": 0.41
+    },
+    {
+     "name": "Church",
+     "plane": "far",
+     "x": 0.71,
+     "y": 0.23
+    },
+    {
+     "name": "Parked black scooter left of excluded box",
+     "plane": "far",
+     "x": 0.73,
+     "y": 0.44
+    },
+    {
+     "name": "Parked scooter right of excluded box",
+     "plane": "far",
+     "x": 0.87,
+     "y": 0.44
+    }
+   ]
+  },
+  {
+   "id": "greenhouse-near",
+   "setting_id": "greenhouse",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "near",
+   "position": "lr-in",
+   "target_xy": [
+    0.64,
+    0.67
+   ],
+   "setting": "Inside a glass greenhouse looking out through the glass at a garden",
+   "near_layer": "inside the greenhouse close to the camera: hanging fern pots at the top, seed trays and terracotta pots on wooden benches, a watering can and a trowel",
+   "far_layer": "the garden outside far away: a wooden bench, a stone birdbath, a garden gate, flower beds and a hedge",
+   "target": "a hanging fern in a pot",
+   "fill": "the glass and the garden behind it",
+   "near_foils": [
+    "terracotta pot",
+    "seed tray",
+    "watering can",
+    "trowel"
+   ],
+   "far_foils": [
+    "wooden bench",
+    "garden gate",
+    "flower bed",
+    "hedge"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Inside a glass greenhouse looking out through the glass at a garden. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): inside the greenhouse close to the camera: hanging fern pots at the top, seed trays and terracotta pots on wooden benches, a watering can and a trowel. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the garden outside far away: a wooden bench, a stone birdbath, a garden gate, flower beds and a hedge, visible through the gaps between the near things in every part of the frame. A hanging fern in a pot (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-right part of the picture, about 64% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent hanging fern in a pot, completely, including its shadow and reflection, and fill its area with the glass and the garden behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging fern pot",
+     "plane": "near",
+     "x": 0.79,
+     "y": 0.35
+    },
+    {
+     "name": "watering can",
+     "plane": "near",
+     "x": 0.39,
+     "y": 0.64
+    },
+    {
+     "name": "trowel",
+     "plane": "near",
+     "x": 0.35,
+     "y": 0.8
+    },
+    {
+     "name": "terracotta pot",
+     "plane": "near",
+     "x": 0.16,
+     "y": 0.71
+    },
+    {
+     "name": "stone birdbath",
+     "plane": "far",
+     "x": 0.57,
+     "y": 0.51
+    },
+    {
+     "name": "garden gate",
+     "plane": "far",
+     "x": 0.65,
+     "y": 0.41
+    }
+   ]
+  },
+  {
+   "id": "greenhouse-far",
+   "setting_id": "greenhouse",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "far",
+   "position": "lr-in",
+   "target_xy": [
+    0.64,
+    0.67
+   ],
+   "setting": "Inside a glass greenhouse looking out through the glass at a garden",
+   "near_layer": "inside the greenhouse close to the camera: hanging fern pots at the top, seed trays and terracotta pots on wooden benches, a watering can and a trowel",
+   "far_layer": "the garden outside far away: a wooden bench, a stone birdbath, a garden gate, flower beds and a hedge",
+   "target": "a stone birdbath in the garden",
+   "fill": "the lawn behind it",
+   "near_foils": [
+    "terracotta pot",
+    "seed tray",
+    "watering can",
+    "trowel"
+   ],
+   "far_foils": [
+    "wooden bench",
+    "garden gate",
+    "flower bed",
+    "hedge"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Inside a glass greenhouse looking out through the glass at a garden. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): inside the greenhouse close to the camera: hanging fern pots at the top, seed trays and terracotta pots on wooden benches, a watering can and a trowel. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the garden outside far away: a wooden bench, a stone birdbath, a garden gate, flower beds and a hedge, visible through the gaps between the near things in every part of the frame. A stone birdbath in the garden (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-right part of the picture, about 64% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent stone birdbath in the garden, completely, including its shadow and reflection, and fill its area with the lawn behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging fern pot",
+     "plane": "near",
+     "x": 0.17,
+     "y": 0.12
+    },
+    {
+     "name": "terracotta pot on left bench",
+     "plane": "near",
+     "x": 0.2,
+     "y": 0.49
+    },
+    {
+     "name": "watering can",
+     "plane": "near",
+     "x": 0.35,
+     "y": 0.72
+    },
+    {
+     "name": "trowel",
+     "plane": "near",
+     "x": 0.37,
+     "y": 0.87
+    },
+    {
+     "name": "wooden garden bench",
+     "plane": "far",
+     "x": 0.4,
+     "y": 0.46
+    },
+    {
+     "name": "garden gate",
+     "plane": "far",
+     "x": 0.68,
+     "y": 0.42
+    }
+   ]
+  },
+  {
+   "id": "cabin-porch-near",
+   "setting_id": "cabin-porch",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "near",
+   "position": "ul-out",
+   "target_xy": [
+    0.22,
+    0.25
+   ],
+   "setting": "Standing on the porch of a mountain cabin looking out over a lake",
+   "near_layer": "the porch close to the camera: a stack of firewood, an oil lantern hanging from a post, hiking boots, a potted fir sapling and porch posts and railing",
+   "far_layer": "the lake far away with a red canoe, pine trees on the shore, a small distant cabin and mountains",
+   "target": "the oil lantern hanging from a post",
+   "fill": "the porch and the lake behind it",
+   "near_foils": [
+    "firewood stack",
+    "hiking boots",
+    "potted fir",
+    "porch post"
+   ],
+   "far_foils": [
+    "pine trees",
+    "distant cabin",
+    "mountain",
+    "lake shore"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on the porch of a mountain cabin looking out over a lake. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the porch close to the camera: a stack of firewood, an oil lantern hanging from a post, hiking boots, a potted fir sapling and porch posts and railing. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the lake far away with a red canoe, pine trees on the shore, a small distant cabin and mountains, visible through the gaps between the near things in every part of the frame. The oil lantern hanging from a post (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-left part of the picture, about 22% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent oil lantern hanging from a post, completely, including its shadow and reflection, and fill its area with the porch and the lake behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hiking boot",
+     "plane": "near",
+     "x": 0.81,
+     "y": 0.9
+    },
+    {
+     "name": "potted fir sapling",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.66
+    },
+    {
+     "name": "porch railing post",
+     "plane": "near",
+     "x": 0.67,
+     "y": 0.63
+    },
+    {
+     "name": "firewood log",
+     "plane": "near",
+     "x": 0.05,
+     "y": 0.71
+    },
+    {
+     "name": "red canoe",
+     "plane": "far",
+     "x": 0.38,
+     "y": 0.49
+    },
+    {
+     "name": "small cabin",
+     "plane": "far",
+     "x": 0.6,
+     "y": 0.37
+    },
+    {
+     "name": "pine tree on shore",
+     "plane": "far",
+     "x": 0.69,
+     "y": 0.23
+    },
+    {
+     "name": "mountain peak",
+     "plane": "far",
+     "x": 0.5,
+     "y": 0.18
+    }
+   ]
+  },
+  {
+   "id": "cabin-porch-far",
+   "setting_id": "cabin-porch",
+   "set": "main",
+   "change_type": "presence",
+   "plane": "far",
+   "position": "ul-out",
+   "target_xy": [
+    0.22,
+    0.25
+   ],
+   "setting": "Standing on the porch of a mountain cabin looking out over a lake",
+   "near_layer": "the porch close to the camera: a stack of firewood, an oil lantern hanging from a post, hiking boots, a potted fir sapling and porch posts and railing",
+   "far_layer": "the lake far away with a red canoe, pine trees on the shore, a small distant cabin and mountains",
+   "target": "a red canoe on the lake",
+   "fill": "the lake water behind it",
+   "near_foils": [
+    "firewood stack",
+    "hiking boots",
+    "potted fir",
+    "porch post"
+   ],
+   "far_foils": [
+    "pine trees",
+    "distant cabin",
+    "mountain",
+    "lake shore"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on the porch of a mountain cabin looking out over a lake. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the porch close to the camera: a stack of firewood, an oil lantern hanging from a post, hiking boots, a potted fir sapling and porch posts and railing. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the lake far away with a red canoe, pine trees on the shore, a small distant cabin and mountains, visible through the gaps between the near things in every part of the frame. A red canoe on the lake (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-left part of the picture, about 22% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent red canoe on the lake, completely, including its shadow and reflection, and fill its area with the lake water behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging oil lantern",
+     "plane": "near",
+     "x": 0.124,
+     "y": 0.182
+    },
+    {
+     "name": "potted fir sapling",
+     "plane": "near",
+     "x": 0.311,
+     "y": 0.625
+    },
+    {
+     "name": "hiking boot",
+     "plane": "near",
+     "x": 0.285,
+     "y": 0.882
+    },
+    {
+     "name": "right porch post",
+     "plane": "near",
+     "x": 0.843,
+     "y": 0.48
+    },
+    {
+     "name": "shoreline pine tree",
+     "plane": "far",
+     "x": 0.76,
+     "y": 0.27
+    },
+    {
+     "name": "pine tree beyond the railing",
+     "plane": "far",
+     "x": 0.53,
+     "y": 0.325
+    },
+    {
+     "name": "mountain",
+     "plane": "far",
+     "x": 0.658,
+     "y": 0.12
+    }
+   ]
+  },
+  {
+   "id": "beach-terrace-near",
+   "setting_id": "beach-terrace",
+   "set": "practice",
+   "change_type": "presence",
+   "plane": "near",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Sitting at a beach bar terrace looking out over a beach",
+   "near_layer": "the terrace close to the camera: a table with drinking glasses, a straw hat, a bowl of lemons, a ceramic jug and a potted palm",
+   "far_layer": "the beach far away: striped beach umbrellas, a wooden lifeguard tower, sailboats and the sea",
+   "target": "the bowl of lemons",
+   "fill": "the table and the beach behind it",
+   "near_foils": [
+    "drinking glass",
+    "straw hat",
+    "ceramic jug",
+    "potted palm"
+   ],
+   "far_foils": [
+    "beach umbrella",
+    "sailboat",
+    "sea",
+    "dune"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting at a beach bar terrace looking out over a beach. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the terrace close to the camera: a table with drinking glasses, a straw hat, a bowl of lemons, a ceramic jug and a potted palm. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the beach far away: striped beach umbrellas, a wooden lifeguard tower, sailboats and the sea, visible through the gaps between the near things in every part of the frame. The bowl of lemons (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bowl of lemons, completely, including its shadow and reflection, and fill its area with the table and the beach behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "drinking glass",
+     "plane": "near",
+     "x": 0.593,
+     "y": 0.73
+    },
+    {
+     "name": "ceramic jug",
+     "plane": "near",
+     "x": 0.836,
+     "y": 0.625
+    },
+    {
+     "name": "straw hat",
+     "plane": "near",
+     "x": 0.83,
+     "y": 0.836
+    },
+    {
+     "name": "drinking glass",
+     "plane": "near",
+     "x": 0.053,
+     "y": 0.861
+    },
+    {
+     "name": "wooden lifeguard tower",
+     "plane": "far",
+     "x": 0.573,
+     "y": 0.373
+    },
+    {
+     "name": "sailboat",
+     "plane": "far",
+     "x": 0.373,
+     "y": 0.288
+    },
+    {
+     "name": "striped beach umbrella",
+     "plane": "far",
+     "x": 0.421,
+     "y": 0.433
+    },
+    {
+     "name": "striped beach umbrella",
+     "plane": "far",
+     "x": 0.665,
+     "y": 0.453
+    }
+   ]
+  },
+  {
+   "id": "beach-terrace-far",
+   "setting_id": "beach-terrace",
+   "set": "practice",
+   "change_type": "presence",
+   "plane": "far",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Sitting at a beach bar terrace looking out over a beach",
+   "near_layer": "the terrace close to the camera: a table with drinking glasses, a straw hat, a bowl of lemons, a ceramic jug and a potted palm",
+   "far_layer": "the beach far away: striped beach umbrellas, a wooden lifeguard tower, sailboats and the sea",
+   "target": "a wooden lifeguard tower",
+   "fill": "the sand behind it",
+   "near_foils": [
+    "drinking glass",
+    "straw hat",
+    "ceramic jug",
+    "potted palm"
+   ],
+   "far_foils": [
+    "beach umbrella",
+    "sailboat",
+    "sea",
+    "dune"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting at a beach bar terrace looking out over a beach. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the terrace close to the camera: a table with drinking glasses, a straw hat, a bowl of lemons, a ceramic jug and a potted palm. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the beach far away: striped beach umbrellas, a wooden lifeguard tower, sailboats and the sea, visible through the gaps between the near things in every part of the frame. A wooden lifeguard tower (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent wooden lifeguard tower, completely, including its shadow and reflection, and fill its area with the sand behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "straw hat",
+     "plane": "near",
+     "x": 0.186,
+     "y": 0.848
+    },
+    {
+     "name": "clear drinking glass",
+     "plane": "near",
+     "x": 0.34,
+     "y": 0.786
+    },
+    {
+     "name": "bowl of lemons",
+     "plane": "near",
+     "x": 0.658,
+     "y": 0.855
+    },
+    {
+     "name": "ceramic jug",
+     "plane": "near",
+     "x": 0.842,
+     "y": 0.683
+    },
+    {
+     "name": "left sailboat",
+     "plane": "far",
+     "x": 0.164,
+     "y": 0.34
+    },
+    {
+     "name": "middle sailboat",
+     "plane": "far",
+     "x": 0.369,
+     "y": 0.34
+    },
+    {
+     "name": "large sailboat",
+     "plane": "far",
+     "x": 0.538,
+     "y": 0.321
+    },
+    {
+     "name": "striped beach umbrella",
+     "plane": "far",
+     "x": 0.455,
+     "y": 0.467
+    }
+   ]
+  },
+  {
+   "id": "street-window-near",
+   "setting_id": "street-window",
+   "set": "main",
+   "change_type": "color",
+   "plane": "near",
+   "position": "ul-in",
+   "target_xy": [
+    0.36,
+    0.33
+   ],
+   "setting": "Looking out of a living-room bay window onto a quiet residential street",
+   "near_layer": "on the window seat and the shelves around the window: a bright blue ceramic vase, stacked books, a brass lamp, a small plant and picture frames",
+   "far_layer": "the street far away: parked cars, trees, front gardens and terraced houses",
+   "target": "the bright blue ceramic vase",
+   "fill": "the shelf and the street behind it",
+   "near_foils": [
+    "stacked books",
+    "brass lamp",
+    "small plant",
+    "picture frame"
+   ],
+   "far_foils": [
+    "terraced house",
+    "tree",
+    "front garden",
+    "parked car"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out of a living-room bay window onto a quiet residential street. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the window seat and the shelves around the window: a bright blue ceramic vase, stacked books, a brass lamp, a small plant and picture frames. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the street far away: parked cars, trees, front gardens and terraced houses, visible through the gaps between the near things in every part of the frame. The bright blue ceramic vase (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-left part of the picture, about 36% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bright blue ceramic vase, completely, including its shadow and reflection, and fill its area with the shelf and the street behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "blue ceramic vase on left shelf",
+     "plane": "near",
+     "x": 0.102,
+     "y": 0.328
+    },
+    {
+     "name": "brass lamp",
+     "plane": "near",
+     "x": 0.905,
+     "y": 0.602
+    },
+    {
+     "name": "small potted plant beside lamp",
+     "plane": "near",
+     "x": 0.856,
+     "y": 0.677
+    },
+    {
+     "name": "framed picture on lower left shelf",
+     "plane": "near",
+     "x": 0.049,
+     "y": 0.856
+    },
+    {
+     "name": "dark parked car near middle of street",
+     "plane": "far",
+     "x": 0.643,
+     "y": 0.518
+    },
+    {
+     "name": "silver parked car behind dark car",
+     "plane": "far",
+     "x": 0.665,
+     "y": 0.494
+    },
+    {
+     "name": "red parked car on left side of street",
+     "plane": "far",
+     "x": 0.571,
+     "y": 0.553
+    },
+    {
+     "name": "gray parked car on right side of street",
+     "plane": "far",
+     "x": 0.765,
+     "y": 0.55
+    }
+   ]
+  },
+  {
+   "id": "street-window-far",
+   "setting_id": "street-window",
+   "set": "main",
+   "change_type": "color",
+   "plane": "far",
+   "position": "ul-in",
+   "target_xy": [
+    0.36,
+    0.33
+   ],
+   "setting": "Looking out of a living-room bay window onto a quiet residential street",
+   "near_layer": "on the window seat and the shelves around the window: a ceramic vase, stacked books, a brass lamp, a small plant and picture frames",
+   "far_layer": "the street far away: parked cars including one vivid blue car, trees, front gardens and terraced houses",
+   "target": "the vivid blue parked car",
+   "fill": "the street behind it",
+   "near_foils": [
+    "stacked books",
+    "brass lamp",
+    "small plant",
+    "picture frame"
+   ],
+   "far_foils": [
+    "terraced house",
+    "tree",
+    "front garden",
+    "parked car"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out of a living-room bay window onto a quiet residential street. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the window seat and the shelves around the window: a ceramic vase, stacked books, a brass lamp, a small plant and picture frames. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the street far away: parked cars including one vivid blue car, trees, front gardens and terraced houses, visible through the gaps between the near things in every part of the frame. The vivid blue parked car (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-left part of the picture, about 36% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent vivid blue parked car, completely, including its shadow and reflection, and fill its area with the street behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "blue-and-white ceramic vase",
+     "plane": "near",
+     "x": 0.036,
+     "y": 0.234
+    },
+    {
+     "name": "brass lamp",
+     "plane": "near",
+     "x": 0.932,
+     "y": 0.603
+    },
+    {
+     "name": "small potted plant",
+     "plane": "near",
+     "x": 0.799,
+     "y": 0.808
+    },
+    {
+     "name": "picture frame on left shelf",
+     "plane": "near",
+     "x": 0.038,
+     "y": 0.634
+    },
+    {
+     "name": "dark parked car",
+     "plane": "far",
+     "x": 0.553,
+     "y": 0.345
+    },
+    {
+     "name": "light-colored parked car farther up the street",
+     "plane": "far",
+     "x": 0.521,
+     "y": 0.287
+    },
+    {
+     "name": "gray parked car behind the dark car",
+     "plane": "far",
+     "x": 0.578,
+     "y": 0.328
+    },
+    {
+     "name": "iron garden gate",
+     "plane": "far",
+     "x": 0.497,
+     "y": 0.501
+    }
+   ]
+  },
+  {
+   "id": "bird-garden-near",
+   "setting_id": "bird-garden",
+   "set": "main",
+   "change_type": "color",
+   "plane": "near",
+   "position": "lr-out",
+   "target_xy": [
+    0.78,
+    0.75
+   ],
+   "setting": "Standing in a cottage garden close to bird feeders, looking toward a cottage",
+   "near_layer": "close to the camera: hanging bird feeders, a bright blue metal watering can on a stump, flower pots and a string of bunting at the top",
+   "far_layer": "the cottage far away with a front door, a picket fence, apple trees and a stone wall",
+   "target": "the bright blue watering can",
+   "fill": "the stump and the garden behind it",
+   "near_foils": [
+    "bird feeder",
+    "flower pot",
+    "bunting",
+    "tree stump"
+   ],
+   "far_foils": [
+    "picket fence",
+    "apple tree",
+    "stone wall",
+    "cottage window"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing in a cottage garden close to bird feeders, looking toward a cottage. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: hanging bird feeders, a bright blue metal watering can on a stump, flower pots and a string of bunting at the top. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the cottage far away with a front door, a picket fence, apple trees and a stone wall, visible through the gaps between the near things in every part of the frame. The bright blue watering can (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-right part of the picture, about 78% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bright blue watering can, completely, including its shadow and reflection, and fill its area with the stump and the garden behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "cylindrical seed feeder",
+     "plane": "near",
+     "x": 0.108,
+     "y": 0.275
+    },
+    {
+     "name": "wire mesh bird feeder",
+     "plane": "near",
+     "x": 0.248,
+     "y": 0.306
+    },
+    {
+     "name": "wooden bird feeder",
+     "plane": "near",
+     "x": 0.386,
+     "y": 0.275
+    },
+    {
+     "name": "blue checked bunting flag",
+     "plane": "near",
+     "x": 0.301,
+     "y": 0.104
+    },
+    {
+     "name": "cottage front door",
+     "plane": "far",
+     "x": 0.548,
+     "y": 0.505
+    },
+    {
+     "name": "upstairs cottage window",
+     "plane": "far",
+     "x": 0.613,
+     "y": 0.403
+    },
+    {
+     "name": "cottage chimney",
+     "plane": "far",
+     "x": 0.668,
+     "y": 0.22
+    },
+    {
+     "name": "wooden picket gate",
+     "plane": "far",
+     "x": 0.464,
+     "y": 0.652
+    }
+   ]
+  },
+  {
+   "id": "bird-garden-far",
+   "setting_id": "bird-garden",
+   "set": "main",
+   "change_type": "color",
+   "plane": "far",
+   "position": "lr-out",
+   "target_xy": [
+    0.78,
+    0.75
+   ],
+   "setting": "Standing in a cottage garden close to bird feeders, looking toward a cottage",
+   "near_layer": "close to the camera: hanging bird feeders, a metal watering can on a stump, flower pots and a string of bunting at the top",
+   "far_layer": "the cottage far away with a vivid blue front door, a picket fence, apple trees and a stone wall",
+   "target": "the vivid blue front door of the cottage",
+   "fill": "the cottage wall around it",
+   "near_foils": [
+    "bird feeder",
+    "flower pot",
+    "bunting",
+    "tree stump"
+   ],
+   "far_foils": [
+    "picket fence",
+    "apple tree",
+    "stone wall",
+    "cottage window"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing in a cottage garden close to bird feeders, looking toward a cottage. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: hanging bird feeders, a metal watering can on a stump, flower pots and a string of bunting at the top. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the cottage far away with a vivid blue front door, a picket fence, apple trees and a stone wall, visible through the gaps between the near things in every part of the frame. The vivid blue front door of the cottage (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-right part of the picture, about 78% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent vivid blue front door of the cottage, completely, including its shadow and reflection, and fill its area with the cottage wall around it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "Left hanging bird feeder",
+     "plane": "near",
+     "x": 0.11,
+     "y": 0.31
+    },
+    {
+     "name": "Middle hanging bird feeder",
+     "plane": "near",
+     "x": 0.3,
+     "y": 0.35
+    },
+    {
+     "name": "Metal watering can",
+     "plane": "near",
+     "x": 0.29,
+     "y": 0.75
+    },
+    {
+     "name": "Terracotta pot of pansies",
+     "plane": "near",
+     "x": 0.8,
+     "y": 0.88
+    },
+    {
+     "name": "Cottage chimney",
+     "plane": "far",
+     "x": 0.81,
+     "y": 0.17
+    },
+    {
+     "name": "Left upper cottage window",
+     "plane": "far",
+     "x": 0.72,
+     "y": 0.38
+    },
+    {
+     "name": "Right upper cottage window",
+     "plane": "far",
+     "x": 0.84,
+     "y": 0.38
+    },
+    {
+     "name": "Wooden picket gate",
+     "plane": "far",
+     "x": 0.75,
+     "y": 0.7
+    }
+   ]
+  },
+  {
+   "id": "workshop-near",
+   "setting_id": "workshop",
+   "set": "main",
+   "change_type": "color",
+   "plane": "near",
+   "position": "ur-in",
+   "target_xy": [
+    0.64,
+    0.33
+   ],
+   "setting": "Looking through a workshop window into a farmyard",
+   "near_layer": "inside the workshop close to the camera: tools hanging on a pegboard at the top, jars of screws, a bright blue metal toolbox, a bench vice and a work lamp",
+   "far_layer": "the yard far away: a water barrel, a wooden barn, chickens and a stack of logs",
+   "target": "the bright blue toolbox",
+   "fill": "the workbench and the yard behind it",
+   "near_foils": [
+    "pegboard tools",
+    "jar of screws",
+    "bench vice",
+    "work lamp"
+   ],
+   "far_foils": [
+    "wooden barn",
+    "chickens",
+    "log stack",
+    "yard gate"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking through a workshop window into a farmyard. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): inside the workshop close to the camera: tools hanging on a pegboard at the top, jars of screws, a bright blue metal toolbox, a bench vice and a work lamp. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the yard far away: a water barrel, a wooden barn, chickens and a stack of logs, visible through the gaps between the near things in every part of the frame. The bright blue toolbox (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-right part of the picture, about 64% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bright blue toolbox, completely, including its shadow and reflection, and fill its area with the workbench and the yard behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging wrench",
+     "plane": "near",
+     "x": 0.22,
+     "y": 0.09
+    },
+    {
+     "name": "jar of screws",
+     "plane": "near",
+     "x": 0.33,
+     "y": 0.84
+    },
+    {
+     "name": "work lamp",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.38
+    },
+    {
+     "name": "bench vice",
+     "plane": "near",
+     "x": 0.87,
+     "y": 0.79
+    },
+    {
+     "name": "water barrel",
+     "plane": "far",
+     "x": 0.27,
+     "y": 0.58
+    },
+    {
+     "name": "wooden barn",
+     "plane": "far",
+     "x": 0.36,
+     "y": 0.39
+    },
+    {
+     "name": "chicken",
+     "plane": "far",
+     "x": 0.42,
+     "y": 0.66
+    },
+    {
+     "name": "stack of logs",
+     "plane": "far",
+     "x": 0.74,
+     "y": 0.51
+    }
+   ]
+  },
+  {
+   "id": "workshop-far",
+   "setting_id": "workshop",
+   "set": "main",
+   "change_type": "color",
+   "plane": "far",
+   "position": "ur-in",
+   "target_xy": [
+    0.64,
+    0.33
+   ],
+   "setting": "Looking through a workshop window into a farmyard",
+   "near_layer": "inside the workshop close to the camera: tools hanging on a pegboard at the top, jars of screws, a metal toolbox, a bench vice and a work lamp",
+   "far_layer": "the yard far away: a vivid blue water barrel, a wooden barn, chickens and a stack of logs",
+   "target": "the vivid blue water barrel",
+   "fill": "the barn wall behind it",
+   "near_foils": [
+    "pegboard tools",
+    "jar of screws",
+    "bench vice",
+    "work lamp"
+   ],
+   "far_foils": [
+    "wooden barn",
+    "chickens",
+    "log stack",
+    "yard gate"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking through a workshop window into a farmyard. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): inside the workshop close to the camera: tools hanging on a pegboard at the top, jars of screws, a metal toolbox, a bench vice and a work lamp. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the yard far away: a vivid blue water barrel, a wooden barn, chickens and a stack of logs, visible through the gaps between the near things in every part of the frame. The vivid blue water barrel (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-right part of the picture, about 64% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent vivid blue water barrel, completely, including its shadow and reflection, and fill its area with the barn wall behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "metal toolbox",
+     "plane": "near",
+     "x": 0.46,
+     "y": 0.76
+    },
+    {
+     "name": "bench vice",
+     "plane": "near",
+     "x": 0.8,
+     "y": 0.8
+    },
+    {
+     "name": "jar of screws",
+     "plane": "near",
+     "x": 0.21,
+     "y": 0.73
+    },
+    {
+     "name": "work lamp",
+     "plane": "near",
+     "x": 0.92,
+     "y": 0.27
+    },
+    {
+     "name": "wooden barn",
+     "plane": "far",
+     "x": 0.23,
+     "y": 0.33
+    },
+    {
+     "name": "chicken",
+     "plane": "far",
+     "x": 0.265,
+     "y": 0.48
+    },
+    {
+     "name": "chicken",
+     "plane": "far",
+     "x": 0.345,
+     "y": 0.53
+    },
+    {
+     "name": "chicken",
+     "plane": "far",
+     "x": 0.485,
+     "y": 0.48
+    }
+   ]
+  },
+  {
+   "id": "beach-railing-near",
+   "setting_id": "beach-railing",
+   "set": "main",
+   "change_type": "color",
+   "plane": "near",
+   "position": "ll-out",
+   "target_xy": [
+    0.22,
+    0.75
+   ],
+   "setting": "Leaning on a wooden boardwalk railing above a beach",
+   "near_layer": "on and around the railing close to the camera: hanging striped towels, a bright blue plastic beach bucket, a cooler box, sunglasses and a coiled rope",
+   "far_layer": "the beach far away: a beach umbrella, a lifeguard hut, sailboats and the sea",
+   "target": "the bright blue beach bucket",
+   "fill": "the railing and the beach behind it",
+   "near_foils": [
+    "striped towel",
+    "cooler box",
+    "coiled rope",
+    "railing post"
+   ],
+   "far_foils": [
+    "lifeguard hut",
+    "sailboat",
+    "sea",
+    "sand dune"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Leaning on a wooden boardwalk railing above a beach. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on and around the railing close to the camera: hanging striped towels, a bright blue plastic beach bucket, a cooler box, sunglasses and a coiled rope. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the beach far away: a beach umbrella, a lifeguard hut, sailboats and the sea, visible through the gaps between the near things in every part of the frame. The bright blue beach bucket (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-left part of the picture, about 22% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bright blue beach bucket, completely, including its shadow and reflection, and fill its area with the railing and the beach behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "blue-and-white striped towel",
+     "plane": "near",
+     "x": 0.088,
+     "y": 0.525
+    },
+    {
+     "name": "sunglasses",
+     "plane": "near",
+     "x": 0.265,
+     "y": 0.275
+    },
+    {
+     "name": "cooler box",
+     "plane": "near",
+     "x": 0.906,
+     "y": 0.712
+    },
+    {
+     "name": "coiled rope",
+     "plane": "near",
+     "x": 0.743,
+     "y": 0.891
+    },
+    {
+     "name": "beach umbrella",
+     "plane": "far",
+     "x": 0.42,
+     "y": 0.235
+    },
+    {
+     "name": "lifeguard hut",
+     "plane": "far",
+     "x": 0.676,
+     "y": 0.203
+    },
+    {
+     "name": "left sailboat",
+     "plane": "far",
+     "x": 0.27,
+     "y": 0.133
+    },
+    {
+     "name": "right sailboat",
+     "plane": "far",
+     "x": 0.773,
+     "y": 0.139
+    }
+   ]
+  },
+  {
+   "id": "beach-railing-far",
+   "setting_id": "beach-railing",
+   "set": "main",
+   "change_type": "color",
+   "plane": "far",
+   "position": "ll-out",
+   "target_xy": [
+    0.22,
+    0.75
+   ],
+   "setting": "Leaning on a wooden boardwalk railing above a beach",
+   "near_layer": "on and around the railing close to the camera: hanging striped towels, a plastic beach bucket, a cooler box, sunglasses and a coiled rope",
+   "far_layer": "the beach far away: a vivid blue beach umbrella, a lifeguard hut, sailboats and the sea",
+   "target": "the vivid blue beach umbrella",
+   "fill": "the sand behind it",
+   "near_foils": [
+    "striped towel",
+    "cooler box",
+    "coiled rope",
+    "railing post"
+   ],
+   "far_foils": [
+    "lifeguard hut",
+    "sailboat",
+    "sea",
+    "sand dune"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Leaning on a wooden boardwalk railing above a beach. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on and around the railing close to the camera: hanging striped towels, a plastic beach bucket, a cooler box, sunglasses and a coiled rope. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the beach far away: a vivid blue beach umbrella, a lifeguard hut, sailboats and the sea, visible through the gaps between the near things in every part of the frame. The vivid blue beach umbrella (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-left part of the picture, about 22% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent vivid blue beach umbrella, completely, including its shadow and reflection, and fill its area with the sand behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "striped beach towel",
+     "plane": "near",
+     "x": 0.113,
+     "y": 0.598
+    },
+    {
+     "name": "red beach bucket",
+     "plane": "near",
+     "x": 0.356,
+     "y": 0.841
+    },
+    {
+     "name": "sunglasses",
+     "plane": "near",
+     "x": 0.567,
+     "y": 0.349
+    },
+    {
+     "name": "coiled rope",
+     "plane": "near",
+     "x": 0.727,
+     "y": 0.416
+    },
+    {
+     "name": "lifeguard hut",
+     "plane": "far",
+     "x": 0.805,
+     "y": 0.209
+    },
+    {
+     "name": "sailboat",
+     "plane": "far",
+     "x": 0.462,
+     "y": 0.151
+    },
+    {
+     "name": "sailboat",
+     "plane": "far",
+     "x": 0.652,
+     "y": 0.149
+    },
+    {
+     "name": "sailboat",
+     "plane": "far",
+     "x": 0.921,
+     "y": 0.143
+    }
+   ]
+  },
+  {
+   "id": "fish-quay-near",
+   "setting_id": "fish-quay",
+   "set": "main",
+   "change_type": "color",
+   "plane": "near",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Standing on a fishing quay among nets and crates, looking across the harbour",
+   "near_layer": "close to the camera: piled fishing nets, a bright blue plastic fish crate, ropes, a hanging lantern and buoys",
+   "far_layer": "the harbour far away: a small fishing boat, other moored boats, a breakwater and harbour houses",
+   "target": "the bright blue fish crate",
+   "fill": "the quay behind it",
+   "near_foils": [
+    "fishing net",
+    "rope coil",
+    "hanging lantern",
+    "buoy"
+   ],
+   "far_foils": [
+    "breakwater",
+    "harbour house",
+    "moored boat",
+    "lighthouse"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on a fishing quay among nets and crates, looking across the harbour. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: piled fishing nets, a bright blue plastic fish crate, ropes, a hanging lantern and buoys. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the harbour far away: a small fishing boat, other moored boats, a breakwater and harbour houses, visible through the gaps between the near things in every part of the frame. The bright blue fish crate (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bright blue fish crate, completely, including its shadow and reflection, and fill its area with the quay behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging lantern",
+     "plane": "near",
+     "x": 0.154,
+     "y": 0.183
+    },
+    {
+     "name": "left orange buoy",
+     "plane": "near",
+     "x": 0.048,
+     "y": 0.466
+    },
+    {
+     "name": "right orange buoy",
+     "plane": "near",
+     "x": 0.949,
+     "y": 0.235
+    },
+    {
+     "name": "mooring bollard",
+     "plane": "near",
+     "x": 0.505,
+     "y": 0.595
+    },
+    {
+     "name": "central fishing boat",
+     "plane": "far",
+     "x": 0.511,
+     "y": 0.341
+    },
+    {
+     "name": "white moored boat",
+     "plane": "far",
+     "x": 0.728,
+     "y": 0.335
+    },
+    {
+     "name": "lighthouse",
+     "plane": "far",
+     "x": 0.311,
+     "y": 0.276
+    },
+    {
+     "name": "gable-front harbour house",
+     "plane": "far",
+     "x": 0.758,
+     "y": 0.252
+    }
+   ]
+  },
+  {
+   "id": "fish-quay-far",
+   "setting_id": "fish-quay",
+   "set": "main",
+   "change_type": "color",
+   "plane": "far",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Standing on a fishing quay among nets and crates, looking across the harbour",
+   "near_layer": "close to the camera: piled fishing nets, a plastic fish crate, ropes, a hanging lantern and buoys",
+   "far_layer": "the harbour far away: a small vivid blue fishing boat, other moored boats, a breakwater and harbour houses",
+   "target": "the small vivid blue fishing boat",
+   "fill": "the water behind it",
+   "near_foils": [
+    "fishing net",
+    "rope coil",
+    "hanging lantern",
+    "buoy"
+   ],
+   "far_foils": [
+    "breakwater",
+    "harbour house",
+    "moored boat",
+    "lighthouse"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on a fishing quay among nets and crates, looking across the harbour. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: piled fishing nets, a plastic fish crate, ropes, a hanging lantern and buoys. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the harbour far away: a small vivid blue fishing boat, other moored boats, a breakwater and harbour houses, visible through the gaps between the near things in every part of the frame. The small vivid blue fishing boat (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent small vivid blue fishing boat, completely, including its shadow and reflection, and fill its area with the water behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "orange buoy on the left",
+     "plane": "near",
+     "x": 0.166,
+     "y": 0.152
+    },
+    {
+     "name": "hanging lantern",
+     "plane": "near",
+     "x": 0.655,
+     "y": 0.134
+    },
+    {
+     "name": "plastic fish crate",
+     "plane": "near",
+     "x": 0.398,
+     "y": 0.822
+    },
+    {
+     "name": "lobster pot on the right",
+     "plane": "near",
+     "x": 0.739,
+     "y": 0.666
+    },
+    {
+     "name": "lighthouse on the breakwater",
+     "plane": "far",
+     "x": 0.443,
+     "y": 0.302
+    },
+    {
+     "name": "white fishing boat left of centre",
+     "plane": "far",
+     "x": 0.522,
+     "y": 0.366
+    },
+    {
+     "name": "red-and-white fishing boat",
+     "plane": "far",
+     "x": 0.612,
+     "y": 0.365
+    },
+    {
+     "name": "blue-and-white fishing boat on the right",
+     "plane": "far",
+     "x": 0.835,
+     "y": 0.379
+    }
+   ]
+  },
+  {
+   "id": "farm-fence-near",
+   "setting_id": "farm-fence",
+   "set": "main",
+   "change_type": "color",
+   "plane": "near",
+   "position": "ur-out",
+   "target_xy": [
+    0.78,
+    0.25
+   ],
+   "setting": "Standing at a farm fence looking across fields",
+   "near_layer": "on the fence close to the camera: a bright blue enamel milk can on a post, wildflowers, a hanging cow bell and a wooden fence rail",
+   "far_layer": "the fields far away: a pickup truck by a barn, haystacks, a windmill and hedgerows",
+   "target": "the bright blue milk can",
+   "fill": "the fence and the field behind it",
+   "near_foils": [
+    "wildflowers",
+    "cow bell",
+    "fence post",
+    "fence rail"
+   ],
+   "far_foils": [
+    "barn",
+    "haystack",
+    "windmill",
+    "hedgerow"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing at a farm fence looking across fields. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the fence close to the camera: a bright blue enamel milk can on a post, wildflowers, a hanging cow bell and a wooden fence rail. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the fields far away: a pickup truck by a barn, haystacks, a windmill and hedgerows, visible through the gaps between the near things in every part of the frame. The bright blue milk can (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-right part of the picture, about 78% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bright blue milk can, completely, including its shadow and reflection, and fill its area with the fence and the field behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hanging cow bell",
+     "plane": "near",
+     "x": 0.85,
+     "y": 0.695
+    },
+    {
+     "name": "wooden fence rail",
+     "plane": "near",
+     "x": 0.49,
+     "y": 0.63
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.233,
+     "y": 0.657
+    },
+    {
+     "name": "purple thistle flower",
+     "plane": "near",
+     "x": 0.133,
+     "y": 0.468
+    },
+    {
+     "name": "pickup truck",
+     "plane": "far",
+     "x": 0.298,
+     "y": 0.371
+    },
+    {
+     "name": "barn",
+     "plane": "far",
+     "x": 0.274,
+     "y": 0.309
+    },
+    {
+     "name": "windmill",
+     "plane": "far",
+     "x": 0.472,
+     "y": 0.26
+    },
+    {
+     "name": "hay bale",
+     "plane": "far",
+     "x": 0.448,
+     "y": 0.362
+    }
+   ]
+  },
+  {
+   "id": "farm-fence-far",
+   "setting_id": "farm-fence",
+   "set": "main",
+   "change_type": "color",
+   "plane": "far",
+   "position": "ur-out",
+   "target_xy": [
+    0.78,
+    0.25
+   ],
+   "setting": "Standing at a farm fence looking across fields",
+   "near_layer": "on the fence close to the camera: an enamel milk can on a post, wildflowers, a hanging cow bell and a wooden fence rail",
+   "far_layer": "the fields far away: a vivid blue pickup truck by a barn, haystacks, a windmill and hedgerows",
+   "target": "the vivid blue pickup truck",
+   "fill": "the barn wall behind it",
+   "near_foils": [
+    "wildflowers",
+    "cow bell",
+    "fence post",
+    "fence rail"
+   ],
+   "far_foils": [
+    "barn",
+    "haystack",
+    "windmill",
+    "hedgerow"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing at a farm fence looking across fields. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the fence close to the camera: an enamel milk can on a post, wildflowers, a hanging cow bell and a wooden fence rail. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the fields far away: a vivid blue pickup truck by a barn, haystacks, a windmill and hedgerows, visible through the gaps between the near things in every part of the frame. The vivid blue pickup truck (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-right part of the picture, about 78% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent vivid blue pickup truck, completely, including its shadow and reflection, and fill its area with the barn wall behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "enamel milk can",
+     "plane": "near",
+     "x": 0.14,
+     "y": 0.3
+    },
+    {
+     "name": "hanging cow bell",
+     "plane": "near",
+     "x": 0.79,
+     "y": 0.85
+    },
+    {
+     "name": "wooden fence rail",
+     "plane": "near",
+     "x": 0.62,
+     "y": 0.67
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.15,
+     "y": 0.84
+    },
+    {
+     "name": "windmill",
+     "plane": "far",
+     "x": 0.41,
+     "y": 0.2
+    },
+    {
+     "name": "left haystack",
+     "plane": "far",
+     "x": 0.42,
+     "y": 0.27
+    },
+    {
+     "name": "right haystack",
+     "plane": "far",
+     "x": 0.57,
+     "y": 0.24
+    }
+   ]
+  },
+  {
+   "id": "plaza-cafe-near",
+   "setting_id": "plaza-cafe",
+   "set": "main",
+   "change_type": "color",
+   "plane": "near",
+   "position": "lr-in",
+   "target_xy": [
+    0.64,
+    0.67
+   ],
+   "setting": "Sitting at a cafe table looking across a sunny plaza",
+   "near_layer": "the table close to the camera: coffee cups, a bright blue ceramic teapot, a sugar bowl, a potted lavender and a bread basket",
+   "far_layer": "the plaza far away: a bicycle leaning on a wall, a fountain, shop fronts with awnings and trees",
+   "target": "the bright blue teapot",
+   "fill": "the table and the plaza behind it",
+   "near_foils": [
+    "coffee cup",
+    "sugar bowl",
+    "potted lavender",
+    "bread basket"
+   ],
+   "far_foils": [
+    "fountain",
+    "awning",
+    "tree",
+    "shop front"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting at a cafe table looking across a sunny plaza. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the table close to the camera: coffee cups, a bright blue ceramic teapot, a sugar bowl, a potted lavender and a bread basket. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the plaza far away: a bicycle leaning on a wall, a fountain, shop fronts with awnings and trees, visible through the gaps between the near things in every part of the frame. The bright blue teapot (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-right part of the picture, about 64% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bright blue teapot, completely, including its shadow and reflection, and fill its area with the table and the plaza behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "potted lavender",
+     "plane": "near",
+     "x": 0.3,
+     "y": 0.5
+    },
+    {
+     "name": "bread basket",
+     "plane": "near",
+     "x": 0.12,
+     "y": 0.71
+    },
+    {
+     "name": "sugar bowl",
+     "plane": "near",
+     "x": 0.47,
+     "y": 0.66
+    },
+    {
+     "name": "coffee cup",
+     "plane": "near",
+     "x": 0.32,
+     "y": 0.88
+    },
+    {
+     "name": "bicycle",
+     "plane": "far",
+     "x": 0.1,
+     "y": 0.31
+    },
+    {
+     "name": "fountain",
+     "plane": "far",
+     "x": 0.74,
+     "y": 0.24
+    },
+    {
+     "name": "central shop awning",
+     "plane": "far",
+     "x": 0.49,
+     "y": 0.19
+    },
+    {
+     "name": "right shop awning",
+     "plane": "far",
+     "x": 0.93,
+     "y": 0.17
+    }
+   ]
+  },
+  {
+   "id": "plaza-cafe-far",
+   "setting_id": "plaza-cafe",
+   "set": "main",
+   "change_type": "color",
+   "plane": "far",
+   "position": "lr-in",
+   "target_xy": [
+    0.64,
+    0.67
+   ],
+   "setting": "Sitting at a cafe table looking across a sunny plaza",
+   "near_layer": "the table close to the camera: coffee cups, a ceramic teapot, a sugar bowl, a potted lavender and a bread basket",
+   "far_layer": "the plaza far away: a vivid blue bicycle leaning on a wall, a fountain, shop fronts with awnings and trees",
+   "target": "the vivid blue bicycle",
+   "fill": "the wall behind it",
+   "near_foils": [
+    "coffee cup",
+    "sugar bowl",
+    "potted lavender",
+    "bread basket"
+   ],
+   "far_foils": [
+    "fountain",
+    "awning",
+    "tree",
+    "shop front"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting at a cafe table looking across a sunny plaza. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): the table close to the camera: coffee cups, a ceramic teapot, a sugar bowl, a potted lavender and a bread basket. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the plaza far away: a vivid blue bicycle leaning on a wall, a fountain, shop fronts with awnings and trees, visible through the gaps between the near things in every part of the frame. The vivid blue bicycle (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-right part of the picture, about 64% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent vivid blue bicycle, completely, including its shadow and reflection, and fill its area with the wall behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "coffee cup",
+     "plane": "near",
+     "x": 0.12,
+     "y": 0.82
+    },
+    {
+     "name": "ceramic teapot",
+     "plane": "near",
+     "x": 0.66,
+     "y": 0.67
+    },
+    {
+     "name": "sugar bowl",
+     "plane": "near",
+     "x": 0.49,
+     "y": 0.79
+    },
+    {
+     "name": "bread basket",
+     "plane": "near",
+     "x": 0.9,
+     "y": 0.69
+    },
+    {
+     "name": "fountain",
+     "plane": "far",
+     "x": 0.39,
+     "y": 0.26
+    },
+    {
+     "name": "green shop awning",
+     "plane": "far",
+     "x": 0.35,
+     "y": 0.2
+    },
+    {
+     "name": "large tree planter",
+     "plane": "far",
+     "x": 0.76,
+     "y": 0.36
+    },
+    {
+     "name": "wall lantern",
+     "plane": "far",
+     "x": 0.78,
+     "y": 0.05
+    }
+   ]
+  },
+  {
+   "id": "snow-cabin-near",
+   "setting_id": "snow-cabin",
+   "set": "main",
+   "change_type": "color",
+   "plane": "near",
+   "position": "ul-out",
+   "target_xy": [
+    0.22,
+    0.25
+   ],
+   "setting": "Looking out of a cabin window onto a snowy hillside",
+   "near_layer": "on the windowsill and around the window frame: wool mittens, mugs, a bright blue thermos flask, candles and a pine cone garland at the top",
+   "far_layer": "the snowy hillside far away: a sled, fir trees, a wooden fence and a distant chalet",
+   "target": "the bright blue thermos flask",
+   "fill": "the sill and the snow behind it",
+   "near_foils": [
+    "wool mittens",
+    "mug",
+    "candle",
+    "pine cone garland"
+   ],
+   "far_foils": [
+    "fir tree",
+    "wooden fence",
+    "chalet",
+    "snowy hill"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out of a cabin window onto a snowy hillside. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the windowsill and around the window frame: wool mittens, mugs, a bright blue thermos flask, candles and a pine cone garland at the top. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the snowy hillside far away: a sled, fir trees, a wooden fence and a distant chalet, visible through the gaps between the near things in every part of the frame. The bright blue thermos flask (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-left part of the picture, about 22% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bright blue thermos flask, completely, including its shadow and reflection, and fill its area with the sill and the snow behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "left ceramic mug",
+     "plane": "near",
+     "x": 0.435,
+     "y": 0.75
+    },
+    {
+     "name": "birch-wrapped candle",
+     "plane": "near",
+     "x": 0.73,
+     "y": 0.76
+    },
+    {
+     "name": "pine cone on windowsill",
+     "plane": "near",
+     "x": 0.795,
+     "y": 0.8
+    },
+    {
+     "name": "foreground wool mitten",
+     "plane": "near",
+     "x": 0.16,
+     "y": 0.84
+    },
+    {
+     "name": "sled",
+     "plane": "far",
+     "x": 0.445,
+     "y": 0.585
+    },
+    {
+     "name": "distant chalet",
+     "plane": "far",
+     "x": 0.73,
+     "y": 0.345
+    },
+    {
+     "name": "large right fir tree",
+     "plane": "far",
+     "x": 0.855,
+     "y": 0.35
+    },
+    {
+     "name": "small central fir tree",
+     "plane": "far",
+     "x": 0.595,
+     "y": 0.435
+    }
+   ]
+  },
+  {
+   "id": "snow-cabin-far",
+   "setting_id": "snow-cabin",
+   "set": "main",
+   "change_type": "color",
+   "plane": "far",
+   "position": "ul-out",
+   "target_xy": [
+    0.22,
+    0.25
+   ],
+   "setting": "Looking out of a cabin window onto a snowy hillside",
+   "near_layer": "on the windowsill and around the window frame: wool mittens, mugs, a thermos flask, candles and a pine cone garland at the top",
+   "far_layer": "the snowy hillside far away: a vivid blue sled, fir trees, a wooden fence and a distant chalet",
+   "target": "the vivid blue sled in the snow",
+   "fill": "the snow behind it",
+   "near_foils": [
+    "wool mittens",
+    "mug",
+    "candle",
+    "pine cone garland"
+   ],
+   "far_foils": [
+    "fir tree",
+    "wooden fence",
+    "chalet",
+    "snowy hill"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out of a cabin window onto a snowy hillside. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the windowsill and around the window frame: wool mittens, mugs, a thermos flask, candles and a pine cone garland at the top. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the snowy hillside far away: a vivid blue sled, fir trees, a wooden fence and a distant chalet, visible through the gaps between the near things in every part of the frame. The vivid blue sled in the snow (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-left part of the picture, about 22% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent vivid blue sled in the snow, completely, including its shadow and reflection, and fill its area with the snow behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "left mug",
+     "plane": "near",
+     "x": 0.1,
+     "y": 0.81
+    },
+    {
+     "name": "right mug",
+     "plane": "near",
+     "x": 0.585,
+     "y": 0.81
+    },
+    {
+     "name": "thermos flask",
+     "plane": "near",
+     "x": 0.405,
+     "y": 0.655
+    },
+    {
+     "name": "pillar candle",
+     "plane": "near",
+     "x": 0.805,
+     "y": 0.745
+    },
+    {
+     "name": "wooden chalet",
+     "plane": "far",
+     "x": 0.78,
+     "y": 0.31
+    },
+    {
+     "name": "large central fir tree",
+     "plane": "far",
+     "x": 0.54,
+     "y": 0.31
+    },
+    {
+     "name": "fir tree left of the central fir",
+     "plane": "far",
+     "x": 0.455,
+     "y": 0.225
+    },
+    {
+     "name": "wooden fence",
+     "plane": "far",
+     "x": 0.52,
+     "y": 0.59
+    }
+   ]
+  },
+  {
+   "id": "lake-dock-near",
+   "setting_id": "lake-dock",
+   "set": "practice",
+   "change_type": "color",
+   "plane": "near",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Standing on a wooden lake dock looking across the water",
+   "near_layer": "close to the camera: a bright blue life ring hanging on a dock post, a coil of rope, a lantern and a fishing net",
+   "far_layer": "the lake far away: a rowing boat, a boathouse, reeds and forested hills",
+   "target": "the bright blue life ring",
+   "fill": "the post and the lake behind it",
+   "near_foils": [
+    "rope coil",
+    "lantern",
+    "fishing net",
+    "dock post"
+   ],
+   "far_foils": [
+    "boathouse",
+    "reeds",
+    "forested hill",
+    "lake shore"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on a wooden lake dock looking across the water. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: a bright blue life ring hanging on a dock post, a coil of rope, a lantern and a fishing net. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the lake far away: a rowing boat, a boathouse, reeds and forested hills, visible through the gaps between the near things in every part of the frame. The bright blue life ring (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent bright blue life ring, completely, including its shadow and reflection, and fill its area with the post and the lake behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "lantern",
+     "plane": "near",
+     "x": 0.064,
+     "y": 0.781
+    },
+    {
+     "name": "fishing net",
+     "plane": "near",
+     "x": 0.841,
+     "y": 0.57
+    },
+    {
+     "name": "right dock post",
+     "plane": "near",
+     "x": 0.958,
+     "y": 0.4
+    },
+    {
+     "name": "rowing boat",
+     "plane": "far",
+     "x": 0.468,
+     "y": 0.31
+    },
+    {
+     "name": "boathouse",
+     "plane": "far",
+     "x": 0.814,
+     "y": 0.243
+    }
+   ]
+  },
+  {
+   "id": "lake-dock-far",
+   "setting_id": "lake-dock",
+   "set": "practice",
+   "change_type": "color",
+   "plane": "far",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Standing on a wooden lake dock looking across the water",
+   "near_layer": "close to the camera: a life ring hanging on a dock post, a coil of rope, a lantern and a fishing net",
+   "far_layer": "the lake far away: a vivid blue rowing boat, a boathouse, reeds and forested hills",
+   "target": "the vivid blue rowing boat",
+   "fill": "the water behind it",
+   "near_foils": [
+    "rope coil",
+    "lantern",
+    "fishing net",
+    "dock post"
+   ],
+   "far_foils": [
+    "boathouse",
+    "reeds",
+    "forested hill",
+    "lake shore"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing on a wooden lake dock looking across the water. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: a life ring hanging on a dock post, a coil of rope, a lantern and a fishing net. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the lake far away: a vivid blue rowing boat, a boathouse, reeds and forested hills, visible through the gaps between the near things in every part of the frame. The vivid blue rowing boat (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. It is the only blue thing in the picture. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent vivid blue rowing boat, completely, including its shadow and reflection, and fill its area with the water behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "life ring",
+     "plane": "near",
+     "x": 0.11,
+     "y": 0.44
+    },
+    {
+     "name": "coil of rope",
+     "plane": "near",
+     "x": 0.58,
+     "y": 0.83
+    },
+    {
+     "name": "lantern",
+     "plane": "near",
+     "x": 0.72,
+     "y": 0.72
+    },
+    {
+     "name": "fishing net",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.57
+    },
+    {
+     "name": "boathouse",
+     "plane": "far",
+     "x": 0.7,
+     "y": 0.3
+    },
+    {
+     "name": "pine trees on the far shore",
+     "plane": "far",
+     "x": 0.55,
+     "y": 0.2
+    },
+    {
+     "name": "forested hill on the far shore",
+     "plane": "far",
+     "x": 0.33,
+     "y": 0.15
+    }
+   ]
+  },
+  {
+   "id": "rooftop-sill-near",
+   "setting_id": "rooftop-sill",
+   "set": "main",
+   "change_type": "location",
+   "plane": "near",
+   "position": "ul-in",
+   "target_xy": [
+    0.36,
+    0.33
+   ],
+   "setting": "Looking out of an attic window over the rooftops of an old city",
+   "near_layer": "on the windowsill and a shelf close to the camera: potted succulents, a white mug, a stack of books, a small radio and a candle",
+   "far_layer": "the rooftops far away: tiled roofs, chimneys, a wooden water tower and church spires",
+   "target": "the white mug standing on the sill",
+   "fill": "the sill and the rooftops behind it",
+   "near_foils": [
+    "succulent pot",
+    "stack of books",
+    "radio",
+    "candle"
+   ],
+   "far_foils": [
+    "chimney",
+    "tiled roof",
+    "church spire",
+    "dormer window"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out of an attic window over the rooftops of an old city. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the windowsill and a shelf close to the camera: potted succulents, a white mug, a stack of books, a small radio and a candle. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the rooftops far away: tiled roofs, chimneys, a wooden water tower and church spires, visible through the gaps between the near things in every part of the frame. The white mug standing on the sill (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-left part of the picture, about 36% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent white mug standing on the sill, completely, including its shadow and reflection, and fill its area with the sill and the rooftops behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "radio",
+     "plane": "near",
+     "x": 0.44,
+     "y": 0.82
+    },
+    {
+     "name": "candle in glass jar",
+     "plane": "near",
+     "x": 0.63,
+     "y": 0.79
+    },
+    {
+     "name": "green book on top of stack",
+     "plane": "near",
+     "x": 0.2,
+     "y": 0.67
+    },
+    {
+     "name": "potted succulent on lower right",
+     "plane": "near",
+     "x": 0.91,
+     "y": 0.71
+    },
+    {
+     "name": "wooden water tower",
+     "plane": "far",
+     "x": 0.66,
+     "y": 0.24
+    },
+    {
+     "name": "brick chimney with three flues",
+     "plane": "far",
+     "x": 0.83,
+     "y": 0.32
+    },
+    {
+     "name": "church spire on far right",
+     "plane": "far",
+     "x": 0.85,
+     "y": 0.18
+    },
+    {
+     "name": "church spire to the right of water tower",
+     "plane": "far",
+     "x": 0.75,
+     "y": 0.22
+    }
+   ]
+  },
+  {
+   "id": "rooftop-sill-far",
+   "setting_id": "rooftop-sill",
+   "set": "main",
+   "change_type": "location",
+   "plane": "far",
+   "position": "ul-in",
+   "target_xy": [
+    0.36,
+    0.33
+   ],
+   "setting": "Looking out of an attic window over the rooftops of an old city",
+   "near_layer": "on the windowsill and a shelf close to the camera: potted succulents, a white mug, a stack of books, a small radio and a candle",
+   "far_layer": "the rooftops far away: tiled roofs, chimneys, a wooden water tower and church spires",
+   "target": "the wooden water tower on a roof",
+   "fill": "the sky and roofs behind it",
+   "near_foils": [
+    "succulent pot",
+    "stack of books",
+    "radio",
+    "candle"
+   ],
+   "far_foils": [
+    "chimney",
+    "tiled roof",
+    "church spire",
+    "dormer window"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Looking out of an attic window over the rooftops of an old city. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the windowsill and a shelf close to the camera: potted succulents, a white mug, a stack of books, a small radio and a candle. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the rooftops far away: tiled roofs, chimneys, a wooden water tower and church spires, visible through the gaps between the near things in every part of the frame. The wooden water tower on a roof (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-left part of the picture, about 36% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent wooden water tower on a roof, completely, including its shadow and reflection, and fill its area with the sky and roofs behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "potted succulent",
+     "plane": "near",
+     "x": 0.265,
+     "y": 0.706
+    },
+    {
+     "name": "white mug",
+     "plane": "near",
+     "x": 0.546,
+     "y": 0.808
+    },
+    {
+     "name": "radio",
+     "plane": "near",
+     "x": 0.776,
+     "y": 0.763
+    },
+    {
+     "name": "candle",
+     "plane": "near",
+     "x": 0.858,
+     "y": 0.863
+    },
+    {
+     "name": "church spire",
+     "plane": "far",
+     "x": 0.561,
+     "y": 0.285
+    },
+    {
+     "name": "church tower",
+     "plane": "far",
+     "x": 0.689,
+     "y": 0.265
+    },
+    {
+     "name": "light-colored chimney",
+     "plane": "far",
+     "x": 0.435,
+     "y": 0.559
+    },
+    {
+     "name": "tall rooftop chimney",
+     "plane": "far",
+     "x": 0.58,
+     "y": 0.594
+    }
+   ]
+  },
+  {
+   "id": "sheep-fence-near",
+   "setting_id": "sheep-fence",
+   "set": "main",
+   "change_type": "location",
+   "plane": "near",
+   "position": "lr-out",
+   "target_xy": [
+    0.78,
+    0.75
+   ],
+   "setting": "Standing at a wooden pasture fence looking across a valley",
+   "near_layer": "on the fence close to the camera: a tin watering can standing on the top rail, a wooden bird house on a post, wild flowers and the fence rails",
+   "far_layer": "the valley far away: white sheep grazing, a stone barn, a farm track and hills",
+   "target": "the tin watering can on the rail",
+   "fill": "the rail and the valley behind it",
+   "near_foils": [
+    "bird house",
+    "wild flowers",
+    "fence post",
+    "fence rail"
+   ],
+   "far_foils": [
+    "stone barn",
+    "farm track",
+    "hill",
+    "grazing sheep"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing at a wooden pasture fence looking across a valley. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the fence close to the camera: a tin watering can standing on the top rail, a wooden bird house on a post, wild flowers and the fence rails. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the valley far away: white sheep grazing, a stone barn, a farm track and hills, visible through the gaps between the near things in every part of the frame. The tin watering can on the rail (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-right part of the picture, about 78% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent tin watering can on the rail, completely, including its shadow and reflection, and fill its area with the rail and the valley behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "wooden birdhouse",
+     "plane": "near",
+     "x": 0.095,
+     "y": 0.123
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.158,
+     "y": 0.846
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.349,
+     "y": 0.842
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.403,
+     "y": 0.758
+    },
+    {
+     "name": "stone barn",
+     "plane": "far",
+     "x": 0.374,
+     "y": 0.418
+    },
+    {
+     "name": "sheep",
+     "plane": "far",
+     "x": 0.224,
+     "y": 0.448
+    },
+    {
+     "name": "sheep",
+     "plane": "far",
+     "x": 0.332,
+     "y": 0.516
+    },
+    {
+     "name": "sheep",
+     "plane": "far",
+     "x": 0.54,
+     "y": 0.541
+    }
+   ]
+  },
+  {
+   "id": "sheep-fence-far",
+   "setting_id": "sheep-fence",
+   "set": "main",
+   "change_type": "location",
+   "plane": "far",
+   "position": "lr-out",
+   "target_xy": [
+    0.78,
+    0.75
+   ],
+   "setting": "Standing at a wooden pasture fence looking across a valley",
+   "near_layer": "on the fence close to the camera: a tin watering can standing on the top rail, a wooden bird house on a post, wild flowers and the fence rails",
+   "far_layer": "the valley far away: white sheep grazing, a stone barn, a farm track and hills",
+   "target": "one white sheep standing alone on the grass",
+   "fill": "the grass behind it",
+   "near_foils": [
+    "bird house",
+    "wild flowers",
+    "fence post",
+    "fence rail"
+   ],
+   "far_foils": [
+    "stone barn",
+    "farm track",
+    "hill",
+    "grazing sheep"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing at a wooden pasture fence looking across a valley. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the fence close to the camera: a tin watering can standing on the top rail, a wooden bird house on a post, wild flowers and the fence rails. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the valley far away: white sheep grazing, a stone barn, a farm track and hills, visible through the gaps between the near things in every part of the frame. One white sheep standing alone on the grass (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-right part of the picture, about 78% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent white sheep standing alone on the grass, completely, including its shadow and reflection, and fill its area with the grass behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "tin watering can",
+     "plane": "near",
+     "x": 0.368,
+     "y": 0.515
+    },
+    {
+     "name": "wooden birdhouse",
+     "plane": "near",
+     "x": 0.105,
+     "y": 0.177
+    },
+    {
+     "name": "white daisy",
+     "plane": "near",
+     "x": 0.078,
+     "y": 0.683
+    },
+    {
+     "name": "right fence post",
+     "plane": "near",
+     "x": 0.956,
+     "y": 0.761
+    },
+    {
+     "name": "stone barn",
+     "plane": "far",
+     "x": 0.671,
+     "y": 0.356
+    },
+    {
+     "name": "sheep left of centre",
+     "plane": "far",
+     "x": 0.488,
+     "y": 0.431
+    },
+    {
+     "name": "sheep near centre",
+     "plane": "far",
+     "x": 0.532,
+     "y": 0.421
+    },
+    {
+     "name": "sheep beside the track on the right",
+     "plane": "far",
+     "x": 0.927,
+     "y": 0.434
+    }
+   ]
+  },
+  {
+   "id": "harbour-rail-near",
+   "setting_id": "harbour-rail",
+   "set": "main",
+   "change_type": "location",
+   "plane": "near",
+   "position": "ur-in",
+   "target_xy": [
+    0.64,
+    0.33
+   ],
+   "setting": "Standing at a harbour promenade railing",
+   "near_layer": "close to the camera: the metal railing with a seagull standing on it, a hanging flower basket, a lamp post and a mooring bollard",
+   "far_layer": "the harbour far away: a moored white yacht, fishing boats, the harbour wall and hills",
+   "target": "the seagull standing on the railing",
+   "fill": "the railing and the harbour behind it",
+   "near_foils": [
+    "flower basket",
+    "lamp post",
+    "mooring bollard",
+    "railing"
+   ],
+   "far_foils": [
+    "fishing boat",
+    "harbour wall",
+    "hill",
+    "buoy"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing at a harbour promenade railing. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: the metal railing with a seagull standing on it, a hanging flower basket, a lamp post and a mooring bollard. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the harbour far away: a moored white yacht, fishing boats, the harbour wall and hills, visible through the gaps between the near things in every part of the frame. The seagull standing on the railing (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-right part of the picture, about 64% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent seagull standing on the railing, completely, including its shadow and reflection, and fill its area with the railing and the harbour behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "lamp post",
+     "plane": "near",
+     "x": 0.07,
+     "y": 0.45
+    },
+    {
+     "name": "hanging flower basket",
+     "plane": "near",
+     "x": 0.11,
+     "y": 0.29
+    },
+    {
+     "name": "mooring bollard",
+     "plane": "near",
+     "x": 0.22,
+     "y": 0.85
+    },
+    {
+     "name": "white yacht",
+     "plane": "far",
+     "x": 0.34,
+     "y": 0.48
+    },
+    {
+     "name": "red and white fishing boat",
+     "plane": "far",
+     "x": 0.94,
+     "y": 0.44
+    }
+   ]
+  },
+  {
+   "id": "harbour-rail-far",
+   "setting_id": "harbour-rail",
+   "set": "main",
+   "change_type": "location",
+   "plane": "far",
+   "position": "ur-in",
+   "target_xy": [
+    0.64,
+    0.33
+   ],
+   "setting": "Standing at a harbour promenade railing",
+   "near_layer": "close to the camera: the metal railing with a seagull standing on it, a hanging flower basket, a lamp post and a mooring bollard",
+   "far_layer": "the harbour far away: a moored white yacht, fishing boats, the harbour wall and hills",
+   "target": "a moored white yacht",
+   "fill": "the water behind it",
+   "near_foils": [
+    "flower basket",
+    "lamp post",
+    "mooring bollard",
+    "railing"
+   ],
+   "far_foils": [
+    "fishing boat",
+    "harbour wall",
+    "hill",
+    "buoy"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Standing at a harbour promenade railing. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: the metal railing with a seagull standing on it, a hanging flower basket, a lamp post and a mooring bollard. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the harbour far away: a moored white yacht, fishing boats, the harbour wall and hills, visible through the gaps between the near things in every part of the frame. A moored white yacht (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-right part of the picture, about 64% of the way from the left edge and 33% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent moored white yacht, completely, including its shadow and reflection, and fill its area with the water behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "lamp post",
+     "plane": "near",
+     "x": 0.067,
+     "y": 0.425
+    },
+    {
+     "name": "hanging flower basket",
+     "plane": "near",
+     "x": 0.11,
+     "y": 0.38
+    },
+    {
+     "name": "seagull",
+     "plane": "near",
+     "x": 0.31,
+     "y": 0.53
+    },
+    {
+     "name": "mooring bollard",
+     "plane": "near",
+     "x": 0.81,
+     "y": 0.84
+    },
+    {
+     "name": "blue fishing boat",
+     "plane": "far",
+     "x": 0.255,
+     "y": 0.3
+    },
+    {
+     "name": "red fishing boat",
+     "plane": "far",
+     "x": 0.35,
+     "y": 0.315
+    },
+    {
+     "name": "lighthouse",
+     "plane": "far",
+     "x": 0.94,
+     "y": 0.265
+    }
+   ]
+  },
+  {
+   "id": "desk-window-near",
+   "setting_id": "desk-window",
+   "set": "main",
+   "change_type": "location",
+   "plane": "near",
+   "position": "ll-out",
+   "target_xy": [
+    0.22,
+    0.75
+   ],
+   "setting": "Sitting at a desk in front of a large window over a city street",
+   "near_layer": "on the desk and the window frame close to the camera: a desk lamp, a potted plant, a coffee cup, a stack of notebooks and a pen holder",
+   "far_layer": "the street far away: a bus shelter, a parked white van, street trees and shop fronts",
+   "target": "the coffee cup on the desk",
+   "fill": "the desk and the street behind it",
+   "near_foils": [
+    "desk lamp",
+    "potted plant",
+    "notebooks",
+    "pen holder"
+   ],
+   "far_foils": [
+    "bus shelter",
+    "street tree",
+    "shop front",
+    "lamp post"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting at a desk in front of a large window over a city street. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the desk and the window frame close to the camera: a desk lamp, a potted plant, a coffee cup, a stack of notebooks and a pen holder. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the street far away: a bus shelter, a parked white van, street trees and shop fronts, visible through the gaps between the near things in every part of the frame. The coffee cup on the desk (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-left part of the picture, about 22% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent coffee cup on the desk, completely, including its shadow and reflection, and fill its area with the desk and the street behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "desk lamp",
+     "plane": "near",
+     "x": 0.79,
+     "y": 0.13
+    },
+    {
+     "name": "top notebook",
+     "plane": "near",
+     "x": 0.67,
+     "y": 0.73
+    },
+    {
+     "name": "pen holder",
+     "plane": "near",
+     "x": 0.93,
+     "y": 0.66
+    },
+    {
+     "name": "bus shelter",
+     "plane": "far",
+     "x": 0.48,
+     "y": 0.42
+    },
+    {
+     "name": "parked white van",
+     "plane": "far",
+     "x": 0.83,
+     "y": 0.46
+    },
+    {
+     "name": "street tree",
+     "plane": "far",
+     "x": 0.62,
+     "y": 0.3
+    },
+    {
+     "name": "shop front",
+     "plane": "far",
+     "x": 0.33,
+     "y": 0.39
+    }
+   ]
+  },
+  {
+   "id": "desk-window-far",
+   "setting_id": "desk-window",
+   "set": "main",
+   "change_type": "location",
+   "plane": "far",
+   "position": "ll-out",
+   "target_xy": [
+    0.22,
+    0.75
+   ],
+   "setting": "Sitting at a desk in front of a large window over a city street",
+   "near_layer": "on the desk and the window frame close to the camera: a desk lamp, a potted plant, a coffee cup, a stack of notebooks and a pen holder",
+   "far_layer": "the street far away: a bus shelter, a parked white van, street trees and shop fronts",
+   "target": "the parked white van",
+   "fill": "the street behind it",
+   "near_foils": [
+    "desk lamp",
+    "potted plant",
+    "notebooks",
+    "pen holder"
+   ],
+   "far_foils": [
+    "bus shelter",
+    "street tree",
+    "shop front",
+    "lamp post"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting at a desk in front of a large window over a city street. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the desk and the window frame close to the camera: a desk lamp, a potted plant, a coffee cup, a stack of notebooks and a pen holder. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the street far away: a bus shelter, a parked white van, street trees and shop fronts, visible through the gaps between the near things in every part of the frame. The parked white van (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-left part of the picture, about 22% of the way from the left edge and 75% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent parked white van, completely, including its shadow and reflection, and fill its area with the street behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "desk lamp",
+     "plane": "near",
+     "x": 0.13,
+     "y": 0.44
+    },
+    {
+     "name": "coffee cup",
+     "plane": "near",
+     "x": 0.4,
+     "y": 0.85
+    },
+    {
+     "name": "pen holder",
+     "plane": "near",
+     "x": 0.95,
+     "y": 0.68
+    },
+    {
+     "name": "top spiral notebook",
+     "plane": "near",
+     "x": 0.81,
+     "y": 0.76
+    },
+    {
+     "name": "bus shelter",
+     "plane": "far",
+     "x": 0.59,
+     "y": 0.41
+    },
+    {
+     "name": "street tree",
+     "plane": "far",
+     "x": 0.74,
+     "y": 0.3
+    }
+   ]
+  },
+  {
+   "id": "hill-picnic-near",
+   "setting_id": "hill-picnic",
+   "set": "main",
+   "change_type": "location",
+   "plane": "near",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Sitting on a picnic blanket on a hilltop looking over farmland",
+   "near_layer": "close to the camera: a wicker picnic basket, a green glass bottle, a bowl of strawberries, a cheese board and an open book",
+   "far_layer": "the farmland far away: an old windmill, a brown horse in a field, poplar trees and a farmhouse",
+   "target": "the green glass bottle",
+   "fill": "the blanket and the view behind it",
+   "near_foils": [
+    "picnic basket",
+    "bowl of strawberries",
+    "cheese board",
+    "open book"
+   ],
+   "far_foils": [
+    "windmill",
+    "poplar trees",
+    "farmhouse",
+    "field hedge"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting on a picnic blanket on a hilltop looking over farmland. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: a wicker picnic basket, a green glass bottle, a bowl of strawberries, a cheese board and an open book. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the farmland far away: an old windmill, a brown horse in a field, poplar trees and a farmhouse, visible through the gaps between the near things in every part of the frame. The green glass bottle (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent green glass bottle, completely, including its shadow and reflection, and fill its area with the blanket and the view behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "open book",
+     "plane": "near",
+     "x": 0.79,
+     "y": 0.77
+    },
+    {
+     "name": "bunch of grapes",
+     "plane": "near",
+     "x": 0.42,
+     "y": 0.91
+    },
+    {
+     "name": "knife",
+     "plane": "near",
+     "x": 0.55,
+     "y": 0.92
+    },
+    {
+     "name": "round cracker",
+     "plane": "near",
+     "x": 0.23,
+     "y": 0.9
+    },
+    {
+     "name": "windmill",
+     "plane": "far",
+     "x": 0.29,
+     "y": 0.23
+    },
+    {
+     "name": "brown horse",
+     "plane": "far",
+     "x": 0.605,
+     "y": 0.415
+    },
+    {
+     "name": "poplar tree",
+     "plane": "far",
+     "x": 0.72,
+     "y": 0.27
+    },
+    {
+     "name": "farmhouse",
+     "plane": "far",
+     "x": 0.85,
+     "y": 0.34
+    }
+   ]
+  },
+  {
+   "id": "hill-picnic-far",
+   "setting_id": "hill-picnic",
+   "set": "main",
+   "change_type": "location",
+   "plane": "far",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Sitting on a picnic blanket on a hilltop looking over farmland",
+   "near_layer": "close to the camera: a wicker picnic basket, a green glass bottle, a bowl of strawberries, a cheese board and an open book",
+   "far_layer": "the farmland far away: an old windmill, a brown horse in a field, poplar trees and a farmhouse",
+   "target": "the brown horse standing in the field",
+   "fill": "the field behind it",
+   "near_foils": [
+    "picnic basket",
+    "bowl of strawberries",
+    "cheese board",
+    "open book"
+   ],
+   "far_foils": [
+    "windmill",
+    "poplar trees",
+    "farmhouse",
+    "field hedge"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting on a picnic blanket on a hilltop looking over farmland. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: a wicker picnic basket, a green glass bottle, a bowl of strawberries, a cheese board and an open book. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the farmland far away: an old windmill, a brown horse in a field, poplar trees and a farmhouse, visible through the gaps between the near things in every part of the frame. The brown horse standing in the field (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent brown horse standing in the field, completely, including its shadow and reflection, and fill its area with the field behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "wicker picnic basket",
+     "plane": "near",
+     "x": 0.12,
+     "y": 0.5
+    },
+    {
+     "name": "green glass bottle",
+     "plane": "near",
+     "x": 0.27,
+     "y": 0.58
+    },
+    {
+     "name": "bowl of strawberries",
+     "plane": "near",
+     "x": 0.16,
+     "y": 0.84
+    },
+    {
+     "name": "open book",
+     "plane": "near",
+     "x": 0.85,
+     "y": 0.68
+    },
+    {
+     "name": "windmill",
+     "plane": "far",
+     "x": 0.62,
+     "y": 0.18
+    },
+    {
+     "name": "farmhouse",
+     "plane": "far",
+     "x": 0.84,
+     "y": 0.3
+    },
+    {
+     "name": "poplar tree left of the windmill",
+     "plane": "far",
+     "x": 0.445,
+     "y": 0.23
+    },
+    {
+     "name": "poplar tree right of the windmill",
+     "plane": "far",
+     "x": 0.745,
+     "y": 0.21
+    }
+   ]
+  },
+  {
+   "id": "reed-lake-near",
+   "setting_id": "reed-lake",
+   "set": "main",
+   "change_type": "location",
+   "plane": "near",
+   "position": "ur-out",
+   "target_xy": [
+    0.78,
+    0.25
+   ],
+   "setting": "Kneeling on a lakeside dock among reeds, looking across the lake",
+   "near_layer": "close to the camera: tall reeds at the sides, a wooden duck decoy on the dock planks, a lantern on a post and a tackle box",
+   "far_layer": "the lake far away: a small rowing boat on the water, a red boathouse, swimming ducks and wooded hills",
+   "target": "the wooden duck decoy on the planks",
+   "fill": "the planks and the lake behind it",
+   "near_foils": [
+    "reeds",
+    "lantern",
+    "tackle box",
+    "dock post"
+   ],
+   "far_foils": [
+    "red boathouse",
+    "ducks",
+    "wooded hill",
+    "shore"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Kneeling on a lakeside dock among reeds, looking across the lake. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: tall reeds at the sides, a wooden duck decoy on the dock planks, a lantern on a post and a tackle box. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the lake far away: a small rowing boat on the water, a red boathouse, swimming ducks and wooded hills, visible through the gaps between the near things in every part of the frame. The wooden duck decoy on the planks (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-right part of the picture, about 78% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent wooden duck decoy on the planks, completely, including its shadow and reflection, and fill its area with the planks and the lake behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "lantern",
+     "plane": "near",
+     "x": 0.148,
+     "y": 0.283
+    },
+    {
+     "name": "wooden post",
+     "plane": "near",
+     "x": 0.151,
+     "y": 0.552
+    },
+    {
+     "name": "tackle box",
+     "plane": "near",
+     "x": 0.212,
+     "y": 0.796
+    },
+    {
+     "name": "fishing reel",
+     "plane": "near",
+     "x": 0.35,
+     "y": 0.927
+    },
+    {
+     "name": "rowing boat",
+     "plane": "far",
+     "x": 0.375,
+     "y": 0.298
+    },
+    {
+     "name": "red boathouse",
+     "plane": "far",
+     "x": 0.694,
+     "y": 0.248
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.529,
+     "y": 0.407
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.492,
+     "y": 0.418
+    }
+   ]
+  },
+  {
+   "id": "reed-lake-far",
+   "setting_id": "reed-lake",
+   "set": "main",
+   "change_type": "location",
+   "plane": "far",
+   "position": "ur-out",
+   "target_xy": [
+    0.78,
+    0.25
+   ],
+   "setting": "Kneeling on a lakeside dock among reeds, looking across the lake",
+   "near_layer": "close to the camera: tall reeds at the sides, a wooden duck decoy on the dock planks, a lantern on a post and a tackle box",
+   "far_layer": "the lake far away: a small rowing boat on the water, a red boathouse, swimming ducks and wooded hills",
+   "target": "the small rowing boat on the water",
+   "fill": "the water behind it",
+   "near_foils": [
+    "reeds",
+    "lantern",
+    "tackle box",
+    "dock post"
+   ],
+   "far_foils": [
+    "red boathouse",
+    "ducks",
+    "wooded hill",
+    "shore"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Kneeling on a lakeside dock among reeds, looking across the lake. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: tall reeds at the sides, a wooden duck decoy on the dock planks, a lantern on a post and a tackle box. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the lake far away: a small rowing boat on the water, a red boathouse, swimming ducks and wooded hills, visible through the gaps between the near things in every part of the frame. The small rowing boat on the water (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-right part of the picture, about 78% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent small rowing boat on the water, completely, including its shadow and reflection, and fill its area with the water behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "wooden duck decoy",
+     "plane": "near",
+     "x": 0.21,
+     "y": 0.79
+    },
+    {
+     "name": "lantern",
+     "plane": "near",
+     "x": 0.24,
+     "y": 0.4
+    },
+    {
+     "name": "wooden post",
+     "plane": "near",
+     "x": 0.19,
+     "y": 0.47
+    },
+    {
+     "name": "tackle box",
+     "plane": "near",
+     "x": 0.84,
+     "y": 0.82
+    },
+    {
+     "name": "red boathouse",
+     "plane": "far",
+     "x": 0.34,
+     "y": 0.21
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.39,
+     "y": 0.39
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.46,
+     "y": 0.39
+    },
+    {
+     "name": "swimming duck",
+     "plane": "far",
+     "x": 0.67,
+     "y": 0.38
+    }
+   ]
+  },
+  {
+   "id": "alpine-meadow-near",
+   "setting_id": "alpine-meadow",
+   "set": "main",
+   "change_type": "location",
+   "plane": "near",
+   "position": "lr-in",
+   "target_xy": [
+    0.64,
+    0.67
+   ],
+   "setting": "Sitting on a rock in an alpine meadow looking across a valley",
+   "near_layer": "close to the camera: wildflowers, a red hiking backpack leaning on a rock, a metal water bottle, hiking poles and a map case",
+   "far_layer": "the valley far away: brown cows grazing, a wooden chalet, pine forest and snowy peaks",
+   "target": "the red hiking backpack",
+   "fill": "the rock and the meadow behind it",
+   "near_foils": [
+    "wildflowers",
+    "water bottle",
+    "hiking poles",
+    "rock"
+   ],
+   "far_foils": [
+    "wooden chalet",
+    "pine forest",
+    "snowy peak",
+    "grazing cows"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting on a rock in an alpine meadow looking across a valley. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: wildflowers, a red hiking backpack leaning on a rock, a metal water bottle, hiking poles and a map case. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the valley far away: brown cows grazing, a wooden chalet, pine forest and snowy peaks, visible through the gaps between the near things in every part of the frame. The red hiking backpack (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-right part of the picture, about 64% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent red hiking backpack, completely, including its shadow and reflection, and fill its area with the rock and the meadow behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "hiking pole",
+     "plane": "near",
+     "x": 0.41,
+     "y": 0.83
+    },
+    {
+     "name": "yellow wildflower",
+     "plane": "near",
+     "x": 0.226,
+     "y": 0.945
+    },
+    {
+     "name": "purple wildflower",
+     "plane": "near",
+     "x": 0.173,
+     "y": 0.928
+    },
+    {
+     "name": "yellow wildflower",
+     "plane": "near",
+     "x": 0.281,
+     "y": 0.974
+    },
+    {
+     "name": "wooden chalet",
+     "plane": "far",
+     "x": 0.302,
+     "y": 0.403
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.13,
+     "y": 0.448
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.213,
+     "y": 0.462
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.296,
+     "y": 0.494
+    }
+   ]
+  },
+  {
+   "id": "alpine-meadow-far",
+   "setting_id": "alpine-meadow",
+   "set": "main",
+   "change_type": "location",
+   "plane": "far",
+   "position": "lr-in",
+   "target_xy": [
+    0.64,
+    0.67
+   ],
+   "setting": "Sitting on a rock in an alpine meadow looking across a valley",
+   "near_layer": "close to the camera: wildflowers, a red hiking backpack leaning on a rock, a metal water bottle, hiking poles and a map case",
+   "far_layer": "the valley far away: brown cows grazing, a wooden chalet, pine forest and snowy peaks",
+   "target": "one brown cow standing alone",
+   "fill": "the meadow behind it",
+   "near_foils": [
+    "wildflowers",
+    "water bottle",
+    "hiking poles",
+    "rock"
+   ],
+   "far_foils": [
+    "wooden chalet",
+    "pine forest",
+    "snowy peak",
+    "grazing cows"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting on a rock in an alpine meadow looking across a valley. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: wildflowers, a red hiking backpack leaning on a rock, a metal water bottle, hiking poles and a map case. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the valley far away: brown cows grazing, a wooden chalet, pine forest and snowy peaks, visible through the gaps between the near things in every part of the frame. One brown cow standing alone (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-right part of the picture, about 64% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent brown cow standing alone, completely, including its shadow and reflection, and fill its area with the meadow behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "red hiking backpack",
+     "plane": "near",
+     "x": 0.19,
+     "y": 0.46
+    },
+    {
+     "name": "metal water bottle",
+     "plane": "near",
+     "x": 0.25,
+     "y": 0.6
+    },
+    {
+     "name": "map case",
+     "plane": "near",
+     "x": 0.26,
+     "y": 0.8
+    },
+    {
+     "name": "hiking pole",
+     "plane": "near",
+     "x": 0.6,
+     "y": 0.82
+    },
+    {
+     "name": "wooden chalet",
+     "plane": "far",
+     "x": 0.41,
+     "y": 0.38
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.42,
+     "y": 0.45
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.46,
+     "y": 0.46
+    },
+    {
+     "name": "brown cow",
+     "plane": "far",
+     "x": 0.555,
+     "y": 0.47
+    }
+   ]
+  },
+  {
+   "id": "garden-table-near",
+   "setting_id": "garden-table",
+   "set": "main",
+   "change_type": "location",
+   "plane": "near",
+   "position": "ul-out",
+   "target_xy": [
+    0.22,
+    0.25
+   ],
+   "setting": "Sitting at a garden table looking down a long garden",
+   "near_layer": "on the table close to the camera: a terracotta pot of basil, a teacup, gardening gloves, a trowel and seed packets without text",
+   "far_layer": "the garden far away: a red wooden bench, a pond, flower borders and an arch with climbing roses",
+   "target": "the terracotta pot of basil",
+   "fill": "the table and the garden behind it",
+   "near_foils": [
+    "teacup",
+    "gardening gloves",
+    "trowel",
+    "seed packet"
+   ],
+   "far_foils": [
+    "pond",
+    "flower border",
+    "rose arch",
+    "hedge"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting at a garden table looking down a long garden. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the table close to the camera: a terracotta pot of basil, a teacup, gardening gloves, a trowel and seed packets without text. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the garden far away: a red wooden bench, a pond, flower borders and an arch with climbing roses, visible through the gaps between the near things in every part of the frame. The terracotta pot of basil (close to the camera, part of the near layer, about one sixth of the picture width across) is in the upper-left part of the picture, about 22% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent terracotta pot of basil, completely, including its shadow and reflection, and fill its area with the table and the garden behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "sunflower seed packet",
+     "plane": "near",
+     "x": 0.54,
+     "y": 0.7
+    },
+    {
+     "name": "purple-flower seed packet",
+     "plane": "near",
+     "x": 0.69,
+     "y": 0.73
+    },
+    {
+     "name": "pink-flower seed packet",
+     "plane": "near",
+     "x": 0.84,
+     "y": 0.78
+    },
+    {
+     "name": "trowel",
+     "plane": "near",
+     "x": 0.75,
+     "y": 0.87
+    },
+    {
+     "name": "red wooden bench",
+     "plane": "far",
+     "x": 0.6,
+     "y": 0.27
+    },
+    {
+     "name": "arch with climbing roses",
+     "plane": "far",
+     "x": 0.82,
+     "y": 0.23
+    }
+   ]
+  },
+  {
+   "id": "garden-table-far",
+   "setting_id": "garden-table",
+   "set": "main",
+   "change_type": "location",
+   "plane": "far",
+   "position": "ul-out",
+   "target_xy": [
+    0.22,
+    0.25
+   ],
+   "setting": "Sitting at a garden table looking down a long garden",
+   "near_layer": "on the table close to the camera: a terracotta pot of basil, a teacup, gardening gloves, a trowel and seed packets without text",
+   "far_layer": "the garden far away: a red wooden bench, a pond, flower borders and an arch with climbing roses",
+   "target": "the red wooden bench",
+   "fill": "the lawn behind it",
+   "near_foils": [
+    "teacup",
+    "gardening gloves",
+    "trowel",
+    "seed packet"
+   ],
+   "far_foils": [
+    "pond",
+    "flower border",
+    "rose arch",
+    "hedge"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting at a garden table looking down a long garden. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): on the table close to the camera: a terracotta pot of basil, a teacup, gardening gloves, a trowel and seed packets without text. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the garden far away: a red wooden bench, a pond, flower borders and an arch with climbing roses, visible through the gaps between the near things in every part of the frame. The red wooden bench (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the upper-left part of the picture, about 22% of the way from the left edge and 25% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent red wooden bench, completely, including its shadow and reflection, and fill its area with the lawn behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "Terracotta pot of basil",
+     "plane": "near",
+     "x": 0.14,
+     "y": 0.53
+    },
+    {
+     "name": "Teacup",
+     "plane": "near",
+     "x": 0.34,
+     "y": 0.68
+    },
+    {
+     "name": "Gardening glove",
+     "plane": "near",
+     "x": 0.2,
+     "y": 0.89
+    },
+    {
+     "name": "Trowel",
+     "plane": "near",
+     "x": 0.66,
+     "y": 0.88
+    },
+    {
+     "name": "Pond",
+     "plane": "far",
+     "x": 0.56,
+     "y": 0.42
+    },
+    {
+     "name": "Arch with climbing roses",
+     "plane": "far",
+     "x": 0.8,
+     "y": 0.29
+    }
+   ]
+  },
+  {
+   "id": "river-bank-near",
+   "setting_id": "river-bank",
+   "set": "practice",
+   "change_type": "location",
+   "plane": "near",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Sitting on a river bank looking across a slow river",
+   "near_layer": "close to the camera: a green tackle box on the grass, a fishing rod on a stand, a thermos and a folding stool",
+   "far_layer": "the river far away: a small red boat moored by the far bank, willow trees, a stone bridge and cottages",
+   "target": "the green tackle box",
+   "fill": "the grass and the river behind it",
+   "near_foils": [
+    "fishing rod",
+    "thermos",
+    "folding stool",
+    "grass bank"
+   ],
+   "far_foils": [
+    "willow tree",
+    "stone bridge",
+    "cottage",
+    "far bank"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting on a river bank looking across a slow river. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: a green tackle box on the grass, a fishing rod on a stand, a thermos and a folding stool. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the river far away: a small red boat moored by the far bank, willow trees, a stone bridge and cottages, visible through the gaps between the near things in every part of the frame. The green tackle box (close to the camera, part of the near layer, about one sixth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent green tackle box, completely, including its shadow and reflection, and fill its area with the grass and the river behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "fishing rod",
+     "plane": "near",
+     "x": 0.565,
+     "y": 0.57
+    },
+    {
+     "name": "rod stand",
+     "plane": "near",
+     "x": 0.53,
+     "y": 0.61
+    },
+    {
+     "name": "thermos",
+     "plane": "near",
+     "x": 0.76,
+     "y": 0.74
+    },
+    {
+     "name": "folding stool",
+     "plane": "near",
+     "x": 0.9,
+     "y": 0.71
+    },
+    {
+     "name": "red boat",
+     "plane": "far",
+     "x": 0.375,
+     "y": 0.295
+    },
+    {
+     "name": "willow tree",
+     "plane": "far",
+     "x": 0.19,
+     "y": 0.15
+    },
+    {
+     "name": "stone bridge",
+     "plane": "far",
+     "x": 0.82,
+     "y": 0.25
+    },
+    {
+     "name": "cottage",
+     "plane": "far",
+     "x": 0.57,
+     "y": 0.16
+    }
+   ]
+  },
+  {
+   "id": "river-bank-far",
+   "setting_id": "river-bank",
+   "set": "practice",
+   "change_type": "location",
+   "plane": "far",
+   "position": "ll-in",
+   "target_xy": [
+    0.36,
+    0.67
+   ],
+   "setting": "Sitting on a river bank looking across a slow river",
+   "near_layer": "close to the camera: a green tackle box on the grass, a fishing rod on a stand, a thermos and a folding stool",
+   "far_layer": "the river far away: a small red boat moored by the far bank, willow trees, a stone bridge and cottages",
+   "target": "the small red boat by the far bank",
+   "fill": "the water behind it",
+   "near_foils": [
+    "fishing rod",
+    "thermos",
+    "folding stool",
+    "grass bank"
+   ],
+   "far_foils": [
+    "willow tree",
+    "stone bridge",
+    "cottage",
+    "far bank"
+   ],
+   "base_prompt": "Photorealistic colour photograph, landscape 3:2, eye level, soft natural daylight, 35 mm lens, deep focus with the distant layer slightly softer and hazier. Sitting on a river bank looking across a slow river. The picture has two clearly separate depths. NEAR (within arm's reach of the camera, large and sharp): close to the camera: a green tackle box on the grass, a fishing rod on a stand, a thermos and a folding stool. The near things are spread over the whole frame, left, centre and right, at the top, middle and bottom, with gaps between them. FAR (10 to 30 metres away, smaller, slightly hazy): the river far away: a small red boat moored by the far bank, willow trees, a stone bridge and cottages, visible through the gaps between the near things in every part of the frame. The small red boat by the far bank (part of the distant layer, roughly 10 to 20 metres away, and still large enough to be seen clearly: about one eighth of the picture width across) is in the lower-left part of the picture, about 36% of the way from the left edge and 67% of the way from the top edge. It is fully visible, not cut off and not overlapped by anything. No people, no text, no letters, no logos, no watermark.",
+   "removal_prompt": "Edit this photograph: remove exactly one object, the most prominent small red boat by the far bank, completely, including its shadow and reflection, and fill its area with the water behind it, as it would look if the object had never been there. Remove only that one object. Keep everything else in the photograph exactly the same: same framing, every other object, light and colours.",
+   "foils": [
+    {
+     "name": "green tackle box",
+     "plane": "near",
+     "x": 0.14,
+     "y": 0.77
+    },
+    {
+     "name": "fishing rod",
+     "plane": "near",
+     "x": 0.46,
+     "y": 0.59
+    },
+    {
+     "name": "thermos",
+     "plane": "near",
+     "x": 0.73,
+     "y": 0.75
+    },
+    {
+     "name": "folding stool",
+     "plane": "near",
+     "x": 0.89,
+     "y": 0.74
+    },
+    {
+     "name": "stone bridge",
+     "plane": "far",
+     "x": 0.73,
+     "y": 0.28
+    },
+    {
+     "name": "left cottage",
+     "plane": "far",
+     "x": 0.14,
+     "y": 0.21
+    },
+    {
+     "name": "cottage with two chimneys",
+     "plane": "far",
+     "x": 0.26,
+     "y": 0.19
+    },
+    {
+     "name": "right-bank willow tree",
+     "plane": "far",
+     "x": 0.95,
+     "y": 0.23
+    }
+   ]
+  }
+ ],
+ "foil_annotation": "Foils located on each base photograph by gpt-6.1-sol (Mana router, 2026-10-21) from a gridded image with the changed region excluded, asked for distinct objects on each layer; every marker was then checked by eye on contact sheets. lake-dock-far's two extra far foils (pine trees, forested hill) were placed by hand because the model found only one far object."
+}

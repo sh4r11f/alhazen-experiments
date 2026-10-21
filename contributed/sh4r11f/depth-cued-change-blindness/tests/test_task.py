@@ -10,7 +10,7 @@ import pytest
 from alhazen.config.loader import load_params
 from PIL import ImageChops
 
-from depthcb import scenes
+from depthcb import photos, scenes
 from depthcb.task import DepthCuedFlickerTaskParams, cue_word, design, scene_spec
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -24,7 +24,11 @@ def test_every_parameter_set_loads_and_balances_its_cells(cfg):
     assert len({t["scene"] for t in d}) == len(d)
     cells = {}
     for t in d:
-        _, plane, ct = scenes.parse_id(t["scene"])
+        if photos.is_photo(t["scene"]):
+            rec = photos.catalogue()[t["scene"][len(photos.PREFIX):]]
+            plane, ct = rec["plane"], rec["change_type"]
+        else:
+            _, plane, ct = scenes.parse_id(t["scene"])
         cells.setdefault((plane, ct), []).append(t["cue"])
     assert len(cells) == 6
     assert len({tuple(sorted(v)) for v in cells.values()}) == 1
