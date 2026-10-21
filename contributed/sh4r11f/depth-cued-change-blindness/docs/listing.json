@@ -59,7 +59,8 @@
   {
    "path": "src/depthcb/fonts/",
    "what": "Atkinson Hyperlegible Regular and Bold (Braille Institute), used for the cue word and the report prompts",
-   "licence": "OFL-1.1"
+   "licence": "OFL-1.1",
+   "credit": "Atkinson Hyperlegible, designed by Applied Design Works for the Braille Institute of America (github.com/googlefonts/atkinson-hyperlegible); SIL Open Font License 1.1, licence text in fonts/OFL.txt"
   }
  ],
  "notes": "Software verification only (tests and simulated sessions); no participant data. Four parameter sets: practice, main (75% valid), with neutral cues, and size-matched planes."
