@@ -36,7 +36,7 @@ equal in size, so a change is as large on either plane).
 ## Changes
 
 - **0.2.1** (2026-10-21): the booth rig no longer sets `max_dropped_fraction` under `mark_trial`, which alhazen 3.6.0 refuses; a test loads every rig file.
-- **0.2.0** (2026-10-21): photograph sets (48 main + 6 practice pairs) as the main sets; Thaler et al.'s ABC fixation target on the gray field; the cue word typeset in Atkinson Hyperlegible Bold; realised frame durations recorded per trial; timing checked against Rensink et al. (1997), unchanged; locked to alhazen v3.8.1.
+- **0.2.0** (2026-10-21): photograph sets (48 main + 6 practice pairs) as the main sets; Thaler et al.'s ABC fixation target on the gray field; the cue word typeset in Atkinson Hyperlegible Bold; realised frame durations recorded per trial; timing checked against Rensink et al. (1997), unchanged; locked to alhazen v3.8.2.
 - **0.1.0** (2026-10-17): first version, drawn two-plane scenes.
 
 ## Files
