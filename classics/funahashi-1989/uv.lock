@@ -58,9 +58,9 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "alhazen-vision", git = "https://github.com/sh4r11f/alhazen?tag=v3.8.0" },
-    { name = "alhazen-vision", extras = ["movie"], marker = "extra == 'movie'", git = "https://github.com/sh4r11f/alhazen?tag=v3.8.0" },
-    { name = "alhazen-vision", extras = ["psychopy"], marker = "extra == 'psychopy'", git = "https://github.com/sh4r11f/alhazen?tag=v3.8.0" },
+    { name = "alhazen-vision", git = "https://github.com/sh4r11f/alhazen?tag=v3.8.1" },
+    { name = "alhazen-vision", extras = ["movie"], marker = "extra == 'movie'", git = "https://github.com/sh4r11f/alhazen?tag=v3.8.1" },
+    { name = "alhazen-vision", extras = ["psychopy"], marker = "extra == 'psychopy'", git = "https://github.com/sh4r11f/alhazen?tag=v3.8.1" },
     { name = "ipykernel", marker = "extra == 'dev'", specifier = ">=6" },
     { name = "matplotlib", specifier = ">=3.7" },
     { name = "nbclient", marker = "extra == 'dev'", specifier = ">=0.10" },
@@ -79,8 +79,8 @@ dev = [{ name = "alhazen-funahashi-1989", extras = ["dev"] }]
 
 [[package]]
 name = "alhazen-vision"
-version = "3.8.0"
-source = { git = "https://github.com/sh4r11f/alhazen?tag=v3.8.0#083a90dcc876cd5bebec6d84bd57cf4e3aa932a7" }
+version = "3.8.1"
+source = { git = "https://github.com/sh4r11f/alhazen?tag=v3.8.1#535a987d941fc262c9bf801c00b1672c5ba1ff10" }
 dependencies = [
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
