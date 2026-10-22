@@ -41,7 +41,7 @@ oculomotor-delayed-response = "funahashi1989.task:OculomotorDelayedResponseTask"
 # alhazen from its GitHub repository at a release tag, never from an index. Moving to a
 # newer release is this tag and `uv lock`, committed together.
 [tool.uv.sources]
-alhazen-vision = { git = "https://github.com/sh4r11f/alhazen", tag = "v3.6.0" }
+alhazen-vision = { git = "https://github.com/sh4r11f/alhazen", tag = "v3.8.0" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
