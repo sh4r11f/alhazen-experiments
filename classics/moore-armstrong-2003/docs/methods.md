@@ -11,6 +11,18 @@ below are the journal's.
 "Why demo" below). **Hardware.** Display, eye tracker, reward line (monkey), a TTL line to
 the lab's FEF stimulator, sync lines to the lab's V4 recording system.
 
+## At a glance
+
+- **Question.** Does subthreshold stimulation of a frontal eye field site raise V4 responses to a stimulus at the matching place in space?
+- **What is on the screen.** A fixation spot on mid-grey; a dark oriented bar in the recorded neuron's receptive field, at a distracter site, or both, at the preferred or orthogonal orientation, for 1.5-2 s.
+- **What the subject does.** Only hold fixation (eye tracker enforced). No saccade, no report. Holding to the end is rewarded.
+- **Measured.** Nothing behavioural beyond fixation; each trial's stimulation trigger (or control mark) timestamps it for the lab's V4 recording.
+- **What it can and cannot show.** With a recording and a stimulator, the paper's comparison of V4 responses after stimulation versus control. On its own this folder shows nothing about gating; the receptive field, FEF site and current threshold come from mapping steps not built here.
+- **Known constraints.** The trigger is frame-locked (sent after the display flip); sub-frame timing would need a hardware-timed trigger.
+- **Source access (audit, 1 Nov 2026).** Full text not re-accessible this audit (paywall); only the abstract was re-checked. Values rest on the earlier build's reading of the published letter (pp. 370-373).
+
+The full methods follow; nothing below was shortened.
+
 ## Question
 
 Does preparing an eye movement change how strongly visual cortex represents what lies at

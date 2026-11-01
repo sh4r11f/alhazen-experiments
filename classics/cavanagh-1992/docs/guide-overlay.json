@@ -407,7 +407,7 @@
           }
         ]
       },
-      "description": "**Question.** Can colour bars be seen to move only when attention tracks them, while an invisible luminance grating sets the overall motion? (Experiment 1.)\n\n**What is on the screen.** A black-and-white bull's-eye to fixate inside an annulus (4.0-8.4 dva). In the annulus a red-green grating (40 % colour contrast, at the observer's own equiluminance) and a luminance grating, each eight sinusoidal cycles, turn in opposite directions at [[param:rate_hz]]. After 500 ms of bull's-eye and [[param:pre_cue]] of turning gratings, a black pointer pair marks two opposite bars of the target grating and turns with them for [[param:cue_duration]].\n\n**What the subject does.** Keeps fixating the bull's-eye (instructed; no eye tracker) and tracks the marked pair with attention for [[param:track_duration]] after the pointer goes. A test pointer then appears for [[param:test_duration]], on the tracked pair or an adjacent pair of the same polarity; the observer answers yes (J) or no (F).\n\n**Varied.** Luminance contrast, [[param:n_contrasts]] levels from [[param:contrast_min]] to [[param:contrast_max]]; which grating is tracked (this set: colour bars; configs/task-luminance.yaml: luminance bars).\n\n**Measured.** Proportion of test pointers correctly identified at each luminance contrast (the paper's Fig. 1B tracking accuracy).\n\n**What it can and cannot show.** Where colour bars stay trackable while the luminance grating dominates the global rotation, tracking cannot rest on low-level motion alone. Colours are display values matched in luminance, not in cone contrast, so equiluminance holds only as well as the observer's own setting and the rig's photometry.",
+      "description": "**Question.** Can colour bars be seen to move only when attention tracks them? (Experiment 1.)\n\n**On screen.** A ring around a bull's-eye with a red-green and a luminance grating turning opposite ways. A pointer marks two bars, then leaves; a test pointer appears later.\n\n**The subject.** Fixates the bull's-eye (instructed), tracks the marked bars with attention, and answers yes (J) or no (F): is the test pointer on them?\n\n**Measured.** Tracking accuracy at each luminance contrast ([[param:contrast_min]] to [[param:contrast_max]]).\n\n**Limits.** Colours are matched in luminance per observer, not in cone contrast; needs the rig's photometry.",
       "sourceFiles": [
         "src/cavanagh1992/task.py",
         "src/cavanagh1992/adjust.py",
@@ -740,7 +740,7 @@
           }
         ]
       },
-      "description": "**Question.** At what red-green balance does this observer's colour grating look slowest (the paper's equiluminance criterion)?\n\n**What is on the screen.** The red-green grating alone (40 % colour contrast, eight sinusoidal cycles) turning at 2.0 Hz in the annulus around the bull's-eye.\n\n**What the subject does.** Fixates the bull's-eye and turns a knob (scroll wheel or up/down arrows) on k, the green-to-red luminance modulation ratio, until the grating looks slowest; SPACE commits. Each setting starts at a random k in [[param:k_start_range]] and moves by a factor of [[param:k_step]] per step.\n\n**Varied.** Starting value and rotation direction across settings.\n\n**Measured.** The setting of k; the geometric mean of the settings is the k every other colour task uses.\n\n**What it can and cannot show.** An observer- and display-specific equiluminance point by the paper's criterion. It does not calibrate the display: gun luminances still come from the rig's photometer file.",
+      "description": "**Question.** At what red-green balance does the colour grating look slowest?\n\n**On screen.** The red-green grating alone, turning in the ring.\n\n**The subject.** Turns a knob on the green-to-red balance until the grating looks slowest; SPACE commits.\n\n**Measured.** The balance setting; its mean is used by every colour task.\n\n**Limits.** An observer- and display-specific setting; it does not calibrate the display.",
       "sourceFiles": [
         "src/cavanagh1992/calibration.py",
         "src/cavanagh1992/adjust.py",
@@ -902,7 +902,7 @@
           }
         ]
       },
-      "description": "**Question.** An alternative equiluminance setting by heterochromatic flicker photometry (not the paper's criterion: a deviation).\n\n**What is on the screen.** The annulus filled uniformly, alternating between the red-heavy and green-heavy states of the 40 % colour modulation at about [[param:flicker_hz]], locked to whole display frames.\n\n**What the subject does.** Fixates the bull's-eye and adjusts k (scroll wheel or up/down arrows) until the flicker is least; SPACE commits.\n\n**Varied.** Starting value of k across settings.\n\n**Measured.** The setting of k (geometric mean).\n\n**What it can and cannot show.** A standard photometric balance; it can differ from the minimum-speed setting the paper used.",
+      "description": "**Question.** An alternative equiluminance setting (not the paper's method).\n\n**On screen.** The ring filled uniformly, alternating red-heavy and green-heavy at about [[param:flicker_hz]].\n\n**The subject.** Adjusts the balance until the flicker is least; SPACE commits.\n\n**Measured.** The balance setting.\n\n**Limits.** Can differ from the paper's minimum-speed setting.",
       "sourceFiles": [
         "src/cavanagh1992/calibration.py",
         "src/cavanagh1992/scene.py",
@@ -1241,7 +1241,7 @@
           }
         ]
       },
-      "description": "**Question.** How much luminance contrast cancels the colour grating's contribution to the overall rotation?\n\n**What is on the screen.** The 40 % colour grating and a luminance grating turning in opposite directions at 2.0 Hz in the annulus.\n\n**What the subject does.** Without tracking individual bars, adjusts the luminance contrast until the global rotation is ambiguous (nulled); SPACE commits.\n\n**Varied.** Start from above ([[param:start_above]]) or below ([[param:start_below]]) and the colour grating's direction; four settings.\n\n**Measured.** The nulling luminance contrast (the paper: 5-10 %, observer-dependent).\n\n**What it can and cannot show.** The point where colour and luminance contribute equally to low-level motion; it sets the scale for the tracking task's contrast range.",
+      "description": "**Question.** How much luminance contrast cancels the colour grating's motion?\n\n**On screen.** The colour grating and a luminance grating turning opposite ways.\n\n**The subject.** Without tracking bars, adjusts the luminance contrast until the overall rotation is ambiguous.\n\n**Measured.** The nulling contrast (5-10 % in the paper).\n\n**Limits.** Sets the scale for the tracking task's contrasts.",
       "sourceFiles": [
         "src/cavanagh1992/nulling.py",
         "src/cavanagh1992/adjust.py",
@@ -1572,7 +1572,7 @@
           }
         ]
       },
-      "description": "**Question.** How much contrast does a turning grating need to be noticed (or its direction seen), alone and under a superimposed colour grating? (Fig. 1C.)\n\n**What is on the screen.** One grating turning at 2.0 Hz in the annulus. Cells, in order: the luminance grating alone, the luminance grating with the 40 % colour grating turning the opposite way, and the colour grating alone.\n\n**What the subject does.** Adjusts the grating's contrast until it is just noticed (this file) and commits with SPACE; configs/thresholds-direction.yaml uses the direction criterion.\n\n**Varied.** Cell, and start from above ([[param:start_above]]) or below ([[param:start_below]]).\n\n**Measured.** Threshold contrast per cell, the mean of four settings.\n\n**What it can and cannot show.** How strongly the colour grating masks the luminance grating's visibility. Thresholds near 0.4 % need a 10-bit or bit-stealing display; an 8-bit display cannot reach them.",
+      "description": "**Question.** How much contrast does a turning grating need to be noticed, alone and under a colour grating?\n\n**On screen.** One grating turning in the ring: luminance alone, luminance under the colour grating, then colour alone.\n\n**The subject.** Adjusts the contrast until the grating is just noticed; SPACE commits.\n\n**Measured.** Threshold per condition, the mean of four settings.\n\n**Limits.** Thresholds near 0.4 % need a 10-bit display.",
       "sourceFiles": [
         "src/cavanagh1992/nulling.py",
         "src/cavanagh1992/adjust.py",
@@ -2089,7 +2089,7 @@
           }
         ]
       },
-      "description": "**Question.** Does a colour grating's apparent speed drop near equiluminance for global motion but much less when its bars are tracked with attention? (Experiment 2.)\n\n**What is on the screen.** Outer ring: the 40 % colour grating turning at [[param:outer_rate_hz]] with a luminance contrast that varies from trial to trial ([[param:luminance_contrasts]]). Inner ring: a [[param:comparison_contrast]] luminance grating turning the other way.\n\n**What the subject does.** Adjusts the inner ring's rate (scroll wheel or up/down arrows) until it matches the outer ring; SPACE commits. This file: global impression of motion. configs/speed-tracking.yaml: rate of a pair of bars tracked with attention.\n\n**Varied.** Luminance contrast added to the colour grating; match type (global or tracking, by file).\n\n**Measured.** The matched rate of the inner ring at each luminance contrast.\n\n**What it can and cannot show.** A dip in the global match that the tracking match lacks is the paper's dissociation. The 0.5-Hz outer rate is the paper's; the inner ring's size is ASSUMED.",
+      "description": "**Question.** Does a colour grating's apparent speed drop near equiluminance? (Experiment 2.)\n\n**On screen.** Outer ring: the colour grating at [[param:outer_rate_hz]], with added luminance contrast varying by trial. Inner ring: a luminance grating turning the other way.\n\n**The subject.** Adjusts the inner ring's speed to match the outer ring (this file: overall impression; the tracking file: a pair of tracked bars).\n\n**Measured.** Matched speed at each luminance contrast.\n\n**Limits.** The inner ring's size is ASSUMED.",
       "sourceFiles": [
         "src/cavanagh1992/speed_match.py",
         "src/cavanagh1992/adjust.py",

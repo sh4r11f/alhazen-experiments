@@ -11,6 +11,18 @@ published correction (PNAS 98(7), 4276) only relabels Fig. 2b's axis (µA) and c
 **Status.** Adaptation (see Deviations). **Hardware.** Display, eye tracker, a key (or a lever box
 that sends one), and for monkey sessions a reward line and a TTL line to the lab's stimulator.
 
+## At a glance
+
+- **Question.** Does subthreshold stimulation of a frontal eye field site improve detection at the place that site's saccades would go?
+- **What is on the screen.** A dark screen, a fixation point and a target square at the mapped movement field (or 90 deg away in the outside set); one distractor at a time flashes for 16 ms every 32 ms elsewhere; on most trials the target dims briefly.
+- **What the subject does.** Hold gaze in the fixation window (eye tracker enforced); press the key (standing in for the lever) within the response window after a dimming; hold off on catch trials.
+- **Measured.** Hits, misses and false alarms; the dimming threshold from the block staircase, with and without stimulation.
+- **What it can and cannot show.** A lower threshold with stimulation inside but not outside the movement field would be the paper's result; that needs microstimulation at a mapped site, which this folder only triggers. Luminances mean cd/m2 only after the rig's photometer values are entered.
+- **Known constraints.** No lever box: holding the lever to start and early releases cannot be checked until a held input is read. The human set has no stimulation.
+- **Source access (audit, 1 Nov 2026).** Full text read this audit (PNAS); values checked against configs and analysis.
+
+The full methods follow; nothing below was shortened.
+
 ## Question
 
 Does preparing an eye movement direct spatial attention? Monkeys detected a brief dimming of a

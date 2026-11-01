@@ -165,7 +165,7 @@
           }
         ]
       },
-      "description": "**Question.** How weak a coherent motion signal can a person still see the direction of? (A human adaptation of the monkeys' task.)\n\n**What is on the screen.** A yellow fixation point alone for 500 ms, then [[param:stimulus_duration]] of stochastic random dots in a [[param:aperture_dva]] black disc centred on it. On each frame a proportion of dots (the correlation) is replotted a fixed step along the horizontal axis; the rest are replotted at random.\n\n**What the subject does.** Keeps looking at the fixation point (asked, not checked: this set uses no eye tracker), then after the dots go off presses the right or left arrow within [[param:response_timeout]]. The fixation point turns green or red for 300 ms.\n\n**Varied.** Correlation, one of [[param:coherences_pct]] %, and direction (right or left), 15 trials of each per block in random order.\n\n**Measured.** Proportion correct at each correlation; the analysis fits the paper's Weibull function for threshold (82 % correct) and slope. At 0 % the 'correct' key is the trial's nominal direction, so feedback is right on a random half.\n\n**What it can and cannot show.** A psychometric function for this observer and display. It cannot reproduce the paper's neuron-versus-behaviour comparison: that needs an MT recording made during the same trials, and the paper's subjects were monkeys whose aperture, axis and speed were matched to each neuron.",
+      "description": "**Question.** How weak can a motion signal be and still have its direction seen? (A human version of the monkeys' task.)\n\n**On screen.** A fixation point, then [[param:stimulus_duration]] of random dots in a black disc around it. A share of the dots, the correlation, steps left or right together; the rest jump at random.\n\n**The subject.** Looks at the fixation point (asked, not checked) and, after the dots, presses the left or right arrow. The point turns green or red.\n\n**Measured.** Proportion correct at each correlation ([[param:coherences_pct]] %), fitted for threshold.\n\n**Limits.** No eye tracker, so eye movements are not excluded. No MT recording, so no neuron comparison.",
       "sourceFiles": [
         "src/britten1992/task.py",
         "src/britten1992/rdk.py",
@@ -347,24 +347,57 @@
         }
       },
       "diagram": {
-        "width": 30,
-        "height": 18,
+        "width": 58,
+        "height": 24,
         "unit": "dva",
         "background": 0.5,
-        "caption": "Monkey display, example geometry, both phases on one drawing: the dot aperture over an example receptive field (dots phase) and the two targets with their landing windows (choice phase). They are never on the screen together; windows are gaze criteria, not drawn. Dots: about one frame at 120 Hz.",
+        "caption": "Two moments of one monkey trial, side by side on the same mid-grey screen (example geometry, to scale). Panel 1: dots in an aperture over an example receptive field while fixation is held. Panel 2: dots and fixation point off, two targets on the motion axis. Dashed circles are gaze windows, not drawn on screen. Dots: about one frame at 120 Hz.",
         "elements": [
           {
+            "type": "screen",
+            "cx": -14.5,
+            "cy": 0,
+            "width": 27,
+            "height": 20,
+            "role": "apparatus",
+            "label": "Panel 1"
+          },
+          {
+            "type": "screen",
+            "cx": 14.5,
+            "cy": 0,
+            "width": 27,
+            "height": 20,
+            "role": "apparatus",
+            "label": "Panel 2"
+          },
+          {
+            "type": "text",
+            "x": -14.5,
+            "y": 11,
+            "text": "1. Dots, 2 s: hold fixation",
+            "role": "annotation"
+          },
+          {
+            "type": "text",
+            "x": 14.5,
+            "y": 11,
+            "text": "2. Dots off: saccade to a target",
+            "role": "annotation"
+          },
+          {
             "type": "circle",
-            "cx": 0,
+            "cx": -14.5,
             "cy": 0,
             "r": 0.15,
             "role": "stimulus",
             "color": "#ffff00",
-            "luminance": 1
+            "luminance": 1,
+            "label": "Fixation point"
           },
           {
             "type": "circle",
-            "cx": 0,
+            "cx": -14.5,
             "cy": 0,
             "r": {
               "param": "fix_window_dva",
@@ -376,7 +409,7 @@
           },
           {
             "type": "circle",
-            "cx": 6,
+            "cx": -8.5,
             "cy": -4,
             "r": {
               "param": "aperture_dva",
@@ -384,12 +417,12 @@
             },
             "role": "stimulus",
             "luminance": 0,
-            "label": "Dot aperture (example RF)",
-            "color": "#000000"
+            "color": "#000000",
+            "label": "Dot aperture (example RF)"
           },
           {
             "type": "dot_field",
-            "cx": 6,
+            "cx": -8.5,
             "cy": -4,
             "radius": {
               "param": "aperture_dva",
@@ -407,35 +440,27 @@
           },
           {
             "type": "circle",
-            "cx": {
-              "param": "target_ecc_dva",
-              "factor": 1
-            },
+            "cx": 24.5,
             "cy": 0,
             "r": 0.25,
             "role": "target",
             "luminance": 1,
-            "label": "Pref target",
-            "color": "#ffffff"
+            "color": "#ffffff",
+            "label": "Pref target"
           },
           {
             "type": "circle",
-            "cx": {
-              "param": "target_ecc_dva",
-              "factor": -1
-            },
+            "cx": 4.5,
             "cy": 0,
             "r": 0.25,
             "role": "target",
             "luminance": 1,
-            "color": "#ffffff"
+            "color": "#ffffff",
+            "label": "Null target"
           },
           {
             "type": "circle",
-            "cx": {
-              "param": "target_ecc_dva",
-              "factor": 1
-            },
+            "cx": 24.5,
             "cy": 0,
             "r": {
               "param": "target_window_dva",
@@ -447,10 +472,7 @@
           },
           {
             "type": "circle",
-            "cx": {
-              "param": "target_ecc_dva",
-              "factor": -1
-            },
+            "cx": 4.5,
             "cy": 0,
             "r": {
               "param": "target_window_dva",
@@ -461,9 +483,9 @@
           },
           {
             "type": "dimension",
-            "x1": 0,
+            "x1": 14.5,
             "y1": 5,
-            "x2": 10,
+            "x2": 24.5,
             "y2": 5,
             "value": {
               "param": "target_ecc_dva",
@@ -473,7 +495,7 @@
           }
         ]
       },
-      "description": "**Question.** The paper's trial: can the monkey report the direction of a weak motion signal placed in a neuron's receptive field?\n\n**What is on the screen.** A yellow fixation point; after fixation is acquired and held 300 ms, [[param:stimulus_duration]] of random dots in an aperture over an example receptive field. Then the fixation point and the dots go off and two targets appear on the motion axis, [[param:target_ecc_dva]] either side of fixation. Dots and targets are never on together.\n\n**What the subject does.** Holds gaze inside the fixation window through the dots (checked by the eye tracker; leaving it ends the trial as FIX_BREAK), then saccades to the target on the side of the motion within [[param:response_timeout]].\n\n**Varied.** Correlation, one of [[param:coherences_pct]] %, and direction (preferred or null), 15 trials of each per block. Three wrong choices in a row in one direction start correction trials in that direction (excluded from analysis).\n\n**Measured.** Which target the saccade lands on (CORRECT, WRONG, MISSED, NO_CHOICE). Juice for a correct choice; a [[param:error_timeout]] time-out after a wrong one; at 0 % a random half of trials pay.\n\n**What it can and cannot show.** A monkey psychometric function on this rig. The neurometric half (MT spike counts on the same trials) needs a recording system this folder does not run; the aperture, axis and speed here are example values, not matched to a neuron.",
+      "description": "**Question.** The paper's trial: can the monkey report the direction of weak motion placed in a neuron's receptive field?\n\n**On screen.** Panel 1: [[param:stimulus_duration]] of random dots in an aperture over an example receptive field, fixation point on. Panel 2: dots and fixation point off, two targets on the motion axis.\n\n**The subject.** Holds gaze in the fixation window during the dots (enforced), then saccades to the target on the side of the motion. Juice if correct, a time-out if wrong.\n\n**Measured.** Choice at each correlation; correction trials after three errors in one direction are excluded.\n\n**Limits.** Aperture, axis and speed are examples, not matched to a neuron. The MT recording the paper compared against is not part of this folder.",
       "sourceFiles": [
         "src/britten1992/task.py",
         "src/britten1992/rdk.py",
@@ -484,8 +506,8 @@
         "Aperture position (6, -4) dva, size 7 dva, axis and speed are EXAMPLE values, ASSUMED; the paper matched them to each MT neuron.",
         "Paper values: 2-s display, 1.25-dva fixation window, 2.1-s decision window, correction trials after 3 errors. Acquire 5 s/200 ms, 300-ms hold, 200-ms landing sample, 1.5-s time-out, 1-s interval, target eccentricity and windows are ASSUMED.",
         "Dot count is one frame at the example rig's 120 Hz (16.7 dots/deg²/s over a 20 x 20 dva field, drawn only inside the aperture).",
-        "Window radii are drawn as radii (the code uses them as circle radii).",
-        "Inks: yellow fixation point (#ffff00, paper p. 4748), white dots and targets (target colour ASSUMED), black aperture disc, on the window's mid-grey."
+        "Inks: yellow fixation point (#ffff00, paper p. 4748), white dots and targets (target colour ASSUMED), black aperture disc, on the window's mid-grey.",
+        "Panel centres are drawn 14.5 dva left and right of the figure centre; inside each panel, positions are relative to that panel's fixation point (aperture at (6, -4), targets at ±10 dva, ASSUMED example values)."
       ]
     }
   ]

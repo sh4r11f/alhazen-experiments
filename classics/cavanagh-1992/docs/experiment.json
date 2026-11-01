@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Attention-based motion (Cavanagh)",
-  "summary": "Cavanagh (1992): superimposed colour and luminance gratings turn in opposite directions; the luminance grating sets the global motion even when its bars are invisible, while the colour bars are seen to move only when tracked with attention. Tasks: equiluminance, motion null, thresholds, attentive tracking (Experiment 1) and speed matching (Experiment 2).",
+  "summary": "Can attention make us see motion that low-level motion detectors do not signal? Colour and luminance gratings turn in opposite directions in a ring. The luminance grating sets the overall motion even when its bars are invisible; the colour bars are seen moving only when tracked with attention. Tasks: set equiluminance, null the motion, measure thresholds, track a marked pair of bars (Experiment 1), and match the speed of a colour grating (Experiment 2).",
   "methods": "docs/methods.md",
   "references": [
     "Cavanagh, P. (1992). Attention-based motion perception. Science, 257(5076), 1563-1565. https://doi.org/10.1126/science.1523411",
