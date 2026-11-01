@@ -305,6 +305,2563 @@
     "The inner ellipse height 5.5° is drawn as a literal (inner_ellipse_height_dva is in the config but not a documented parameter).",
     "Ink RGB (green 0,150,70; brown 140,85,35; blue 25,75,210), 0.12° stroke, 1.2° minimum spacing, 10 s response cap, 1.5 s feedback and the ready-key start are ASSUMED or deviations; the experimenter started trials in the paper."
    ]
+  },
+  {
+   "taskKey": "feature-conjunction-search@configs/task-exp1-feature.yaml",
+   "timeline": {
+    "caption": "One card, Experiment I feature set; the same trial as the conjunction set.",
+    "phases": [
+     {
+      "id": "ready",
+      "label": "Ready field",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE"
+      },
+      "start_events": [
+       "READY_ON"
+      ]
+     },
+     {
+      "id": "fixation",
+      "label": "Fixation spot",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "search",
+      "label": "Search card",
+      "timing": {
+       "kind": "event",
+       "until": "present or absent key",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "ARRAY_ON"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     },
+     {
+      "id": "feedback",
+      "label": "Feedback",
+      "timing": {
+       "kind": "parameter",
+       "param": "feedback_duration"
+      },
+      "start_events": [
+       "FEEDBACK_ON"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "White field",
+      "role": "stimulus",
+      "from": "ready",
+      "to": "feedback"
+     },
+     {
+      "label": "Fixation spot",
+      "role": "stimulus",
+      "from": "fixation",
+      "to": "fixation"
+     },
+     {
+      "label": "Letter array",
+      "role": "stimulus",
+      "from": "search",
+      "to": "search"
+     },
+     {
+      "label": "Present/absent key",
+      "role": "response",
+      "from": "search",
+      "to": "search"
+     },
+     {
+      "label": "RT and correct/error",
+      "role": "stimulus",
+      "from": "feedback",
+      "to": "feedback"
+     }
+    ],
+    "branches": [
+     {
+      "from": "ready",
+      "kind": "failure",
+      "when": "no SPACE",
+      "outcome": "NOT_STARTED",
+      "effect": "card served again"
+     },
+     {
+      "from": "search",
+      "kind": "failure",
+      "when": "wrong key",
+      "outcome": "WRONG",
+      "effect": "card served again later; an unanalysed dummy card follows"
+     },
+     {
+      "from": "search",
+      "kind": "failure",
+      "when": "no key",
+      "outcome": "NO_RESPONSE",
+      "effect": "card served again"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT"
+    }
+   },
+   "diagram": {
+    "caption": "Experiment I feature card, display size 5, on the white card: a blue T among brown Ts and green Xs, with the parameter file's inks (blue #194bd2, brown #8c5523, green #009646). A target card holds one of the four feature targets; a blank card holds only distractors. Positions are an example; the session places letters at least 1.2° apart (ASSUMED). The dashed field, diagonals and ellipse are section boundaries, not displayed. Ink RGB and stroke width are ASSUMED.",
+    "unit": "dva",
+    "width": 16,
+    "height": 10,
+    "background": 1.0,
+    "elements": [
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 0,
+      "width": {
+       "param": "field_width_dva"
+      },
+      "height": {
+       "param": "field_height_dva"
+      },
+      "role": "region",
+      "dashed": true,
+      "label": "Search field (not displayed)"
+     },
+     {
+      "type": "ellipse",
+      "cx": 0,
+      "cy": 0,
+      "rx": {
+       "param": "inner_ellipse_width_dva",
+       "factor": 0.5
+      },
+      "ry": 2.75,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "line",
+      "x1": -7,
+      "y1": -4,
+      "x2": 7,
+      "y2": 4,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "line",
+      "x1": -7,
+      "y1": 4,
+      "x2": 7,
+      "y2": -4,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "line",
+      "x1": -4.8,
+      "y1": 1.84,
+      "x2": -4.2,
+      "y2": 1.84,
+      "role": "target",
+      "color": "#194bd2",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.5,
+      "y1": 1.9,
+      "x2": -4.5,
+      "y2": 1.1,
+      "role": "target",
+      "color": "#194bd2",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Target: blue T (or a blue X, a brown S or a green S)"
+     },
+     {
+      "type": "line",
+      "x1": 1.7,
+      "y1": 2.94,
+      "x2": 2.3,
+      "y2": 2.94,
+      "role": "distractor",
+      "color": "#8c5523",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 2.0,
+      "y1": 3.0,
+      "x2": 2.0,
+      "y2": 2.2,
+      "role": "distractor",
+      "color": "#8c5523",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Distractor: brown T"
+     },
+     {
+      "type": "line",
+      "x1": 4.96,
+      "y1": -1.46,
+      "x2": 5.44,
+      "y2": -2.14,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.44,
+      "y1": -1.46,
+      "x2": 4.96,
+      "y2": -2.14,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Distractor: green X"
+     },
+     {
+      "type": "line",
+      "x1": -1.8,
+      "y1": -2.16,
+      "x2": -1.2,
+      "y2": -2.16,
+      "role": "distractor",
+      "color": "#8c5523",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.5,
+      "y1": -2.1,
+      "x2": -1.5,
+      "y2": -2.9,
+      "role": "distractor",
+      "color": "#8c5523",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 0.56,
+      "y1": 0.74,
+      "x2": 1.04,
+      "y2": 0.06,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.04,
+      "y1": 0.74,
+      "x2": 0.56,
+      "y2": 0.06,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     }
+    ]
+   },
+   "description": "**This set.** Experiment I, feature targets. The target is any blue letter or any S, so a single feature (blue colour, or S shape) is enough to spot it among brown Ts and green Xs.\n\n**Question.** Is a target that differs by one feature found at a glance, while a target defined only by a combination of colour and shape has to be searched for letter by letter?\n\n**What the observer sees.** A plain white field, then a black fixation spot for [[param:fixation_duration]], then a card of 1, 5, 15 or 30 coloured letters scattered over a 14° × 8° area: brown Ts and green Xs, plus on target cards one blue T, blue X, brown S or green S. The card stays until a key.\n\n**What they do.** Press the dominant-hand key if the target is on the card and the other key if not, as fast as possible without errors. The RT and whether it was right are then shown for [[param:feedback_duration]].\n\n**What varies.** The number of letters and whether a target is present (half each). The distractors are the conjunction set's, so the two sets differ only in what defines the target.\n\n**What is measured.** Reaction time on correct trials against the number of letters (the search slope), separately for present and absent cards. A wrong answer puts the card back later in the block and adds an unanalysed dummy card.\n\n**What it can and cannot show.** A nearly flat slope here, against a steep one for the conjunction set, would show that a single feature is detected without searching item by item. Treisman and Gelade reported slopes of about 3 ms per letter for present feature targets. No result is claimed for this software, and the inks are display RGB, not the original inks.",
+   "sourceFiles": [
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/task.py",
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/phases.py",
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/design.py",
+    "classics/treisman-gelade-1980/docs/experiment.json",
+    "classics/treisman-gelade-1980/configs/task-exp1-feature.yaml"
+   ],
+   "notes": [
+    "Paper (p. 103): feature target a blue letter (T or X) or an S (brown or green); four possible targets although the instruction named only \"blue or S\".",
+    "Positive and negative cards, 1, 5, 15, 30 letters over 14° × 8°, 16 positive and 16 negative trials per size per block (p. 103).",
+    "ASSUMED: ink RGB, 0.12° stroke, 1.2° minimum spacing, 10 s response cap, 1.5 s feedback; the subject starts each trial (the experimenter did in the paper)."
+   ]
+  },
+  {
+   "taskKey": "feature-conjunction-search@configs/task-exp2-easy.yaml",
+   "timeline": {
+    "caption": "One card, Experiment II; the same trial as Experiment I, letters on a matrix.",
+    "phases": [
+     {
+      "id": "ready",
+      "label": "Ready field",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE"
+      },
+      "start_events": [
+       "READY_ON"
+      ]
+     },
+     {
+      "id": "fixation",
+      "label": "Fixation spot",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "search",
+      "label": "Search card",
+      "timing": {
+       "kind": "event",
+       "until": "present or absent key",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "ARRAY_ON"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     },
+     {
+      "id": "feedback",
+      "label": "Feedback",
+      "timing": {
+       "kind": "parameter",
+       "param": "feedback_duration"
+      },
+      "start_events": [
+       "FEEDBACK_ON"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "White field",
+      "role": "stimulus",
+      "from": "ready",
+      "to": "feedback"
+     },
+     {
+      "label": "Fixation spot",
+      "role": "stimulus",
+      "from": "fixation",
+      "to": "fixation"
+     },
+     {
+      "label": "Letter array",
+      "role": "stimulus",
+      "from": "search",
+      "to": "search"
+     },
+     {
+      "label": "Present/absent key",
+      "role": "response",
+      "from": "search",
+      "to": "search"
+     },
+     {
+      "label": "RT and correct/error",
+      "role": "stimulus",
+      "from": "feedback",
+      "to": "feedback"
+     }
+    ],
+    "branches": [
+     {
+      "from": "ready",
+      "kind": "failure",
+      "when": "no SPACE",
+      "outcome": "NOT_STARTED",
+      "effect": "card served again"
+     },
+     {
+      "from": "search",
+      "kind": "failure",
+      "when": "wrong key",
+      "outcome": "WRONG",
+      "effect": "card served again later; an unanalysed dummy card follows"
+     },
+     {
+      "from": "search",
+      "kind": "failure",
+      "when": "no key",
+      "outcome": "NO_RESPONSE",
+      "effect": "card served again"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT"
+    }
+   },
+   "diagram": {
+    "caption": "Experiment II easy card, display size 16: a red O among green Os and red Ns on a 4 × 4 matrix, letters at the cell centres the session uses (extent 9.7° × 9.7° read as the letters' extent). Inks from the parameter file (red #d22323, green #009646), uncalibrated. The target's cell and the mix of distractors are an example. Displays of 1 and 4 use the 2 × 2 matrix (7° × 7°), 36 the 6 × 6 (12.3° × 9.7°).",
+    "unit": "dva",
+    "width": 12,
+    "height": 13,
+    "background": 1.0,
+    "elements": [
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 0,
+      "width": 9.7,
+      "height": 9.7,
+      "role": "region",
+      "dashed": true,
+      "label": "4 × 4 matrix extent, 9.7° × 9.7° (not displayed)"
+     },
+     {
+      "type": "line",
+      "x1": 1.757,
+      "y1": 1.483,
+      "x2": 1.725,
+      "y2": 1.653,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.725,
+      "y1": 1.653,
+      "x2": 1.637,
+      "y2": 1.778,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.637,
+      "y1": 1.778,
+      "x2": 1.517,
+      "y2": 1.823,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.517,
+      "y1": 1.823,
+      "x2": 1.397,
+      "y2": 1.778,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.397,
+      "y1": 1.778,
+      "x2": 1.309,
+      "y2": 1.653,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.309,
+      "y1": 1.653,
+      "x2": 1.277,
+      "y2": 1.483,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.277,
+      "y1": 1.483,
+      "x2": 1.309,
+      "y2": 1.313,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.309,
+      "y1": 1.313,
+      "x2": 1.397,
+      "y2": 1.189,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.397,
+      "y1": 1.189,
+      "x2": 1.517,
+      "y2": 1.143,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.517,
+      "y1": 1.143,
+      "x2": 1.637,
+      "y2": 1.189,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.637,
+      "y1": 1.189,
+      "x2": 1.725,
+      "y2": 1.313,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.725,
+      "y1": 1.313,
+      "x2": 1.757,
+      "y2": 1.483,
+      "role": "target",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Target: red O"
+     },
+     {
+      "type": "line",
+      "x1": -4.79,
+      "y1": 4.11,
+      "x2": -4.79,
+      "y2": 4.79,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.79,
+      "y1": 4.79,
+      "x2": -4.31,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.31,
+      "y1": 4.11,
+      "x2": -4.31,
+      "y2": 4.79,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Distractor: red N"
+     },
+     {
+      "type": "line",
+      "x1": -1.277,
+      "y1": 4.45,
+      "x2": -1.309,
+      "y2": 4.62,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.309,
+      "y1": 4.62,
+      "x2": -1.397,
+      "y2": 4.744,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.397,
+      "y1": 4.744,
+      "x2": -1.517,
+      "y2": 4.79,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.517,
+      "y1": 4.79,
+      "x2": -1.637,
+      "y2": 4.744,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.637,
+      "y1": 4.744,
+      "x2": -1.725,
+      "y2": 4.62,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.725,
+      "y1": 4.62,
+      "x2": -1.757,
+      "y2": 4.45,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.757,
+      "y1": 4.45,
+      "x2": -1.725,
+      "y2": 4.28,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.725,
+      "y1": 4.28,
+      "x2": -1.637,
+      "y2": 4.156,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.637,
+      "y1": 4.156,
+      "x2": -1.517,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.517,
+      "y1": 4.11,
+      "x2": -1.397,
+      "y2": 4.156,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.397,
+      "y1": 4.156,
+      "x2": -1.309,
+      "y2": 4.28,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.309,
+      "y1": 4.28,
+      "x2": -1.277,
+      "y2": 4.45,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Distractor: green O"
+     },
+     {
+      "type": "line",
+      "x1": 1.757,
+      "y1": 4.45,
+      "x2": 1.725,
+      "y2": 4.62,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.725,
+      "y1": 4.62,
+      "x2": 1.637,
+      "y2": 4.744,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.637,
+      "y1": 4.744,
+      "x2": 1.517,
+      "y2": 4.79,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.517,
+      "y1": 4.79,
+      "x2": 1.397,
+      "y2": 4.744,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.397,
+      "y1": 4.744,
+      "x2": 1.309,
+      "y2": 4.62,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.309,
+      "y1": 4.62,
+      "x2": 1.277,
+      "y2": 4.45,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.277,
+      "y1": 4.45,
+      "x2": 1.309,
+      "y2": 4.28,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.309,
+      "y1": 4.28,
+      "x2": 1.397,
+      "y2": 4.156,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.397,
+      "y1": 4.156,
+      "x2": 1.517,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.517,
+      "y1": 4.11,
+      "x2": 1.637,
+      "y2": 4.156,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.637,
+      "y1": 4.156,
+      "x2": 1.725,
+      "y2": 4.28,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.725,
+      "y1": 4.28,
+      "x2": 1.757,
+      "y2": 4.45,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.79,
+      "y1": 4.45,
+      "x2": 4.758,
+      "y2": 4.62,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.758,
+      "y1": 4.62,
+      "x2": 4.67,
+      "y2": 4.744,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.67,
+      "y1": 4.744,
+      "x2": 4.55,
+      "y2": 4.79,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.55,
+      "y1": 4.79,
+      "x2": 4.43,
+      "y2": 4.744,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.43,
+      "y1": 4.744,
+      "x2": 4.342,
+      "y2": 4.62,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.342,
+      "y1": 4.62,
+      "x2": 4.31,
+      "y2": 4.45,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.31,
+      "y1": 4.45,
+      "x2": 4.342,
+      "y2": 4.28,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.342,
+      "y1": 4.28,
+      "x2": 4.43,
+      "y2": 4.156,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.43,
+      "y1": 4.156,
+      "x2": 4.55,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.55,
+      "y1": 4.11,
+      "x2": 4.67,
+      "y2": 4.156,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.67,
+      "y1": 4.156,
+      "x2": 4.758,
+      "y2": 4.28,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.758,
+      "y1": 4.28,
+      "x2": 4.79,
+      "y2": 4.45,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.79,
+      "y1": 1.143,
+      "x2": -4.79,
+      "y2": 1.823,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.79,
+      "y1": 1.823,
+      "x2": -4.31,
+      "y2": 1.143,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.31,
+      "y1": 1.143,
+      "x2": -4.31,
+      "y2": 1.823,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.277,
+      "y1": 1.483,
+      "x2": -1.309,
+      "y2": 1.653,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.309,
+      "y1": 1.653,
+      "x2": -1.397,
+      "y2": 1.778,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.397,
+      "y1": 1.778,
+      "x2": -1.517,
+      "y2": 1.823,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.517,
+      "y1": 1.823,
+      "x2": -1.637,
+      "y2": 1.778,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.637,
+      "y1": 1.778,
+      "x2": -1.725,
+      "y2": 1.653,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.725,
+      "y1": 1.653,
+      "x2": -1.757,
+      "y2": 1.483,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.757,
+      "y1": 1.483,
+      "x2": -1.725,
+      "y2": 1.313,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.725,
+      "y1": 1.313,
+      "x2": -1.637,
+      "y2": 1.189,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.637,
+      "y1": 1.189,
+      "x2": -1.517,
+      "y2": 1.143,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.517,
+      "y1": 1.143,
+      "x2": -1.397,
+      "y2": 1.189,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.397,
+      "y1": 1.189,
+      "x2": -1.309,
+      "y2": 1.313,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.309,
+      "y1": 1.313,
+      "x2": -1.277,
+      "y2": 1.483,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.79,
+      "y1": 1.483,
+      "x2": 4.758,
+      "y2": 1.653,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.758,
+      "y1": 1.653,
+      "x2": 4.67,
+      "y2": 1.778,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.67,
+      "y1": 1.778,
+      "x2": 4.55,
+      "y2": 1.823,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.55,
+      "y1": 1.823,
+      "x2": 4.43,
+      "y2": 1.778,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.43,
+      "y1": 1.778,
+      "x2": 4.342,
+      "y2": 1.653,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.342,
+      "y1": 1.653,
+      "x2": 4.31,
+      "y2": 1.483,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.31,
+      "y1": 1.483,
+      "x2": 4.342,
+      "y2": 1.313,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.342,
+      "y1": 1.313,
+      "x2": 4.43,
+      "y2": 1.189,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.43,
+      "y1": 1.189,
+      "x2": 4.55,
+      "y2": 1.143,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.55,
+      "y1": 1.143,
+      "x2": 4.67,
+      "y2": 1.189,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.67,
+      "y1": 1.189,
+      "x2": 4.758,
+      "y2": 1.313,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.758,
+      "y1": 1.313,
+      "x2": 4.79,
+      "y2": 1.483,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.31,
+      "y1": -1.483,
+      "x2": -4.342,
+      "y2": -1.313,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.342,
+      "y1": -1.313,
+      "x2": -4.43,
+      "y2": -1.189,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.43,
+      "y1": -1.189,
+      "x2": -4.55,
+      "y2": -1.143,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.55,
+      "y1": -1.143,
+      "x2": -4.67,
+      "y2": -1.189,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.67,
+      "y1": -1.189,
+      "x2": -4.758,
+      "y2": -1.313,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.758,
+      "y1": -1.313,
+      "x2": -4.79,
+      "y2": -1.483,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.79,
+      "y1": -1.483,
+      "x2": -4.758,
+      "y2": -1.653,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.758,
+      "y1": -1.653,
+      "x2": -4.67,
+      "y2": -1.778,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.67,
+      "y1": -1.778,
+      "x2": -4.55,
+      "y2": -1.823,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.55,
+      "y1": -1.823,
+      "x2": -4.43,
+      "y2": -1.778,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.43,
+      "y1": -1.778,
+      "x2": -4.342,
+      "y2": -1.653,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.342,
+      "y1": -1.653,
+      "x2": -4.31,
+      "y2": -1.483,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.277,
+      "y1": -1.483,
+      "x2": -1.309,
+      "y2": -1.313,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.309,
+      "y1": -1.313,
+      "x2": -1.397,
+      "y2": -1.189,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.397,
+      "y1": -1.189,
+      "x2": -1.517,
+      "y2": -1.143,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.517,
+      "y1": -1.143,
+      "x2": -1.637,
+      "y2": -1.189,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.637,
+      "y1": -1.189,
+      "x2": -1.725,
+      "y2": -1.313,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.725,
+      "y1": -1.313,
+      "x2": -1.757,
+      "y2": -1.483,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.757,
+      "y1": -1.483,
+      "x2": -1.725,
+      "y2": -1.653,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.725,
+      "y1": -1.653,
+      "x2": -1.637,
+      "y2": -1.778,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.637,
+      "y1": -1.778,
+      "x2": -1.517,
+      "y2": -1.823,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.517,
+      "y1": -1.823,
+      "x2": -1.397,
+      "y2": -1.778,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.397,
+      "y1": -1.778,
+      "x2": -1.309,
+      "y2": -1.653,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.309,
+      "y1": -1.653,
+      "x2": -1.277,
+      "y2": -1.483,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.277,
+      "y1": -1.823,
+      "x2": 1.277,
+      "y2": -1.143,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.277,
+      "y1": -1.143,
+      "x2": 1.757,
+      "y2": -1.823,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.757,
+      "y1": -1.823,
+      "x2": 1.757,
+      "y2": -1.143,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.31,
+      "y1": -1.823,
+      "x2": 4.31,
+      "y2": -1.143,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.31,
+      "y1": -1.143,
+      "x2": 4.79,
+      "y2": -1.823,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.79,
+      "y1": -1.823,
+      "x2": 4.79,
+      "y2": -1.143,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.79,
+      "y1": -4.79,
+      "x2": -4.79,
+      "y2": -4.11,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.79,
+      "y1": -4.11,
+      "x2": -4.31,
+      "y2": -4.79,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.31,
+      "y1": -4.79,
+      "x2": -4.31,
+      "y2": -4.11,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.757,
+      "y1": -4.79,
+      "x2": -1.757,
+      "y2": -4.11,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.757,
+      "y1": -4.11,
+      "x2": -1.277,
+      "y2": -4.79,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.277,
+      "y1": -4.79,
+      "x2": -1.277,
+      "y2": -4.11,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.277,
+      "y1": -4.79,
+      "x2": 1.277,
+      "y2": -4.11,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.277,
+      "y1": -4.11,
+      "x2": 1.757,
+      "y2": -4.79,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.757,
+      "y1": -4.79,
+      "x2": 1.757,
+      "y2": -4.11,
+      "role": "distractor",
+      "color": "#d22323",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.79,
+      "y1": -4.45,
+      "x2": 4.758,
+      "y2": -4.28,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.758,
+      "y1": -4.28,
+      "x2": 4.67,
+      "y2": -4.156,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.67,
+      "y1": -4.156,
+      "x2": 4.55,
+      "y2": -4.11,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.55,
+      "y1": -4.11,
+      "x2": 4.43,
+      "y2": -4.156,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.43,
+      "y1": -4.156,
+      "x2": 4.342,
+      "y2": -4.28,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.342,
+      "y1": -4.28,
+      "x2": 4.31,
+      "y2": -4.45,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.31,
+      "y1": -4.45,
+      "x2": 4.342,
+      "y2": -4.62,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.342,
+      "y1": -4.62,
+      "x2": 4.43,
+      "y2": -4.744,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.43,
+      "y1": -4.744,
+      "x2": 4.55,
+      "y2": -4.79,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.55,
+      "y1": -4.79,
+      "x2": 4.67,
+      "y2": -4.744,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.67,
+      "y1": -4.744,
+      "x2": 4.758,
+      "y2": -4.62,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.758,
+      "y1": -4.62,
+      "x2": 4.79,
+      "y2": -4.45,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "dimension",
+      "x1": -4.85,
+      "y1": -5.8,
+      "x2": 4.85,
+      "y2": -5.8,
+      "value": 9.7,
+      "text": "matrix width",
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**This set.** Experiment II, easy conjunction. The target is still defined only by colour and shape together (a red O among green Os and red Ns), but both colours and both shapes are easy to tell apart.\n\n**Question.** Is a target that differs by one feature found at a glance, while a target defined only by a combination of colour and shape has to be searched for letter by letter?\n\n**What the observer sees.** A plain white field, then a black fixation spot for [[param:fixation_duration]], then a card of 1, 4, 16 or 36 letters on a regular matrix: green Os and red Ns, plus a red O on target cards. The card stays until a key.\n\n**What they do.** Press the dominant-hand key if the target is on the card and the other key if not, as fast as possible without errors. The RT and whether it was right are then shown for [[param:feedback_duration]].\n\n**What varies.** The number of letters and whether a target is present (half each).\n\n**What is measured.** Reaction time on correct trials against the number of letters (the search slope), separately for present and absent cards. A wrong answer puts the card back later in the block and adds an unanalysed dummy card.\n\n**What it can and cannot show.** Linear slopes with present slopes about half the absent ones, but shallower than in the difficult set, would show serial search whose speed depends on how easy each check is; the paper reported about 20 and 40 ms per letter. No result is claimed for this software, and the inks are display RGB, not the original inks.",
+   "sourceFiles": [
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/task.py",
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/phases.py",
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/design.py",
+    "classics/treisman-gelade-1980/docs/experiment.json",
+    "classics/treisman-gelade-1980/configs/task-exp2-easy.yaml"
+   ],
+   "notes": [
+    "Paper (p. 108): 1, 4, 16, 36 letters on 2 × 2 (7° × 7°, also used for 1 letter), 4 × 4 (9.7° × 9.7°) and 6 × 6 (12.3° × 9.7°) matrices, mean distance from fixation about 4.3°; target placement balanced over positions and quadrants.",
+    "ASSUMED: the matrix extent is the letters' extent (mean eccentricity 4.5–4.7°), letter size, ink RGB and Experiment I's procedure (1 s fixation, error repetition, dummy trials, two showings of each card), which Experiment II does not describe."
+   ]
+  },
+  {
+   "taskKey": "feature-conjunction-search@configs/task-exp2-difficult.yaml",
+   "timeline": {
+    "caption": "One card, Experiment II; the same trial as Experiment I, letters on a matrix.",
+    "phases": [
+     {
+      "id": "ready",
+      "label": "Ready field",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE"
+      },
+      "start_events": [
+       "READY_ON"
+      ]
+     },
+     {
+      "id": "fixation",
+      "label": "Fixation spot",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "search",
+      "label": "Search card",
+      "timing": {
+       "kind": "event",
+       "until": "present or absent key",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "ARRAY_ON"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     },
+     {
+      "id": "feedback",
+      "label": "Feedback",
+      "timing": {
+       "kind": "parameter",
+       "param": "feedback_duration"
+      },
+      "start_events": [
+       "FEEDBACK_ON"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "White field",
+      "role": "stimulus",
+      "from": "ready",
+      "to": "feedback"
+     },
+     {
+      "label": "Fixation spot",
+      "role": "stimulus",
+      "from": "fixation",
+      "to": "fixation"
+     },
+     {
+      "label": "Letter array",
+      "role": "stimulus",
+      "from": "search",
+      "to": "search"
+     },
+     {
+      "label": "Present/absent key",
+      "role": "response",
+      "from": "search",
+      "to": "search"
+     },
+     {
+      "label": "RT and correct/error",
+      "role": "stimulus",
+      "from": "feedback",
+      "to": "feedback"
+     }
+    ],
+    "branches": [
+     {
+      "from": "ready",
+      "kind": "failure",
+      "when": "no SPACE",
+      "outcome": "NOT_STARTED",
+      "effect": "card served again"
+     },
+     {
+      "from": "search",
+      "kind": "failure",
+      "when": "wrong key",
+      "outcome": "WRONG",
+      "effect": "card served again later; an unanalysed dummy card follows"
+     },
+     {
+      "from": "search",
+      "kind": "failure",
+      "when": "no key",
+      "outcome": "NO_RESPONSE",
+      "effect": "card served again"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT"
+    }
+   },
+   "diagram": {
+    "caption": "Experiment II difficult card, display size 16: a green T among blue Ts and green Xs on a 4 × 4 matrix, letters at the session's cell centres. The green (#008c6e) and blue (#006e96) are deliberately similar, as the paper chose 'very similar' inks; the values are ASSUMED and uncalibrated. Target cell and distractor mix are an example. Displays of 1 and 4 use the 2 × 2 matrix, 36 the 6 × 6.",
+    "unit": "dva",
+    "width": 12,
+    "height": 13,
+    "background": 1.0,
+    "elements": [
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 0,
+      "width": 9.7,
+      "height": 9.7,
+      "role": "region",
+      "dashed": true,
+      "label": "4 × 4 matrix extent, 9.7° × 9.7° (not displayed)"
+     },
+     {
+      "type": "line",
+      "x1": 1.217,
+      "y1": 1.823,
+      "x2": 1.817,
+      "y2": 1.823,
+      "role": "target",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.517,
+      "y1": 1.883,
+      "x2": 1.517,
+      "y2": 1.083,
+      "role": "target",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Target: green T"
+     },
+     {
+      "type": "line",
+      "x1": -4.79,
+      "y1": 4.79,
+      "x2": -4.31,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.31,
+      "y1": 4.79,
+      "x2": -4.79,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Distractor: green X"
+     },
+     {
+      "type": "line",
+      "x1": -1.817,
+      "y1": 4.79,
+      "x2": -1.217,
+      "y2": 4.79,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.517,
+      "y1": 4.85,
+      "x2": -1.517,
+      "y2": 4.05,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Distractor: blue T"
+     },
+     {
+      "type": "line",
+      "x1": 1.277,
+      "y1": 4.79,
+      "x2": 1.757,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.757,
+      "y1": 4.79,
+      "x2": 1.277,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.31,
+      "y1": 4.79,
+      "x2": 4.79,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.79,
+      "y1": 4.79,
+      "x2": 4.31,
+      "y2": 4.11,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.85,
+      "y1": 1.823,
+      "x2": -4.25,
+      "y2": 1.823,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.55,
+      "y1": 1.883,
+      "x2": -4.55,
+      "y2": 1.083,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.757,
+      "y1": 1.823,
+      "x2": -1.277,
+      "y2": 1.143,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.277,
+      "y1": 1.823,
+      "x2": -1.757,
+      "y2": 1.143,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.25,
+      "y1": 1.823,
+      "x2": 4.85,
+      "y2": 1.823,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.55,
+      "y1": 1.883,
+      "x2": 4.55,
+      "y2": 1.083,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.85,
+      "y1": -1.143,
+      "x2": -4.25,
+      "y2": -1.143,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.55,
+      "y1": -1.083,
+      "x2": -4.55,
+      "y2": -1.883,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.817,
+      "y1": -1.143,
+      "x2": -1.217,
+      "y2": -1.143,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.517,
+      "y1": -1.083,
+      "x2": -1.517,
+      "y2": -1.883,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.217,
+      "y1": -1.143,
+      "x2": 1.817,
+      "y2": -1.143,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.517,
+      "y1": -1.083,
+      "x2": 1.517,
+      "y2": -1.883,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.31,
+      "y1": -1.143,
+      "x2": 4.79,
+      "y2": -1.823,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.79,
+      "y1": -1.143,
+      "x2": 4.31,
+      "y2": -1.823,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.79,
+      "y1": -4.11,
+      "x2": -4.31,
+      "y2": -4.79,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.31,
+      "y1": -4.11,
+      "x2": -4.79,
+      "y2": -4.79,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.757,
+      "y1": -4.11,
+      "x2": -1.277,
+      "y2": -4.79,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.277,
+      "y1": -4.11,
+      "x2": -1.757,
+      "y2": -4.79,
+      "role": "distractor",
+      "color": "#008c6e",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.217,
+      "y1": -4.11,
+      "x2": 1.817,
+      "y2": -4.11,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.517,
+      "y1": -4.05,
+      "x2": 1.517,
+      "y2": -4.85,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.25,
+      "y1": -4.11,
+      "x2": 4.85,
+      "y2": -4.11,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 4.55,
+      "y1": -4.05,
+      "x2": 4.55,
+      "y2": -4.85,
+      "role": "distractor",
+      "color": "#006e96",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "dimension",
+      "x1": -4.85,
+      "y1": -5.8,
+      "x2": 4.85,
+      "y2": -5.8,
+      "value": 9.7,
+      "text": "matrix width",
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**This set.** Experiment II, difficult conjunction. The target is a green T among blue Ts and green Xs, with similar green and blue inks, so each check of a letter is hard.\n\n**Question.** Is a target that differs by one feature found at a glance, while a target defined only by a combination of colour and shape has to be searched for letter by letter?\n\n**What the observer sees.** A plain white field, then a black fixation spot for [[param:fixation_duration]], then a card of 1, 4, 16 or 36 letters on a regular matrix: blue Ts and green Xs, plus a green T on target cards. The card stays until a key.\n\n**What they do.** Press the dominant-hand key if the target is on the card and the other key if not, as fast as possible without errors. The RT and whether it was right are then shown for [[param:feedback_duration]].\n\n**What varies.** The number of letters and whether a target is present (half each).\n\n**What is measured.** Reaction time on correct trials against the number of letters (the search slope), separately for present and absent cards. A wrong answer puts the card back later in the block and adds an unanalysed dummy card.\n\n**What it can and cannot show.** Steeper linear slopes than in the easy set, still with present slopes about half the absent ones, would show the same serial search running more slowly; the paper reported about 55 and 92 ms per letter, and dropped two observers whose misses on large displays exceeded 30%. No result is claimed for this software, and the inks are display RGB, not the original inks.",
+   "sourceFiles": [
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/task.py",
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/phases.py",
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/design.py",
+    "classics/treisman-gelade-1980/docs/experiment.json",
+    "classics/treisman-gelade-1980/configs/task-exp2-difficult.yaml"
+   ],
+   "notes": [
+    "Paper (p. 108): 1, 4, 16, 36 letters on 2 × 2 (7° × 7°, also used for 1 letter), 4 × 4 (9.7° × 9.7°) and 6 × 6 (12.3° × 9.7°) matrices, mean distance from fixation about 4.3°; target placement balanced over positions and quadrants.",
+    "ASSUMED: the matrix extent is the letters' extent (mean eccentricity 4.5–4.7°), letter size, ink RGB and Experiment I's procedure (1 s fixation, error repetition, dummy trials, two showings of each card), which Experiment II does not describe."
+   ]
   }
  ]
 }
