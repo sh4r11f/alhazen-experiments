@@ -9,7 +9,7 @@ subject_kind: human
 
 report: partial               # paper: p. 6 (partial report: one row, called after the exposure)
 materials: ["4/4/4-LN"]       # paper: p. 10-11 (Part 2 used 3/3/3 and 4/4/4 L&N; 3/3/3 is configs/task-9.yaml)
-cue_mode: visual              # DEVIATION: the paper's cue is a tone; alhazen 3.0.0 has no event-bound tone. "tone" refuses to load until it does
+cue_mode: visual              # DEVIATION: the paper's cue is a tone; alhazen 3.8.2 (the pinned release) has no event-bound tone. "tone" refuses to load until it does
 cue_delays_s: [-0.10, 0.0, 0.15, 0.30, 0.50, 1.0]  # paper: p. 8 (cue onset re the array's offset; -0.10 = 0.05 s before onset)
 first_series: ascending       # paper: p. 10 (priority to an ascending series of delays)
 n_series: 4                   # paper: p. 8 (at least two ascending and two descending series)

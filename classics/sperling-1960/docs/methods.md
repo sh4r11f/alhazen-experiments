@@ -14,6 +14,27 @@ a computer display, the report is typed, and four consonants are left out (see t
 deviations table). **Hardware.** A display and a keyboard; audio only for `cue_mode: tone`,
 which needs an alhazen release with event-bound tones.
 
+## At a glance
+
+- **Question.** Is more of a brief display available just after it than a whole report shows,
+  and how quickly is that extra information lost?
+- **What the observer sees.** A dark field with a dim cross. SPACE starts the trial; 0.5 s
+  later a white card with rows of letters (or letters and digits) is lit for 50 ms, then the
+  field is dark again. At the block's cue delay (from 0.10 s before the card's offset to 1.0 s
+  after it) a grey bar appears beside one row for 0.5 s. Sperling used a high, middle or low
+  tone instead.
+- **What the observer does.** Types the symbols of the cued row into the boxes, then Enter.
+- **What is varied.** The cue delay, block by block in ascending and descending series; the
+  cued row, at random per trial; the material and report type, by parameter file.
+- **What is recorded.** Each typed symbol and whether it is right in its position, the cue
+  delay and row, and the flip-measured exposure.
+- **What a result would mean.** Proportion correct in the cued row times the number of rows
+  estimates the symbols available when the cue came; well above the whole-report span at
+  short delays and falling to it within about a second is Sperling's evidence for a brief
+  visual store. A bar near the array is not equivalent to a tone (it can mask or draw
+  attention), and a monitor has no lamp afterglow. No participant data has been recorded
+  with this folder.
+
 ## Question
 
 When a display of 9 to 12 letters is flashed, observers report only about 4.3 of them
@@ -34,7 +55,7 @@ small fraction of a millisecond, the rest (yellow) with a time constant of about
 shows a 50 ms flash). The tone came from an audio oscillator connected to a speaker by the
 same microswitch that turned the light off (p. 7).
 
-**Here.** A computer display and keyboard, run by alhazen 3.0.0 (`configs/rig-booth.yaml`
+**Here.** A computer display and keyboard, run by alhazen 3.8.2 (the pinned release) (`configs/rig-booth.yaml`
 is an example rig file: enter the measured geometry and refresh rate). Every duration is a
 whole number of frames at the **measured** refresh rate, and every event is stamped on the
 flip that showed it. The 50 ms exposure is 3 frames at 60 Hz (50.0 ms), 5 at 100 Hz, 6 at
@@ -179,14 +200,14 @@ Intended changes. Each row: what the paper did, what this version does, and why.
 
 | Item | Original | Here | Reason |
 |---|---|---|---|
-| Row cue | A tone after the exposure: high 2500, middle 650, low 250 cps, about 0.5 s, from an audio oscillator switched by the light's off-go microswitch (p. 6-7) | Default cue_mode: visual, a bar beside the cued row for 0.5 s, starting at the same frame the tone would (an Averbach and Coriell style marker). cue_mode: tone binds the paper's three tones to the CUE_HIGH, CUE_MID and CUE_LOW events, but refuses to load on alhazen 3.0.0 | alhazen 3.0.0 cannot play a tone bound to a task event. A visual cue near the array is not equivalent to an auditory one: it can mask or attract attention to the location, so results can differ from the paper's |
+| Row cue | A tone after the exposure: high 2500, middle 650, low 250 cps, about 0.5 s, from an audio oscillator switched by the light's off-go microswitch (p. 6-7) | Default cue_mode: visual, a bar beside the cued row for 0.5 s, starting at the same frame the tone would (an Averbach and Coriell style marker). cue_mode: tone binds the paper's three tones to the CUE_HIGH, CUE_MID and CUE_LOW events, but refuses to load on alhazen 3.8.2 | alhazen 3.8.2, the pinned release, cannot play a tone bound to a task event. A visual cue near the array is not equivalent to an auditory one: it can mask or attract attention to the location, so results can differ from the paper's |
 | Display | Gerbrands two-field mirror tachistoscope, 4-watt daylight fluorescent lamps, a 50 ms flash whose phosphor afterglow decays in two parts (about 40% of the energy in under 1 ms, the yellow rest with a time constant of about 15 ms; Fig. 1, p. 3) | A computer display: the card is shown for whole frames at the measured refresh rate (3 frames = 50.0 ms at 60 Hz; 7 = 48.6 ms at 144 Hz), recorded per trial with the flip-stamped exposure. An LCD holds each frame and its pixels settle in a few ms; an OLED switches in well under 1 ms. Neither reproduces the lamp's 15 ms afterglow | No tachistoscope. The exposure's energy profile and offset differ from Fig. 1; docs/methods.md, Apparatus, sets out what that changes |
 | Response | Written on a response grid on the table below the tachistoscope, by room light; S slid the paper under a cover after each report (p. 4) | Typed into a row of boxes on the screen; BACKSPACE corrects, ENTER commits once every box is filled | Keyboard entry keeps the response in the data file; scoring by position (p. 4) is unchanged |
-| Alphabet | The 21 consonants (in a few card sets also without Y, p. 3); 20 letters plus the ten digits on letters-and-numbers cards (17.9 bits per row, p. 4) | 17 consonants, BDFGJKLMNQSTVWXYZ: C, H, P and R are left out, on every material | alhazen 3.0.0 reads its experimenter keys (p pause, c calibrate, r reward, h hold stage) from the same keyboard before the subject's keys, so a subject cannot type those letters. Fewer alternatives make a guess slightly likelier (1/17 vs 1/21 per position) |
+| Alphabet | The 21 consonants (in a few card sets also without Y, p. 3); 20 letters plus the ten digits on letters-and-numbers cards (17.9 bits per row, p. 4) | 17 consonants, BDFGJKLMNQSTVWXYZ: C, H, P and R are left out, on every material | alhazen 3.8.2 (the pinned release) reads its experimenter keys (p pause, c calibrate, r reward, h hold stage) from the same keyboard before the subject's keys, so a subject cannot type those letters. Fewer alternatives make a guess slightly likelier (1/17 vs 1/21 per position) |
 | Row balance | High, middle and low tones exactly equally often per material, balanced over several sessions, usually two (p. 7) | Balanced within every delay block: 6 test trials per block, 2 per row for three rows (3 per row for two), in random order | A session is analysed on its own here, so each block carries its own balance |
 | Wrong row | An observer who wrote the wrong row was asked to write what he could remember of the correct row; only the indicated row was scored (p. 7) | Only the cued row is scored; reports that match another row better are counted (other_row_max_correct) but there is no second report | Software cannot tell a misheard cue from a poor report while the trial runs |
 | Training and sessions | Twelve sessions per observer, three a week; 30 training trials per two-row material in each of the first two sessions; up to 150 more for one observer; strategy instructions changed half-way (p. 4, p. 7, p. 11) | One session per parameter set; training is the sample trials (2 per block) only | The multi-session training schedule is the experimenter's to run, by repeating sessions |
-| Between trials | The dark field and the dim fixation field were always present (p. 3) | The task draws the dark field and cross on every frame of a trial; for the frames between one trial's end and the next trial's start, and on instruction and pause screens, the window shows alhazen's mid-grey background | alhazen 3.0.0 has no setting for the window's background colour |
+| Between trials | The dark field and the dim fixation field were always present (p. 3) | The task draws the dark field and cross on every frame of a trial; for the frames between one trial's end and the next trial's start, and on instruction and pause screens, the window shows alhazen's mid-grey background | alhazen 3.8.2 (the pinned release) has no setting for the window's background colour |
 | Stimulus cards | Over 500 hand-lettered 5x8 in cards; no observer reported the same part of a card more than two or three times (p. 3) | A new random card is generated for every trial (independent uniform draws, as the paper's information values assume) | Generated arrays are reproducible from the session seed and never repeat by design |
 | Viewing | Binocular, through the tachistoscope, at about 24 in (cards at 22 in, p. 3) | Binocular, at the rig file's viewing distance; every size is in degrees of visual angle | Sizes are kept in visual angle rather than inches |
 | Instructions | Part 2's wording (p. 11): "You will hear a tone during the flash or while it is fading which will indicate which letters you are to attempt to read. Do not read the card until you hear the tone" | The same wording with the bar in place of the tone (instructions.md); instructions-tone.md keeps the tone; both add the key rules | The cue modality changed, and the keyboard needs explaining |
@@ -246,7 +267,7 @@ What the tests check (software only, `uv run pytest -q`, no display):
   rows balanced within blocks, a missed trial served again inside its own block, 192 trials
   in the main set; arrays have each material's shape and repeat letters.
 - Params: every file loads; bad values are refused with a reason; `cue_mode: tone` refuses to
-  load on alhazen 3.0.0 (and, on an alhazen with `Tone`, binds the three tones; that test is
+  load on alhazen 3.8.2 (and, on an alhazen with `Tone`, binds the three tones; that test is
   skipped here).
 - One simulated session end to end (`run.py --mode simulate --headless`), and the analysis
   notebook executed on a simulated partial-report run plus a simulated whole-report run.
