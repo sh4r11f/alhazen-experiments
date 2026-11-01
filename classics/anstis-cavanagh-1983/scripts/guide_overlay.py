@@ -96,8 +96,9 @@ def panels(spec: Spec, space, size: float, names: list[str], timing: str) -> lis
     for k, cx in enumerate(xs):
         els += bars(spec, space, k, cx, size)
         els += fixation(cx)
-        els.append({"type": "text", "x": r3(cx - size / 2), "y": r3(size / 2 + 0.55),
-                    "text": f"T{k + 1}  {names[k]}", "role": "annotation"})
+        els.append({"type": "text", "x": r3(cx), "y": r3(size / 2 + 0.55),
+                    "text": f"T{k + 1}  {names[k]}", "role": "annotation",
+                    "font_size": 0.22})
         shift = spec.step * k * q if spec.layout == "four_stroke" else k * 2 * q
         edge = cx - size / 2 + ((spec.offset_px + shift) % spec.period_px) / PPD
         els.append({"type": "line", "x1": r3(edge), "y1": r3(size / 2 + 0.05),
@@ -107,9 +108,9 @@ def panels(spec: Spec, space, size: float, names: list[str], timing: str) -> lis
                 "x2": r3(xs[0] + size / 2), "y2": r3(-size / 2 - 0.35),
                 "value": {"param": "patch_size_dva"}, "text": "patch"})
     order = "in this order" if nk == 4 else "alternating"
-    tx = xs[1] - size / 2
+    tx = 0.0
     els.append({"type": "text", "x": r3(tx),
-                "y": r3(-size / 2 - 0.45), "text": f"{timing}, {order}",
+                "y": r3(-size / 2 - 0.8), "text": f"{timing}, {order}",
                 "role": "annotation"})
     return els
 
@@ -124,7 +125,7 @@ MIXTURE = {("red", "green"): "yellow", ("blue", "yellow"): "grey", ("red", "grey
 
 
 def diagram(width: float, caption: str, elements: list[dict]) -> dict:
-    return {"width": r3(width), "height": 3.6, "unit": "dva", "background": 0,
+    return {"width": r3(width), "height": 4.4, "unit": "dva", "background": 0,
             "caption": caption, "elements": elements}
 
 
@@ -385,7 +386,7 @@ def flicker_task(file: str) -> dict:
             els.append({"type": "circle", "cx": r3(cx), "cy": 0, "r": r3(size / 2),
                         "role": "stimulus", "color": hexrgb(lin)})
             els += fixation(cx)
-            els.append({"type": "text", "x": r3(cx - size / 2), "y": r3(size / 2 + 0.55),
+            els.append({"type": "text", "x": r3(cx), "y": r3(size / 2 + 0.55),
                         "text": f"T{k + 1}  {name}", "role": "annotation"})
         els.append({"type": "text", "x": r3(-size - GAP / 2), "y": r3(-size / 2 - 0.45),
                     "text": f"{ms_text(ms)} each, alternating, same place",

@@ -78,7 +78,7 @@
    },
    "diagram": {
     "width": 10.5,
-    "height": 3.6,
+    "height": 4.4,
     "unit": "dva",
     "background": 0,
     "caption": "One four-stroke cycle drawn side by side in time order; on the screen all four occupy the same place, one after another. Red 10 vs green 13.4 cd/m2 (the middle test level; red photometrically darker), steps rightward, 2.5 c/deg. Bars are the task's own arrays at 40 px/deg; inks are sRGB renderings of the example photometry's gun levels, illustrative and uncalibrated. Oxblood ticks mark where the first red (T1, T3) or light (T2, T4) bar starts: a quarter cycle further right each stroke.",
@@ -204,10 +204,11 @@
      },
      {
       "type": "text",
-      "x": -5.05,
+      "x": -4.05,
       "y": 1.55,
       "text": "T1  red | green",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -349,10 +350,11 @@
      },
      {
       "type": "text",
-      "x": -2.35,
+      "x": -1.35,
       "y": 1.55,
       "text": "T2  light | dark yellow",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -485,10 +487,11 @@
      },
      {
       "type": "text",
-      "x": 0.35,
+      "x": 1.35,
       "y": 1.55,
       "text": "T3  green | red",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -630,10 +633,11 @@
      },
      {
       "type": "text",
-      "x": 3.05,
+      "x": 4.05,
       "y": 1.55,
       "text": "T4  dark | light yellow",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -658,8 +662,8 @@
      },
      {
       "type": "text",
-      "x": -2.35,
-      "y": -1.45,
+      "x": 0.0,
+      "y": -1.8,
       "text": "50 ms each, in this order",
       "role": "annotation"
      }
@@ -756,7 +760,7 @@
    },
    "diagram": {
     "width": 10.5,
-    "height": 3.6,
+    "height": 4.4,
     "unit": "dva",
     "background": 0,
     "caption": "One four-stroke cycle drawn side by side in time order; on the screen all four occupy the same place, one after another. Blue 10 vs yellow 7.9 cd/m2 (the middle test level; blue photometrically lighter), steps rightward, 2.5 c/deg. Bars are the task's own arrays at 40 px/deg; inks are sRGB renderings of the example photometry's gun levels, illustrative and uncalibrated. Oxblood ticks mark where the first blue (T1, T3) or light (T2, T4) bar starts: a quarter cycle further right each stroke. The mixture is called grey after the paper (p. 157); on the example display's primaries its additive mean renders bluish.",
@@ -882,10 +886,11 @@
      },
      {
       "type": "text",
-      "x": -5.05,
+      "x": -4.05,
       "y": 1.55,
       "text": "T1  blue | yellow",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -1027,10 +1032,11 @@
      },
      {
       "type": "text",
-      "x": -2.35,
+      "x": -1.35,
       "y": 1.55,
       "text": "T2  light | dark grey",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -1163,10 +1169,11 @@
      },
      {
       "type": "text",
-      "x": 0.35,
+      "x": 1.35,
       "y": 1.55,
       "text": "T3  yellow | blue",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -1308,10 +1315,11 @@
      },
      {
       "type": "text",
-      "x": 3.05,
+      "x": 4.05,
       "y": 1.55,
       "text": "T4  dark | light grey",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -1336,8 +1344,8 @@
      },
      {
       "type": "text",
-      "x": -2.35,
-      "y": -1.45,
+      "x": 0.0,
+      "y": -1.8,
       "text": "50 ms each, in this order",
       "role": "annotation"
      }
@@ -1434,7 +1442,7 @@
    },
    "diagram": {
     "width": 10.5,
-    "height": 3.6,
+    "height": 4.4,
     "unit": "dva",
     "background": 0,
     "caption": "One cycle for red against grey, both at 13.6 cd/m2 (each setting starts at a random 0.7-1.3 x reference), 2.5 c/deg, steps rightward, drawn side by side in time order (same place on screen). Grey is the display white point. Task arrays at 40 px/deg; sRGB inks from the example photometry, illustrative and uncalibrated. Ticks: first red (T1, T3) or light (T2, T4) bar, a quarter cycle further right each stroke.",
@@ -1560,10 +1568,11 @@
      },
      {
       "type": "text",
-      "x": -5.05,
+      "x": -4.05,
       "y": 1.55,
       "text": "T1  red | grey",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -1705,10 +1714,11 @@
      },
      {
       "type": "text",
-      "x": -2.35,
+      "x": -1.35,
       "y": 1.55,
       "text": "T2  light | dark pink",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -1841,10 +1851,11 @@
      },
      {
       "type": "text",
-      "x": 0.35,
+      "x": 1.35,
       "y": 1.55,
       "text": "T3  grey | red",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -1986,10 +1997,11 @@
      },
      {
       "type": "text",
-      "x": 3.05,
+      "x": 4.05,
       "y": 1.55,
       "text": "T4  dark | light pink",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -2014,8 +2026,8 @@
      },
      {
       "type": "text",
-      "x": -2.35,
-      "y": -1.45,
+      "x": 0.0,
+      "y": -1.8,
       "text": "16.7 ms each, in this order",
       "role": "annotation"
      }
@@ -2110,7 +2122,7 @@
    },
    "diagram": {
     "width": 10.5,
-    "height": 3.6,
+    "height": 4.4,
     "unit": "dva",
     "background": 0,
     "caption": "One cycle for red against grey, both at 13.6 cd/m2 (each setting starts at a random 0.7-1.3 x reference), 2.5 c/deg, steps rightward, drawn side by side in time order (same place on screen). Grey is the display white point. Task arrays at 40 px/deg; sRGB inks from the example photometry, illustrative and uncalibrated. Ticks: first red (T1, T3) or light (T2, T4) bar, a quarter cycle further right each stroke.",
@@ -2236,10 +2248,11 @@
      },
      {
       "type": "text",
-      "x": -5.05,
+      "x": -4.05,
       "y": 1.55,
       "text": "T1  red | grey",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -2381,10 +2394,11 @@
      },
      {
       "type": "text",
-      "x": -2.35,
+      "x": -1.35,
       "y": 1.55,
       "text": "T2  light | dark pink",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -2517,10 +2531,11 @@
      },
      {
       "type": "text",
-      "x": 0.35,
+      "x": 1.35,
       "y": 1.55,
       "text": "T3  grey | red",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -2662,10 +2677,11 @@
      },
      {
       "type": "text",
-      "x": 3.05,
+      "x": 4.05,
       "y": 1.55,
       "text": "T4  dark | light pink",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -2690,8 +2706,8 @@
      },
      {
       "type": "text",
-      "x": -2.35,
-      "y": -1.45,
+      "x": 0.0,
+      "y": -1.8,
       "text": "16.7-267 ms each by rate, in this order",
       "role": "annotation"
      }
@@ -2786,7 +2802,7 @@
    },
    "diagram": {
     "width": 10.5,
-    "height": 3.6,
+    "height": 4.4,
     "unit": "dva",
     "background": 0,
     "caption": "One cycle for red against green, both at 13.4 cd/m2 (each setting starts at a random 0.7-1.3 x reference), 2.5 c/deg, steps rightward, drawn side by side in time order (same place on screen). Task arrays at 40 px/deg; sRGB inks from the example photometry, illustrative and uncalibrated. Ticks: first red (T1, T3) or light (T2, T4) bar, a quarter cycle further right each stroke.",
@@ -2912,10 +2928,11 @@
      },
      {
       "type": "text",
-      "x": -5.05,
+      "x": -4.05,
       "y": 1.55,
       "text": "T1  red | green",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -3057,10 +3074,11 @@
      },
      {
       "type": "text",
-      "x": -2.35,
+      "x": -1.35,
       "y": 1.55,
       "text": "T2  light | dark yellow",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -3193,10 +3211,11 @@
      },
      {
       "type": "text",
-      "x": 0.35,
+      "x": 1.35,
       "y": 1.55,
       "text": "T3  green | red",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -3338,10 +3357,11 @@
      },
      {
       "type": "text",
-      "x": 3.05,
+      "x": 4.05,
       "y": 1.55,
       "text": "T4  dark | light yellow",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -3366,8 +3386,8 @@
      },
      {
       "type": "text",
-      "x": -2.35,
-      "y": -1.45,
+      "x": 0.0,
+      "y": -1.8,
       "text": "50 ms each, in this order",
       "role": "annotation"
      }
@@ -3462,7 +3482,7 @@
    },
    "diagram": {
     "width": 5.3,
-    "height": 3.6,
+    "height": 4.4,
     "unit": "dva",
     "background": 0,
     "caption": "The two states of the uniform field, side by side; on the screen they alternate in one place. Red shown at 13.6 cd/m2 against grey 13.6. sRGB inks from the example photometry, illustrative and uncalibrated.",
@@ -3506,7 +3526,7 @@
      },
      {
       "type": "text",
-      "x": -2.35,
+      "x": -1.35,
       "y": 1.55,
       "text": "T1  red",
       "role": "annotation"
@@ -3550,7 +3570,7 @@
      },
      {
       "type": "text",
-      "x": 0.35,
+      "x": 1.35,
       "y": 1.55,
       "text": "T2  grey",
       "role": "annotation"
@@ -3653,7 +3673,7 @@
    },
    "diagram": {
     "width": 5.3,
-    "height": 3.6,
+    "height": 4.4,
     "unit": "dva",
     "background": 0,
     "caption": "The two states of the counterphase grating (red vs grey, both at 13.6 cd/m2, 2.5 c/deg), side by side; on the screen they alternate in one place, the bars exchanging colours (half a cycle, no direction). Task arrays at 40 px/deg; sRGB inks from the example photometry, illustrative and uncalibrated.",
@@ -3779,10 +3799,11 @@
      },
      {
       "type": "text",
-      "x": -2.35,
+      "x": -1.35,
       "y": 1.55,
       "text": "T1  red | grey",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -3915,10 +3936,11 @@
      },
      {
       "type": "text",
-      "x": 0.35,
+      "x": 1.35,
       "y": 1.55,
       "text": "T2  grey | red",
-      "role": "annotation"
+      "role": "annotation",
+      "font_size": 0.22
      },
      {
       "type": "line",
@@ -3943,8 +3965,8 @@
      },
      {
       "type": "text",
-      "x": 0.35,
-      "y": -1.45,
+      "x": 0.0,
+      "y": -1.8,
       "text": "33.3 ms each, alternating",
       "role": "annotation"
      }

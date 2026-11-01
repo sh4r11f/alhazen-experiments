@@ -63,11 +63,12 @@ def test_the_guide_builder_accepts_every_overlay_task():
 
 def strokes(task: dict) -> list[list[tuple[float, float, str]]]:
     """Per stroke panel: (left, right, colour) of each bar, relative to the panel's left
-    edge, read from the drawn rects (panels are the T<k> labels' left edges)."""
+    edge, read from the drawn rects (T<k> labels are at panel centres)."""
     els = task["diagram"]["elements"]
-    lefts = sorted(e["x"] for e in els if e["type"] == "text" and e["text"].startswith("T"))
     dim = next(e for e in els if e["type"] == "dimension")
     size = dim["x2"] - dim["x1"]
+    lefts = sorted(e["x"] - size / 2 for e in els
+                   if e["type"] == "text" and e["text"].startswith("T"))
     out = []
     for left in lefts:
         half = [(e, e["width"] / 2) for e in els if e["type"] == "rect"]
@@ -102,7 +103,9 @@ def test_four_stroke_guides_keep_the_papers_phase_relations(key):
     ticks = sorted(e["x1"] for e in BY_KEY[key]["diagram"]["elements"]
                    if e["type"] == "line" and e.get("color") == "#7f1d1d")
     steps = [round(b - a, 3) for a, b in zip(ticks, ticks[1:], strict=False)]
-    lefts = sorted(e["x"] for e in BY_KEY[key]["diagram"]["elements"]
+    dim = next(e for e in BY_KEY[key]["diagram"]["elements"] if e["type"] == "dimension")
+    size = dim["x2"] - dim["x1"]
+    lefts = sorted(e["x"] - size / 2 for e in BY_KEY[key]["diagram"]["elements"]
                    if e["type"] == "text" and e["text"].startswith("T"))
     shifts = [round((tk - lf) - (ticks[0] - lefts[0]), 3)
               for tk, lf in zip(ticks, lefts, strict=True)]
@@ -135,3 +138,14 @@ def test_counterphase_flicker_guide_exchanges_colours():
     a, b = strokes(BY_KEY["min-flicker-adjust@configs/flicker-grating.yaml"])
     for u in samples(a) + samples(b):
         assert colour_at(a, u) != colour_at(b, u)
+
+
+def test_panel_headings_are_centered_and_timing_is_below_dimension():
+    for key in FOUR:
+        els = BY_KEY[key]["diagram"]["elements"]
+        dim = next(e for e in els if e["type"] == "dimension")
+        labels = [e for e in els if e["type"] == "text" and e["text"].startswith("T")]
+        assert labels[0]["x"] == pytest.approx((dim["x1"] + dim["x2"]) / 2)
+        timing = next(e for e in els if e["type"] == "text" and "in this order" in e["text"])
+        assert timing["x"] == 0
+        assert timing["y"] < dim["y1"] - 0.3
