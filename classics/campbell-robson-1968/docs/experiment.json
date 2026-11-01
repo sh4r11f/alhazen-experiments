@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Spatial contrast sensitivity (Campbell & Robson, 1968)",
-  "summary": "How faint can a pattern of stripes be and still be seen, and how does that depend on how fine the stripes are? A stationary sine-wave grating in a square field on a uniform grey of the same mean luminance is shown at several spatial frequencies; its threshold contrast is measured at each, and contrast sensitivity (1 / threshold) plotted against frequency is the contrast-sensitivity function. Main task: two-interval forced choice with QUEST+. Second task: the paper's own method of adjustment. A third set compares sine- with square-wave gratings (the paper's Fourier test, 4/pi).",
+  "summary": "How faint can stripes be and still be seen? Choose which of two intervals contained a grating, or adjust its contrast to barely visible. Thresholds across spatial frequencies give contrast sensitivity. A modern adaptation with an original-style adjustment task; calibrated display geometry and gamma are needed.",
   "methods": "docs/methods.md",
   "references": [
     "Campbell, F. W., & Robson, J. G. (1968). Application of Fourier analysis to the visibility of gratings. The Journal of Physiology, 197(3), 551-566. https://doi.org/10.1113/jphysiol.1968.sp008574",

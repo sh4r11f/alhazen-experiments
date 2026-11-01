@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Minimum-motion equiluminance (Anstis & Cavanagh 1983)",
-  "summary": "A red/green grating alternates with a light/dark grating of their mixture, each a quarter cycle further along. If red is lighter than green the pattern seems to drift one way, if darker the other way; at the observer's equiluminance no consistent motion is seen. Experiment 1 finds that point by constant stimuli (left, right or neither); Experiments 2-3 by adjustment across spatial and temporal frequency, beside minimum flicker. A calibration measure for one observer, stimulus and display, not a colour-vision test.",
+  "summary": "When red and green have equal effective brightness, a four-frame colour sequence loses its consistent apparent motion. Judge its direction or adjust the colour balance to find that point; compare it with minimum flicker. The match is specific to the observer, stimulus and calibrated display, not a colour-vision diagnosis.",
   "methods": "docs/methods.md",
   "references": [
     "Anstis, S. M., & Cavanagh, P. (1983). A minimum motion technique for judging equiluminance. In J. D. Mollon & L. T. Sharpe (Eds.), Colour vision: Physiology and psychophysics (pp. 155-166). London: Academic Press."

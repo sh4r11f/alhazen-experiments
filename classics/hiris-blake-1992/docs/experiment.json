@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Dynamic motion aftereffect matched by real motion (Hiris & Blake, 1992)",
-  "summary": "After a minute of watching dots drift upward, randomly moving dots look as if they drift downward: the dynamic motion aftereffect. Hiris & Blake (1992, Fig. 1) measured it in units of real motion. Two dot displays flank a fixation cross; one adapts to upward motion, the other to random motion. In each 2-s test the adapted display holds a variable percentage of downward-moving dots and the other a fixed 40 %; the observer says which looks more coherently downward. The signal that matches the reference (the PSE), compared with a no-adaptation session, gives the aftereffect in % signal; the paper found about 40 %.",
+  "summary": "How much downward motion does upward-motion adaptation add to random dots? Compare two dot displays after adaptation, then without it. The shift in their matching point measures the dynamic motion aftereffect in percentage signal. An adaptation of Hiris & Blake’s two-display procedure.",
   "methods": "docs/methods.md",
   "references": [
     "Hiris, E., & Blake, R. (1992). Another perspective on the visual motion aftereffect. Proceedings of the National Academy of Sciences USA, 89(19), 9025-9028. https://doi.org/10.1073/pnas.89.19.9025",
