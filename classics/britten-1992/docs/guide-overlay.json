@@ -1,0 +1,492 @@
+{
+  "tasks": [
+    {
+      "taskKey": "rdk-direction@configs/task.yaml",
+      "timeline": {
+        "caption": "Human set: one trial. Fixed phases to scale; the key wait is event-dependent.",
+        "phases": [
+          {
+            "id": "fixation",
+            "label": "Fixation point",
+            "timing": {
+              "kind": "fixed",
+              "ms": 500
+            },
+            "start_events": [
+              "FIX_ON"
+            ]
+          },
+          {
+            "id": "dots",
+            "label": "Random dots",
+            "timing": {
+              "kind": "parameter",
+              "param": "stimulus_duration"
+            },
+            "start_events": [
+              "STIM_ON"
+            ]
+          },
+          {
+            "id": "key",
+            "label": "Key",
+            "timing": {
+              "kind": "event",
+              "until": "an arrow key",
+              "max": {
+                "param": "response_timeout"
+              }
+            },
+            "start_events": [
+              "RESPONSE_CUE"
+            ],
+            "end_events": [
+              "RESPONSE"
+            ]
+          },
+          {
+            "id": "feedback",
+            "label": "Feedback",
+            "timing": {
+              "kind": "fixed",
+              "ms": 300
+            }
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Fixation point (green or red at feedback)",
+            "role": "stimulus",
+            "from": "fixation",
+            "to": "feedback"
+          },
+          {
+            "label": "Random dots",
+            "role": "stimulus",
+            "from": "dots",
+            "to": "dots"
+          },
+          {
+            "label": "Arrow key",
+            "role": "response",
+            "from": "key",
+            "to": "key"
+          }
+        ],
+        "branches": [
+          {
+            "from": "key",
+            "kind": "failure",
+            "when": "no key in time",
+            "outcome": "NO_RESPONSE",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "CORRECT",
+          "label": "CORRECT or WRONG, by the key"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 1000
+          }
+        }
+      },
+      "diagram": {
+        "width": 24,
+        "height": 14,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "Human display: one frame of dots (about 22 at 60 Hz) on a black disc around the fixation point; signal dots step along the horizontal axis.",
+        "elements": [
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "aperture_dva",
+              "factor": 0.5
+            },
+            "role": "stimulus",
+            "luminance": 0,
+            "label": "Dot aperture (black disc)",
+            "color": "#000000"
+          },
+          {
+            "type": "dot_field",
+            "cx": 0,
+            "cy": 0,
+            "radius": {
+              "param": "aperture_dva",
+              "factor": 0.5
+            },
+            "dot_radius": {
+              "param": "dot_size_dva",
+              "factor": 0.5
+            },
+            "count": 22,
+            "seed": 1992,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.15,
+            "role": "stimulus",
+            "label": "Fixation point",
+            "color": "#ffff00",
+            "luminance": 1
+          },
+          {
+            "type": "arrow",
+            "x1": 5.8,
+            "y1": 0,
+            "x2": 8.8,
+            "y2": 0,
+            "role": "annotation",
+            "label": "Pref direction (right key)"
+          },
+          {
+            "type": "dimension",
+            "x1": -5,
+            "y1": -6,
+            "x2": 5,
+            "y2": -6,
+            "value": {
+              "param": "aperture_dva",
+              "factor": 1
+            },
+            "role": "annotation"
+          }
+        ]
+      },
+      "description": "**Question.** How weak a coherent motion signal can a person still see the direction of? (A human adaptation of the monkeys' task.)\n\n**What is on the screen.** A yellow fixation point alone for 500 ms, then [[param:stimulus_duration]] of stochastic random dots in a [[param:aperture_dva]] black disc centred on it. On each frame a proportion of dots (the correlation) is replotted a fixed step along the horizontal axis; the rest are replotted at random.\n\n**What the subject does.** Keeps looking at the fixation point (asked, not checked: this set uses no eye tracker), then after the dots go off presses the right or left arrow within [[param:response_timeout]]. The fixation point turns green or red for 300 ms.\n\n**Varied.** Correlation, one of [[param:coherences_pct]] %, and direction (right or left), 15 trials of each per block in random order.\n\n**Measured.** Proportion correct at each correlation; the analysis fits the paper's Weibull function for threshold (82 % correct) and slope. At 0 % the 'correct' key is the trial's nominal direction, so feedback is right on a random half.\n\n**What it can and cannot show.** A psychometric function for this observer and display. It cannot reproduce the paper's neuron-versus-behaviour comparison: that needs an MT recording made during the same trials, and the paper's subjects were monkeys whose aperture, axis and speed were matched to each neuron.",
+      "sourceFiles": [
+        "src/britten1992/task.py",
+        "src/britten1992/rdk.py",
+        "configs/task.yaml",
+        "configs/rig-booth.yaml"
+      ],
+      "notes": [
+        "Adaptation: the paper tested monkeys reporting with a saccade; keys, the 500-ms fixation period, 300-ms feedback and 1-s interval are ASSUMED (configs/task.yaml).",
+        "Axis (horizontal), speed 6 dva/s, aperture 10 dva and the correlation set are ASSUMED; the paper tailored them to each MT neuron.",
+        "Dot count is one frame at the booth rig's 60 Hz: 16.7 dots/deg²/s over a 20 x 20 dva plotting field, of which only dots inside the aperture are drawn.",
+        "Inks: yellow fixation point (#ffff00, paper p. 4748), white dots and targets, black aperture disc, on the window's mid-grey (the paper's whole display was dark: a deviation in the config).",
+        "Human set, no eye tracker: fixation is instructed only, so eye movements toward or with the dots are not excluded (unlike the paper's search-coil-enforced 1.25° window)."
+      ]
+    },
+    {
+      "taskKey": "rdk-direction@configs/task-monkey.yaml",
+      "timeline": {
+        "caption": "Monkey set: one trial (paper Fig. 2). Waits are event-dependent; the time-out runs only after a wrong choice.",
+        "phases": [
+          {
+            "id": "acquire",
+            "label": "Acquire fixation",
+            "timing": {
+              "kind": "event",
+              "until": "gaze held 200 ms in the window",
+              "max": {
+                "ms": 5000
+              }
+            },
+            "start_events": [
+              "FIX_ON"
+            ],
+            "end_events": [
+              "FIX_ACQUIRED"
+            ]
+          },
+          {
+            "id": "hold",
+            "label": "Hold",
+            "timing": {
+              "kind": "fixed",
+              "ms": 300
+            }
+          },
+          {
+            "id": "dots",
+            "label": "Random dots",
+            "timing": {
+              "kind": "parameter",
+              "param": "stimulus_duration"
+            },
+            "start_events": [
+              "STIM_ON"
+            ]
+          },
+          {
+            "id": "saccade",
+            "label": "Saccade",
+            "timing": {
+              "kind": "event",
+              "until": "gaze leaves fixation",
+              "max": {
+                "param": "response_timeout"
+              }
+            },
+            "start_events": [
+              "TARGETS_ON"
+            ],
+            "end_events": [
+              "SACCADE_ONSET"
+            ]
+          },
+          {
+            "id": "landing",
+            "label": "Landing",
+            "timing": {
+              "kind": "fixed",
+              "ms": 200
+            },
+            "end_events": [
+              "LANDED"
+            ]
+          },
+          {
+            "id": "timeout",
+            "label": "Time-out",
+            "timing": {
+              "kind": "conditional",
+              "when": "wrong choice",
+              "timing": {
+                "kind": "parameter",
+                "param": "error_timeout"
+              }
+            },
+            "start_events": [
+              "TIMEOUT_ON"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Fixation point",
+            "role": "stimulus",
+            "from": "acquire",
+            "to": "dots"
+          },
+          {
+            "label": "Random dots",
+            "role": "stimulus",
+            "from": "dots",
+            "to": "dots"
+          },
+          {
+            "label": "Two targets",
+            "role": "stimulus",
+            "from": "saccade",
+            "to": "landing"
+          },
+          {
+            "label": "Gaze in fixation window",
+            "role": "requirement",
+            "from": "hold",
+            "to": "dots"
+          },
+          {
+            "label": "Saccade to a target",
+            "role": "response",
+            "from": "saccade",
+            "to": "landing"
+          }
+        ],
+        "branches": [
+          {
+            "from": "acquire",
+            "kind": "failure",
+            "when": "no fixation in time",
+            "outcome": "NO_FIXATION",
+            "effect": "served again"
+          },
+          {
+            "from": "hold",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "FIX_BREAK",
+            "effect": "served again"
+          },
+          {
+            "from": "dots",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "FIX_BREAK",
+            "effect": "served again"
+          },
+          {
+            "from": "saccade",
+            "kind": "failure",
+            "when": "no saccade in time",
+            "outcome": "NO_CHOICE",
+            "effect": "served again"
+          },
+          {
+            "from": "landing",
+            "kind": "failure",
+            "when": "lands in neither target",
+            "outcome": "MISSED",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "CORRECT",
+          "label": "CORRECT (juice) or WRONG (time-out), by the landing target"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 1000
+          }
+        }
+      },
+      "diagram": {
+        "width": 30,
+        "height": 18,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "Monkey display, example geometry, both phases on one drawing: the dot aperture over an example receptive field (dots phase) and the two targets with their landing windows (choice phase). They are never on the screen together; windows are gaze criteria, not drawn. Dots: about one frame at 120 Hz.",
+        "elements": [
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.15,
+            "role": "stimulus",
+            "color": "#ffff00",
+            "luminance": 1
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_window_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true,
+            "label": "Fixation window"
+          },
+          {
+            "type": "circle",
+            "cx": 6,
+            "cy": -4,
+            "r": {
+              "param": "aperture_dva",
+              "factor": 0.5
+            },
+            "role": "stimulus",
+            "luminance": 0,
+            "label": "Dot aperture (example RF)",
+            "color": "#000000"
+          },
+          {
+            "type": "dot_field",
+            "cx": 6,
+            "cy": -4,
+            "radius": {
+              "param": "aperture_dva",
+              "factor": 0.5
+            },
+            "dot_radius": {
+              "param": "dot_size_dva",
+              "factor": 0.5
+            },
+            "count": 5,
+            "seed": 1992,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": {
+              "param": "target_ecc_dva",
+              "factor": 1
+            },
+            "cy": 0,
+            "r": 0.25,
+            "role": "target",
+            "luminance": 1,
+            "label": "Pref target",
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": {
+              "param": "target_ecc_dva",
+              "factor": -1
+            },
+            "cy": 0,
+            "r": 0.25,
+            "role": "target",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": {
+              "param": "target_ecc_dva",
+              "factor": 1
+            },
+            "cy": 0,
+            "r": {
+              "param": "target_window_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true,
+            "label": "Landing window"
+          },
+          {
+            "type": "circle",
+            "cx": {
+              "param": "target_ecc_dva",
+              "factor": -1
+            },
+            "cy": 0,
+            "r": {
+              "param": "target_window_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "dimension",
+            "x1": 0,
+            "y1": 5,
+            "x2": 10,
+            "y2": 5,
+            "value": {
+              "param": "target_ecc_dva",
+              "factor": 1
+            },
+            "role": "annotation"
+          }
+        ]
+      },
+      "description": "**Question.** The paper's trial: can the monkey report the direction of a weak motion signal placed in a neuron's receptive field?\n\n**What is on the screen.** A yellow fixation point; after fixation is acquired and held 300 ms, [[param:stimulus_duration]] of random dots in an aperture over an example receptive field. Then the fixation point and the dots go off and two targets appear on the motion axis, [[param:target_ecc_dva]] either side of fixation. Dots and targets are never on together.\n\n**What the subject does.** Holds gaze inside the fixation window through the dots (checked by the eye tracker; leaving it ends the trial as FIX_BREAK), then saccades to the target on the side of the motion within [[param:response_timeout]].\n\n**Varied.** Correlation, one of [[param:coherences_pct]] %, and direction (preferred or null), 15 trials of each per block. Three wrong choices in a row in one direction start correction trials in that direction (excluded from analysis).\n\n**Measured.** Which target the saccade lands on (CORRECT, WRONG, MISSED, NO_CHOICE). Juice for a correct choice; a [[param:error_timeout]] time-out after a wrong one; at 0 % a random half of trials pay.\n\n**What it can and cannot show.** A monkey psychometric function on this rig. The neurometric half (MT spike counts on the same trials) needs a recording system this folder does not run; the aperture, axis and speed here are example values, not matched to a neuron.",
+      "sourceFiles": [
+        "src/britten1992/task.py",
+        "src/britten1992/rdk.py",
+        "configs/task-monkey.yaml",
+        "configs/rig-monkey-example.yaml"
+      ],
+      "notes": [
+        "Aperture position (6, -4) dva, size 7 dva, axis and speed are EXAMPLE values, ASSUMED; the paper matched them to each MT neuron.",
+        "Paper values: 2-s display, 1.25-dva fixation window, 2.1-s decision window, correction trials after 3 errors. Acquire 5 s/200 ms, 300-ms hold, 200-ms landing sample, 1.5-s time-out, 1-s interval, target eccentricity and windows are ASSUMED.",
+        "Dot count is one frame at the example rig's 120 Hz (16.7 dots/deg²/s over a 20 x 20 dva field, drawn only inside the aperture).",
+        "Window radii are drawn as radii (the code uses them as circle radii).",
+        "Inks: yellow fixation point (#ffff00, paper p. 4748), white dots and targets (target colour ASSUMED), black aperture disc, on the window's mid-grey."
+      ]
+    }
+  ]
+}

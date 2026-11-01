@@ -1,0 +1,2109 @@
+{
+  "tasks": [
+    {
+      "taskKey": "attentive-tracking@configs/task.yaml",
+      "timeline": {
+        "caption": "One tracking trial (Fig. 1B). The gratings keep turning throughout; only the key wait is event-dependent.",
+        "phases": [
+          {
+            "id": "fixate",
+            "label": "Bull's-eye",
+            "timing": {
+              "kind": "fixed",
+              "ms": 500
+            },
+            "start_events": [
+              "FIX_ON"
+            ]
+          },
+          {
+            "id": "turn",
+            "label": "Gratings turn",
+            "timing": {
+              "kind": "parameter",
+              "param": "pre_cue"
+            },
+            "start_events": [
+              "STIM_ON"
+            ]
+          },
+          {
+            "id": "cue",
+            "label": "Pointer",
+            "timing": {
+              "kind": "parameter",
+              "param": "cue_duration"
+            },
+            "start_events": [
+              "POINTER_ON"
+            ]
+          },
+          {
+            "id": "track",
+            "label": "Track",
+            "timing": {
+              "kind": "parameter",
+              "param": "track_duration"
+            },
+            "start_events": [
+              "POINTER_OFF"
+            ]
+          },
+          {
+            "id": "test",
+            "label": "Test pointer",
+            "timing": {
+              "kind": "parameter",
+              "param": "test_duration"
+            },
+            "start_events": [
+              "TEST_ON"
+            ]
+          },
+          {
+            "id": "respond",
+            "label": "Key",
+            "timing": {
+              "kind": "event",
+              "until": "J (yes) or F (no)",
+              "max": {
+                "param": "response_timeout"
+              }
+            },
+            "start_events": [
+              "RESPONSE_CUE"
+            ],
+            "end_events": [
+              "RESPONSE"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Bull's-eye",
+            "role": "stimulus",
+            "from": "fixate",
+            "to": "respond"
+          },
+          {
+            "label": "Colour and luminance gratings, opposite turns",
+            "role": "stimulus",
+            "from": "turn",
+            "to": "respond"
+          },
+          {
+            "label": "Pointer turns with the pair",
+            "role": "stimulus",
+            "from": "cue",
+            "to": "cue"
+          },
+          {
+            "label": "Test pointer",
+            "role": "stimulus",
+            "from": "test",
+            "to": "test"
+          },
+          {
+            "label": "Track the marked pair with attention",
+            "role": "requirement",
+            "from": "cue",
+            "to": "test"
+          },
+          {
+            "label": "Yes/no key",
+            "role": "response",
+            "from": "respond",
+            "to": "respond"
+          }
+        ],
+        "branches": [
+          {
+            "from": "respond",
+            "kind": "failure",
+            "when": "no key in time",
+            "outcome": "NO_RESPONSE",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "CORRECT",
+          "label": "CORRECT or WRONG: is the test pointer on the tracked pair?"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 500
+          }
+        }
+      },
+      "diagram": {
+        "width": 20,
+        "height": 21.4,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "Yellow mean field with the colour grating's red and green bar centres; the black pointer pair marks one pair of opposite red bars. The superimposed luminance grating (5-40%) is not marked. Angular-layout schematic: the grammar has no radial grating, so short radial strokes mark bar centres (8 cycles); the sinusoidal profile between them is not drawn. Inks are the display colours the code computes (mean 45 cd/m², paper phosphor chromaticities, red share 31.7%) for the example sRGB photometry file and k = 1 (ASSUMED; each observer's own k shifts the green ink). Geometry to scale.",
+        "elements": [
+          {
+            "type": "rect",
+            "cx": 0,
+            "cy": 0,
+            "width": 20,
+            "height": 21.4,
+            "role": "stimulus",
+            "color": "#8e7300"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 8.4,
+            "role": "region",
+            "dashed": true,
+            "label": "Annulus: red/green bars of the colour grating (schematic)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 4.0,
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "line",
+            "x1": 4.0,
+            "y1": 0.0,
+            "x2": 8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": 1.531,
+            "x2": 7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": 2.828,
+            "x2": 5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": 3.696,
+            "x2": 3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 0.0,
+            "y1": 4.0,
+            "x2": 0.0,
+            "y2": 8.4,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": 3.696,
+            "x2": -3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": 2.828,
+            "x2": -5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": 1.531,
+            "x2": -7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -4.0,
+            "y1": 0.0,
+            "x2": -8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": -1.531,
+            "x2": -7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": -2.828,
+            "x2": -5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": -3.696,
+            "x2": -3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -0.0,
+            "y1": -4.0,
+            "x2": -0.0,
+            "y2": -8.4,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": -3.696,
+            "x2": 3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": -2.828,
+            "x2": 5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": -1.531,
+            "x2": 7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 1.0,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000",
+            "label": "Bull's-eye (fixate)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.75,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.5,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.25,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "rect",
+            "cx": 2.6,
+            "cy": 0,
+            "width": 2.6,
+            "height": 0.2,
+            "role": "cue",
+            "luminance": 0,
+            "color": "#000000",
+            "label": "Pointer pair on a red bar pair"
+          },
+          {
+            "type": "rect",
+            "cx": -2.6,
+            "cy": 0,
+            "width": 2.6,
+            "height": 0.2,
+            "role": "cue",
+            "luminance": 0,
+            "color": "#000000"
+          },
+          {
+            "type": "arrow",
+            "x1": 1.6,
+            "y1": 9.1,
+            "x2": -1.6,
+            "y2": 9.1,
+            "role": "annotation",
+            "label": "Opposite turns, 2.0 Hz each"
+          },
+          {
+            "type": "arrow",
+            "x1": -1.6,
+            "y1": 9.9,
+            "x2": 1.6,
+            "y2": 9.9,
+            "role": "annotation"
+          }
+        ]
+      },
+      "description": "**Question.** Can colour bars be seen to move only when attention tracks them, while an invisible luminance grating sets the overall motion? (Experiment 1.)\n\n**What is on the screen.** A black-and-white bull's-eye to fixate inside an annulus (4.0-8.4 dva). In the annulus a red-green grating (40 % colour contrast, at the observer's own equiluminance) and a luminance grating, each eight sinusoidal cycles, turn in opposite directions at [[param:rate_hz]]. After 500 ms of bull's-eye and [[param:pre_cue]] of turning gratings, a black pointer pair marks two opposite bars of the target grating and turns with them for [[param:cue_duration]].\n\n**What the subject does.** Keeps fixating the bull's-eye (instructed; no eye tracker) and tracks the marked pair with attention for [[param:track_duration]] after the pointer goes. A test pointer then appears for [[param:test_duration]], on the tracked pair or an adjacent pair of the same polarity; the observer answers yes (J) or no (F).\n\n**Varied.** Luminance contrast, [[param:n_contrasts]] levels from [[param:contrast_min]] to [[param:contrast_max]]; which grating is tracked (this set: colour bars; configs/task-luminance.yaml: luminance bars).\n\n**Measured.** Proportion of test pointers correctly identified at each luminance contrast (the paper's Fig. 1B tracking accuracy).\n\n**What it can and cannot show.** Where colour bars stay trackable while the luminance grating dominates the global rotation, tracking cannot rest on low-level motion alone. Colours are display values matched in luminance, not in cone contrast, so equiluminance holds only as well as the observer's own setting and the rig's photometry.",
+      "sourceFiles": [
+        "src/cavanagh1992/task.py",
+        "src/cavanagh1992/adjust.py",
+        "src/cavanagh1992/phases.py",
+        "src/cavanagh1992/scene.py",
+        "src/cavanagh1992/common.py",
+        "configs/task.yaml"
+      ],
+      "notes": [
+        "Paper: 1.0-s pointer, 1.5-s tracking, 240-ms test pointer, 2.0 Hz, 8 cycles, annulus 4.0-8.4 dva, bull's-eye radius 1 dva. ASSUMED: 500-ms bull's-eye period, 500-ms pre-cue, 4-s key deadline, J/F keys, pointer sizes, 4 bull's-eye rings, 500-ms interval.",
+        "Target grating (colour or luminance bars) is fixed per session; this file tracks colour bars (configs/task-luminance.yaml tracks luminance bars).",
+        "k (equiluminance) comes from the observer's latest equiluminance-speed run; a real session without one is refused.",
+        "Field and bar inks: yellow mean #8e7300, red bar #a56800, green bar #707d00 (40% colour contrast); sRGB rendering of the linear gun levels, not a calibrated colour.",
+        "Renderer limitation: the guide grammar has no radial (rotating) grating, so the annulus is an angular-layout schematic with short radial strokes at bar centres; the sinusoidal profile and the superimposed luminance grating are not drawn. docs/preview.png is rendered by the task's own scene code and shows the sinusoidal gratings."
+      ]
+    },
+    {
+      "taskKey": "equiluminance-speed@configs/equiluminance-speed.yaml",
+      "timeline": {
+        "caption": "One setting. The adjustment lasts until the observer commits it.",
+        "phases": [
+          {
+            "id": "fixate",
+            "label": "Bull's-eye",
+            "timing": {
+              "kind": "fixed",
+              "ms": 500
+            },
+            "start_events": [
+              "FIX_ON"
+            ]
+          },
+          {
+            "id": "adjust",
+            "label": "Adjust",
+            "timing": {
+              "kind": "event",
+              "until": "SPACE commits k",
+              "max": {
+                "ms": 60000
+              }
+            },
+            "start_events": [
+              "ADJUST_START"
+            ],
+            "end_events": [
+              "RESPONSE"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Bull's-eye",
+            "role": "stimulus",
+            "from": "fixate",
+            "to": "adjust"
+          },
+          {
+            "label": "Colour grating alone, 2.0 Hz",
+            "role": "stimulus",
+            "from": "adjust",
+            "to": "adjust"
+          },
+          {
+            "label": "Wheel or up/down arrows, SPACE to commit",
+            "role": "response",
+            "from": "adjust",
+            "to": "adjust"
+          }
+        ],
+        "branches": [
+          {
+            "from": "adjust",
+            "kind": "failure",
+            "when": "not committed in time",
+            "outcome": "TIMEOUT",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "SET",
+          "label": "SET: the setting is recorded"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 500
+          }
+        }
+      },
+      "diagram": {
+        "width": 20,
+        "height": 20.6,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "The 40% red-green grating alone on the yellow mean, turning at 2.0 Hz; k sets the green:red modulation (inks shown at k = 1). Angular-layout schematic: the grammar has no radial grating, so short radial strokes mark bar centres (8 cycles); the sinusoidal profile between them is not drawn. Inks are the display colours the code computes (mean 45 cd/m², paper phosphor chromaticities, red share 31.7%) for the example sRGB photometry file and k = 1 (ASSUMED; each observer's own k shifts the green ink). Geometry to scale.",
+        "elements": [
+          {
+            "type": "rect",
+            "cx": 0,
+            "cy": 0,
+            "width": 20,
+            "height": 20.6,
+            "role": "stimulus",
+            "color": "#8e7300"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 8.4,
+            "role": "region",
+            "dashed": true,
+            "label": "Annulus: colour grating only (schematic)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 4.0,
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "line",
+            "x1": 4.0,
+            "y1": 0.0,
+            "x2": 8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": 1.531,
+            "x2": 7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": 2.828,
+            "x2": 5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": 3.696,
+            "x2": 3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 0.0,
+            "y1": 4.0,
+            "x2": 0.0,
+            "y2": 8.4,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": 3.696,
+            "x2": -3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": 2.828,
+            "x2": -5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": 1.531,
+            "x2": -7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -4.0,
+            "y1": 0.0,
+            "x2": -8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": -1.531,
+            "x2": -7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": -2.828,
+            "x2": -5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": -3.696,
+            "x2": -3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -0.0,
+            "y1": -4.0,
+            "x2": -0.0,
+            "y2": -8.4,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": -3.696,
+            "x2": 3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": -2.828,
+            "x2": 5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": -1.531,
+            "x2": 7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 1.0,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000",
+            "label": "Bull's-eye (fixate)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.75,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.5,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.25,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "arrow",
+            "x1": 1.6,
+            "y1": 9.1,
+            "x2": -1.6,
+            "y2": 9.1,
+            "role": "annotation",
+            "label": "Turns at 2.0 Hz"
+          }
+        ]
+      },
+      "description": "**Question.** At what red-green balance does this observer's colour grating look slowest (the paper's equiluminance criterion)?\n\n**What is on the screen.** The red-green grating alone (40 % colour contrast, eight sinusoidal cycles) turning at 2.0 Hz in the annulus around the bull's-eye.\n\n**What the subject does.** Fixates the bull's-eye and turns a knob (scroll wheel or up/down arrows) on k, the green-to-red luminance modulation ratio, until the grating looks slowest; SPACE commits. Each setting starts at a random k in [[param:k_start_range]] and moves by a factor of [[param:k_step]] per step.\n\n**Varied.** Starting value and rotation direction across settings.\n\n**Measured.** The setting of k; the geometric mean of the settings is the k every other colour task uses.\n\n**What it can and cannot show.** An observer- and display-specific equiluminance point by the paper's criterion. It does not calibrate the display: gun luminances still come from the rig's photometer file.",
+      "sourceFiles": [
+        "src/cavanagh1992/calibration.py",
+        "src/cavanagh1992/adjust.py",
+        "src/cavanagh1992/phases.py",
+        "src/cavanagh1992/scene.py",
+        "src/cavanagh1992/common.py",
+        "configs/equiluminance-speed.yaml"
+      ],
+      "notes": [
+        "Paper: minimum apparent speed criterion (p. 1563, note 10). ASSUMED: start range, step, k limits 0.25-4, 60-s limit, 3 settings per direction, 500-ms bull's-eye and interval.",
+        "Field and bar inks: yellow mean #8e7300, red bar #a56800, green bar #707d00 (40% colour contrast); sRGB rendering of the linear gun levels, not a calibrated colour.",
+        "Renderer limitation: the guide grammar has no radial (rotating) grating, so the annulus is an angular-layout schematic with short radial strokes at bar centres; the sinusoidal profile and the superimposed luminance grating are not drawn. docs/preview.png is rendered by the task's own scene code and shows the sinusoidal gratings."
+      ]
+    },
+    {
+      "taskKey": "flicker-photometry@configs/flicker-photometry.yaml",
+      "timeline": {
+        "caption": "One setting. The adjustment lasts until the observer commits it.",
+        "phases": [
+          {
+            "id": "fixate",
+            "label": "Bull's-eye",
+            "timing": {
+              "kind": "fixed",
+              "ms": 500
+            },
+            "start_events": [
+              "FIX_ON"
+            ]
+          },
+          {
+            "id": "adjust",
+            "label": "Adjust",
+            "timing": {
+              "kind": "event",
+              "until": "SPACE commits k",
+              "max": {
+                "ms": 60000
+              }
+            },
+            "start_events": [
+              "ADJUST_START"
+            ],
+            "end_events": [
+              "RESPONSE"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Bull's-eye",
+            "role": "stimulus",
+            "from": "fixate",
+            "to": "adjust"
+          },
+          {
+            "label": "Annulus flickers red/green",
+            "role": "stimulus",
+            "from": "adjust",
+            "to": "adjust"
+          },
+          {
+            "label": "Wheel or up/down arrows, SPACE to commit",
+            "role": "response",
+            "from": "adjust",
+            "to": "adjust"
+          }
+        ],
+        "branches": [
+          {
+            "from": "adjust",
+            "kind": "failure",
+            "when": "not committed in time",
+            "outcome": "TIMEOUT",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "SET",
+          "label": "SET: the setting is recorded"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 500
+          }
+        }
+      },
+      "diagram": {
+        "width": 20,
+        "height": 18.4,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "One frame of the uniform annulus at the red-heavy end of the 40% modulation (#a56800); the next half cycle is the green-heavy end (#707d00), square wave locked to whole frames. Inks at k = 1 for the example sRGB photometry (ASSUMED).",
+        "elements": [
+          {
+            "type": "rect",
+            "cx": 0,
+            "cy": 0,
+            "width": 20,
+            "height": 18.4,
+            "role": "stimulus",
+            "color": "#8e7300"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 8.4,
+            "role": "stimulus",
+            "color": "#a56800",
+            "label": "Uniform annulus, red-heavy frame"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 4.0,
+            "role": "stimulus",
+            "color": "#8e7300"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 1.0,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000",
+            "label": "Bull's-eye (fixate)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.75,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.5,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.25,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          }
+        ]
+      },
+      "description": "**Question.** An alternative equiluminance setting by heterochromatic flicker photometry (not the paper's criterion: a deviation).\n\n**What is on the screen.** The annulus filled uniformly, alternating between the red-heavy and green-heavy states of the 40 % colour modulation at about [[param:flicker_hz]], locked to whole display frames.\n\n**What the subject does.** Fixates the bull's-eye and adjusts k (scroll wheel or up/down arrows) until the flicker is least; SPACE commits.\n\n**Varied.** Starting value of k across settings.\n\n**Measured.** The setting of k (geometric mean).\n\n**What it can and cannot show.** A standard photometric balance; it can differ from the minimum-speed setting the paper used.",
+      "sourceFiles": [
+        "src/cavanagh1992/calibration.py",
+        "src/cavanagh1992/scene.py",
+        "src/cavanagh1992/adjust.py",
+        "src/cavanagh1992/phases.py",
+        "configs/flicker-photometry.yaml"
+      ],
+      "notes": [
+        "Not the paper's method (deviation). 15 Hz, 6 settings, 60-s limit, start range and step are ASSUMED.",
+        "The effective rate is refresh/(2 x whole frames per half cycle): 15 Hz at 60 or 120 Hz.",
+        "Field and bar inks: yellow mean #8e7300, red bar #a56800, green bar #707d00 (40% colour contrast); sRGB rendering of the linear gun levels, not a calibrated colour.",
+        "Renderer limitation: the guide grammar has no radial (rotating) grating, so the annulus is an angular-layout schematic with short radial strokes at bar centres; the sinusoidal profile and the superimposed luminance grating are not drawn. docs/preview.png is rendered by the task's own scene code and shows the sinusoidal gratings."
+      ]
+    },
+    {
+      "taskKey": "motion-null@configs/motion-null.yaml",
+      "timeline": {
+        "caption": "One setting. The adjustment lasts until the observer commits it.",
+        "phases": [
+          {
+            "id": "fixate",
+            "label": "Bull's-eye",
+            "timing": {
+              "kind": "fixed",
+              "ms": 500
+            },
+            "start_events": [
+              "FIX_ON"
+            ]
+          },
+          {
+            "id": "adjust",
+            "label": "Adjust",
+            "timing": {
+              "kind": "event",
+              "until": "SPACE commits the contrast",
+              "max": {
+                "ms": 60000
+              }
+            },
+            "start_events": [
+              "ADJUST_START"
+            ],
+            "end_events": [
+              "RESPONSE"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Bull's-eye",
+            "role": "stimulus",
+            "from": "fixate",
+            "to": "adjust"
+          },
+          {
+            "label": "Colour and luminance gratings, opposite turns",
+            "role": "stimulus",
+            "from": "adjust",
+            "to": "adjust"
+          },
+          {
+            "label": "Wheel or up/down arrows, SPACE to commit",
+            "role": "response",
+            "from": "adjust",
+            "to": "adjust"
+          }
+        ],
+        "branches": [
+          {
+            "from": "adjust",
+            "kind": "failure",
+            "when": "not committed in time",
+            "outcome": "TIMEOUT",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "SET",
+          "label": "SET: the setting is recorded"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 500
+          }
+        }
+      },
+      "diagram": {
+        "width": 20,
+        "height": 21.4,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "The 40% colour grating (red and green bar centres) and a luminance grating turning the opposite way; the observer sets the luminance contrast that nulls the global rotation. The luminance grating, whose contrast is the setting, is not marked. Angular-layout schematic: the grammar has no radial grating, so short radial strokes mark bar centres (8 cycles); the sinusoidal profile between them is not drawn. Inks are the display colours the code computes (mean 45 cd/m², paper phosphor chromaticities, red share 31.7%) for the example sRGB photometry file and k = 1 (ASSUMED; each observer's own k shifts the green ink). Geometry to scale.",
+        "elements": [
+          {
+            "type": "rect",
+            "cx": 0,
+            "cy": 0,
+            "width": 20,
+            "height": 21.4,
+            "role": "stimulus",
+            "color": "#8e7300"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 8.4,
+            "role": "region",
+            "dashed": true,
+            "label": "Annulus: colour grating + luminance grating (schematic)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 4.0,
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "line",
+            "x1": 4.0,
+            "y1": 0.0,
+            "x2": 8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": 1.531,
+            "x2": 7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": 2.828,
+            "x2": 5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": 3.696,
+            "x2": 3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 0.0,
+            "y1": 4.0,
+            "x2": 0.0,
+            "y2": 8.4,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": 3.696,
+            "x2": -3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": 2.828,
+            "x2": -5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": 1.531,
+            "x2": -7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -4.0,
+            "y1": 0.0,
+            "x2": -8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": -1.531,
+            "x2": -7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": -2.828,
+            "x2": -5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": -3.696,
+            "x2": -3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -0.0,
+            "y1": -4.0,
+            "x2": -0.0,
+            "y2": -8.4,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": -3.696,
+            "x2": 3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": -2.828,
+            "x2": 5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": -1.531,
+            "x2": 7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 1.0,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000",
+            "label": "Bull's-eye (fixate)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.75,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.5,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.25,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "arrow",
+            "x1": 1.6,
+            "y1": 9.1,
+            "x2": -1.6,
+            "y2": 9.1,
+            "role": "annotation",
+            "label": "Opposite turns, 2.0 Hz each"
+          },
+          {
+            "type": "arrow",
+            "x1": -1.6,
+            "y1": 9.9,
+            "x2": 1.6,
+            "y2": 9.9,
+            "role": "annotation"
+          }
+        ]
+      },
+      "description": "**Question.** How much luminance contrast cancels the colour grating's contribution to the overall rotation?\n\n**What is on the screen.** The 40 % colour grating and a luminance grating turning in opposite directions at 2.0 Hz in the annulus.\n\n**What the subject does.** Without tracking individual bars, adjusts the luminance contrast until the global rotation is ambiguous (nulled); SPACE commits.\n\n**Varied.** Start from above ([[param:start_above]]) or below ([[param:start_below]]) and the colour grating's direction; four settings.\n\n**Measured.** The nulling luminance contrast (the paper: 5-10 %, observer-dependent).\n\n**What it can and cannot show.** The point where colour and luminance contribute equally to low-level motion; it sets the scale for the tracking task's contrast range.",
+      "sourceFiles": [
+        "src/cavanagh1992/nulling.py",
+        "src/cavanagh1992/adjust.py",
+        "src/cavanagh1992/phases.py",
+        "src/cavanagh1992/scene.py",
+        "src/cavanagh1992/common.py",
+        "configs/motion-null.yaml"
+      ],
+      "notes": [
+        "Paper: motion null without attending to features (p. 1563). Start values, 3% step, limits, 60-s limit and order are ASSUMED.",
+        "Field and bar inks: yellow mean #8e7300, red bar #a56800, green bar #707d00 (40% colour contrast); sRGB rendering of the linear gun levels, not a calibrated colour.",
+        "Renderer limitation: the guide grammar has no radial (rotating) grating, so the annulus is an angular-layout schematic with short radial strokes at bar centres; the sinusoidal profile and the superimposed luminance grating are not drawn. docs/preview.png is rendered by the task's own scene code and shows the sinusoidal gratings."
+      ]
+    },
+    {
+      "taskKey": "thresholds@configs/thresholds-presence.yaml",
+      "timeline": {
+        "caption": "One setting. The adjustment lasts until the observer commits it.",
+        "phases": [
+          {
+            "id": "fixate",
+            "label": "Bull's-eye",
+            "timing": {
+              "kind": "fixed",
+              "ms": 500
+            },
+            "start_events": [
+              "FIX_ON"
+            ]
+          },
+          {
+            "id": "adjust",
+            "label": "Adjust",
+            "timing": {
+              "kind": "event",
+              "until": "SPACE commits the contrast",
+              "max": {
+                "ms": 60000
+              }
+            },
+            "start_events": [
+              "ADJUST_START"
+            ],
+            "end_events": [
+              "RESPONSE"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Bull's-eye",
+            "role": "stimulus",
+            "from": "fixate",
+            "to": "adjust"
+          },
+          {
+            "label": "Test grating (alone or with colour)",
+            "role": "stimulus",
+            "from": "adjust",
+            "to": "adjust"
+          },
+          {
+            "label": "Wheel or up/down arrows, SPACE to commit",
+            "role": "response",
+            "from": "adjust",
+            "to": "adjust"
+          }
+        ],
+        "branches": [
+          {
+            "from": "adjust",
+            "kind": "failure",
+            "when": "not committed in time",
+            "outcome": "TIMEOUT",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "SET",
+          "label": "SET: the setting is recorded"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 500
+          }
+        }
+      },
+      "diagram": {
+        "width": 20,
+        "height": 20.6,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "First cell: the luminance grating alone, shown at the 20% starting contrast from above (light and dark bar centres, yellow chromaticity); the other cells add the red-green grating or show it alone. Angular-layout schematic: the grammar has no radial grating, so short radial strokes mark bar centres (8 cycles); the sinusoidal profile between them is not drawn. Inks are the display colours the code computes (mean 45 cd/m², paper phosphor chromaticities, red share 31.7%) for the example sRGB photometry file and k = 1 (ASSUMED; each observer's own k shifts the green ink). Geometry to scale.",
+        "elements": [
+          {
+            "type": "rect",
+            "cx": 0,
+            "cy": 0,
+            "width": 20,
+            "height": 20.6,
+            "role": "stimulus",
+            "color": "#8e7300"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 8.4,
+            "role": "region",
+            "dashed": true,
+            "label": "Annulus: luminance test grating (schematic)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 4.0,
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "line",
+            "x1": 4.0,
+            "y1": 0.0,
+            "x2": 8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#9a7d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": 1.531,
+            "x2": 7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#806800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": 2.828,
+            "x2": 5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#9a7d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": 3.696,
+            "x2": 3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#806800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 0.0,
+            "y1": 4.0,
+            "x2": 0.0,
+            "y2": 8.4,
+            "role": "stimulus",
+            "color": "#9a7d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": 3.696,
+            "x2": -3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#806800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": 2.828,
+            "x2": -5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#9a7d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": 1.531,
+            "x2": -7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#806800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -4.0,
+            "y1": 0.0,
+            "x2": -8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#9a7d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": -1.531,
+            "x2": -7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#806800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": -2.828,
+            "x2": -5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#9a7d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": -3.696,
+            "x2": -3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#806800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -0.0,
+            "y1": -4.0,
+            "x2": -0.0,
+            "y2": -8.4,
+            "role": "stimulus",
+            "color": "#9a7d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": -3.696,
+            "x2": 3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#806800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": -2.828,
+            "x2": 5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#9a7d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": -1.531,
+            "x2": 7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#806800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 1.0,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000",
+            "label": "Bull's-eye (fixate)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.75,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.5,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.25,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "arrow",
+            "x1": 1.6,
+            "y1": 9.1,
+            "x2": -1.6,
+            "y2": 9.1,
+            "role": "annotation",
+            "label": "Drifts at 2.0 Hz"
+          }
+        ]
+      },
+      "description": "**Question.** How much contrast does a turning grating need to be noticed (or its direction seen), alone and under a superimposed colour grating? (Fig. 1C.)\n\n**What is on the screen.** One grating turning at 2.0 Hz in the annulus. Cells, in order: the luminance grating alone, the luminance grating with the 40 % colour grating turning the opposite way, and the colour grating alone.\n\n**What the subject does.** Adjusts the grating's contrast until it is just noticed (this file) and commits with SPACE; configs/thresholds-direction.yaml uses the direction criterion.\n\n**Varied.** Cell, and start from above ([[param:start_above]]) or below ([[param:start_below]]).\n\n**Measured.** Threshold contrast per cell, the mean of four settings.\n\n**What it can and cannot show.** How strongly the colour grating masks the luminance grating's visibility. Thresholds near 0.4 % need a 10-bit or bit-stealing display; an 8-bit display cannot reach them.",
+      "sourceFiles": [
+        "src/cavanagh1992/nulling.py",
+        "src/cavanagh1992/adjust.py",
+        "src/cavanagh1992/phases.py",
+        "src/cavanagh1992/scene.py",
+        "src/cavanagh1992/common.py",
+        "configs/thresholds-presence.yaml"
+      ],
+      "notes": [
+        "Paper: four settings per threshold, twice from above and twice from below, luminance alone first. Start values, 5% step, limits and 60-s limit are ASSUMED.",
+        "configs/thresholds-direction.yaml runs the direction criterion (luminance cells only); it is a separate parameter set of this task.",
+        "Field and bar inks: yellow mean #8e7300, red bar #a56800, green bar #707d00 (40% colour contrast); sRGB rendering of the linear gun levels, not a calibrated colour. Luminance bars: same chromaticity, ±20% (example start contrast).",
+        "Renderer limitation: the guide grammar has no radial (rotating) grating, so the annulus is an angular-layout schematic with short radial strokes at bar centres; the sinusoidal profile and the superimposed luminance grating are not drawn. docs/preview.png is rendered by the task's own scene code and shows the sinusoidal gratings."
+      ]
+    },
+    {
+      "taskKey": "speed-match@configs/speed-global.yaml",
+      "timeline": {
+        "caption": "One setting. The adjustment lasts until the observer commits it.",
+        "phases": [
+          {
+            "id": "fixate",
+            "label": "Bull's-eye",
+            "timing": {
+              "kind": "fixed",
+              "ms": 500
+            },
+            "start_events": [
+              "FIX_ON"
+            ]
+          },
+          {
+            "id": "adjust",
+            "label": "Adjust",
+            "timing": {
+              "kind": "event",
+              "until": "SPACE commits the matched rate",
+              "max": {
+                "ms": 120000
+              }
+            },
+            "start_events": [
+              "ADJUST_START"
+            ],
+            "end_events": [
+              "RESPONSE"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Bull's-eye",
+            "role": "stimulus",
+            "from": "fixate",
+            "to": "adjust"
+          },
+          {
+            "label": "Outer colour grating and inner comparison",
+            "role": "stimulus",
+            "from": "adjust",
+            "to": "adjust"
+          },
+          {
+            "label": "Wheel or up/down arrows, SPACE to commit",
+            "role": "response",
+            "from": "adjust",
+            "to": "adjust"
+          }
+        ],
+        "branches": [
+          {
+            "from": "adjust",
+            "kind": "failure",
+            "when": "not committed in time",
+            "outcome": "TIMEOUT",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "SET",
+          "label": "SET: the setting is recorded"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 500
+          }
+        }
+      },
+      "diagram": {
+        "width": 20,
+        "height": 21.4,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "Outer ring: the 40% colour grating at 0.5 Hz (shown with 0% added luminance contrast). Inner ring (1.6-3.6 dva, ASSUMED): the 15% luminance comparison turning the other way at the rate the observer adjusts. Photometric k = 1, as this file sets. Angular-layout schematic: the grammar has no radial grating, so short radial strokes mark bar centres (8 cycles); the sinusoidal profile between them is not drawn. Inks are the display colours the code computes (mean 45 cd/m², paper phosphor chromaticities, red share 31.7%) for the example sRGB photometry file and k = 1 (ASSUMED; each observer's own k shifts the green ink). Geometry to scale.",
+        "elements": [
+          {
+            "type": "rect",
+            "cx": 0,
+            "cy": 0,
+            "width": 20,
+            "height": 21.4,
+            "role": "stimulus",
+            "color": "#8e7300"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 8.4,
+            "role": "region",
+            "dashed": true,
+            "label": "Outer ring: colour grating, 0.5 Hz"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 4.0,
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "line",
+            "x1": 4.0,
+            "y1": 0.0,
+            "x2": 8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": 1.531,
+            "x2": 7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": 2.828,
+            "x2": 5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": 3.696,
+            "x2": 3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 0.0,
+            "y1": 4.0,
+            "x2": 0.0,
+            "y2": 8.4,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": 3.696,
+            "x2": -3.215,
+            "y2": 7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": 2.828,
+            "x2": -5.94,
+            "y2": 5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": 1.531,
+            "x2": -7.761,
+            "y2": 3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -4.0,
+            "y1": 0.0,
+            "x2": -8.4,
+            "y2": 0.0,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -3.696,
+            "y1": -1.531,
+            "x2": -7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -2.828,
+            "y1": -2.828,
+            "x2": -5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.531,
+            "y1": -3.696,
+            "x2": -3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -0.0,
+            "y1": -4.0,
+            "x2": -0.0,
+            "y2": -8.4,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.531,
+            "y1": -3.696,
+            "x2": 3.215,
+            "y2": -7.761,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 2.828,
+            "y1": -2.828,
+            "x2": 5.94,
+            "y2": -5.94,
+            "role": "stimulus",
+            "color": "#a56800",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 3.696,
+            "y1": -1.531,
+            "x2": 7.761,
+            "y2": -3.215,
+            "role": "stimulus",
+            "color": "#707d00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 3.6,
+            "role": "region",
+            "dashed": true,
+            "label": "Inner ring: 15% luminance comparison"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 1.6,
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "line",
+            "x1": 1.569,
+            "y1": 0.312,
+            "x2": 3.531,
+            "y2": 0.702,
+            "role": "stimulus",
+            "color": "#977b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.33,
+            "y1": 0.889,
+            "x2": 2.993,
+            "y2": 2.0,
+            "role": "stimulus",
+            "color": "#846b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 0.889,
+            "y1": 1.33,
+            "x2": 2.0,
+            "y2": 2.993,
+            "role": "stimulus",
+            "color": "#977b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 0.312,
+            "y1": 1.569,
+            "x2": 0.702,
+            "y2": 3.531,
+            "role": "stimulus",
+            "color": "#846b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -0.312,
+            "y1": 1.569,
+            "x2": -0.702,
+            "y2": 3.531,
+            "role": "stimulus",
+            "color": "#977b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -0.889,
+            "y1": 1.33,
+            "x2": -2.0,
+            "y2": 2.993,
+            "role": "stimulus",
+            "color": "#846b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.33,
+            "y1": 0.889,
+            "x2": -2.993,
+            "y2": 2.0,
+            "role": "stimulus",
+            "color": "#977b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.569,
+            "y1": 0.312,
+            "x2": -3.531,
+            "y2": 0.702,
+            "role": "stimulus",
+            "color": "#846b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.569,
+            "y1": -0.312,
+            "x2": -3.531,
+            "y2": -0.702,
+            "role": "stimulus",
+            "color": "#977b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -1.33,
+            "y1": -0.889,
+            "x2": -2.993,
+            "y2": -2.0,
+            "role": "stimulus",
+            "color": "#846b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -0.889,
+            "y1": -1.33,
+            "x2": -2.0,
+            "y2": -2.993,
+            "role": "stimulus",
+            "color": "#977b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": -0.312,
+            "y1": -1.569,
+            "x2": -0.702,
+            "y2": -3.531,
+            "role": "stimulus",
+            "color": "#846b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 0.312,
+            "y1": -1.569,
+            "x2": 0.702,
+            "y2": -3.531,
+            "role": "stimulus",
+            "color": "#977b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 0.889,
+            "y1": -1.33,
+            "x2": 2.0,
+            "y2": -2.993,
+            "role": "stimulus",
+            "color": "#846b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.33,
+            "y1": -0.889,
+            "x2": 2.993,
+            "y2": -2.0,
+            "role": "stimulus",
+            "color": "#977b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "line",
+            "x1": 1.569,
+            "y1": -0.312,
+            "x2": 3.531,
+            "y2": -0.702,
+            "role": "stimulus",
+            "color": "#846b00",
+            "stroke_width": 0.35
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 1.0,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000",
+            "label": "Bull's-eye (fixate)"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.75,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.5,
+            "role": "stimulus",
+            "luminance": 0,
+            "color": "#000000"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.25,
+            "role": "stimulus",
+            "luminance": 1,
+            "color": "#ffffff"
+          },
+          {
+            "type": "arrow",
+            "x1": 1.6,
+            "y1": 9.1,
+            "x2": -1.6,
+            "y2": 9.1,
+            "role": "annotation",
+            "label": "Rings turn in opposite directions"
+          },
+          {
+            "type": "arrow",
+            "x1": -1.6,
+            "y1": 9.9,
+            "x2": 1.6,
+            "y2": 9.9,
+            "role": "annotation"
+          }
+        ]
+      },
+      "description": "**Question.** Does a colour grating's apparent speed drop near equiluminance for global motion but much less when its bars are tracked with attention? (Experiment 2.)\n\n**What is on the screen.** Outer ring: the 40 % colour grating turning at [[param:outer_rate_hz]] with a luminance contrast that varies from trial to trial ([[param:luminance_contrasts]]). Inner ring: a [[param:comparison_contrast]] luminance grating turning the other way.\n\n**What the subject does.** Adjusts the inner ring's rate (scroll wheel or up/down arrows) until it matches the outer ring; SPACE commits. This file: global impression of motion. configs/speed-tracking.yaml: rate of a pair of bars tracked with attention.\n\n**Varied.** Luminance contrast added to the colour grating; match type (global or tracking, by file).\n\n**Measured.** The matched rate of the inner ring at each luminance contrast.\n\n**What it can and cannot show.** A dip in the global match that the tracking match lacks is the paper's dissociation. The 0.5-Hz outer rate is the paper's; the inner ring's size is ASSUMED.",
+      "sourceFiles": [
+        "src/cavanagh1992/speed_match.py",
+        "src/cavanagh1992/adjust.py",
+        "src/cavanagh1992/phases.py",
+        "src/cavanagh1992/scene.py",
+        "src/cavanagh1992/common.py",
+        "configs/speed-global.yaml"
+      ],
+      "notes": [
+        "Paper: 0.5 Hz outer rotation, 15% comparison. ASSUMED: inner ring 1.6-3.6 dva, 8 comparison cycles, the nine luminance levels (read off Fig. 2), photometric zero, start range, step, limits, 120-s limit, 3 matches per level.",
+        "Inner-ring bar lines are offset only to keep the schematic readable; phases are random per trial.",
+        "Field and bar inks: yellow mean #8e7300, red bar #a56800, green bar #707d00 (40% colour contrast); sRGB rendering of the linear gun levels, not a calibrated colour. Luminance bars: same chromaticity, ±15%.",
+        "Renderer limitation: the guide grammar has no radial (rotating) grating, so the annulus is an angular-layout schematic with short radial strokes at bar centres; the sinusoidal profile and the superimposed luminance grating are not drawn. docs/preview.png is rendered by the task's own scene code and shows the sinusoidal gratings."
+      ]
+    }
+  ]
+}
