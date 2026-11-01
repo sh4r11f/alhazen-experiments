@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Attentional blink (Raymond, Shapiro & Arnell, 1992, Experiment 2)",
-  "summary": "Letters flash one at a time at 11 per second. Subjects identify the one white letter and then say whether a black X followed it, or, in a control condition, ignore the white letter and only look for the X. Detecting the X drops for about half a second after the target only when the target has to be identified: the attentional blink. One trial is one stream and one or two reports.",
+  "summary": "Raymond, Shapiro & Arnell's (1992) Experiment 2. Letters flash one at a time at one spot, about 11 a second. In the experimental condition the observer names the one white letter and then says whether a black X appeared; in the control condition they ignore the white letter and only look for the X. The X falls 0 to 8 letters after the white letter, or is absent. The measure is accuracy: how often the X is detected at each position, in the experimental condition only when the white letter was named correctly. The paper reported that detection dropped for about half a second after the target only when the target had to be identified: the attentional blink. Tested in software and simulation only; no result of this implementation is claimed.",
   "methods": "docs/methods.md",
   "references": [
     "Raymond, J. E., Shapiro, K. L., & Arnell, K. M. (1992). Temporary suppression of visual processing in an RSVP task: An attentional blink? Journal of Experimental Psychology: Human Perception and Performance, 18(3), 849-860. https://doi.org/10.1037/0096-1523.18.3.849"
