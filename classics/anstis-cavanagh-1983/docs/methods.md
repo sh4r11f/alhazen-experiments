@@ -202,6 +202,12 @@ the notebook end to end. `tests/test_render_display.py` (psychopy on a real or X
 is written but has not been run. Not tested: a real display's gamma, timing or photometry;
 whether the additive mixture and the paper's dither look the same on a given panel.
 
+Review fix, 1 Nov 2026 (independent review): with `interleave_mix: line_dither` the knob's upper limit for the
+adjustment tasks now allows for the light dither rows carrying the test colour at (1 + c) times its luminance
+(before, a display whose test gun was the binding limit could be turned to a setting the stimulus could not
+draw, which stopped the session mid-setting), and the reference's light dither rows are checked at load
+(`tests/test_review_regressions.py`). The additive default is unchanged.
+
 ## References
 
 - Anstis, S. M., & Cavanagh, P. (1983). A minimum motion technique for judging

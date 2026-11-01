@@ -44,16 +44,22 @@ SETTING = "test_cd_m2"
 
 
 def max_test_cd(space: ColourSpace, test: str, ref: str, ref_cd: float, contrast: float,
-                with_mixture: bool) -> float:
+                with_mixture: bool, mix: str = "additive") -> float:
     """The highest test luminance every stroke can show: the test bar itself and, for the
-    four-stroke cycle, the light mixture bar (1 + c) * (test + reference) / 2."""
+    four-stroke cycle, the light mixture bar. With ``additive`` mixing a light bar is
+    (1 + c) * (test + reference) / 2 on every pixel; with ``line_dither`` its test-colour
+    rows carry the test colour itself scaled by (1 + c) (stimulus.stroke_luminance), so
+    the cap is lower by that factor."""
     st, sr, mx = space.shares(test), space.shares(ref), space.photometry.max_cd_m2
     hi = float("inf")
     for g in range(3):
         if st[g] > 0:
             hi = min(hi, mx[g] / st[g])
             if with_mixture:
-                hi = min(hi, (2.0 * mx[g] / (1.0 + contrast) - sr[g] * ref_cd) / st[g])
+                if mix == "line_dither":
+                    hi = min(hi, mx[g] / ((1.0 + contrast) * st[g]))
+                else:
+                    hi = min(hi, (2.0 * mx[g] / (1.0 + contrast) - sr[g] * ref_cd) / st[g])
     return hi
 
 
@@ -105,12 +111,15 @@ class _AdjustBase(EquiluminanceTask):
     def _contrast(self) -> float:
         return float(getattr(self.params, "interleave_contrast", 0.0))
 
+    def _mix(self) -> str:
+        return str(getattr(self.params, "interleave_mix", "additive"))
+
     def _range(self, colour: str) -> tuple[float, float]:
         """Knob limits for ``colour``, in cd/m2: the params' limits times the reference,
         capped by what the display can show."""
         p: AdjustParams = self.params  # type: ignore[assignment]
         cap = max_test_cd(p.colour_space(), colour, p.reference_colour, p.reference_cd_m2,
-                          self._contrast(), self._mixture())
+                          self._contrast(), self._mixture(), self._mix())
         lo, hi = p.limits[0] * p.reference_cd_m2, min(p.limits[1] * p.reference_cd_m2, cap)
         if hi < p.start_range[1] * p.reference_cd_m2:
             raise ValueError(
@@ -126,6 +135,10 @@ class _AdjustBase(EquiluminanceTask):
             self._range(c)
         p.colour_space().levels(p.colour_space().gun_luminance(p.reference_colour,
                                                                 p.reference_cd_m2))
+        if self._mixture() and self._mix() == "line_dither":
+            # The reference rows of a light line-dither bar are the reference at (1 + c).
+            p.colour_space().levels(p.colour_space().gun_luminance(
+                p.reference_colour, p.reference_cd_m2 * (1.0 + self._contrast())))
 
     def conditions(self, rng):
         p: AdjustParams = self.params  # type: ignore[assignment]
