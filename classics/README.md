@@ -30,3 +30,19 @@ Browse; copies people already made keep working). Set it back to `true` to list 
 | [Spatial contrast sensitivity (Campbell & Robson, 1968)](campbell-robson-1968/) | 1968 | `adaptation`, unlisted | keyboard | 10 | 42 |
 | [Dynamic motion aftereffect matched by real motion (Hiris & Blake, 1992)](hiris-blake-1992/) | 1992 | `adaptation`, unlisted | keyboard | 6 | 20 |
 | [Minimum-motion equiluminance (Anstis & Cavanagh 1983)](anstis-cavanagh-1983/) | 1983 | `adaptation`, unlisted | keyboard | 10 | 26 |
+
+
+## Scientific reader update (1 November 2026)
+
+The fourteen earlier projects have shorter question/task/measure descriptions and
+source-contained stimulus diagrams and timelines. Diagrams distinguish separate trial
+phases; tiny stimulus details have explicitly scaled insets. The added psychophysics
+projects cover spatial contrast sensitivity (Campbell & Robson, 1968), dynamic motion
+aftereffect matching (Hiris & Blake, 1992), and minimum-motion equiluminance with a
+minimum-flicker comparison (Anstis & Cavanagh, 1983). They remain unlisted by default.
+
+The drawings explain the tasks; they are not calibrated stimuli or participant results.
+The added projects have software tests and direct PsychoPy pixel-readback smoke checks,
+not calibrated observer validation. Their methods document assumptions, deviations,
+gamma/photometry requirements and limits. Existing forks, recordings and rig installs
+are not rewritten by this documentation update.

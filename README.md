@@ -25,6 +25,7 @@ experiment repository. Copy one folder anywhere and it runs on its own:
   notebooks/analysis.ipynb
   docs/methods.md       methods, deviations table, "Assumed, not in the paper" table
   docs/experiment.json  the Experiment Hub's documentation descriptor
+  docs/guide-overlay.json  optional source-contained stimulus and trial-sequence guide
   docs/listing.json     status, collection, original citation, hardware, listed
   docs/preview.png      what the stimulus looks like
 ```
