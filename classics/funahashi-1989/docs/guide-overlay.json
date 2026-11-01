@@ -391,6 +391,15 @@
               "factor": 1
             }
           }
+        ],
+        "insets": [
+          {
+            "cx": 0,
+            "cy": 0,
+            "width": 2.5,
+            "height": 2.0,
+            "label": "fixation detail"
+          }
         ]
       },
       "description": "**Question.** Can a briefly flashed location be held in memory and then looked at?\n\n**On screen.** A fixation spot; a square flashes for [[param:cue_duration]] at one of eight places; a delay of 1.5, 3 or 6 s; then the spot goes off.\n\n**The subject.** Holds gaze on the spot through cue and delay (enforced), then saccades to the remembered place within [[param:response_period]].\n\n**Measured.** Landing inside the window around the cue or not; latency and error by location and delay.\n\n**Limits.** No prefrontal recording, so not the paper's result. Known constraint: a blink counts as a fixation break (up to 7.25 s without blinking).",
