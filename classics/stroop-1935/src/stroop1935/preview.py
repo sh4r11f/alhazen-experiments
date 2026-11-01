@@ -45,11 +45,12 @@ def _word(ax, text: str, color, height: float) -> None:
 def render(out: Path) -> Path:
     p = load_params(PROJECT / "configs" / "task.yaml", StroopParams)
     first = {t: sheet.items(t, p.sheet_seed, 1)[0] for t in sheet.TESTS}
-    panels = [("fixation", "fixation point, 500 ms,\nthen one item", None),
-              (sheet.NC, "NC: name the ink", first[sheet.NC]),
-              (sheet.NCWD, "NCWd: name the ink", first[sheet.NCWD]),
-              (sheet.RCNB, "RCNb: give the word", first[sheet.RCNB]),
-              (sheet.RCND, "RCNd: give the word", first[sheet.RCND])]
+    fix_caption = f"every trial: fixation point\n{p.fixation_duration.ms:g} ms, then ONE item"
+    panels = [("fixation", fix_caption, None),
+              (sheet.NC, "or NC: name the ink", first[sheet.NC]),
+              (sheet.NCWD, "or NCWd: name the ink", first[sheet.NCWD]),
+              (sheet.RCNB, "or RCNb: key the word", first[sheet.RCNB]),
+              (sheet.RCND, "or RCNd: key the word", first[sheet.RCND])]
     fig, axes = plt.subplots(1, len(panels), figsize=(11, 2.75), dpi=130)
     fig.patch.set_facecolor("white")
     for ax, (test, caption, item) in zip(axes, panels, strict=True):
@@ -71,8 +72,9 @@ def render(out: Path) -> Path:
         ax.set_aspect("equal")
         ax.axis("off")
         ax.set_title(caption, fontsize=8.5, color="#222222", pad=4, loc="center", y=-0.36)
-    fig.suptitle("Stroop (1935), one item per trial: each panel is the central 6 x 3.4 deg "
-                 "of the screen at true size", fontsize=9, color="#222222", y=0.98)
+    fig.suptitle("Stroop (1935) by key: a fixation point, then one of four item types "
+                 "(alternatives, never shown together). Central 6 x 3.4 dva at true size; "
+                 "illustrative, uncalibrated colours", fontsize=9, color="#222222", y=0.98)
     fig.subplots_adjust(left=0.01, right=0.99, top=0.88, bottom=0.25, wspace=0.06)
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, facecolor=fig.get_facecolor())

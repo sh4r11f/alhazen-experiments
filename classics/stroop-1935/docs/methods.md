@@ -16,6 +16,28 @@ becomes one item per trial answered with one key per colour and timed per item (
 deviations table). **Hardware.** A display and a keyboard; no eye tracker, audio, reward or
 external devices.
 
+## At a glance
+
+- **Question.** How much does a colour word slow the naming of the ink it is printed in, and
+  how much does the ink slow responding to the word?
+- **What the subject sees.** A small black point, then one item at the centre of a near-white
+  page: a solid colour square, a colour word printed in another colour's ink, or a colour word
+  in black. Items come in the order of a 100-item sheet built by Stroop's rules.
+- **What the subject does.** Presses one of five keys (D F J K L for red, blue, green, brown,
+  purple): for the ink in the colour-naming task, for the word in the word-reading task. A
+  wrong key leaves the item on screen until the right key.
+- **What is varied.** The test, by block, in a balanced order: squares (NC) against words in
+  another ink (NCWd) for colour naming; words in black (RCNb) against words in another ink
+  (RCNd) for word reading.
+- **What is recorded.** For every item the keys pressed, the reaction time from the item's
+  frame, and whether an error was corrected; the analysis also sums the item times per sheet
+  with Stroop's charge for uncorrected errors.
+- **What a result would mean.** NCWd against NC, as a ratio to NC, is the word's interference
+  with colour naming and is the number to compare with Stroop's 74%. Keys are not speech:
+  summed key times are not Stroop's sheet times, and word reading by key is not expected to
+  reproduce his near-null Experiment 1 effect. Monitor colours are uncalibrated. No
+  participant data has been recorded with this folder.
+
 ## Question
 
 Stroop asked how much two simultaneous, conflicting aspects of one printed item interfere with
