@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Feature vs conjunction search",
-  "summary": "Treisman & Gelade (1980), Experiments I and II. Subjects search a display of 1 to 36 coloured letters for a target defined by one feature (a blue letter or an S) or by a conjunction of colour and shape (a green T among brown Ts and green Xs) and press one key if it is there and another if not. Reaction time rises steeply with the number of letters for conjunctions and hardly at all for features; Experiment II varies how hard the conjunction's features are to tell apart.",
+  "summary": "Treisman & Gelade (1980), Experiments I and II. The observer searches a card of 1 to 36 coloured letters for a target and presses one key if it is there and another if not. The target differs from the other letters by one feature (a blue letter or an S) or only by a conjunction of colour and shape (a green T among brown Ts and green Xs); Experiment II compares an easy and a difficult conjunction in letter matrices. The measure is reaction time against the number of letters. The paper reported nearly flat slopes for feature targets and steep linear slopes for conjunctions, with target-present slopes about half the target-absent ones. Tested in software and simulation only; no result of this implementation is claimed.",
   "methods": "docs/methods.md",
   "references": [
     "Treisman, A. M., & Gelade, G. (1980). A feature-integration theory of attention. Cognitive Psychology, 12(1), 97-136. https://doi.org/10.1016/0010-0285(80)90005-5",

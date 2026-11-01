@@ -40,7 +40,7 @@
   "assets": [
     {
       "path": "docs/preview.png",
-      "what": "Stimulus preview drawn by src/treisman_gelade1980/preview.py from the shipped parameters",
+      "what": "Illustrative stimulus preview drawn by src/treisman_gelade1980/preview.py from the shipped parameters: one example card per parameter set. Ink colours are display RGB, not calibrated or matched to the original inks.",
       "licence": "CC-BY-4.0"
     }
   ],

@@ -1,0 +1,310 @@
+{
+ "tasks": [
+  {
+   "taskKey": "feature-conjunction-search@configs/task.yaml",
+   "timeline": {
+    "caption": "One card. The subject starts the trial (the experimenter did in the paper); the card stays until a key; feedback gives the RT and correctness. The same trial runs in all four parameter sets.",
+    "phases": [
+     {
+      "id": "ready",
+      "label": "Ready field",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE"
+      },
+      "start_events": [
+       "READY_ON"
+      ]
+     },
+     {
+      "id": "fixation",
+      "label": "Fixation spot",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "search",
+      "label": "Search card",
+      "timing": {
+       "kind": "event",
+       "until": "present or absent key",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "ARRAY_ON"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     },
+     {
+      "id": "feedback",
+      "label": "Feedback",
+      "timing": {
+       "kind": "parameter",
+       "param": "feedback_duration"
+      },
+      "start_events": [
+       "FEEDBACK_ON"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "White field",
+      "role": "stimulus",
+      "from": "ready",
+      "to": "feedback"
+     },
+     {
+      "label": "Fixation spot",
+      "role": "stimulus",
+      "from": "fixation",
+      "to": "fixation"
+     },
+     {
+      "label": "Letter array",
+      "role": "stimulus",
+      "from": "search",
+      "to": "search"
+     },
+     {
+      "label": "Present/absent key",
+      "role": "response",
+      "from": "search",
+      "to": "search"
+     },
+     {
+      "label": "RT and correct/error",
+      "role": "stimulus",
+      "from": "feedback",
+      "to": "feedback"
+     }
+    ],
+    "branches": [
+     {
+      "from": "ready",
+      "kind": "failure",
+      "when": "no SPACE",
+      "outcome": "NOT_STARTED",
+      "effect": "card served again"
+     },
+     {
+      "from": "search",
+      "kind": "failure",
+      "when": "wrong key",
+      "outcome": "WRONG",
+      "effect": "card served again later; an unanalysed dummy card follows"
+     },
+     {
+      "from": "search",
+      "kind": "failure",
+      "when": "no key",
+      "outcome": "NO_RESPONSE",
+      "effect": "card served again"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT"
+    }
+   },
+   "diagram": {
+    "caption": "Experiment I conjunction card, display size 5, on the white card, with the parameter file's inks (green #009646, brown #8c5523). Letters use the session's stencil stroke geometry (0.6° × 0.8° box, 0.12° strokes) as line primitives. Item positions are an example, not a generated card; the session places items uniformly at least 1.2° apart (ASSUMED). The dashed field, diagonals and inner ellipse are the paper's section boundaries and are not displayed. Ink RGB and stroke width are ASSUMED.",
+    "unit": "dva",
+    "width": 16,
+    "height": 10,
+    "background": 1.0,
+    "elements": [
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 0,
+      "width": {
+       "param": "field_width_dva"
+      },
+      "height": {
+       "param": "field_height_dva"
+      },
+      "role": "region",
+      "dashed": true,
+      "label": "Search field (not displayed)"
+     },
+     {
+      "type": "ellipse",
+      "cx": 0,
+      "cy": 0,
+      "rx": {
+       "param": "inner_ellipse_width_dva",
+       "factor": 0.5
+      },
+      "ry": 2.75,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "line",
+      "x1": -7,
+      "y1": -4,
+      "x2": 7,
+      "y2": 4,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "line",
+      "x1": -7,
+      "y1": 4,
+      "x2": 7,
+      "y2": -4,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "line",
+      "x1": -4.8,
+      "y1": 1.84,
+      "x2": -4.2,
+      "y2": 1.84,
+      "role": "target",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -4.5,
+      "y1": 1.9,
+      "x2": -4.5,
+      "y2": 1.1,
+      "role": "target",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Target: green T"
+     },
+     {
+      "type": "line",
+      "x1": 1.7,
+      "y1": 2.94,
+      "x2": 2.3,
+      "y2": 2.94,
+      "role": "distractor",
+      "color": "#8c5523",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 2.0,
+      "y1": 3.0,
+      "x2": 2.0,
+      "y2": 2.2,
+      "role": "distractor",
+      "color": "#8c5523",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Distractor: brown T"
+     },
+     {
+      "type": "line",
+      "x1": 4.96,
+      "y1": -1.46,
+      "x2": 5.44,
+      "y2": -2.14,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.44,
+      "y1": -1.46,
+      "x2": 4.96,
+      "y2": -2.14,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      },
+      "label": "Distractor: green X"
+     },
+     {
+      "type": "line",
+      "x1": -1.8,
+      "y1": -2.16,
+      "x2": -1.2,
+      "y2": -2.16,
+      "role": "distractor",
+      "color": "#8c5523",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -1.5,
+      "y1": -2.1,
+      "x2": -1.5,
+      "y2": -2.9,
+      "role": "distractor",
+      "color": "#8c5523",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 0.56,
+      "y1": 0.74,
+      "x2": 1.04,
+      "y2": 0.06,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 1.04,
+      "y1": 0.74,
+      "x2": 0.56,
+      "y2": 0.06,
+      "role": "distractor",
+      "color": "#009646",
+      "stroke_width": {
+       "param": "stroke_dva"
+      }
+     }
+    ]
+   },
+   "description": "**Question.** Is a target that differs by a single feature (its colour or its shape) found at a glance, while a target defined only by a combination of colour and shape has to be looked for item by item?\n\n**What the observer sees.** A plain white field, then a black fixation spot for [[param:fixation_duration]], then a card of 1, 5, 15 or 30 coloured letters, each [[param:letter_height_dva]] high, scattered over a 14° × 8° area. The card stays until a key.\n\n**What they do.** Press the dominant-hand key if the target is on the card and the other key if not, as fast as possible without errors. The RT and whether it was right are then shown for [[param:feedback_duration]].\n\n**What varies.** The number of letters, target present or absent (half each), and, one parameter set each, the kind of target. Conjunction: a green T among brown Ts and green Xs. Feature: a blue letter or an S among the same letters. Experiment II arranges 1 to 36 letters in matrices: an easy conjunction (red O among green Os and red Ns) and a difficult one (green T among blue Ts and green Xs).\n\n**What is measured.** Reaction time on correct trials against the number of letters (the search slope), separately for present and absent cards. A wrong answer puts the card back later in the block and adds an unanalysed dummy card.\n\n**What a result would mean.** A near-flat slope suggests all items are checked at once; a steep, linear slope with present trials about half as steep as absent trials suggests a serial search that stops at the target. Treisman and Gelade reported the first pattern for feature targets and the second for conjunctions. No result is claimed for this software, and the inks are display RGB, not the original inks.",
+   "sourceFiles": [
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/task.py",
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/phases.py",
+    "classics/treisman-gelade-1980/src/treisman_gelade1980/design.py",
+    "classics/treisman-gelade-1980/configs/task.yaml",
+    "classics/treisman-gelade-1980/docs/experiment.json"
+   ],
+   "notes": [
+    "Fixation 1 s, 14° × 8° field, 8.5° × 5.5° inner ellipse, 0.8° × 0.6° letters and 8 cards per cell are the paper's (pp. 102–103).",
+    "The ready field waits up to 60 s (ready_timeout, ASSUMED; not a documented parameter, so not drawn as a limit).",
+    "The inner ellipse height 5.5° is drawn as a literal (inner_ellipse_height_dva is in the config but not a documented parameter).",
+    "Ink RGB (green 0,150,70; brown 140,85,35; blue 25,75,210), 0.12° stroke, 1.2° minimum spacing, 10 s response cap, 1.5 s feedback and the ready-key start are ASSUMED or deviations; the experimenter started trials in the paper."
+   ]
+  }
+ ]
+}
