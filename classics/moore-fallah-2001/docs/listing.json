@@ -2,6 +2,7 @@
   "status": "adaptation",
   "status_reason": "The behavioural task follows the paper's methods (dimming detection among 32-ms distractors, the 2-blink + 1-catch block staircase per condition, stimulation one SOA before the dimming), but the lever release is a key press, gaze is tracked by video instead of search coils, microstimulation is only a TTL trigger for the lab's stimulator, and a human set without stimulation is added; nothing here can show the FEF stimulation effect.",
   "collection": "classics",
+  "listed": false,
   "authors": [
     {
       "name": "Sharif Saleki",

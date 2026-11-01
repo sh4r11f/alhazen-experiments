@@ -25,7 +25,7 @@ experiment repository. Copy one folder anywhere and it runs on its own:
   notebooks/analysis.ipynb
   docs/methods.md       methods, deviations table, "Assumed, not in the paper" table
   docs/experiment.json  the Experiment Hub's documentation descriptor
-  docs/listing.json     status, collection, original citation, hardware
+  docs/listing.json     status, collection, original citation, hardware, listed
   docs/preview.png      what the stimulus looks like
 ```
 
@@ -56,6 +56,14 @@ Two separate tables in every `docs/methods.md`:
 Passing tests and a simulated session show that the software does what the methods say.
 They are not a replication: no folder here claims a participant result unless its
 `docs/listing.json` cites the data.
+
+## Listed and unlisted
+
+`docs/listing.json` may say `"listed": false`. An unlisted folder stays in the repository and
+works like any other, but the Alhazen Experiment Platform does not list it under Alhazen
+Classics; a listing it had is taken off Browse at the next sync. Leaving the key out, or
+`true`, lists it. Unlisted now: `sperling-1960`, `moore-fallah-2001`, `moore-armstrong-2003`,
+`funahashi-1989`.
 
 ## Hardware
 

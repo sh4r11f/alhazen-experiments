@@ -2,6 +2,7 @@
   "status": "adaptation",
   "status_reason": "Adaptation: the row cue is a visual bar instead of Sperling's tone (alhazen 3.0.0 cannot play an event-bound tone), the tachistoscope flash is whole display frames without the lamp's afterglow, responses are typed instead of written, and C, H, P, R are left out of the alphabet because alhazen reads them as experimenter keys. Timing, materials, delays and scoring follow the paper. Tone mode is built and refuses to load until alhazen has Tone; after that release and a repin the status can be revisited.",
   "collection": "classics",
+  "listed": false,
   "authors": [
     {
       "name": "Sharif Saleki",
