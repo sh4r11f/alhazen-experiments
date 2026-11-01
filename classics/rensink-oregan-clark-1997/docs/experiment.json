@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Flicker change blindness",
-  "summary": "Rensink, O'Regan & Clark's (1997) flicker paradigm: an original and a modified scene alternate (A, A, A', A', 240 ms each with 80-ms gray blanks) until the subject presses SPACE, then reports where the change was (one of four boxes) and what kind it was (appear/disappear, colour, location). The measure is the number of alternations needed to identify the change, compared between changes to central and marginal interests. Scenes are 12 generated photo pairs and procedural pairs; an adaptation, not the original images.",
+  "summary": "Rensink, O'Regan & Clark's (1997) flicker paradigm. An original and a modified scene alternate (A, A, A', A'; 240-ms images with 80-ms grey blanks) until the observer presses SPACE; they then report where the change was (one of four boxes) and what kind it was (appear/disappear, colour, location). The measure is the number of alternations needed to identify the change, compared between changes to objects of central and of marginal interest; the paper reported that marginal changes took far longer under flicker but were seen almost at once without the blanks. The scenes here are 12 generated photo-like pairs and procedural drawings, illustrative stand-ins for the paper's photographs of real places: an adaptation. Tested in software and simulation only; no result is claimed.",
   "methods": "docs/methods.md",
   "references": [
     "Rensink, R. A., O'Regan, J. K., & Clark, J. J. (1997). To see or not to see: The need for attention to perceive changes in scenes. Psychological Science, 8(5), 368-373. https://doi.org/10.1111/j.1467-9280.1997.tb00427.x"

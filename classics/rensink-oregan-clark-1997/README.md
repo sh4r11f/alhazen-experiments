@@ -7,8 +7,8 @@ session needs.
 Rensink, O'Regan & Clark (1997), *To see or not to see*: an original and a modified scene
 alternate, A A A' A', with 80-ms gray blanks between the 240-ms images, until the subject
 sees the change; then they report where it was and what kind of change it was. Status:
-**adaptation** (generated photo pairs and procedural pairs instead of the paper's
-photographs, a keyed report instead of a spoken one).
+**adaptation** (generated photo-like scene pairs, illustrative stand-ins, and procedural pairs instead of
+the paper's photographs, a keyed report instead of a spoken one).
 
 - **Original:** see `docs/methods.md` (citation, what was replicated).
 - **Status and hardware:** `docs/listing.json`.

@@ -1,0 +1,232 @@
+{
+ "tasks": [
+  {
+   "taskKey": "flicker-change-detection@configs/task.yaml",
+   "timeline": {
+    "caption": "One trial, Experiment 1 set. The flicker repeats A, blank, A, blank, A′, blank, A′, blank (240 ms images, 80 ms blanks) until the key or 60 s. Experiment 2 shows A, A′ for 560 ms each; the no-blank set drops the blanks.",
+    "phases": [
+     {
+      "id": "cue",
+      "label": "Cue field",
+      "timing": {
+       "kind": "parameter",
+       "param": "cue_field"
+      },
+      "start_events": [
+       "CUE_ON"
+      ]
+     },
+     {
+      "id": "gray",
+      "label": "Grey field",
+      "timing": {
+       "kind": "parameter",
+       "param": "gray_field"
+      },
+      "start_events": [
+       "GRAY_ON"
+      ]
+     },
+     {
+      "id": "flicker",
+      "label": "Flicker",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE",
+       "max": {
+        "param": "max_flicker"
+       }
+      },
+      "start_events": [
+       "FLICKER_ON"
+      ],
+      "end_events": [
+       "DETECTED"
+      ]
+     },
+     {
+      "id": "where",
+      "label": "Where? (box)",
+      "timing": {
+       "kind": "event",
+       "until": "box key 1–4"
+      },
+      "start_events": [
+       "LOCATION_PROBE"
+      ],
+      "end_events": [
+       "LOCATION_REPORT"
+      ]
+     },
+     {
+      "id": "kind",
+      "label": "What kind? (arrow)",
+      "timing": {
+       "kind": "event",
+       "until": "arrow key"
+      },
+      "start_events": [
+       "TYPE_PROBE"
+      ],
+      "end_events": [
+       "TYPE_REPORT"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Grey background",
+      "role": "stimulus",
+      "from": "cue",
+      "to": "kind"
+     },
+     {
+      "label": "White rectangle (cue word in Exp. 3)",
+      "role": "stimulus",
+      "from": "cue",
+      "to": "cue"
+     },
+     {
+      "label": "A / A′ with blanks",
+      "role": "stimulus",
+      "from": "flicker",
+      "to": "flicker"
+     },
+     {
+      "label": "Image A + 4 boxes",
+      "role": "stimulus",
+      "from": "where",
+      "to": "where"
+     },
+     {
+      "label": "Keys",
+      "role": "response",
+      "from": "flicker",
+      "to": "kind"
+     }
+    ],
+    "branches": [
+     {
+      "from": "flicker",
+      "kind": "failure",
+      "when": "no key in 60 s",
+      "outcome": "NO_DETECTION",
+      "effect": "not served again"
+     },
+     {
+      "from": "where",
+      "kind": "failure",
+      "when": "report deadline",
+      "outcome": "NO_REPORT"
+     },
+     {
+      "from": "kind",
+      "kind": "failure",
+      "when": "report deadline",
+      "outcome": "NO_REPORT"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT",
+     "label": "CORRECT or MISIDENTIFIED"
+    },
+    "between_trials": {
+     "label": "Inter-trial interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "caption": "Layout only: the 27° × 18° scene area on the grey field (mid-grey ASSUMED) during the location probe, with four numbered boxes on image A, one around the change. The scene images (generated photo-like scenes and procedural drawings) cannot be drawn in this grammar and are left out. Box positions and the 5° size are an example; boxes are 3–7° (ASSUMED) and placed per trial.",
+    "unit": "dva",
+    "width": 30,
+    "height": 21,
+    "background": 0.5,
+    "elements": [
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 0,
+      "width": {
+       "param": "image_width_dva"
+      },
+      "height": {
+       "param": "image_height_dva"
+      },
+      "role": "region",
+      "label": "Scene area (photo not drawn)"
+     },
+     {
+      "type": "rect",
+      "cx": -7,
+      "cy": 3,
+      "width": 5,
+      "height": 5,
+      "role": "region",
+      "dashed": true,
+      "label": "Location probe boxes 1–4"
+     },
+     {
+      "type": "rect",
+      "cx": 6,
+      "cy": 4,
+      "width": 5,
+      "height": 5,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "rect",
+      "cx": -4,
+      "cy": -4.5,
+      "width": 5,
+      "height": 5,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "rect",
+      "cx": 7,
+      "cy": -3.5,
+      "width": 5,
+      "height": 5,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "dimension",
+      "x1": -13.5,
+      "y1": -10,
+      "x2": 13.5,
+      "y2": -10,
+      "value": {
+       "param": "image_width_dva"
+      },
+      "text": "image width",
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**Question.** A large change in a scene is obvious when it happens in plain view. Is it still easy to see when a brief blank hides the moment of change? Rensink, O'Regan and Clark argued that seeing a change needs attention on the object that changes.\n\n**What the observer sees.** Grey with an empty white rectangle for [[param:cue_field]] (in the Experiment 3 sets it holds a cue word), plain grey for [[param:gray_field]], then the flicker: scene A, grey blank, A, blank, changed scene A′, blank, A′, blank, repeating (images [[param:flicker.image]], blanks [[param:flicker.blank]]) for up to [[param:max_flicker]]. The scenes here are generated photo-like images and simple procedural drawings made for this project; they are illustrative stand-ins, not the paper's photographs of real places.\n\n**What they do.** Press [[param:detect_key]] as soon as they see what is changing. Then, on image A with numbered boxes, press the box around the change and an arrow key for its kind (appearing, colour or position). In the paper they described the change aloud.\n\n**What varies.** Whether the changed object is of central or marginal interest (judged from independent short descriptions of each scene) and the kind of change. Other parameter sets remove the blanks, show each image longer (Experiment 2) or add valid or invalid cue words (Experiment 3).\n\n**What is measured.** Time to see the change, counted in alternations (one switch between A and A′ every 640 ms), averaged over trials where both the box and the kind were right. It is a speed measure; identification errors are a check.\n\n**What a result would mean.** Many more alternations for marginal than for central changes with blanks, but quick detection without them, would mean the change is visible yet unseen until attended. The paper reported this. This adaptation's scenes and interest ratings have not been tested with observers, so no result is claimed.",
+   "sourceFiles": [
+    "classics/rensink-oregan-clark-1997/src/rensink1997/task.py",
+    "classics/rensink-oregan-clark-1997/src/rensink1997/phases.py",
+    "classics/rensink-oregan-clark-1997/configs/task.yaml",
+    "classics/rensink-oregan-clark-1997/configs/task-exp2.yaml",
+    "classics/rensink-oregan-clark-1997/configs/task-noblank.yaml",
+    "classics/rensink-oregan-clark-1997/configs/task-exp3-valid.yaml",
+    "classics/rensink-oregan-clark-1997/configs/task-exp3-valid50.yaml",
+    "classics/rensink-oregan-clark-1997/docs/experiment.json"
+   ],
+   "notes": [
+    "Paper (p. 369, Fig. 1): 27° × 18° images, 3 s cue field, 1 s grey field, 240 ms images, 80 ms blanks, each image twice before switching, up to 60 s; alternations averaged over correct reports only.",
+    "Deviation: 12 generated photo-like scene pairs plus 36 procedural pairs replace the paper's 48 photographs; interest was rated by five model descriptions (photos) or a placement rule (procedural) instead of five naive observers.",
+    "Deviation: a keyed location (4 boxes) and kind report replaces the spoken description; box count, sizes, keys and 20 s report limits are ASSUMED.",
+    "ASSUMED: grey level, cue rectangle size, 500 ms between trials, 640 ms images in the no-blank set.",
+    "Missed or unreported scenes are not served again: each scene is seen once."
+   ]
+  }
+ ]
+}

@@ -1,6 +1,6 @@
 {
   "status": "adaptation",
-  "status_reason": "The paradigm and its timing are the paper's (A A A' A', 240-ms images, 80-ms blanks, 60-s limit, 48 scenes once each, alternations on correct trials), but the 48 original photographs are replaced by 12 generated photo pairs and procedural pairs, interest is rated by model describers or a placement rule instead of naive observers, and the spoken report of what changed is a keyed place-and-type report.",
+  "status_reason": "The paradigm and its timing are the paper's (A A A' A', 240-ms images, 80-ms blanks, 60-s limit, 48 scenes once each, alternations on correct trials), but the 48 original photographs are replaced by 12 generated photo-like scene pairs (illustrative, not photographs of real places) and procedural pairs, interest is rated by model describers or a placement rule instead of naive observers, and the spoken report of what changed is a keyed place-and-type report.",
   "collection": "classics",
   "authors": [
     {
@@ -105,7 +105,7 @@
     },
     {
       "path": "docs/preview.png",
-      "what": "stimulus preview drawn by src/rensink1997/preview.py",
+      "what": "Illustrative stimulus preview drawn by src/rensink1997/preview.py: the trial's successive screens, with one of the generated photo-like scene pairs shipped in src/rensink1997/photos (not one of the paper's photographs). Display values, not calibrated colour or luminance.",
       "licence": "CC-BY-4.0"
     },
     {
