@@ -444,7 +444,1453 @@
           "group": "Design",
           "type": "boolean",
           "default": true,
-          "meaning": "Show the 12 shipped photo pairs."
+          "meaning": "Show the 12 shipped generated photo-like scene pairs (illustrative stand-ins, not photographs of real places)."
+        },
+        {
+          "name": "scenes.procedural_per_cell",
+          "label": "Procedural pairs per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 6,
+          "meaning": "Procedural pairs per change type x interest cell (6 gives 36, so 48 scenes with the photos). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "change_area_dva2",
+          "label": "Procedural change area",
+          "group": "Stimuli",
+          "type": "object",
+          "default": {
+            "central": 18.0,
+            "marginal": 22.0
+          },
+          "meaning": "Changed area of each procedural pair; the paper's averages.",
+          "unit": "dva²",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "location_shift_dva",
+          "label": "Location shift",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 3.0,
+          "meaning": "Shift of a procedural location change. ASSUMED (Fig. 2's example).",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Pause between trials. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Presentations per scene",
+          "group": "Design",
+          "type": "integer",
+          "default": 1,
+          "meaning": "Each scene once per subject, in random order. ASSUMED as once.",
+          "source": "ASSUMED"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "Detected, and both the place and the type of change reported correctly; the only trials in the alternation means."
+        },
+        {
+          "name": "MISIDENTIFIED",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but the box or the type was wrong (an identification error)."
+        },
+        {
+          "name": "NO_DETECTION",
+          "completed": true,
+          "success": false,
+          "meaning": "No key within the time limit; not served again (the scene is spoiled)."
+        },
+        {
+          "name": "NO_REPORT",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but a report deadline passed; not served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "CUE_ON",
+          "meaning": "The cue field (white rectangle) appears."
+        },
+        {
+          "name": "GRAY_ON",
+          "meaning": "The plain gray field appears."
+        },
+        {
+          "name": "FLICKER_ON",
+          "meaning": "The first image appears; the reaction time runs from this flip."
+        },
+        {
+          "name": "IMAGE_ON",
+          "meaning": "Each image onset in the flicker, with payload image (A or B) and n."
+        },
+        {
+          "name": "DETECTED",
+          "meaning": "The detection key."
+        },
+        {
+          "name": "LOCATION_PROBE",
+          "meaning": "Image A with the numbered boxes appears."
+        },
+        {
+          "name": "LOCATION_REPORT",
+          "meaning": "The box chosen."
+        },
+        {
+          "name": "TYPE_PROBE",
+          "meaning": "The change-type question appears."
+        },
+        {
+          "name": "TYPE_REPORT",
+          "meaning": "The type chosen."
+        }
+      ]
+    },
+    {
+      "id": "flicker-change-detection",
+      "title": "Flicker change detection, practice",
+      "summary": "Six practice trials, two of each kind of change, on procedural scenes only: the Experiment 1 trial (A A A' A' flicker until SPACE, then where and what kind).",
+      "parameters_file": "configs/task-practice.yaml",
+      "parameters": [
+        {
+          "name": "image_width_dva",
+          "label": "Image width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 27.0,
+          "meaning": "Width of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "image_height_dva",
+          "label": "Image height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 18.0,
+          "meaning": "Height of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "background_gray",
+          "label": "Gray level",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.0,
+          "meaning": "Gray of the cue field, gray field and blanks, in signed RGB (-1 black, 1 white). ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_field",
+          "label": "Cue field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 3000
+          },
+          "meaning": "Gray field with a white rectangle that opens each trial (a cue word in it in Experiment 3).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "cue_box_width_dva",
+          "label": "Cue rectangle width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.0,
+          "meaning": "Width of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_box_height_dva",
+          "label": "Cue rectangle height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 2.5,
+          "meaning": "Height of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue",
+          "label": "Verbal cue",
+          "group": "Design",
+          "type": "choice",
+          "default": "none",
+          "meaning": "none (Experiment 1), valid (Exp. 3, completely valid) or valid50 (Exp. 3, half valid, half naming another part).",
+          "source": "paper pp. 370-371"
+        },
+        {
+          "name": "gray_field",
+          "label": "Gray field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "Plain gray field between the cue field and the flicker.",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "flicker.image",
+          "label": "Image duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 240
+          },
+          "meaning": "How long each image is shown in the flicker cycle.",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "flicker.blank",
+          "label": "Blank duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 80
+          },
+          "meaning": "Gray blank after each image (0 removes the blanks).",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "flicker.pattern",
+          "label": "Image order",
+          "group": "Timing",
+          "type": "object",
+          "default": [
+            "A",
+            "A",
+            "B",
+            "B"
+          ],
+          "meaning": "The cycle of images, each followed by a blank: A A A' A' (paper, Exp. 1), or A A' (Exp. 2).",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "max_flicker",
+          "label": "Time limit",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "The flicker runs until the detection key or this long (outcome NO_DETECTION).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "detect_key",
+          "label": "Detection key",
+          "group": "Response",
+          "type": "string",
+          "default": "space",
+          "meaning": "Key pressed when the change is seen. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "location_probe.n_choices",
+          "label": "Location boxes",
+          "group": "Response",
+          "type": "integer",
+          "default": 4,
+          "meaning": "Numbered boxes on image A after detection, one around the change (replaces the spoken description). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "type_probe.keys",
+          "label": "Change-type keys",
+          "group": "Response",
+          "type": "object",
+          "default": {
+            "left": "presence",
+            "down": "color",
+            "right": "location"
+          },
+          "meaning": "Keys for the type of change (replaces the spoken report). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "scenes.photos",
+          "label": "Photo pairs",
+          "group": "Design",
+          "type": "boolean",
+          "default": false,
+          "meaning": "Practice uses no generated photo-like pairs: procedural scenes only, never a test scene."
+        },
+        {
+          "name": "scenes.procedural_per_cell",
+          "label": "Procedural pairs per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 1,
+          "meaning": "One procedural pair per change type x interest cell; six practice trials, two of each type of change.",
+          "source": "paper p. 369 (six practice trials, two of each type)"
+        },
+        {
+          "name": "change_area_dva2",
+          "label": "Procedural change area",
+          "group": "Stimuli",
+          "type": "object",
+          "default": {
+            "central": 18.0,
+            "marginal": 22.0
+          },
+          "meaning": "Changed area of each procedural pair; the paper's averages.",
+          "unit": "dva²",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "location_shift_dva",
+          "label": "Location shift",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 3.0,
+          "meaning": "Shift of a procedural location change. ASSUMED (Fig. 2's example).",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Pause between trials. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Presentations per scene",
+          "group": "Design",
+          "type": "integer",
+          "default": 1,
+          "meaning": "Each scene once per subject, in random order. ASSUMED as once.",
+          "source": "ASSUMED"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "Detected, and both the place and the type of change reported correctly; the only trials in the alternation means."
+        },
+        {
+          "name": "MISIDENTIFIED",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but the box or the type was wrong (an identification error)."
+        },
+        {
+          "name": "NO_DETECTION",
+          "completed": true,
+          "success": false,
+          "meaning": "No key within the time limit; not served again (the scene is spoiled)."
+        },
+        {
+          "name": "NO_REPORT",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but a report deadline passed; not served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "CUE_ON",
+          "meaning": "The cue field (white rectangle) appears."
+        },
+        {
+          "name": "GRAY_ON",
+          "meaning": "The plain gray field appears."
+        },
+        {
+          "name": "FLICKER_ON",
+          "meaning": "The first image appears; the reaction time runs from this flip."
+        },
+        {
+          "name": "IMAGE_ON",
+          "meaning": "Each image onset in the flicker, with payload image (A or B) and n."
+        },
+        {
+          "name": "DETECTED",
+          "meaning": "The detection key."
+        },
+        {
+          "name": "LOCATION_PROBE",
+          "meaning": "Image A with the numbered boxes appears."
+        },
+        {
+          "name": "LOCATION_REPORT",
+          "meaning": "The box chosen."
+        },
+        {
+          "name": "TYPE_PROBE",
+          "meaning": "The change-type question appears."
+        },
+        {
+          "name": "TYPE_REPORT",
+          "meaning": "The type chosen."
+        }
+      ]
+    },
+    {
+      "id": "flicker-change-detection",
+      "title": "Flicker change detection, no-blank control",
+      "summary": "Experiment 1's control: A and A' alternate with no blank between them, each held 640 ms (ASSUMED) so the change rate stays one per 640 ms; then where and what kind.",
+      "parameters_file": "configs/task-noblank.yaml",
+      "parameters": [
+        {
+          "name": "image_width_dva",
+          "label": "Image width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 27.0,
+          "meaning": "Width of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "image_height_dva",
+          "label": "Image height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 18.0,
+          "meaning": "Height of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "background_gray",
+          "label": "Gray level",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.0,
+          "meaning": "Gray of the cue field, gray field and blanks, in signed RGB (-1 black, 1 white). ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_field",
+          "label": "Cue field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 3000
+          },
+          "meaning": "Gray field with a white rectangle that opens each trial (a cue word in it in Experiment 3).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "cue_box_width_dva",
+          "label": "Cue rectangle width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.0,
+          "meaning": "Width of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_box_height_dva",
+          "label": "Cue rectangle height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 2.5,
+          "meaning": "Height of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue",
+          "label": "Verbal cue",
+          "group": "Design",
+          "type": "choice",
+          "default": "none",
+          "meaning": "none (Experiment 1), valid (Exp. 3, completely valid) or valid50 (Exp. 3, half valid, half naming another part).",
+          "source": "paper pp. 370-371"
+        },
+        {
+          "name": "gray_field",
+          "label": "Gray field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "Plain gray field between the cue field and the flicker.",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "flicker.image",
+          "label": "Image duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 640
+          },
+          "meaning": "How long each image stays on. 640 ms keeps the change rate of Experiment 1; ASSUMED (the paper says only that the blanks were removed).",
+          "source": "ASSUMED (p. 370 says the blanks were removed)"
+        },
+        {
+          "name": "flicker.blank",
+          "label": "Blank duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 0
+          },
+          "meaning": "No blank: A' replaces A directly, so the change is a visible transient.",
+          "source": "paper p. 370"
+        },
+        {
+          "name": "flicker.pattern",
+          "label": "Image order",
+          "group": "Timing",
+          "type": "object",
+          "default": [
+            "A",
+            "B"
+          ],
+          "meaning": "A, then A', repeating, with no blanks.",
+          "source": "ASSUMED (follows from removing the blanks)"
+        },
+        {
+          "name": "max_flicker",
+          "label": "Time limit",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "The flicker runs until the detection key or this long (outcome NO_DETECTION).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "detect_key",
+          "label": "Detection key",
+          "group": "Response",
+          "type": "string",
+          "default": "space",
+          "meaning": "Key pressed when the change is seen. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "location_probe.n_choices",
+          "label": "Location boxes",
+          "group": "Response",
+          "type": "integer",
+          "default": 4,
+          "meaning": "Numbered boxes on image A after detection, one around the change (replaces the spoken description). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "type_probe.keys",
+          "label": "Change-type keys",
+          "group": "Response",
+          "type": "object",
+          "default": {
+            "left": "presence",
+            "down": "color",
+            "right": "location"
+          },
+          "meaning": "Keys for the type of change (replaces the spoken report). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "scenes.photos",
+          "label": "Photo pairs",
+          "group": "Design",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Show the 12 shipped generated photo-like scene pairs (illustrative stand-ins, not photographs of real places)."
+        },
+        {
+          "name": "scenes.procedural_per_cell",
+          "label": "Procedural pairs per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 6,
+          "meaning": "Procedural pairs per change type x interest cell (6 gives 36, so 48 scenes with the photos). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "change_area_dva2",
+          "label": "Procedural change area",
+          "group": "Stimuli",
+          "type": "object",
+          "default": {
+            "central": 18.0,
+            "marginal": 22.0
+          },
+          "meaning": "Changed area of each procedural pair; the paper's averages.",
+          "unit": "dva²",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "location_shift_dva",
+          "label": "Location shift",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 3.0,
+          "meaning": "Shift of a procedural location change. ASSUMED (Fig. 2's example).",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Pause between trials. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Presentations per scene",
+          "group": "Design",
+          "type": "integer",
+          "default": 1,
+          "meaning": "Each scene once per subject, in random order. ASSUMED as once.",
+          "source": "ASSUMED"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "Detected, and both the place and the type of change reported correctly; the only trials in the alternation means."
+        },
+        {
+          "name": "MISIDENTIFIED",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but the box or the type was wrong (an identification error)."
+        },
+        {
+          "name": "NO_DETECTION",
+          "completed": true,
+          "success": false,
+          "meaning": "No key within the time limit; not served again (the scene is spoiled)."
+        },
+        {
+          "name": "NO_REPORT",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but a report deadline passed; not served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "CUE_ON",
+          "meaning": "The cue field (white rectangle) appears."
+        },
+        {
+          "name": "GRAY_ON",
+          "meaning": "The plain gray field appears."
+        },
+        {
+          "name": "FLICKER_ON",
+          "meaning": "The first image appears; the reaction time runs from this flip."
+        },
+        {
+          "name": "IMAGE_ON",
+          "meaning": "Each image onset in the flicker, with payload image (A or B) and n."
+        },
+        {
+          "name": "DETECTED",
+          "meaning": "The detection key."
+        },
+        {
+          "name": "LOCATION_PROBE",
+          "meaning": "Image A with the numbered boxes appears."
+        },
+        {
+          "name": "LOCATION_REPORT",
+          "meaning": "The box chosen."
+        },
+        {
+          "name": "TYPE_PROBE",
+          "meaning": "The change-type question appears."
+        },
+        {
+          "name": "TYPE_REPORT",
+          "meaning": "The type chosen."
+        }
+      ]
+    },
+    {
+      "id": "flicker-change-detection",
+      "title": "Flicker change detection, Experiment 2 (extended display)",
+      "summary": "Experiment 2: each image shown 560 ms without interruption (A, blank, A', blank, ...; 80 ms blanks kept), so the change rate is unchanged; then where and what kind.",
+      "parameters_file": "configs/task-exp2.yaml",
+      "parameters": [
+        {
+          "name": "image_width_dva",
+          "label": "Image width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 27.0,
+          "meaning": "Width of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "image_height_dva",
+          "label": "Image height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 18.0,
+          "meaning": "Height of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "background_gray",
+          "label": "Gray level",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.0,
+          "meaning": "Gray of the cue field, gray field and blanks, in signed RGB (-1 black, 1 white). ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_field",
+          "label": "Cue field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 3000
+          },
+          "meaning": "Gray field with a white rectangle that opens each trial (a cue word in it in Experiment 3).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "cue_box_width_dva",
+          "label": "Cue rectangle width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.0,
+          "meaning": "Width of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_box_height_dva",
+          "label": "Cue rectangle height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 2.5,
+          "meaning": "Height of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue",
+          "label": "Verbal cue",
+          "group": "Design",
+          "type": "choice",
+          "default": "none",
+          "meaning": "none (Experiment 1), valid (Exp. 3, completely valid) or valid50 (Exp. 3, half valid, half naming another part).",
+          "source": "paper pp. 370-371"
+        },
+        {
+          "name": "gray_field",
+          "label": "Gray field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "Plain gray field between the cue field and the flicker.",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "flicker.image",
+          "label": "Image duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 560
+          },
+          "meaning": "Each image shown 240 + 80 + 240 = 560 ms without interruption.",
+          "source": "paper p. 370"
+        },
+        {
+          "name": "flicker.blank",
+          "label": "Blank duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 80
+          },
+          "meaning": "Gray blank after each image (0 removes the blanks).",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "flicker.pattern",
+          "label": "Image order",
+          "group": "Timing",
+          "type": "object",
+          "default": [
+            "A",
+            "B"
+          ],
+          "meaning": "A, A', A, A', ... with an 80 ms blank after each image.",
+          "source": "paper p. 370"
+        },
+        {
+          "name": "max_flicker",
+          "label": "Time limit",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "The flicker runs until the detection key or this long (outcome NO_DETECTION).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "detect_key",
+          "label": "Detection key",
+          "group": "Response",
+          "type": "string",
+          "default": "space",
+          "meaning": "Key pressed when the change is seen. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "location_probe.n_choices",
+          "label": "Location boxes",
+          "group": "Response",
+          "type": "integer",
+          "default": 4,
+          "meaning": "Numbered boxes on image A after detection, one around the change (replaces the spoken description). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "type_probe.keys",
+          "label": "Change-type keys",
+          "group": "Response",
+          "type": "object",
+          "default": {
+            "left": "presence",
+            "down": "color",
+            "right": "location"
+          },
+          "meaning": "Keys for the type of change (replaces the spoken report). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "scenes.photos",
+          "label": "Photo pairs",
+          "group": "Design",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Show the 12 shipped generated photo-like scene pairs (illustrative stand-ins, not photographs of real places)."
+        },
+        {
+          "name": "scenes.procedural_per_cell",
+          "label": "Procedural pairs per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 6,
+          "meaning": "Procedural pairs per change type x interest cell (6 gives 36, so 48 scenes with the photos). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "change_area_dva2",
+          "label": "Procedural change area",
+          "group": "Stimuli",
+          "type": "object",
+          "default": {
+            "central": 18.0,
+            "marginal": 22.0
+          },
+          "meaning": "Changed area of each procedural pair; the paper's averages.",
+          "unit": "dva²",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "location_shift_dva",
+          "label": "Location shift",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 3.0,
+          "meaning": "Shift of a procedural location change. ASSUMED (Fig. 2's example).",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Pause between trials. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Presentations per scene",
+          "group": "Design",
+          "type": "integer",
+          "default": 1,
+          "meaning": "Each scene once per subject, in random order. ASSUMED as once.",
+          "source": "ASSUMED"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "Detected, and both the place and the type of change reported correctly; the only trials in the alternation means."
+        },
+        {
+          "name": "MISIDENTIFIED",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but the box or the type was wrong (an identification error)."
+        },
+        {
+          "name": "NO_DETECTION",
+          "completed": true,
+          "success": false,
+          "meaning": "No key within the time limit; not served again (the scene is spoiled)."
+        },
+        {
+          "name": "NO_REPORT",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but a report deadline passed; not served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "CUE_ON",
+          "meaning": "The cue field (white rectangle) appears."
+        },
+        {
+          "name": "GRAY_ON",
+          "meaning": "The plain gray field appears."
+        },
+        {
+          "name": "FLICKER_ON",
+          "meaning": "The first image appears; the reaction time runs from this flip."
+        },
+        {
+          "name": "IMAGE_ON",
+          "meaning": "Each image onset in the flicker, with payload image (A or B) and n."
+        },
+        {
+          "name": "DETECTED",
+          "meaning": "The detection key."
+        },
+        {
+          "name": "LOCATION_PROBE",
+          "meaning": "Image A with the numbered boxes appears."
+        },
+        {
+          "name": "LOCATION_REPORT",
+          "meaning": "The box chosen."
+        },
+        {
+          "name": "TYPE_PROBE",
+          "meaning": "The change-type question appears."
+        },
+        {
+          "name": "TYPE_REPORT",
+          "meaning": "The type chosen."
+        }
+      ]
+    },
+    {
+      "id": "flicker-change-detection",
+      "title": "Flicker change detection, Experiment 3 (valid cues)",
+      "summary": "Experiment 3, completely valid: the white rectangle holds a word naming the part that will change, for 3 s; then the Experiment 1 flicker, where and what kind.",
+      "parameters_file": "configs/task-exp3-valid.yaml",
+      "parameters": [
+        {
+          "name": "image_width_dva",
+          "label": "Image width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 27.0,
+          "meaning": "Width of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "image_height_dva",
+          "label": "Image height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 18.0,
+          "meaning": "Height of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "background_gray",
+          "label": "Gray level",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.0,
+          "meaning": "Gray of the cue field, gray field and blanks, in signed RGB (-1 black, 1 white). ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_field",
+          "label": "Cue field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 3000
+          },
+          "meaning": "Gray field with a white rectangle that opens each trial (a cue word in it in Experiment 3).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "cue_box_width_dva",
+          "label": "Cue rectangle width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.0,
+          "meaning": "Width of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_box_height_dva",
+          "label": "Cue rectangle height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 2.5,
+          "meaning": "Height of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue",
+          "label": "Verbal cue",
+          "group": "Design",
+          "type": "choice",
+          "default": "valid",
+          "meaning": "valid: the cue word names the part of the scene that changes on every trial.",
+          "source": "paper p. 371"
+        },
+        {
+          "name": "gray_field",
+          "label": "Gray field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "Plain gray field between the cue field and the flicker.",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "flicker.image",
+          "label": "Image duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 240
+          },
+          "meaning": "How long each image is shown in the flicker cycle.",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "flicker.blank",
+          "label": "Blank duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 80
+          },
+          "meaning": "Gray blank after each image (0 removes the blanks).",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "flicker.pattern",
+          "label": "Image order",
+          "group": "Timing",
+          "type": "object",
+          "default": [
+            "A",
+            "A",
+            "B",
+            "B"
+          ],
+          "meaning": "The cycle of images, each followed by a blank: A A A' A' (paper, Exp. 1), or A A' (Exp. 2).",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "max_flicker",
+          "label": "Time limit",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "The flicker runs until the detection key or this long (outcome NO_DETECTION).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "detect_key",
+          "label": "Detection key",
+          "group": "Response",
+          "type": "string",
+          "default": "space",
+          "meaning": "Key pressed when the change is seen. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "location_probe.n_choices",
+          "label": "Location boxes",
+          "group": "Response",
+          "type": "integer",
+          "default": 4,
+          "meaning": "Numbered boxes on image A after detection, one around the change (replaces the spoken description). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "type_probe.keys",
+          "label": "Change-type keys",
+          "group": "Response",
+          "type": "object",
+          "default": {
+            "left": "presence",
+            "down": "color",
+            "right": "location"
+          },
+          "meaning": "Keys for the type of change (replaces the spoken report). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "scenes.photos",
+          "label": "Photo pairs",
+          "group": "Design",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Show the 12 shipped generated photo-like scene pairs (illustrative stand-ins, not photographs of real places)."
+        },
+        {
+          "name": "scenes.procedural_per_cell",
+          "label": "Procedural pairs per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 6,
+          "meaning": "Procedural pairs per change type x interest cell (6 gives 36, so 48 scenes with the photos). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "change_area_dva2",
+          "label": "Procedural change area",
+          "group": "Stimuli",
+          "type": "object",
+          "default": {
+            "central": 18.0,
+            "marginal": 22.0
+          },
+          "meaning": "Changed area of each procedural pair; the paper's averages.",
+          "unit": "dva²",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "location_shift_dva",
+          "label": "Location shift",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 3.0,
+          "meaning": "Shift of a procedural location change. ASSUMED (Fig. 2's example).",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Pause between trials. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Presentations per scene",
+          "group": "Design",
+          "type": "integer",
+          "default": 1,
+          "meaning": "Each scene once per subject, in random order. ASSUMED as once.",
+          "source": "ASSUMED"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "Detected, and both the place and the type of change reported correctly; the only trials in the alternation means."
+        },
+        {
+          "name": "MISIDENTIFIED",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but the box or the type was wrong (an identification error)."
+        },
+        {
+          "name": "NO_DETECTION",
+          "completed": true,
+          "success": false,
+          "meaning": "No key within the time limit; not served again (the scene is spoiled)."
+        },
+        {
+          "name": "NO_REPORT",
+          "completed": true,
+          "success": false,
+          "meaning": "Detected, but a report deadline passed; not served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "CUE_ON",
+          "meaning": "The cue field (white rectangle) appears."
+        },
+        {
+          "name": "GRAY_ON",
+          "meaning": "The plain gray field appears."
+        },
+        {
+          "name": "FLICKER_ON",
+          "meaning": "The first image appears; the reaction time runs from this flip."
+        },
+        {
+          "name": "IMAGE_ON",
+          "meaning": "Each image onset in the flicker, with payload image (A or B) and n."
+        },
+        {
+          "name": "DETECTED",
+          "meaning": "The detection key."
+        },
+        {
+          "name": "LOCATION_PROBE",
+          "meaning": "Image A with the numbered boxes appears."
+        },
+        {
+          "name": "LOCATION_REPORT",
+          "meaning": "The box chosen."
+        },
+        {
+          "name": "TYPE_PROBE",
+          "meaning": "The change-type question appears."
+        },
+        {
+          "name": "TYPE_REPORT",
+          "meaning": "The type chosen."
+        }
+      ]
+    },
+    {
+      "id": "flicker-change-detection",
+      "title": "Flicker change detection, Experiment 3 (50% valid cues)",
+      "summary": "Experiment 3, partially valid: the word names the changing part on half the trials and another part on the other half; then the Experiment 1 flicker, where and what kind.",
+      "parameters_file": "configs/task-exp3-valid50.yaml",
+      "parameters": [
+        {
+          "name": "image_width_dva",
+          "label": "Image width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 27.0,
+          "meaning": "Width of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "image_height_dva",
+          "label": "Image height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 18.0,
+          "meaning": "Height of each scene image.",
+          "unit": "dva",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "background_gray",
+          "label": "Gray level",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.0,
+          "meaning": "Gray of the cue field, gray field and blanks, in signed RGB (-1 black, 1 white). ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_field",
+          "label": "Cue field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 3000
+          },
+          "meaning": "Gray field with a white rectangle that opens each trial (a cue word in it in Experiment 3).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "cue_box_width_dva",
+          "label": "Cue rectangle width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.0,
+          "meaning": "Width of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue_box_height_dva",
+          "label": "Cue rectangle height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 2.5,
+          "meaning": "Height of the white rectangle. ASSUMED, not in the paper.",
+          "unit": "dva",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "cue",
+          "label": "Verbal cue",
+          "group": "Design",
+          "type": "choice",
+          "default": "valid50",
+          "meaning": "valid50: half the cue words name the changing part, half name another part of the scene; which trials get which is ASSUMED (alternating within each change type).",
+          "source": "paper p. 371; assignment ASSUMED"
+        },
+        {
+          "name": "gray_field",
+          "label": "Gray field",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "Plain gray field between the cue field and the flicker.",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "flicker.image",
+          "label": "Image duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 240
+          },
+          "meaning": "How long each image is shown in the flicker cycle.",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "flicker.blank",
+          "label": "Blank duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 80
+          },
+          "meaning": "Gray blank after each image (0 removes the blanks).",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "flicker.pattern",
+          "label": "Image order",
+          "group": "Timing",
+          "type": "object",
+          "default": [
+            "A",
+            "A",
+            "B",
+            "B"
+          ],
+          "meaning": "The cycle of images, each followed by a blank: A A A' A' (paper, Exp. 1), or A A' (Exp. 2).",
+          "source": "paper p. 369"
+        },
+        {
+          "name": "max_flicker",
+          "label": "Time limit",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "The flicker runs until the detection key or this long (outcome NO_DETECTION).",
+          "source": "paper p. 369, Fig. 1"
+        },
+        {
+          "name": "detect_key",
+          "label": "Detection key",
+          "group": "Response",
+          "type": "string",
+          "default": "space",
+          "meaning": "Key pressed when the change is seen. ASSUMED, not in the paper.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "location_probe.n_choices",
+          "label": "Location boxes",
+          "group": "Response",
+          "type": "integer",
+          "default": 4,
+          "meaning": "Numbered boxes on image A after detection, one around the change (replaces the spoken description). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "type_probe.keys",
+          "label": "Change-type keys",
+          "group": "Response",
+          "type": "object",
+          "default": {
+            "left": "presence",
+            "down": "color",
+            "right": "location"
+          },
+          "meaning": "Keys for the type of change (replaces the spoken report). ASSUMED.",
+          "source": "ASSUMED"
+        },
+        {
+          "name": "scenes.photos",
+          "label": "Photo pairs",
+          "group": "Design",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Show the 12 shipped generated photo-like scene pairs (illustrative stand-ins, not photographs of real places)."
         },
         {
           "name": "scenes.procedural_per_cell",
