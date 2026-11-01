@@ -100,19 +100,22 @@ def render(out: Path) -> Path:
             axg.text(-half, -half - 0.08, "white: envelope motion   red: internal drift\n"
                      "stripes along the path, drift across it", fontsize=6.5, va="top")
 
-    # -- physical vs perceived ---------------------------------------------------------------
+    # -- the paper's reported result, kept apart from the stimulus panels -----------------
+    # Not a stimulus and not a result of this software: the perceived (illusory) path is
+    # never on the screen; the panel restates what Lisi & Cavanagh (2015) reported.
     axp = fig.add_subplot(gs[3])
     axp.plot(ends[:, 0] - cx, ends[:, 1] - cy, color="0.2", lw=2.2,
-             label=f"physical path ({traj.angle_deg:.0f} deg):\nwhere saccades land")
+             label=(f"physical path ({traj.angle_deg:.0f} deg, on screen):\n"
+                    "saccades landed along it (paper)"))
     axp.plot([0, 0], [-half_len, half_len], color="#e4572e", lw=2, ls="--",
-             label="perceived path (vertical)")
+             label="reported perceived path (vertical;\nnever displayed)")
     axp.set_xlim(-2.2, 2.2)
     axp.set_ylim(-2.2, 2.2)
     axp.set_aspect("equal")
     axp.set_xticks([])
     axp.set_yticks([])
     axp.legend(fontsize=6.8, loc="lower center", frameon=False, bbox_to_anchor=(0.5, -0.32))
-    axp.set_title("Perception vs saccades", fontsize=9)
+    axp.set_title("Paper's result (Fig. 1), not a stimulus", fontsize=8.5)
     for s in axp.spines.values():
         s.set_color("0.8")
     out.parent.mkdir(parents=True, exist_ok=True)

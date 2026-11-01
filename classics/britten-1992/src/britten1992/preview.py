@@ -2,12 +2,16 @@
 
     uv run python -m britten1992.preview            # writes docs/preview.png
 
-Two panels from the two params files, drawn with the task's own dot engine
-(britten1992.rdk) at 25.6 % correlation: the human set (aperture on the
-fixation point) and the monkey set (aperture over an example receptive field,
-with the two saccade targets that appear when the dots go off, outlined). Six
+Three panels drawn with the task's own dot engine (britten1992.rdk) at 25.6 %
+correlation, from the two params files. Left: the human set (aperture on the
+fixation point; the answer is a key after the dots go off). Middle and right:
+the monkey set in its two phases, which never share the screen: first the dots
+in an aperture over an example receptive field while fixation is held (the
+dotted ring is the gaze window, not drawn on the screen); then the dots and
+the fixation point go off and the two targets appear for the saccade. Six
 consecutive frames (100 ms at 60 Hz) are superimposed, roughly what the eye
 integrates; signal and noise dots are drawn alike, as on the screen.
+Illustrative and uncalibrated: grey levels are display values, not cd/m2.
 """
 
 from __future__ import annotations
@@ -41,8 +45,20 @@ def _rgb(color: tuple[float, float, float]) -> tuple[float, float, float]:
     return (r, g, b)
 
 
-def _panel(ax, params_file: str, title: str, seed: int) -> None:
-    p = load_params(PROJECT / "configs" / params_file, RdkDirectionTaskParams)
+def _frame(ax, title: str) -> None:
+    ax.set_xlim(-13, 13)
+    ax.set_ylim(-9, 9)
+    ax.set_aspect("equal")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for side in ax.spines.values():
+        side.set_visible(False)
+    ax.set_title(title, color="#f2f2f2", fontsize=9, pad=4)
+
+
+def _dots_phase(ax, p, title: str, seed: int) -> None:
+    """The dots phase: aperture, dots, fixation point (and, for the monkey, the gaze
+    window as a dotted outline). No targets: they are not on the screen yet."""
     task = RdkDirectionTask(p)
     spec = task.dot_spec(COHERENCE_PCT, "pref", REFRESH_HZ)
     dots = CorrelatedDotField(spec, seed)
@@ -58,27 +74,30 @@ def _panel(ax, params_file: str, title: str, seed: int) -> None:
         ax.scatter(xy[:, 0] + cx, xy[:, 1] + cy, s=2.2, c=[_rgb(p.dot_color)], lw=0)
     ax.add_patch(plt.Circle((0, 0), p.fix_size_dva / 2, color=_rgb(p.fix_color), zorder=5))
     if p.response_mode.value == "saccade_and_reward":
-        for x, y in target_positions_dva(p).values():
-            ax.add_patch(plt.Circle((x, y), p.target_size_dva / 2, fill=False,
-                                    ec=_rgb(p.target_color), lw=1.0, ls="--"))
         ax.add_patch(plt.Circle((0, 0), p.fix_window_dva, fill=False, ec="#d9d9d9", lw=0.6,
                                 ls=":"))
-    ax.set_xlim(-13, 13)
-    ax.set_ylim(-9, 9)
-    ax.set_aspect("equal")
-    ax.set_xticks([])
-    ax.set_yticks([])
-    for side in ax.spines.values():
-        side.set_visible(False)
-    ax.set_title(title, color="#f2f2f2", fontsize=10, pad=4)
+    _frame(ax, title)
+
+
+def _choice_phase(ax, p, title: str) -> None:
+    """The monkey's choice phase: dots and fixation point off, the two targets on
+    (filled, as displayed), their landing windows dotted (gaze criteria, not drawn)."""
+    ax.set_facecolor(GREY)
+    for x, y in target_positions_dva(p).values():
+        ax.add_patch(plt.Circle((x, y), p.target_size_dva / 2, color=_rgb(p.target_color), lw=0))
+        ax.add_patch(plt.Circle((x, y), p.target_window_dva, fill=False, ec="#d9d9d9", lw=0.6,
+                                ls=":"))
+    _frame(ax, title)
 
 
 def render(out: Path) -> Path:
-    fig, axes = plt.subplots(1, 2, figsize=(9.6, 3.6), dpi=110)
+    human = load_params(PROJECT / "configs" / "task.yaml", RdkDirectionTaskParams)
+    monkey = load_params(PROJECT / "configs" / "task-monkey.yaml", RdkDirectionTaskParams)
+    fig, axes = plt.subplots(1, 3, figsize=(12.6, 3.5), dpi=110)
     fig.patch.set_facecolor("#3a3a3a")
-    _panel(axes[0], "task.yaml", "Human set: dots around fixation, then a key", seed=3)
-    _panel(axes[1], "task-monkey.yaml",
-           "Monkey set: dots over the RF, then a saccade to a target", seed=4)
+    _dots_phase(axes[0], human, "Human: dots around fixation (key after)", seed=3)
+    _dots_phase(axes[1], monkey, "Monkey, 1: 2-s dots over the RF, fixation held", seed=4)
+    _choice_phase(axes[2], monkey, "Monkey, 2: dots off, two targets, saccade")
     fig.tight_layout(pad=0.6)
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, facecolor=fig.get_facecolor())
