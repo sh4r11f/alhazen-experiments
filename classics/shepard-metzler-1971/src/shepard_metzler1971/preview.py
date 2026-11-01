@@ -4,7 +4,8 @@
 
 Three displays like the paper's Fig. 1, drawn from the real parameters and the real
 stimulus bank: (A) a "same" pair 80 deg apart in the picture plane, (B) a "same" pair
-80 deg apart in depth, (C) a "different" pair (the right object is the mirror image).
+80 deg apart in depth, (C) a "different" pair (one side, named from the design, shows the
+mirror-image object).
 Rendered with matplotlib, so it needs no window.
 """
 
@@ -26,7 +27,7 @@ from shepard_metzler1971.task import PROJECT  # noqa: E402
 
 PANELS = [("A", "P-o01-a080-1-S", "same: 80° in the picture plane"),
           ("B", "D-o01-a080-1-S", "same: 80° in depth"),
-          ("C", "D-o01-a080-1-D", "different: mirror image")]
+          ("C", "D-o01-a080-1-D", None)]
 
 
 def render(out: Path, params_file: Path | None = None) -> Path:
@@ -38,6 +39,9 @@ def render(out: Path, params_file: Path | None = None) -> Path:
     fig.patch.set_facecolor("black")
     for ax, (letter, pid, caption) in zip(axes, PANELS, strict=True):
         q = pairs[pid]
+        if caption is None:  # which side holds the mirror-image object comes from the design
+            caption = (f"different: {q.reflected_side} object is the mirror image, "
+                       f"{q.angle_deg}° in depth")
         ax.set_facecolor("black")
         r = p.aperture_dva / 2
         for (name, ori), x in (((q.left_image, q.left_ori_deg), -p.spacing_dva / 2),
@@ -53,7 +57,10 @@ def render(out: Path, params_file: Path | None = None) -> Path:
         ax.set_ylim(-half_h, half_h)
         ax.set_aspect("equal")
         ax.axis("off")
-    fig.subplots_adjust(left=0, right=1, top=1, bottom=0, hspace=0.02)
+    fig.text(0.5, 0.004,
+             "Illustrative pairs from the stimulus bank; display values, not calibrated",
+             color="#a1a1aa", fontsize=7.5, ha="center", va="bottom", family="sans-serif")
+    fig.subplots_adjust(left=0, right=1, top=1, bottom=0.025, hspace=0.02)
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, facecolor="black", metadata={"Software": None})
     plt.close(fig)
