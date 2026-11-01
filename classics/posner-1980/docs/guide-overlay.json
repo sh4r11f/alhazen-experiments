@@ -265,6 +265,212 @@
     "Deviation: a gaze break ends the attempt at once and the trial is served again; the paper discarded unfixated trials afterwards.",
     "The keyboard parameter set is not the original protocol: nothing checks fixation."
    ]
+  },
+  {
+   "taskKey": "posner-cueing@configs/task-keyboard.yaml",
+   "timeline": {
+    "caption": "One trial, keyboard-only set. There is no fixation acquisition and no gaze check; the cue stays on with the square; on catch trials nothing appears in the Target phase.",
+    "phases": [
+     {
+      "id": "foreperiod",
+      "label": "Fixation point",
+      "timing": {
+       "kind": "event",
+       "until": "random 1000–2000 ms",
+       "max": {
+        "param": "intertrial_max"
+       }
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "cue",
+      "label": "Cue",
+      "timing": {
+       "kind": "parameter",
+       "param": "cue_target_soa"
+      },
+      "start_events": [
+       "CUE_ON"
+      ]
+     },
+     {
+      "id": "detect",
+      "label": "Square (or catch)",
+      "timing": {
+       "kind": "event",
+       "until": "key",
+       "max": {
+        "param": "response_deadline"
+       }
+      },
+      "start_events": [
+       "TARGET_ON",
+       "CATCH_ON"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     },
+     {
+      "id": "feedback",
+      "label": "Feedback",
+      "timing": {
+       "kind": "parameter",
+       "param": "feedback_duration"
+      }
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation point",
+      "role": "stimulus",
+      "from": "foreperiod",
+      "to": "foreperiod"
+     },
+     {
+      "label": "Arrow or plus cue",
+      "role": "stimulus",
+      "from": "cue",
+      "to": "detect"
+     },
+     {
+      "label": "Square at 7°",
+      "role": "stimulus",
+      "from": "detect",
+      "to": "detect"
+     },
+     {
+      "label": "Single key",
+      "role": "response",
+      "from": "detect",
+      "to": "detect"
+     },
+     {
+      "label": "Fixation point, green or red",
+      "role": "stimulus",
+      "from": "feedback",
+      "to": "feedback"
+     }
+    ],
+    "branches": [
+     {
+      "from": "cue",
+      "kind": "failure",
+      "when": "key before the square",
+      "outcome": "ANTICIPATION",
+      "effect": "served again"
+     },
+     {
+      "from": "detect",
+      "kind": "failure",
+      "when": "no key on a target trial",
+      "outcome": "MISS"
+     },
+     {
+      "from": "detect",
+      "kind": "failure",
+      "when": "key on a catch trial",
+      "outcome": "FALSE_ALARM"
+     }
+    ],
+    "end": {
+     "outcome": "DETECTED",
+     "label": "DETECTED or CORRECT_REJECTION"
+    }
+   },
+   "diagram": {
+    "caption": "The display while the square is on, valid right-arrow trial, on the rig's mid-grey. No fixation window: this set does not check the eyes. Only one square is ever shown; the dashed outline marks the other possible place, empty on this trial. 7° eccentricity is the paper's; cue and square sizes are ASSUMED. Display values, not calibrated luminance.",
+    "unit": "dva",
+    "width": 18,
+    "height": 6,
+    "background": 0.5,
+    "elements": [
+     {
+      "type": "arrow",
+      "x1": {
+       "param": "cue_size_dva",
+       "factor": -0.5
+      },
+      "y1": 0,
+      "x2": {
+       "param": "cue_size_dva",
+       "factor": 0.5
+      },
+      "y2": 0,
+      "role": "cue",
+      "label": "Arrow cue (or plus sign)",
+      "color": "#ffffff",
+      "stroke_width": {
+       "param": "cue_stroke_dva"
+      }
+     },
+     {
+      "type": "rect",
+      "cx": {
+       "param": "target_ecc_dva"
+      },
+      "cy": 0,
+      "width": {
+       "param": "target_size_dva"
+      },
+      "height": {
+       "param": "target_size_dva"
+      },
+      "role": "target",
+      "luminance": 1.0,
+      "label": "Target square",
+      "color": "#ffffff"
+     },
+     {
+      "type": "rect",
+      "cx": {
+       "param": "target_ecc_dva",
+       "factor": -1
+      },
+      "cy": 0,
+      "width": {
+       "param": "target_size_dva"
+      },
+      "height": {
+       "param": "target_size_dva"
+      },
+      "role": "region",
+      "dashed": true,
+      "label": "Other possible place (empty this trial)"
+     },
+     {
+      "type": "dimension",
+      "x1": 0,
+      "y1": -1.6,
+      "x2": {
+       "param": "target_ecc_dva"
+      },
+      "y2": -1.6,
+      "value": {
+       "param": "target_ecc_dva"
+      },
+      "text": "eccentricity",
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**This set.** The same experiment without an eye tracker, for a booth that has none. Every value is the main set's except that nothing checks where the eyes are.\n\n**Question.** Can attention move to a place in the visual field, and does that make a light there quicker to detect?\n\n**What the observer sees.** A small fixation point on a mid-grey screen for a random 1–2 s, then an arrow pointing left or right or a neutral plus sign in its place. [[param:cue_target_soa]] later a white square appears [[param:target_ecc_dva]] left or right while the cue stays on; on catch trials (a quarter, ASSUMED) nothing appears.\n\n**What they do.** Look at the centre and press [[param:response_key]] as soon as the square appears; press nothing on a catch trial. A key before the square is an anticipation and the trial is served again later. The fixation point then turns green or red for [[param:feedback_duration]].\n\n**What varies.** The cue: after an arrow the square is on the pointed side on 80% of target trials ([[param:design.validity]], valid) and on the other side otherwise (invalid); after the plus sign either side is equally likely (neutral).\n\n**What is measured.** Reaction time from the square's first frame to the key; misses and catch-trial false alarms only check that the observer waits for the square.\n\n**What it can and cannot show.** Faster valid and slower invalid responses than neutral ones would show that the cue changed how quickly the square was detected. Because the eyes are not monitored, the observer may have looked toward the cued side, so this set cannot separate covert attention from eye movements, which was the point of Posner's EOG control. It is not the original protocol. No result is claimed for this software.",
+   "sourceFiles": [
+    "classics/posner-1980/src/posner1980/task.py",
+    "classics/posner-1980/src/posner1980/phases.py",
+    "classics/posner-1980/src/posner1980/geometry.py",
+    "classics/posner-1980/configs/task.yaml",
+    "classics/posner-1980/configs/task-keyboard.yaml",
+    "classics/posner-1980/docs/experiment.json"
+   ],
+   "notes": [
+    "Not the original protocol: Posner (1980, p. 6) kept only trials with the eyes fixated (EOG); here nothing checks fixation, so cue effects may include eye movements toward the cued side.",
+    "Paper (p. 6, Fig. 1): ITI 1000–2000 ms, cue at 0 and the detection stimulus at 1000 ms, arrow validity 0.8, single-key simple RT; 7° from Fig. 2.",
+    "ASSUMED: 1° cue and square, 1000 ms response deadline, half the cues arrows, catch trials 25%, 80-trial blocks, 4 blocks."
+   ]
   }
  ]
 }
