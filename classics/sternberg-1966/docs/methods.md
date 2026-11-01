@@ -14,6 +14,29 @@ are the paper's; the changes are listed under *Deviations from the original*, an
 value the paper leaves unstated is under *Assumed, not in the paper*. **Hardware.** A
 display and a keyboard. No eye tracker, audio, reward or other device.
 
+## At a glance
+
+- **Question.** Does the time to decide whether a digit is in memory grow with the number of
+  digits held, and does it grow equally for "yes" and "no" answers?
+- **What the subject sees.** Experiment 1: a series of 1 to 6 different digits, one at a time
+  at one place for 1.2 s each, a 2.0-s blank, a warning cross, then one test digit.
+  Experiment 2: a positive set of 1, 2 or 4 digits announced at the start of a part; each
+  trial is a warning cross and then a test digit.
+- **What the subject does.** Presses J ("in memory") or F ("not") as fast as possible. A
+  green or red disc then says whether the answer was right; in Experiment 1 the subject then
+  types the series in order.
+- **What is varied.** The number of digits in memory, s (1-6 at random per trial in
+  Experiment 1; 1, 2 and 4 by part in Experiment 2), and whether the test digit is one of
+  them (half the trials in Experiment 1; 4/15 of them in Experiment 2).
+- **What is recorded.** The key, whether it was right, and the reaction time from the frame
+  that showed the test digit; in Experiment 1 also the typed recall.
+- **What a result would mean.** The slope of mean reaction time against s estimates the time
+  per comparison; equal slopes for yes and no answers are Sternberg's argument for a serial,
+  exhaustive scan. Linear growth alone does not exclude every parallel model (the paper
+  bounds only parallel comparisons with independent times). Keys replace the levers, so
+  absolute times are not the paper's; the slope is the comparable quantity. No participant
+  data has been recorded with this folder.
+
 ## Question
 
 When a subject decides whether a test symbol is one of a few symbols held in memory, how

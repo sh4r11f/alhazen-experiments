@@ -1,0 +1,408 @@
+{
+ "tasks": [
+  {
+   "taskKey": "memory-scanning@configs/task.yaml",
+   "timeline": {
+    "caption": "One varied-set trial (Experiment 1). The series and both responses are event-timed; the other phases are drawn at their defaults.",
+    "phases": [
+     {
+      "id": "series",
+      "label": "Digit series",
+      "timing": {
+       "kind": "event",
+       "until": "last of s digits",
+       "max": {
+        "ms": 7200
+       }
+      },
+      "start_events": [
+       "ITEM_ON"
+      ],
+      "note": "s = 1–6 different digits, item_duration (1.2 s) each, no gap (item_gap 0, ASSUMED); ITEM_ON at every digit"
+     },
+     {
+      "id": "delay",
+      "label": "Delay",
+      "timing": {
+       "kind": "parameter",
+       "param": "delay"
+      }
+     },
+     {
+      "id": "warning",
+      "label": "Warning",
+      "timing": {
+       "kind": "parameter",
+       "param": "warning_duration"
+      },
+      "start_events": [
+       "WARNING_ON"
+      ]
+     },
+     {
+      "id": "probe",
+      "label": "Test digit",
+      "timing": {
+       "kind": "event",
+       "until": "J or F key",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "PROBE_ON",
+       "PROBE_DIGIT"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     },
+     {
+      "id": "light",
+      "label": "Feedback light",
+      "timing": {
+       "kind": "parameter",
+       "param": "feedback_duration"
+      },
+      "start_events": [
+       "FEEDBACK_ON"
+      ]
+     },
+     {
+      "id": "recall",
+      "label": "Recall",
+      "timing": {
+       "kind": "event",
+       "until": "Enter",
+       "max": {
+        "param": "recall_timeout"
+       }
+      },
+      "start_events": [
+       "RECALL_ON"
+      ],
+      "end_events": [
+       "RECALL_DONE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Digits",
+      "role": "stimulus",
+      "from": "series",
+      "to": "series"
+     },
+     {
+      "label": "Cross",
+      "role": "stimulus",
+      "from": "warning",
+      "to": "warning"
+     },
+     {
+      "label": "Test digit",
+      "role": "stimulus",
+      "from": "probe",
+      "to": "probe"
+     },
+     {
+      "label": "Yes/no key",
+      "role": "response",
+      "from": "probe",
+      "to": "probe"
+     },
+     {
+      "label": "Green/red disc",
+      "role": "stimulus",
+      "from": "light",
+      "to": "light"
+     },
+     {
+      "label": "Typed series",
+      "role": "response",
+      "from": "recall",
+      "to": "recall"
+     }
+    ],
+    "branches": [
+     {
+      "from": "probe",
+      "kind": "failure",
+      "when": "no key before the deadline",
+      "outcome": "NO_RESPONSE",
+      "effect": "served again later"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT",
+     "label": "CORRECT or WRONG, by the yes/no answer"
+    },
+    "between_trials": {
+     "label": "Inter-trial interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "caption": "Experiment 1 geometry to scale on the rig mid-grey: the single locus where the series digits, the warning cross and the test digit appear one at a time (illustrative \"9\", DejaVu Sans Mono at the text height), and, dashed, the place of the feedback disc 1 dva across, 2.5 dva below. The disc is never on screen with a digit: it replaces the test digit for the feedback period. Display values, not calibrated luminance.",
+    "unit": "dva",
+    "width": 8,
+    "height": 7,
+    "background": 0.5,
+    "elements": [
+     {
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "text": "9",
+      "role": "target",
+      "color": "#ffffff",
+      "font_family": "DejaVu Sans Mono",
+      "font_size": {
+       "param": "digit_height_dva",
+       "factor": 1
+      },
+      "label": "Test digit at the single locus"
+     },
+     {
+      "type": "dimension",
+      "x1": -1.4,
+      "y1": -0.75,
+      "x2": -1.4,
+      "y2": 0.75,
+      "value": {
+       "param": "digit_height_dva",
+       "factor": 1
+      },
+      "text": "text height"
+     },
+     {
+      "type": "circle",
+      "cx": 0,
+      "cy": -2.5,
+      "r": 0.5,
+      "role": "region",
+      "color": "#00ff00",
+      "label": "Where the feedback light appears: alone, after the response (the digit is gone)",
+      "dashed": true
+     },
+     {
+      "type": "dimension",
+      "x1": 1.4,
+      "y1": 0,
+      "x2": 1.4,
+      "y2": -2.5,
+      "value": 2.5
+     }
+    ]
+   },
+   "description": "Experiment 1, the varied-set procedure. A series of s = 1 to 6 different digits ([[param:set_sizes]]) appears one at a time at one locus, [[param:item_duration]] each, then a [[param:delay]] blank delay. A warning cross ([[param:warning_duration]]) precedes the test digit, which stays up until the subject presses [[param:positive_key]] (in the series) or [[param:negative_key]] (not), at most [[param:response_timeout]]. Reaction time runs from the test digit's onset. A green or red light ([[param:feedback_duration]]) reports correctness, then the subject types the series in order and presses Enter. The trial is scored on the yes/no answer; the recall is recorded separately.",
+   "sourceFiles": [
+    "src/sternberg1966/task.py",
+    "src/sternberg1966/phases.py",
+    "src/sternberg1966/stimuli.py",
+    "configs/task.yaml"
+   ],
+   "notes": [
+    "Paper values: 1.2 s per digit, 2.0 s delay, s = 1–6, 24 practice and 144 test trials (Science 153, p. 652).",
+    "ASSUMED (not in the paper): no gap between digits, the visual warning cross and its 500 ms, keys J/F for the two levers, the 5 s deadline, the 500 ms light, typed recall with a 30 s cap, the 1 s inter-trial interval, digit size and the disc 1 dva across 2.5 dva below the locus.",
+    "Deviation: two keys instead of two levers; the feedback lamp is an on-screen disc.",
+    "A recall that times out still ends the trial with CORRECT or WRONG; only a missing yes/no key is NO_RESPONSE."
+   ]
+  },
+  {
+   "taskKey": "memory-scanning-fixed@configs/task-fixed-set.yaml",
+   "timeline": {
+    "caption": "One fixed-set trial (Experiment 2). The announcement appears only on the first trial of each part.",
+    "phases": [
+     {
+      "id": "announce",
+      "label": "Positive set",
+      "timing": {
+       "kind": "conditional",
+       "when": "first trial of a part",
+       "timing": {
+        "kind": "event",
+        "until": "SPACE"
+       }
+      },
+      "start_events": [
+       "SET_ANNOUNCED"
+      ]
+     },
+     {
+      "id": "pause",
+      "label": "Blank",
+      "timing": {
+       "kind": "conditional",
+       "when": "after the announcement",
+       "timing": {
+        "kind": "parameter",
+        "param": "iti"
+       }
+      }
+     },
+     {
+      "id": "warning",
+      "label": "Warning",
+      "timing": {
+       "kind": "parameter",
+       "param": "warning_duration"
+      },
+      "start_events": [
+       "WARNING_ON"
+      ]
+     },
+     {
+      "id": "probe",
+      "label": "Test digit",
+      "timing": {
+       "kind": "event",
+       "until": "J or F key",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "PROBE_ON",
+       "PROBE_DIGIT"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     },
+     {
+      "id": "light",
+      "label": "Feedback light",
+      "timing": {
+       "kind": "parameter",
+       "param": "feedback_duration"
+      },
+      "start_events": [
+       "FEEDBACK_ON"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Set on screen",
+      "role": "stimulus",
+      "from": "announce",
+      "to": "announce"
+     },
+     {
+      "label": "Cross",
+      "role": "stimulus",
+      "from": "warning",
+      "to": "warning"
+     },
+     {
+      "label": "Test digit",
+      "role": "stimulus",
+      "from": "probe",
+      "to": "probe"
+     },
+     {
+      "label": "Yes/no key",
+      "role": "response",
+      "from": "probe",
+      "to": "probe"
+     },
+     {
+      "label": "Green/red disc",
+      "role": "stimulus",
+      "from": "light",
+      "to": "light"
+     }
+    ],
+    "branches": [
+     {
+      "from": "probe",
+      "kind": "failure",
+      "when": "no key before the deadline",
+      "outcome": "NO_RESPONSE",
+      "effect": "served again later"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT",
+     "label": "CORRECT or WRONG"
+    },
+    "between_trials": {
+     "label": "Inter-trial interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "caption": "Experiment 2 geometry to scale on the rig mid-grey: the single locus where the series digits, the warning cross and the test digit appear one at a time (illustrative \"9\", DejaVu Sans Mono at the text height), and, dashed, the place of the feedback disc 1 dva across, 2.5 dva below. The disc is never on screen with a digit: it replaces the test digit for the feedback period. Display values, not calibrated luminance. The announcement screen is not drawn.",
+    "unit": "dva",
+    "width": 8,
+    "height": 7,
+    "background": 0.5,
+    "elements": [
+     {
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "text": "9",
+      "role": "target",
+      "color": "#ffffff",
+      "font_family": "DejaVu Sans Mono",
+      "font_size": {
+       "param": "digit_height_dva",
+       "factor": 1
+      },
+      "label": "Test digit at the single locus"
+     },
+     {
+      "type": "dimension",
+      "x1": -1.4,
+      "y1": -0.75,
+      "x2": -1.4,
+      "y2": 0.75,
+      "value": {
+       "param": "digit_height_dva",
+       "factor": 1
+      },
+      "text": "text height"
+     },
+     {
+      "type": "circle",
+      "cx": 0,
+      "cy": -2.5,
+      "r": 0.5,
+      "role": "region",
+      "color": "#00ff00",
+      "label": "Where the feedback light appears: alone, after the response (the digit is gone)",
+      "dashed": true
+     },
+     {
+      "type": "dimension",
+      "x1": 1.4,
+      "y1": 0,
+      "x2": 1.4,
+      "y2": -2.5,
+      "value": 2.5
+     }
+    ]
+   },
+   "description": "Experiment 2, the fixed-set procedure. At the start of each part the positive set of 1, 2 or 4 digits is shown on screen until the subject presses SPACE. Each trial is then a warning cross ([[param:warning_duration]]), a test digit answered with [[param:positive_key]] or [[param:negative_key]] (at most [[param:response_timeout]]), and a green or red light ([[param:feedback_duration]]). Light, inter-trial interval ([[param:iti]]) and warning add up to the paper's [[param:response_to_next_probe]] from a response to the next test digit. Test digits are drawn from the paper's fixed 15-item population; each part has [[param:practice.n_per_condition]] and [[param:paradigm.n_per_condition]] copies of it (60 practice, 120 test trials).",
+   "sourceFiles": [
+    "src/sternberg1966/task.py",
+    "src/sternberg1966/phases.py",
+    "src/sternberg1966/design.py",
+    "configs/task-fixed-set.yaml"
+   ],
+   "notes": [
+    "Paper values: positive sets of 1, 2, 4 digits; 3.7 s from a response to the next test digit; 60 practice and 120 test trials per part (pp. 652–653).",
+    "ASSUMED (not in the paper): the on-screen announcement read until SPACE, the split of 3.7 s into 0.5 s light + 2.7 s interval + 0.5 s warning, the visual warning cross, keys J/F, the 5 s deadline, part order random per session.",
+    "Deviation: keys instead of levers; on-screen disc instead of a lamp."
+   ]
+  }
+ ]
+}

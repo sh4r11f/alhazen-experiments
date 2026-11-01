@@ -52,7 +52,7 @@ def render(out: Path, params_file: Path | None = None) -> Path:
         ("", f"delay\n{p.delay.ms / 1000:g} s", "blank"),
         (p.warning_symbol, f"warning signal\n{p.warning_duration.ms / 1000:g} s", "digit"),
         (probe, "test digit\nuntil J (yes) or F (no)", "digit"),
-        ("", f"feedback light\n{p.feedback_duration.ms / 1000:g} s", "lamp"),
+        ("", f"feedback light alone\n{p.feedback_duration.ms / 1000:g} s", "lamp"),
         ("381", "recall in order\ntyped, then Enter", "recall"),
     ]
     fig, axes = plt.subplots(2, 4, figsize=(12, 6.0), dpi=100)
@@ -78,8 +78,10 @@ def render(out: Path, params_file: Path | None = None) -> Path:
         ax.set_xlabel(label, fontsize=11, color="#222222", labelpad=6)
     fig.suptitle("Sternberg (1966), experiment 1: one trial with s = 3 and a positive test digit",
                  fontsize=13, color="#111111")
-    fig.text(0.5, 0.015, f"text height (font size) {p.digit_height_dva:g} dva; panels show "
-             f"{VIEW_W:g} x {VIEW_H:g} dva of the screen; values from configs/task.yaml",
+    fig.text(0.5, 0.015, f"Illustrative frames in order, not a recording; display values, "
+             f"not calibrated "
+             f"luminance. Panels show {VIEW_W:g} x {VIEW_H:g} dva; digit font size "
+             f"{p.digit_height_dva:g} dva (configs/task.yaml).",
              ha="center", fontsize=9, color="#555555")
     fig.tight_layout(rect=(0, 0.03, 1, 0.95), h_pad=2.5)
     out.parent.mkdir(parents=True, exist_ok=True)
