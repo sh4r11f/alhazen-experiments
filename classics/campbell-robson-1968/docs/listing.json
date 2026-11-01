@@ -1,0 +1,51 @@
+{
+  "status": "adaptation",
+  "status_reason": "The paper measured thresholds by adjustment on a 500 cd/m2 CRT, monocularly with a cycloplegic and a 2.5-mm artificial pupil; here the main task is two-interval forced choice with QUEST+ on a gamma-linearised pixel display with binocular natural viewing, and the adjustment task keeps the paper's method on the same display. Frequencies, timing and the other unstated details (42 in all) are ASSUMED.",
+  "collection": "classics",
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
+  "original": {
+    "citation": "Campbell, F. W., & Robson, J. G. (1968). Application of Fourier analysis to the visibility of gratings. The Journal of Physiology, 197(3), 551-566.",
+    "year": 1968,
+    "doi": "10.1113/jphysiol.1968.sp008574",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1351748/",
+    "experiments": "Contrast sensitivity for sine-wave gratings (Fig. 2) and the sine- vs square-wave sensitivity ratio (Figs. 3-4); not the rectangular-wave duty-cycle, saw-tooth or suprathreshold discrimination experiments (Figs. 5-7)"
+  },
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": false,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human"
+  ],
+  "category": "vision",
+  "tags": [
+    "contrast sensitivity",
+    "spatial frequency",
+    "sine-wave grating",
+    "square-wave grating",
+    "Fourier analysis",
+    "threshold",
+    "2IFC",
+    "QUEST+",
+    "method of adjustment",
+    "psychophysics"
+  ],
+  "art": "docs/preview.png",
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "CC-BY-4.0"
+    }
+  ],
+  "notes": "Needs a gamma-linearised display (alhazen calibrate gamma with a photometer) and its real bit depth in display_bits; contrasts below one code step are shown by noisy-bit dithering, not by a 10-bit path. The 2 deg high-frequency set needs about 90 px/deg (configs/rig-booth-far.yaml). Not a clinical test. No participant data: tests and simulated sessions verify the software only. Identity emblem for the reader: art kind 'contrast' (renderer contract); this field keeps the preview path the validator requires."
+}

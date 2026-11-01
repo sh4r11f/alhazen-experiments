@@ -1,0 +1,4043 @@
+{
+ "tasks": [
+  {
+   "taskKey": "csf-2ifc@configs/task.yaml",
+   "timeline": {
+    "caption": "One trial. The grating is in interval 1 or 2 at random; the other interval shows only the mean field. A key pressed before the response window is ignored.",
+    "phases": [
+     {
+      "id": "fixation",
+      "label": "Fixation",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "interval1",
+      "label": "Interval 1",
+      "timing": {
+       "kind": "parameter",
+       "param": "interval_duration"
+      },
+      "start_events": [
+       "INTERVAL1_ON"
+      ]
+     },
+     {
+      "id": "isi",
+      "label": "Gap",
+      "timing": {
+       "kind": "parameter",
+       "param": "isi"
+      },
+      "start_events": [
+       "ISI_ON"
+      ]
+     },
+     {
+      "id": "interval2",
+      "label": "Interval 2",
+      "timing": {
+       "kind": "parameter",
+       "param": "interval_duration"
+      },
+      "start_events": [
+       "INTERVAL2_ON"
+      ]
+     },
+     {
+      "id": "response",
+      "label": "Response",
+      "timing": {
+       "kind": "event",
+       "until": "F or J",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "RESPONSE_CUE"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     },
+     {
+      "id": "feedback",
+      "label": "Feedback",
+      "timing": {
+       "kind": "parameter",
+       "param": "feedback_duration"
+      }
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation point",
+      "role": "stimulus",
+      "from": "fixation",
+      "to": "feedback"
+     },
+     {
+      "label": "Corner marks, look 1",
+      "role": "annotation",
+      "from": "interval1",
+      "to": "interval1"
+     },
+     {
+      "label": "Grating (half of trials)",
+      "role": "stimulus",
+      "from": "interval1",
+      "to": "interval1"
+     },
+     {
+      "label": "Corner marks, look 2",
+      "role": "annotation",
+      "from": "interval2",
+      "to": "interval2"
+     },
+     {
+      "label": "Grating (other half)",
+      "role": "stimulus",
+      "from": "interval2",
+      "to": "interval2"
+     },
+     {
+      "label": "F = first, J = second",
+      "role": "response",
+      "from": "response",
+      "to": "response"
+     }
+    ],
+    "branches": [
+     {
+      "from": "response",
+      "kind": "failure",
+      "when": "no key in time",
+      "outcome": "NO_RESPONSE",
+      "effect": "served again"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT",
+     "label": "CORRECT or WRONG"
+    },
+    "between_trials": {
+     "label": "Inter-trial interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "caption": "The display to scale on the mean grey (the rig's linearised mid-level), the stripes as one example frequency (1 c/deg) at an illustrative contrast of 0.6. Greys are display values, not calibrated luminance. The task uses the frequencies of the parameter set, a random phase per presentation, and contrasts near threshold, mostly below 1%.",
+    "unit": "dva",
+    "width": 13.8,
+    "height": 13.8,
+    "background": 0.502,
+    "elements": [
+     {
+      "type": "rect",
+      "cx": -4.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 0,
+      "width": {
+       "param": "field_dva"
+      },
+      "height": {
+       "param": "field_dva"
+      },
+      "role": "region",
+      "dashed": true,
+      "label": "Field: sine grating, here 1 c/deg at contrast 0.6 (illustrative)"
+     },
+     {
+      "type": "line",
+      "x1": -5.3,
+      "y1": -5.3,
+      "x2": -4.7,
+      "y2": -5.3,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      },
+      "label": "Corner marks (shown only while a look runs)"
+     },
+     {
+      "type": "line",
+      "x1": -5.3,
+      "y1": -5.3,
+      "x2": -5.3,
+      "y2": -4.7,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -5.3,
+      "y1": 5.3,
+      "x2": -4.7,
+      "y2": 5.3,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -5.3,
+      "y1": 5.3,
+      "x2": -5.3,
+      "y2": 4.7,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.3,
+      "y1": -5.3,
+      "x2": 4.7,
+      "y2": -5.3,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.3,
+      "y1": -5.3,
+      "x2": 5.3,
+      "y2": -4.7,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.3,
+      "y1": 5.3,
+      "x2": 4.7,
+      "y2": 5.3,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.3,
+      "y1": 5.3,
+      "x2": 5.3,
+      "y2": 4.7,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "circle",
+      "cx": 0,
+      "cy": 0,
+      "r": {
+       "param": "fix_size_dva",
+       "factor": 0.5
+      },
+      "luminance": 0.0,
+      "role": "target",
+      "label": "Fixation point"
+     },
+     {
+      "type": "dimension",
+      "x1": -5.0,
+      "y1": -6.2,
+      "x2": 5.0,
+      "y2": -6.2,
+      "value": {
+       "param": "field_dva"
+      },
+      "text": "field width",
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**Which of two looks held the stripes?** Each trial shows the observer two looks in turn, each [[param:interval_duration]] long and [[param:isi]] apart, marked by four corner marks around a square field of [[param:field_dva]] on a uniform grey. In one look, chosen at random, the field holds a stationary vertical sine-wave grating at the same mean luminance as the grey; in the other it holds nothing. The observer presses F for the first look or J for the second; the fixation point then turns green or red for [[param:feedback_duration]].\n\n**What changes.** The spatial frequency (cycles per degree, one cell each, interleaved) and, trial by trial, the grating's contrast (Lmax - Lmin) / (Lmax + Lmin), which QUEST+ chooses on a log scale to home in on each cell's threshold.\n\n**What is measured.** Proportion correct as a function of contrast in each cell; the threshold is the contrast for 81% correct in a fitted Weibull function, and the contrast sensitivity is 1 / threshold. Plotted against spatial frequency, sensitivities form the contrast-sensitivity function. The record keeps the contrast asked for and the contrast of the image actually drawn.\n\n**What it can and cannot show.** A drop in sensitivity at low and high frequencies, with a peak between, for this observer on this display. Its absolute values depend on the display's luminance, gamma and bit depth, the field size and the observer's optics; it is not a clinical test. The paper measured thresholds by adjustment ([[task:csf-adjustment]]); forced choice is a deliberate change.",
+   "sourceFiles": [
+    "classics/campbell-robson-1968/src/campbell_robson1968/task.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/adjust.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/grating.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/stimuli.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/phases.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/common.py",
+    "classics/campbell-robson-1968/configs/task.yaml",
+    "classics/campbell-robson-1968/docs/experiment.json"
+   ],
+   "notes": [
+    "Paper (p. 553): mean 500 cd/m2, contrast switched on and off at 0.5 c/s, 10 x 10 or 2 x 2 cm apertures at 57 or 285 cm (10 or 2 deg), monocular, cycloplegic, 2.5-mm artificial pupil, threshold by adjustment, 5 or 10 settings.",
+    "Changed here: two-interval forced choice with QUEST+, binocular natural viewing, a display's luminance instead of 500 cd/m2.",
+    "ASSUMED: frequencies, vertical stripes, random phase, 1000-ms looks, 500-ms gap, corner marks, fixation point, feedback, QUEST+ grids, 60 trials per cell.",
+    "Contrast below one display code step (about 0.8% on 8 bits) exists only through dithering; set display_bits and measure gamma before real data."
+   ]
+  },
+  {
+   "taskKey": "csf-adjustment@configs/adjustment.yaml",
+   "timeline": {
+    "caption": "One setting. While the observer adjusts, the grating is on for the first half of every 2-s cycle and off (mean field) for the second, counted in frames from the first frame of the adjustment.",
+    "phases": [
+     {
+      "id": "ready",
+      "label": "Mean field",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "adjust",
+      "label": "Adjust",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE",
+       "max": {
+        "param": "adjust_timeout"
+       }
+      },
+      "start_events": [
+       "ADJUST_START"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Corner marks",
+      "role": "annotation",
+      "from": "ready",
+      "to": "adjust"
+     },
+     {
+      "label": "Grating on 1 s, off 1 s",
+      "role": "stimulus",
+      "from": "adjust",
+      "to": "adjust"
+     },
+     {
+      "label": "Up/down arrows or wheel; SPACE sets",
+      "role": "response",
+      "from": "adjust",
+      "to": "adjust"
+     }
+    ],
+    "branches": [
+     {
+      "from": "adjust",
+      "kind": "failure",
+      "when": "no SPACE before the limit",
+      "outcome": "TIMEOUT",
+      "effect": "served again"
+     }
+    ],
+    "end": {
+     "outcome": "SET",
+     "label": "SET"
+    },
+    "between_trials": {
+     "label": "Inter-trial interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "caption": "The display to scale on the mean grey (the rig's linearised mid-level), the stripes as one example frequency (1 c/deg) at an illustrative contrast of 0.6. Greys are display values, not calibrated luminance. The task uses the frequencies of the parameter set, a random phase per presentation, and contrasts near threshold, mostly below 1%.",
+    "unit": "dva",
+    "width": 13.8,
+    "height": 13.8,
+    "background": 0.502,
+    "elements": [
+     {
+      "type": "rect",
+      "cx": -4.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -4.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -3.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -2.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -1.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": -0.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 1.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 2.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 3.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.0312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.0938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.1562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.2188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.2812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.3438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.4062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.4688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.5312,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2066,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.5938,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.2515,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.6562,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.3346,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.7188,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.4432,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.7812,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.5607,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.8438,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.6693,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.9062,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7524,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 4.9688,
+      "cy": 0,
+      "width": 0.0625,
+      "height": {
+       "param": "field_dva"
+      },
+      "luminance": 0.7974,
+      "role": "stimulus"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 0,
+      "width": {
+       "param": "field_dva"
+      },
+      "height": {
+       "param": "field_dva"
+      },
+      "role": "region",
+      "dashed": true,
+      "label": "Field: sine grating, here 1 c/deg at contrast 0.6 (illustrative)"
+     },
+     {
+      "type": "line",
+      "x1": -5.3,
+      "y1": -5.3,
+      "x2": -4.7,
+      "y2": -5.3,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      },
+      "label": "Corner marks"
+     },
+     {
+      "type": "line",
+      "x1": -5.3,
+      "y1": -5.3,
+      "x2": -5.3,
+      "y2": -4.7,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -5.3,
+      "y1": 5.3,
+      "x2": -4.7,
+      "y2": 5.3,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": -5.3,
+      "y1": 5.3,
+      "x2": -5.3,
+      "y2": 4.7,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.3,
+      "y1": -5.3,
+      "x2": 4.7,
+      "y2": -5.3,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.3,
+      "y1": -5.3,
+      "x2": 5.3,
+      "y2": -4.7,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.3,
+      "y1": 5.3,
+      "x2": 4.7,
+      "y2": 5.3,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "line",
+      "x1": 5.3,
+      "y1": 5.3,
+      "x2": 5.3,
+      "y2": 4.7,
+      "role": "cue",
+      "color": "#000000",
+      "stroke_width": {
+       "param": "marks_width_dva"
+      }
+     },
+     {
+      "type": "dimension",
+      "x1": -5.0,
+      "y1": -6.2,
+      "x2": 5.0,
+      "y2": -6.2,
+      "value": {
+       "param": "field_dva"
+      },
+      "text": "field width",
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**The paper's method.** The grating switches on and off once every [[param:flicker_period]] (the paper's 0.5 c/s) inside a square field of [[param:field_dva]], with no change in mean luminance. The observer turns its contrast down or up (arrow keys or scroll wheel, a factor of 10^[[param:knob_step_log10]] per step) until the stripes are barely detectable, then presses SPACE. Each spatial frequency gets [[param:paradigm.n_per_condition]] settings, in random order, each starting from a random contrast.\n\n**What is measured.** The settings; a frequency's threshold is their geometric mean and the sensitivity its reciprocal. Settings depend on the observer's criterion for \"barely detectable\", which forced choice ([[task:csf-2ifc]]) avoids.",
+   "sourceFiles": [
+    "classics/campbell-robson-1968/src/campbell_robson1968/task.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/adjust.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/grating.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/stimuli.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/phases.py",
+    "classics/campbell-robson-1968/src/campbell_robson1968/common.py",
+    "classics/campbell-robson-1968/configs/adjustment.yaml",
+    "classics/campbell-robson-1968/docs/experiment.json"
+   ],
+   "notes": [
+    "Paper (p. 553): on-off at 0.5 c/s, settings until barely detectable, 5 or 10 per threshold, standard error under 10%.",
+    "ASSUMED: equal on and off halves, the knob step, start contrasts, no fixation mark, 5 settings per frequency."
+   ]
+  }
+ ]
+}

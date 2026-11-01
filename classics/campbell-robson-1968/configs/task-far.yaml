@@ -1,0 +1,51 @@
+# Contrast sensitivity, 2IFC, 2 deg field for high frequencies (human). Needs about 90 px/deg:
+# a far viewing distance or a dense display (configs/rig-booth-far.yaml is an example).
+# Every key is validated against Csf2ifcParams: a typo fails at load. Values the paper does not
+# state are marked "# ASSUMED (not in the paper): <reason>" and listed in docs/methods.md
+# ("Assumed, not in the paper") and docs/experiment.json ("assumed").
+subject_kind: human
+
+# ---- Stimulus. Paper: Campbell & Robson (1968), J. Physiol. 197, 551-566 ("paper: p. N").
+# Luminances are linearised display units 0..1 (after `alhazen calibrate gamma`), not cd/m2.
+field_dva: 2.0            # paper: p. 553-554, square aperture 10 x 10 cm at 57 cm (10 deg) or at 285 cm (2 deg); here the 2 deg far field
+sf_cpd: [2, 4, 8, 16, 22.6]   # ASSUMED (not in the paper): levels chosen; the paper sampled about 0.1-40 c/deg (Fig. 2)
+waveforms: [sine]             # paper: sine-wave gratings (Fig. 2)
+orientation_deg: 0.0         # ASSUMED (not in the paper): vertical stripes (wave vector horizontal); the paper does not say
+random_phase: true           # ASSUMED (not in the paper): grating phase uniform 0-360 deg per presentation
+mean_luminance: 0.5          # ASSUMED (not in the paper): half the display maximum; the paper's mean was 500 cd/m2 (p. 553)
+display_bits: 8              # ASSUMED (not in the paper): the rig's code depth per channel; set it to your display's
+dither: noisy-bit            # ASSUMED (not in the paper): Allard & Faubert (2008) noisy-bit, for contrasts below one 8-bit step
+min_px_per_cycle: 4.0        # ASSUMED (not in the paper): sampling limit refused below (Nyquist is 2)
+square_min_px_per_cycle: 12.0  # ASSUMED (not in the paper): keeps a square wave's 3rd harmonic at >= 4 px per cycle
+fix_size_dva: 0.15           # ASSUMED (not in the paper): no fixation mark is described
+fix_luminance: 0.0           # ASSUMED (not in the paper): black fixation point
+marks_gap_dva: 0.3           # ASSUMED (not in the paper): corner marks outside the field
+marks_arm_dva: 0.6           # ASSUMED (not in the paper): corner mark arm length
+marks_width_dva: 0.06        # ASSUMED (not in the paper): corner mark line width
+marks_luminance: 0.0         # ASSUMED (not in the paper): black corner marks
+
+# ---- Timing (2IFC). The paper switched the grating on and off at 0.5 c/s (p. 553), i.e. 1 s
+# on and 1 s off if the halves were equal; here each observation interval is one "on" half.
+fixation_duration: {ms: 500}  # ASSUMED (not in the paper): mean field and fixation point before interval 1
+interval_duration: {ms: 1000}  # ASSUMED (not in the paper): one half of the paper's 0.5 c/s on-off cycle
+isi: {ms: 500}                # ASSUMED (not in the paper): gap between the two intervals
+response_timeout: {ms: 5000}  # ASSUMED (not in the paper): longest wait for F or J
+feedback_duration: {ms: 200}  # ASSUMED (not in the paper): fixation point turns green or red
+iti: {ms: 500}                # ASSUMED (not in the paper): mean field between trials
+
+# ---- Threshold estimation (not the paper's method: it used adjustment, p. 553).
+paradigm:
+  kind: questplus
+  quest:
+    parameter: log_contrast
+    interleave_by: cell
+    scale: log10
+    intensities: [-3, -2.95, -2.9, -2.85, -2.8, -2.75, -2.7, -2.65, -2.6, -2.55, -2.5, -2.45, -2.4, -2.35, -2.3, -2.25, -2.2, -2.15, -2.1, -2.05, -2, -1.95, -1.9, -1.85, -1.8, -1.75, -1.7, -1.65, -1.6, -1.55, -1.5, -1.45, -1.4, -1.35, -1.3, -1.25, -1.2, -1.15, -1.1, -1.05, -1, -0.95, -0.9, -0.85, -0.8, -0.75, -0.7, -0.65, -0.6, -0.55, -0.5, -0.45, -0.4, -0.35, -0.3, -0.25, -0.2, -0.15, -0.1, -0.05, -0]  # ASSUMED (not in the paper): log10 contrast grid
+    thresholds: [-3, -2.95, -2.9, -2.85, -2.8, -2.75, -2.7, -2.65, -2.6, -2.55, -2.5, -2.45, -2.4, -2.35, -2.3, -2.25, -2.2, -2.15, -2.1, -2.05, -2, -1.95, -1.9, -1.85, -1.8, -1.75, -1.7, -1.65, -1.6, -1.55, -1.5, -1.45, -1.4, -1.35, -1.3, -1.25, -1.2, -1.15, -1.1, -1.05, -1, -0.95, -0.9, -0.85, -0.8, -0.75, -0.7, -0.65, -0.6, -0.55, -0.5]  # ASSUMED (not in the paper): prior grid
+    slopes: [2.0, 3.5, 5.0]          # ASSUMED (not in the paper): slope grid
+    lower_asymptotes: [0.5]          # 2IFC guess rate, by design
+    lapse_rates: [0.01]              # ASSUMED (not in the paper): lapse rate
+    n_trials: 60                     # ASSUMED (not in the paper): trials per cell
+  blocks:
+    n_blocks: 3                      # ASSUMED (not in the paper): rest breaks
+    trials_per_block: 100             # ASSUMED (not in the paper): trials between breaks

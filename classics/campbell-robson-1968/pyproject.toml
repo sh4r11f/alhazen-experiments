@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alhazen-campbell-robson-1968"
+version = "0.1.0"
+description = "Spatial contrast sensitivity (Campbell & Robson, 1968), rebuilt in alhazen (alhazen-experiments: classics/campbell-robson-1968)"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = [
+  # alhazen-vision, not alhazen: the bare name on PyPI is an unrelated project.
+  # uv takes it from GitHub at the tag in [tool.uv.sources]; the floor is what pip reads.
+  "alhazen-vision>=3.0.0",
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "pyyaml>=6.0",
+  "matplotlib>=3.7",
+  "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+# The renderer: only a machine that opens a real window needs it.
+psychopy = ["alhazen-vision[psychopy]"]
+movie = ["alhazen-vision[movie]"]
+dev = [
+  "pytest>=8",
+  "ruff>=0.6",
+  # The analysis notebook is executed by the test suite.
+  "nbformat>=5.10",
+  "nbclient>=0.10",
+  "ipykernel>=6",
+  "tomli>=2.0; python_version < '3.11'",
+]
+
+[dependency-groups]
+dev = ["alhazen-campbell-robson-1968[dev]"]
+
+[project.entry-points."alhazen.tasks"]
+csf-2ifc = "campbell_robson1968.task:Csf2ifcTask"
+csf-adjustment = "campbell_robson1968.adjust:CsfAdjustmentTask"
+
+# alhazen from its GitHub repository at a release tag, never from an index. Moving to a
+# newer release is this tag and `uv lock`, committed together.
+[tool.uv.sources]
+alhazen-vision = { git = "https://github.com/sh4r11f/alhazen", tag = "v3.8.2" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]
+addopts = "-m 'not display'"
+markers = ["display: needs a real window"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"notebooks/*.ipynb" = ["E501"]
+# The reader guide's prose is kept as whole sentences.
+"src/campbell_robson1968/guide.py" = ["E501"]
+
+[tool.alhazen]
+# Shown by `alhazen dashboard`.
+title = "Spatial contrast sensitivity (Campbell & Robson, 1968)"
