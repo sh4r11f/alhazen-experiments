@@ -2,6 +2,7 @@
   "status": "adaptation",
   "status_reason": "The trial follows the paper's stated timing, geometry and 6-deg response window, but the apparatus changes (a video eye tracker for a scleral search coil, a modern monitor with a mid-grey field for a dark monochrome CRT), human volunteers are added, and the paper's main measure, single-neuron delay activity in prefrontal cortex, is not part of this folder.",
   "collection": "classics",
+  "listed": false,
   "authors": [
     {
       "name": "Sharif Saleki",

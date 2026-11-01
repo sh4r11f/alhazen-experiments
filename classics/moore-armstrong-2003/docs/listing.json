@@ -2,6 +2,7 @@
   "status": "demo",
   "status_reason": "Only the main experiment's trial structure is built (fixation, RF and distracter bars, a frame-locked stimulation trigger, sync marks). The paper's result is a change in V4 firing after subthreshold FEF stimulation: it needs a V4 recording, an FEF stimulator, the RF and FEF-threshold mapping paradigms (not built here) and a monkey, and the fixation task itself has no behavioural measure to replicate.",
   "collection": "classics",
+  "listed": false,
   "authors": [
     {
       "name": "Sharif Saleki",
