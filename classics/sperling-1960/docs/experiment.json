@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Sperling partial report (Sperling, 1960, Experiments 3 and 4)",
-  "summary": "A card of 6 to 12 letters (or letters and numbers) is flashed for 50 ms. A cue then calls one row, and the observer types that row. The row's accuracy times the number of rows estimates how many letters were available when the cue came: about twice the 4 or so a whole report gives, falling to that span within a second as the cue is delayed. The paper's cue is a tone; this version uses a bar beside the row by default, because alhazen 3.8.2, the pinned release, cannot play an event-bound tone.",
+  "summary": "Do people take in more of a brief display than they can report? A card of letters is flashed for 50 ms, then a cue picks one row to type. Measure: proportion of the cued row correct, times the number of rows, against cue delay. A visual bar replaces the paper's tone.",
   "methods": "docs/methods.md",
   "references": [
     "Sperling, G. (1960). The information available in brief visual presentations. Psychological Monographs: General and Applied, 74(11, Whole No. 498), 1-29. https://doi.org/10.1037/h0093759",
