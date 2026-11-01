@@ -460,6 +460,300 @@
           "meaning": "The observer's key."
         }
       ]
+    },
+    {
+      "id": "mae-coherence-match",
+      "title": "No-adaptation control (Fig. 1, unadapted curve)",
+      "summary": "Control set (paper Fig. 1, no-adaptation curve): the same trial with random dynamic visual noise in both displays during adaptation and top-ups.",
+      "parameters_file": "configs/task-control.yaml",
+      "parameters": [
+        {
+          "name": "adapt_mode",
+          "label": "Adaptation",
+          "group": "Design",
+          "type": "choice",
+          "default": "random",
+          "constraints": {
+            "choices": [
+              "unidirectional",
+              "random"
+            ]
+          },
+          "meaning": "RDVN in both displays during adaptation and top-ups: the no-adaptation curve. ASSUMED: the paper does not describe the display of its 'absence of adaptation' condition."
+        },
+        {
+          "name": "adapt_direction_deg",
+          "label": "Adapting direction",
+          "group": "Design",
+          "type": "number",
+          "unit": "deg",
+          "default": 90.0,
+          "meaning": "Direction of the adapting motion, degrees counter-clockwise from rightward (90 = upward). The aftereffect, and + test signal, go the opposite way.",
+          "source": "paper p. 9025"
+        },
+        {
+          "name": "adapted_side",
+          "label": "Adapted display",
+          "group": "Design",
+          "type": "choice",
+          "default": "left",
+          "constraints": {
+            "choices": [
+              "left",
+              "right"
+            ]
+          },
+          "meaning": "Which display adapts to the motion and carries the variable test signal; the other shows RDVN during adaptation and the fixed reference in the test.",
+          "source": "paper Fig. 1 legend (left)"
+        },
+        {
+          "name": "test_levels_pct",
+          "label": "Test signal levels",
+          "group": "Design",
+          "type": "object",
+          "unit": "%",
+          "default": [
+            -20.0,
+            -10.0,
+            0.0,
+            10.0,
+            20.0,
+            30.0,
+            40.0,
+            50.0,
+            60.0
+          ],
+          "meaning": "Signed percentage of signal dots in the adapted display's test: + move opposite the adaptation (downward), - with it (upward). One cell per level. ASSUMED set: the paper's Fig. 1 axis spans -20 to 60 % without listing the levels."
+        },
+        {
+          "name": "reference_signal_pct",
+          "label": "Reference signal",
+          "group": "Design",
+          "type": "number",
+          "unit": "%",
+          "default": 40.0,
+          "meaning": "Percentage of signal dots moving downward in the other display's test, fixed.",
+          "source": "paper Fig. 1 legend"
+        },
+        {
+          "name": "n_dots",
+          "label": "Dots per display",
+          "group": "Dots",
+          "type": "integer",
+          "default": 100,
+          "meaning": "Black dots in each circular display, in every phase.",
+          "source": "paper p. 9025"
+        },
+        {
+          "name": "dot_size_dva",
+          "label": "Dot size",
+          "group": "Dots",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.0333,
+          "meaning": "Side of each square dot (the paper: 2 arcmin; 2 x 2 pixels). At least one pixel is drawn.",
+          "source": "paper p. 9025"
+        },
+        {
+          "name": "aperture_dva",
+          "label": "Display diameter",
+          "group": "Dots",
+          "type": "number",
+          "unit": "dva",
+          "default": 3.25,
+          "meaning": "Diameter of each circular dot display.",
+          "source": "paper p. 9025"
+        },
+        {
+          "name": "aperture_gap_dva",
+          "label": "Gap between displays",
+          "group": "Dots",
+          "type": "number",
+          "unit": "dva",
+          "default": 4.8,
+          "meaning": "Distance between the nearest edges of the two displays; the fixation cross is midway.",
+          "source": "paper p. 9025"
+        },
+        {
+          "name": "speed_dva_s",
+          "label": "Dot speed",
+          "group": "Dots",
+          "type": "number",
+          "unit": "deg/s",
+          "default": 2.0,
+          "meaning": "Speed of every dot, signal or noise (the paper: ~2 deg/s). With the step size it sets how many frames pass between steps.",
+          "source": "paper p. 9025"
+        },
+        {
+          "name": "step_dva",
+          "label": "Step size",
+          "group": "Dots",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.0957,
+          "meaning": "Distance a dot jumps at each step: the paper's 5 pixels converted with an ASSUMED pixel size of its 12-inch 640 x 480 monitor at 114 cm. Dots step every round(step / speed x refresh) frames (3 at 60 Hz, about 1.91 deg/s)."
+        },
+        {
+          "name": "dot_color",
+          "label": "Dot colour",
+          "group": "Dots",
+          "type": "object",
+          "default": [
+            -1.0,
+            -1.0,
+            -1.0
+          ],
+          "meaning": "Signed RGB of the dots: black.",
+          "source": "paper p. 9025"
+        },
+        {
+          "name": "background_rgb",
+          "label": "Background",
+          "group": "Dots",
+          "type": "object",
+          "default": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "meaning": "Signed RGB of the whole screen: white.",
+          "source": "paper p. 9025"
+        },
+        {
+          "name": "background_cd_m2",
+          "label": "Background luminance",
+          "group": "Dots",
+          "type": "number",
+          "unit": "cd/m2",
+          "default": 15.0,
+          "meaning": "The paper's white was 15 cd/m2. Documentation only: set the display with a photometer; the task does not control luminance.",
+          "source": "paper p. 9025"
+        },
+        {
+          "name": "fix_size_dva",
+          "label": "Fixation cross size",
+          "group": "Fixation",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.4,
+          "meaning": "Arm length of the black cross midway between the displays. ASSUMED."
+        },
+        {
+          "name": "initial_adaptation",
+          "label": "Initial adaptation",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "Adaptation before the first test of a session (and after a long pause).",
+          "source": "paper p. 9025, Fig. 1 legend"
+        },
+        {
+          "name": "topup_adaptation",
+          "label": "Top-up adaptation",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 10000
+          },
+          "meaning": "Adaptation displays shown again before every other test, to keep the adaptation up.",
+          "source": "paper Fig. 1 legend"
+        },
+        {
+          "name": "test_duration",
+          "label": "Test duration",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 2000
+          },
+          "meaning": "How long the two test displays are shown.",
+          "source": "paper Fig. 1 legend"
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response window",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 5000
+          },
+          "meaning": "After the test, how long a key is accepted; without one the level is served again. ASSUMED."
+        },
+        {
+          "name": "readapt_after",
+          "label": "Re-adapt after a pause",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 30000
+          },
+          "meaning": "A pause longer than this since the last test display brings back the initial adaptation. ASSUMED; the paper describes no pauses."
+        },
+        {
+          "name": "key_left",
+          "label": "Key for the left display",
+          "group": "Response",
+          "type": "string",
+          "default": "left",
+          "meaning": "The left display looked more coherently downward. ASSUMED."
+        },
+        {
+          "name": "key_right",
+          "label": "Key for the right display",
+          "group": "Response",
+          "type": "string",
+          "default": "right",
+          "meaning": "The right display looked more coherently downward. ASSUMED."
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Judgments per level",
+          "group": "Session",
+          "type": "integer",
+          "default": 20,
+          "meaning": "Trials per test level; the paper's points were 20 judgments each.",
+          "source": "paper Fig. 1 legend"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CHOSE_TEST",
+          "completed": true,
+          "success": true,
+          "meaning": "The adapted (variable) display was judged more coherently downward."
+        },
+        {
+          "name": "CHOSE_REFERENCE",
+          "completed": true,
+          "success": true,
+          "meaning": "The 40 % reference display was judged more coherently downward."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No key within the response window; the level is served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "ADAPT_ON",
+          "meaning": "First frame of the adaptation (initial or top-up) displays."
+        },
+        {
+          "name": "TEST_ON",
+          "meaning": "First frame of the two test displays."
+        },
+        {
+          "name": "RESPONSE_CUE",
+          "meaning": "Test displays off, cross alone: the answer is accepted from this flip; reaction time runs from it."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The observer's key."
+        }
+      ]
     }
   ]
 }

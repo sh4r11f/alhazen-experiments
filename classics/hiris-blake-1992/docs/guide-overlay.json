@@ -1,0 +1,708 @@
+{
+ "tasks": [
+  {
+   "taskKey": "mae-coherence-match@configs/task.yaml",
+   "timeline": {
+    "caption": "One trial. Fixed phases to scale; the first trial (and the first after a pause over 30 s) adapts for 60 s instead of 10 s. The key wait is event-dependent; the next top-up follows the answer.",
+    "phases": [
+     {
+      "id": "adapt",
+      "label": "Adaptation (left up, right random)",
+      "timing": {
+       "kind": "parameter",
+       "param": "topup_adaptation"
+      },
+      "note": "60 s on the first trial",
+      "start_events": [
+       "ADAPT_ON"
+      ]
+     },
+     {
+      "id": "test",
+      "label": "Test displays",
+      "timing": {
+       "kind": "parameter",
+       "param": "test_duration"
+      },
+      "start_events": [
+       "TEST_ON"
+      ]
+     },
+     {
+      "id": "key",
+      "label": "Key",
+      "timing": {
+       "kind": "event",
+       "until": "left or right arrow",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "RESPONSE_CUE"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation cross",
+      "role": "stimulus",
+      "from": "adapt",
+      "to": "key"
+     },
+     {
+      "label": "Adapting dots",
+      "role": "stimulus",
+      "from": "adapt",
+      "to": "adapt"
+     },
+     {
+      "label": "Test dots: left variable, right 40 % down",
+      "role": "stimulus",
+      "from": "test",
+      "to": "test"
+     },
+     {
+      "label": "Arrow key for the more coherently downward display",
+      "role": "response",
+      "from": "key",
+      "to": "key"
+     }
+    ],
+    "branches": [
+     {
+      "from": "key",
+      "kind": "failure",
+      "when": "no key in time",
+      "outcome": "NO_RESPONSE",
+      "effect": "level served again"
+     }
+    ],
+    "end": {
+     "outcome": "CHOSE_TEST",
+     "label": "CHOSE_TEST or CHOSE_REFERENCE, by the key"
+    },
+    "between_trials": {
+     "label": "No interval: the next top-up follows",
+     "timing": {
+      "kind": "fixed",
+      "ms": 0
+     }
+    }
+   },
+   "diagram": {
+    "width": 14,
+    "height": 13.5,
+    "unit": "dva",
+    "background": 1,
+    "caption": "Two separate frames, never on screen together. 1: adaptation (left all upward, right random). 2: test (left variable signal, right 40 % downward). 100 black dots per display on white; dots drawn 3x their 2-arcmin size; dashed circles mark display edges, which are not drawn. Positions to scale; illustrative, uncalibrated.",
+    "elements": [
+     {
+      "type": "text",
+      "x": 0,
+      "y": 5.95,
+      "text": "1  Adaptation",
+      "role": "annotation",
+      "font_weight": "bold"
+     },
+     {
+      "type": "circle",
+      "cx": -4.025,
+      "cy": 3.35,
+      "r": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "role": "region",
+      "dashed": true,
+      "label": "Display edge (not drawn on screen)"
+     },
+     {
+      "type": "dot_field",
+      "cx": -4.025,
+      "cy": 3.35,
+      "radius": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "dot_radius": {
+       "param": "dot_size_dva",
+       "factor": 1.5
+      },
+      "count": 100,
+      "seed": 1992,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000"
+     },
+     {
+      "type": "circle",
+      "cx": 4.025,
+      "cy": 3.35,
+      "r": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "dot_field",
+      "cx": 4.025,
+      "cy": 3.35,
+      "radius": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "dot_radius": {
+       "param": "dot_size_dva",
+       "factor": 1.5
+      },
+      "count": 100,
+      "seed": 1993,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000",
+      "label": "Adapting: random directions (RDVN)"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 3.35,
+      "width": {
+       "param": "fix_size_dva",
+       "factor": 1
+      },
+      "height": 0.06,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 3.35,
+      "width": 0.06,
+      "height": {
+       "param": "fix_size_dva",
+       "factor": 1
+      },
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000",
+      "label": "Fixation cross"
+     },
+     {
+      "type": "arrow",
+      "x1": -6.35,
+      "y1": 2.45,
+      "x2": -6.35,
+      "y2": 4.25,
+      "role": "annotation",
+      "label": "All dots step up"
+     },
+     {
+      "type": "line",
+      "x1": -6.9,
+      "y1": 0,
+      "x2": 6.9,
+      "y2": 0,
+      "role": "annotation",
+      "dashed": true
+     },
+     {
+      "type": "text",
+      "x": 0,
+      "y": -0.7,
+      "text": "2  Test",
+      "role": "annotation",
+      "font_weight": "bold"
+     },
+     {
+      "type": "circle",
+      "cx": -4.025,
+      "cy": -3.35,
+      "r": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "dot_field",
+      "cx": -4.025,
+      "cy": -3.35,
+      "radius": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "dot_radius": {
+       "param": "dot_size_dva",
+       "factor": 1.5
+      },
+      "count": 100,
+      "seed": 2992,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000",
+      "label": "Test: variable signal, -20 to +60 % (+ down)"
+     },
+     {
+      "type": "circle",
+      "cx": 4.025,
+      "cy": -3.35,
+      "r": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "dot_field",
+      "cx": 4.025,
+      "cy": -3.35,
+      "radius": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "dot_radius": {
+       "param": "dot_size_dva",
+       "factor": 1.5
+      },
+      "count": 100,
+      "seed": 2993,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000",
+      "label": "Reference: 40 % of dots step down"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": -3.35,
+      "width": {
+       "param": "fix_size_dva",
+       "factor": 1
+      },
+      "height": 0.06,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": -3.35,
+      "width": 0.06,
+      "height": {
+       "param": "fix_size_dva",
+       "factor": 1
+      },
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000"
+     },
+     {
+      "type": "arrow",
+      "x1": 6.35,
+      "y1": -2.45,
+      "x2": 6.35,
+      "y2": -4.25,
+      "role": "annotation",
+      "label": "Signal dots step down"
+     },
+     {
+      "type": "dimension",
+      "x1": 2.4000000000000004,
+      "y1": -6.35,
+      "x2": 5.65,
+      "y2": -6.35,
+      "value": {
+       "param": "aperture_dva",
+       "factor": 1
+      },
+      "role": "annotation"
+     },
+     {
+      "type": "dimension",
+      "x1": -2.4000000000000004,
+      "y1": -6.35,
+      "x2": 2.4000000000000004,
+      "y2": -6.35,
+      "value": {
+       "param": "aperture_gap_dva",
+       "factor": 1
+      },
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**Question.** After a minute of upward motion, random dots seem to drift downward. How much real downward motion is that illusion worth?\n\n**On screen.** A black cross on white between two round patches of [[param:n_dots]] black dots, [[param:aperture_dva]] across and [[param:aperture_gap_dva]] apart. Adaptation ([[param:initial_adaptation]] at first, then [[param:topup_adaptation]] before every test): left dots all step upward, right dots in random directions. Test, [[param:test_duration]]: in the left patch a share of the dots ([[param:test_levels_pct]] %, + downward, - upward) steps together and the rest randomly; in the right patch [[param:reference_signal_pct]] % step downward.\n\n**The observer.** Keeps looking at the cross (asked, not checked) and then presses the left or right arrow for the patch that looked more coherently downward. No feedback.\n\n**Measured.** The proportion of left choices at each level; a fitted cumulative normal gives the left signal that matches the 40 % reference (PSE). The aftereffect is the control PSE minus this one, in % signal; the paper's was about 40 %.\n\n**Limits.** Display white (15 cd/m2 in the paper) and dot rendering are not calibrated by the software; motion steps are whole frames (1.91 deg/s at 60 Hz). A shifted PSE says nothing about the static aftereffect or where adaptation happens.",
+   "sourceFiles": [
+    "src/hirisblake1992/task.py",
+    "src/hirisblake1992/dvn.py",
+    "configs/task.yaml",
+    "configs/task-control.yaml",
+    "configs/rig-booth.yaml"
+   ],
+   "notes": [
+    "Geometry is the paper's (p. 9025): 3.25-deg displays, nearest edges 4.8 deg apart, cross midway, 100 black 2-arcmin dots on white, ~2 deg/s.",
+    "Step 0.0957 deg (the paper's 5 px with an ASSUMED pixel size) every 3 frames at 60 Hz: 1.91 deg/s. The paper's dots cannot have stepped every 67-Hz frame.",
+    "ASSUMED: test levels, noise dots take a new random direction each step, signal dots re-drawn each step, wrap along the line of motion at the edge, keys, 5-s answer window after the test, re-adaptation after a 30-s pause.",
+    "Not drawn: the aftereffect itself. It is perceived; the arrows mark physical signal directions only."
+   ]
+  },
+  {
+   "taskKey": "mae-coherence-match@configs/task-control.yaml",
+   "timeline": {
+    "caption": "One trial. Fixed phases to scale; the first trial (and the first after a pause over 30 s) adapts for 60 s instead of 10 s. The key wait is event-dependent; the next top-up follows the answer.",
+    "phases": [
+     {
+      "id": "adapt",
+      "label": "Adaptation (random in both)",
+      "timing": {
+       "kind": "parameter",
+       "param": "topup_adaptation"
+      },
+      "note": "60 s on the first trial",
+      "start_events": [
+       "ADAPT_ON"
+      ]
+     },
+     {
+      "id": "test",
+      "label": "Test displays",
+      "timing": {
+       "kind": "parameter",
+       "param": "test_duration"
+      },
+      "start_events": [
+       "TEST_ON"
+      ]
+     },
+     {
+      "id": "key",
+      "label": "Key",
+      "timing": {
+       "kind": "event",
+       "until": "left or right arrow",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "RESPONSE_CUE"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation cross",
+      "role": "stimulus",
+      "from": "adapt",
+      "to": "key"
+     },
+     {
+      "label": "Adapting dots",
+      "role": "stimulus",
+      "from": "adapt",
+      "to": "adapt"
+     },
+     {
+      "label": "Test dots: left variable, right 40 % down",
+      "role": "stimulus",
+      "from": "test",
+      "to": "test"
+     },
+     {
+      "label": "Arrow key for the more coherently downward display",
+      "role": "response",
+      "from": "key",
+      "to": "key"
+     }
+    ],
+    "branches": [
+     {
+      "from": "key",
+      "kind": "failure",
+      "when": "no key in time",
+      "outcome": "NO_RESPONSE",
+      "effect": "level served again"
+     }
+    ],
+    "end": {
+     "outcome": "CHOSE_TEST",
+     "label": "CHOSE_TEST or CHOSE_REFERENCE, by the key"
+    },
+    "between_trials": {
+     "label": "No interval: the next top-up follows",
+     "timing": {
+      "kind": "fixed",
+      "ms": 0
+     }
+    }
+   },
+   "diagram": {
+    "width": 14,
+    "height": 13.5,
+    "unit": "dva",
+    "background": 1,
+    "caption": "Two separate frames, never on screen together. 1: adaptation, random directions in both displays. 2: test (left variable signal, right 40 % downward). 100 black dots per display on white; dots drawn 3x their 2-arcmin size; dashed circles mark display edges, which are not drawn. Positions to scale; illustrative, uncalibrated.",
+    "elements": [
+     {
+      "type": "text",
+      "x": 0,
+      "y": 5.95,
+      "text": "1  Adaptation",
+      "role": "annotation",
+      "font_weight": "bold"
+     },
+     {
+      "type": "circle",
+      "cx": -4.025,
+      "cy": 3.35,
+      "r": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "role": "region",
+      "dashed": true,
+      "label": "Display edge (not drawn on screen)"
+     },
+     {
+      "type": "dot_field",
+      "cx": -4.025,
+      "cy": 3.35,
+      "radius": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "dot_radius": {
+       "param": "dot_size_dva",
+       "factor": 1.5
+      },
+      "count": 100,
+      "seed": 1992,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000"
+     },
+     {
+      "type": "circle",
+      "cx": 4.025,
+      "cy": 3.35,
+      "r": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "dot_field",
+      "cx": 4.025,
+      "cy": 3.35,
+      "radius": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "dot_radius": {
+       "param": "dot_size_dva",
+       "factor": 1.5
+      },
+      "count": 100,
+      "seed": 1993,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000",
+      "label": "Adapting: random directions in both displays"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 3.35,
+      "width": {
+       "param": "fix_size_dva",
+       "factor": 1
+      },
+      "height": 0.06,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 3.35,
+      "width": 0.06,
+      "height": {
+       "param": "fix_size_dva",
+       "factor": 1
+      },
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000",
+      "label": "Fixation cross"
+     },
+     {
+      "type": "line",
+      "x1": -6.9,
+      "y1": 0,
+      "x2": 6.9,
+      "y2": 0,
+      "role": "annotation",
+      "dashed": true
+     },
+     {
+      "type": "text",
+      "x": 0,
+      "y": -0.7,
+      "text": "2  Test",
+      "role": "annotation",
+      "font_weight": "bold"
+     },
+     {
+      "type": "circle",
+      "cx": -4.025,
+      "cy": -3.35,
+      "r": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "dot_field",
+      "cx": -4.025,
+      "cy": -3.35,
+      "radius": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "dot_radius": {
+       "param": "dot_size_dva",
+       "factor": 1.5
+      },
+      "count": 100,
+      "seed": 2992,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000",
+      "label": "Test: variable signal, -20 to +60 % (+ down)"
+     },
+     {
+      "type": "circle",
+      "cx": 4.025,
+      "cy": -3.35,
+      "r": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "dot_field",
+      "cx": 4.025,
+      "cy": -3.35,
+      "radius": {
+       "param": "aperture_dva",
+       "factor": 0.5
+      },
+      "dot_radius": {
+       "param": "dot_size_dva",
+       "factor": 1.5
+      },
+      "count": 100,
+      "seed": 2993,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000",
+      "label": "Reference: 40 % of dots step down"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": -3.35,
+      "width": {
+       "param": "fix_size_dva",
+       "factor": 1
+      },
+      "height": 0.06,
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000"
+     },
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": -3.35,
+      "width": 0.06,
+      "height": {
+       "param": "fix_size_dva",
+       "factor": 1
+      },
+      "role": "stimulus",
+      "luminance": 0,
+      "color": "#000000"
+     },
+     {
+      "type": "arrow",
+      "x1": 6.35,
+      "y1": -2.45,
+      "x2": 6.35,
+      "y2": -4.25,
+      "role": "annotation",
+      "label": "Signal dots step down"
+     },
+     {
+      "type": "dimension",
+      "x1": 2.4000000000000004,
+      "y1": -6.35,
+      "x2": 5.65,
+      "y2": -6.35,
+      "value": {
+       "param": "aperture_dva",
+       "factor": 1
+      },
+      "role": "annotation"
+     },
+     {
+      "type": "dimension",
+      "x1": -2.4000000000000004,
+      "y1": -6.35,
+      "x2": 2.4000000000000004,
+      "y2": -6.35,
+      "value": {
+       "param": "aperture_gap_dva",
+       "factor": 1
+      },
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**Question.** Without directional adaptation, which left signal looks as coherently downward as the 40 % reference? This is the baseline the adapted PSE is compared with.\n\n**On screen.** As in the adapted set, but during adaptation and every top-up both patches show dots moving in random directions ([[param:adapt_mode]]).\n\n**The observer.** Presses the left or right arrow for the patch that looked more coherently downward.\n\n**Measured.** The PSE, expected near 40 % because the two patches are then physically alike; the paper's unadapted curves were centred there (Fig. 1).\n\n**Limits.** The paper does not describe its no-adaptation display; RDVN in both patches is ASSUMED. Run it as its own session.",
+   "sourceFiles": [
+    "src/hirisblake1992/task.py",
+    "src/hirisblake1992/dvn.py",
+    "configs/task.yaml",
+    "configs/task-control.yaml",
+    "configs/rig-booth.yaml"
+   ],
+   "notes": [
+    "Geometry is the paper's (p. 9025): 3.25-deg displays, nearest edges 4.8 deg apart, cross midway, 100 black 2-arcmin dots on white, ~2 deg/s.",
+    "Step 0.0957 deg (the paper's 5 px with an ASSUMED pixel size) every 3 frames at 60 Hz: 1.91 deg/s. The paper's dots cannot have stepped every 67-Hz frame.",
+    "ASSUMED: the no-adaptation display (RDVN in both patches with the same 60-s / 10-s timing); the paper's Fig. 1 legend does not describe it."
+   ]
+  }
+ ]
+}
