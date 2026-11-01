@@ -262,3 +262,17 @@ follows stripes along the pixel grid (`tests/test_review_regressions.py`).
 
 This methods write-up is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
 the code in this folder under Apache-2.0 (see the repository's LICENSE and NOTICE).
+
+
+### Calibration enforcement limit
+
+The program does not verify that the monitor has a stored, active gamma-linearisation
+calibration. Full-drive photometry by itself does not establish linear light output at
+intermediate gun values. In the colour task, the photometry file's `measured: true`
+flag is not proof that gamma correction is installed. In the contrast task, the
+recorded realised contrast describes pixel code values, not measured emitted light.
+Before collecting interpretable calibrated data, independently measure and linearise
+the display and verify its active calibration. Otherwise treat the run as an
+uncalibrated, device-specific demonstration. Real-window pixel readback is not a
+photometric validation. Pixel aperture and optical blur at high spatial frequencies
+also change physical contrast and are not corrected by the logged code-value contrast.
