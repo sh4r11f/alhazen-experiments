@@ -38,7 +38,7 @@ DOC_PARAM = {"name", "label", "group", "type", "unit", "default", "constraints",
              "interactions", "source"}
 PARAM_TYPES = {"duration", "number", "integer", "boolean", "string", "choice", "object"}
 LISTING_KEYS = {"status", "status_reason", "collection", "authors", "original", "hardware",
-                "subjects", "category", "tags", "art", "assets", "notes"}
+                "subjects", "category", "tags", "art", "assets", "notes", "listed"}
 # Identifiable or machine-specific strings that must never be committed.
 PRIVATE = [
     (re.compile(r"/Users/[A-Za-z]"), "a macOS home path"),
@@ -231,6 +231,8 @@ def check(folder: Path, lock: bool) -> list[str]:
     lst = json.loads((folder / "docs/listing.json").read_text(encoding="utf-8"))
     for k in set(lst) - LISTING_KEYS:
         errs.append(f"docs/listing.json: unknown field {k!r}")
+    if "listed" in lst and not isinstance(lst["listed"], bool):
+        errs.append("docs/listing.json: listed is true or false")
     if lst.get("status") not in STATUSES:
         errs.append(f"docs/listing.json: status must be one of {sorted(STATUSES)}")
     if lst.get("collection") != collection:
