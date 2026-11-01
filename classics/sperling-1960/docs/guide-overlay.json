@@ -1,0 +1,476 @@
+{
+ "tasks": [
+  {
+   "taskKey": "partial-report@configs/task.yaml",
+   "timeline": {
+    "caption": "One partial-report trial (Experiment 4, configs/task.yaml). The cue delay is set per block; the observer starts the trial and paces the report.",
+    "phases": [
+     {
+      "id": "ready",
+      "label": "Ready",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE",
+       "max": {
+        "ms": 60000
+       }
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "start",
+      "label": "Start delay",
+      "timing": {
+       "kind": "parameter",
+       "param": "start_delay"
+      }
+     },
+     {
+      "id": "card",
+      "label": "Card",
+      "timing": {
+       "kind": "parameter",
+       "param": "exposure"
+      },
+      "start_events": [
+       "ARRAY_ON"
+      ],
+      "end_events": [
+       "ARRAY_OFF"
+      ]
+     },
+     {
+      "id": "wait",
+      "label": "Cue delay",
+      "timing": {
+       "kind": "event",
+       "until": "block's cue delay"
+      },
+      "note": "cue_delays_s from the card offset (−0.10 to 1.0 s); at −0.10 s the cue starts 50 ms before the card"
+     },
+     {
+      "id": "cue",
+      "label": "Row cue",
+      "timing": {
+       "kind": "parameter",
+       "param": "cue_duration"
+      },
+      "start_events": [
+       "REPORT_ON"
+      ],
+      "note": "CUE_HIGH, CUE_MID or CUE_LOW marks its onset; typing counts from REPORT_ON, one frame later"
+     },
+     {
+      "id": "report",
+      "label": "Typed report",
+      "timing": {
+       "kind": "event",
+       "until": "Enter, all boxes filled",
+       "max": {
+        "param": "report_timeout"
+       }
+      },
+      "start_events": [
+       "RESPONSE_BOXES_ON"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Dim cross",
+      "role": "stimulus",
+      "from": "ready",
+      "to": "start"
+     },
+     {
+      "label": "Lit card",
+      "role": "stimulus",
+      "from": "card",
+      "to": "card"
+     },
+     {
+      "label": "Dim cross",
+      "role": "stimulus",
+      "from": "wait",
+      "to": "report"
+     },
+     {
+      "label": "Bar by cued row",
+      "role": "stimulus",
+      "from": "cue",
+      "to": "cue"
+     },
+     {
+      "label": "Typed row",
+      "role": "response",
+      "from": "cue",
+      "to": "report"
+     }
+    ],
+    "branches": [
+     {
+      "from": "ready",
+      "kind": "failure",
+      "when": "no SPACE in time",
+      "outcome": "NO_START"
+     },
+     {
+      "from": "report",
+      "kind": "failure",
+      "when": "not committed in time",
+      "outcome": "NO_RESPONSE"
+     }
+    ],
+    "end": {
+     "outcome": "REPORTED",
+     "label": "REPORTED, scored per position"
+    }
+   },
+   "diagram": {
+    "caption": "One 4/4/4 letters-and-numbers card to scale (illustrative symbols, not a recorded trial), as lit for the 50 ms exposure on the dark field. Dashed outlines mark where later phases draw: the row cue bar beside the cued row (a 75% grey bar for 0.5 s that replaces the tone; it starts after the card is gone, except at the -0.10 s delay where it begins 50 ms before the card) and the four response boxes. Letter and row spacing, bar and boxes are ASSUMED; display values, not calibrated luminance.",
+    "unit": "dva",
+    "width": 26,
+    "height": 22,
+    "background": 0,
+    "elements": [
+     {
+      "type": "rect",
+      "cx": 0,
+      "cy": 0,
+      "width": {
+       "param": "card_width_dva",
+       "factor": 1
+      },
+      "height": 13,
+      "role": "stimulus",
+      "luminance": 1,
+      "label": "Card, lit for the exposure"
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": -1.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": 1
+      },
+      "text": "7",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": -0.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": 1
+      },
+      "text": "F",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      },
+      "label": "Symbol (bold Arial, capital height 1.17 dva)"
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": 0.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": 1
+      },
+      "text": "K",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": 1.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": 1
+      },
+      "text": "2",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": -1.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": 0
+      },
+      "text": "M",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": -0.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": 0
+      },
+      "text": "4",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": 0.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": 0
+      },
+      "text": "Z",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": 1.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": 0
+      },
+      "text": "9",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": -1.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": -1
+      },
+      "text": "3",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": -0.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": -1
+      },
+      "text": "L",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": 0.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": -1
+      },
+      "text": "X",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "text",
+      "x": {
+       "param": "letter_pitch_dva",
+       "factor": 1.5
+      },
+      "y": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": -1
+      },
+      "text": "6",
+      "role": "stimulus",
+      "color": "#000000",
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_size": {
+       "param": "letter_height_dva",
+       "factor": 1.388889
+      }
+     },
+     {
+      "type": "rect",
+      "cx": -4.32,
+      "cy": {
+       "param": "row_pitch_three_rows_dva",
+       "factor": 1
+      },
+      "width": 1.17,
+      "height": 0.2,
+      "role": "region",
+      "luminance": 0.75,
+      "label": "Where the row cue bar appears (75% grey, 0.5 s); after the card except at the -0.10 s delay",
+      "dashed": true
+     },
+     {
+      "type": "rect",
+      "cx": -2.76,
+      "cy": -9,
+      "width": 1.6,
+      "height": 1.6,
+      "role": "region",
+      "dashed": true,
+      "label": "Response boxes: appear when the cue ends (typing is accepted from cue onset)"
+     },
+     {
+      "type": "rect",
+      "cx": -0.92,
+      "cy": -9,
+      "width": 1.6,
+      "height": 1.6,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "rect",
+      "cx": 0.92,
+      "cy": -9,
+      "width": 1.6,
+      "height": 1.6,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "rect",
+      "cx": 2.76,
+      "cy": -9,
+      "width": 1.6,
+      "height": 1.6,
+      "role": "region",
+      "dashed": true
+     },
+     {
+      "type": "dimension",
+      "x1": -10.3,
+      "y1": 7.4,
+      "x2": 10.3,
+      "y2": 7.4,
+      "value": {
+       "param": "card_width_dva",
+       "factor": 1
+      }
+     }
+    ]
+   },
+   "description": "The observer presses SPACE on a dark field with a dim cross; [[param:start_delay]] later the lit card is exposed for [[param:exposure]]. A cue then names one row: in the paper a high, middle or low tone; here a bar beside that row for [[param:cue_duration]] ([[param:cue_mode]] cue). Its onset is set per block from the card's offset ([[param:cue_delays_s]]). The observer types the cued row into boxes and presses Enter; a symbol counts only in its correct position. Delay blocks run in ascending and descending series ([[param:n_series]]), each opened by sample trials.",
+   "sourceFiles": [
+    "src/sperling1960/task.py",
+    "src/sperling1960/phases.py",
+    "src/sperling1960/stimuli.py",
+    "src/sperling1960/materials.py",
+    "configs/task.yaml"
+   ],
+   "notes": [
+    "One task runs all four parameter sets: task.yaml (4/4/4 L&N, Experiment 4), task-9.yaml (3/3/3), task-exp3.yaml (all four materials at 0 s) and task-whole.yaml (Experiment 1 whole report: no cue phases, every symbol typed). The timeline and drawing show task.yaml.",
+    "Paper values: 50 ms exposure, 0.5 s start delay, tones 2500/650/250 cps about 0.5 s, cue delays −0.10 to 1.0 s, card 5 × 8 in at 22 in, capitals about 0.45 in.",
+    "Deviation: the tone is replaced by a visual bar (alhazen 2.16.0 has no event-bound tone); C, H, P, R are removed from the letters (experimenter keys); typed boxes replace a written response grid.",
+    "ASSUMED (not in the paper): letter and row spacing, the bar's size and position, response boxes, the 60 s caps on starting and reporting, and 6 test trials per delay block.",
+    "No inter-trial interval is drawn: iti is 0 ms (paper: the observer set his own rate), so the next trial begins with the Ready phase."
+   ]
+  }
+ ]
+}

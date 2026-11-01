@@ -1,0 +1,27 @@
+# Experiment 1, blue/yellow: minimum motion by the method of constant stimuli (human).
+# Anstis & Cavanagh (1983), p. 157 and Fig. 2b. Interleaved gratings are light and dark grey,
+# the mixture of blue and yellow.
+subject_kind: human
+patch_size_dva: 2.0           # paper: p. 157 ("2 deg x 2 deg in a dark surround")
+fixation:                     # paper: p. 157 ("a white cross on a blue 6-min square")
+  square_arcmin: 6.0          # paper: p. 157
+  cross_arcmin: 6.0           # ASSUMED (not in the paper): cross arms span the square
+  line_arcmin: 1.0            # ASSUMED (not in the paper): cross line width
+photometry_file: photometry-booth.yaml   # rig-specific; the example file is NOT a measurement
+display_calibration: calibrated          # real data refused unless the photometry is measured
+snap_period_to_pixels: true   # ASSUMED (not in the paper): period a multiple of 4 px so each step is exactly 1/4 cycle
+fixation_duration: {ms: 500}  # ASSUMED (not in the paper): fixation mark alone before the cycle starts
+iti: {ms: 500}                # ASSUMED (not in the paper): dark interval between trials
+test_colour: blue             # paper: p. 157 ("the luminance of the blue bars was varied")
+reference_colour: yellow      # paper: p. 157 (yellow x = 0.51, y = 0.44; red share from the P22 chromaticities, see docs/methods.md)
+reference_cd_m2: 7.9          # paper: p. 157 ("yellow bars of the blue/yellow gratings were always at 7.9 cd m-2")
+spatial_freq_cpd: 2.5         # paper: p. 157 ("the same procedure")
+cycle_hz: 5.0                 # paper: p. 157 ("the same procedure")
+interleave_contrast: 0.0625   # ASSUMED (not in the paper): the paper does not restate the grey grating's contrast for blue/yellow; Experiment 1's 6.25%
+interleave_mix: additive      # ASSUMED (not in the paper): additive mean instead of the raster-line dither
+dither_rows: 2                # paper: p. 156; used only with line_dither
+test_levels_cd_m2: [8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75, 10.0, 10.25, 10.5, 10.75, 11.0, 11.25, 11.5, 11.75, 12.0]  # ASSUMED (not in the paper): blue range not stated; Fig. 2b axes span 8-12
+response_timeout: {ms: 10000} # ASSUMED (not in the paper): the cycle runs until a key or 10 s
+paradigm:
+  kind: constant
+  n_per_condition: 5          # paper: p. 157 (ten per level = 5 per step direction here)

@@ -1,0 +1,10 @@
+# EXAMPLE PHOTOMETRY, NOT A MEASUREMENT. Each gun's luminance (cd/m2) at full drive, alone,
+# through the rig's gamma correction. These are the Rec. 709 / sRGB luminance shares of a
+# 300 cd/m2 white (0.2126, 0.7152, 0.0722), so cd/m2 computed from this file are nominal,
+# device-specific demonstration values. Before a calibrated session: linearise the display
+# (`uv run alhazen calibrate gamma --rig <rig>`), measure each gun with a photometer, enter
+# the readings and set measured: true.
+red_max_cd_m2: 63.78
+green_max_cd_m2: 214.56
+blue_max_cd_m2: 21.66
+measured: false

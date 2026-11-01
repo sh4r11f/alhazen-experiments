@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Saccade planning and attention (Moore & Fallah)",
-  "summary": "Moore & Fallah (2001) asked whether preparing an eye movement directs attention: monkeys detected a brief dimming of a peripheral target among flashing distractors while the frontal eye field was stimulated below the saccade threshold. This is the behavioural task: fixate, watch a target inside or outside a configurable movement field, press a key when it dims (or hold off on catch trials), with the dimming titrated by the paper's simultaneous block staircase for stimulation and control trials. Microstimulation is a timed STIM_TRIGGER event for the lab's stimulator.",
+  "summary": "Does preparing an eye movement direct attention? Monkeys watched a target and released a lever when it briefly dimmed, ignoring flashing distractors, while a frontal eye field site was stimulated below the level that moves the eyes. Here the subject fixates, watches a target inside (or outside) the site's movement field and presses a key at the dimming; a block staircase finds the smallest detectable dimming with and without stimulation. Stimulation is a trigger for the lab's stimulator.",
   "methods": "docs/methods.md",
   "references": [
     "Moore, T., & Fallah, M. (2001). Control of eye movements and spatial attention. PNAS, 98(3), 1273–1276. https://doi.org/10.1073/pnas.98.3.1273"

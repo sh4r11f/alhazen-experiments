@@ -17,6 +17,18 @@ Analysis, "Suppl. pp. 7–8" the Supplemental Results.
 substitutions of apparatus and software, each in the Deviations table. **Hardware.** A
 display, a keyboard and an eye tracker (both tasks are gaze-contingent).
 
+## At a glance
+
+- **Question.** Do saccades to a moving object follow its physical path or the strongly shifted path we perceive?
+- **What is on the screen.** A fixation dot and, 10 dva to the right, a Gabor (sine stripes in a Gaussian window) moving back and forth on a 3-dva path while its stripes drift across the path, reversing with every pass.
+- **What the subject does.** Perceptual task: keep fixating (eye tracker enforced) and press left or right for the path's tilt. Saccade task: when the dot goes off, look at the Gabor; it disappears as the eyes leave fixation, so there is no feedback.
+- **Measured.** The path angle that looks vertical (staircases, fitted PSE); saccade landing positions and the path orientation they follow, with and without drift.
+- **What it can and cannot show.** Landings along the physical path despite a large perceived shift would replicate the dissociation between perception and saccades. Saccade detection here is online at the display rate, not the paper's offline 1-kHz analysis; calibrate the tracker every session.
+- **Known constraints.** Experiment 2 (gap at mid-path) is not built. QUEST+ replaces the paper's QUEST placement.
+- **Source access (audit, 1 Nov 2026).** Main text re-read this audit (publisher HTML). The Supplemental PDF could not be re-accessed (publisher 403); stimulus values from it (2 c/dva, sigma 0.1 dva, 3-dva path, 2 dva/s, 3 Hz) rest on the earlier build's page-cited reading.
+
+The full methods follow; nothing below was shortened.
+
 ## Question
 
 When a peripheral Gabor moves along a straight path while its grating drifts at right angles

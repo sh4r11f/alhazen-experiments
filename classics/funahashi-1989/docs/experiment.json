@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Oculomotor delayed response",
-  "summary": "Funahashi, Bruce & Goldman-Rakic's (1989) oculomotor delayed-response task: hold fixation while a square flashes for 0.5 s at one of eight locations 13 deg out, keep fixating through a 1.5-, 3- or 6-s delay, then, when the fixation spot goes off, saccade to the remembered location within 0.5 s. A landing within 6 deg (diameter) of the cue is correct. Human and monkey parameter sets and a monkey training ladder; the paper's neuronal recordings are not part of it.",
+  "summary": "Can a location be held in memory and then acted on? The subject keeps looking at a central spot while a square flashes at one of eight places, keeps looking through a delay of 1.5 to 6 s, and, when the spot goes off, moves the eyes to where the square was. The monkey set pays juice for a correct saccade; the human set is unpaid. The paper used this task to find prefrontal neurons that fire during the delay; that recording is not part of this folder.",
   "methods": "docs/methods.md",
   "references": [
     "Funahashi, S., Bruce, C. J., & Goldman-Rakic, P. S. (1989). Mnemonic coding of visual space in the monkey's dorsolateral prefrontal cortex. Journal of Neurophysiology, 61(2), 331–349. https://doi.org/10.1152/jn.1989.61.2.331",

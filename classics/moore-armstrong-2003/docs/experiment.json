@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "FEF microstimulation gating (Moore & Armstrong)",
-  "summary": "Moore & Armstrong (2003) stimulated sites in the frontal eye field (FEF) below the current that evokes saccades while a monkey fixated, and recorded how V4 neurons responded to oriented bars in and outside their receptive field. One trial here: fixate, bars appear in the RF, at a distracter site, or both, and stay up 1.5-2 s; 200-500 ms after they appear a STIM_TRIGGER (stimulation trials) or CONTROL_MARK (control trials) goes out for the stimulator and the recording system. Task structure only: the measure, V4 activity, needs a recording rig.",
+  "summary": "Does a weak signal from the frontal eye field boost visual responses where that site's eye movements would go? While a monkey fixates and oriented bars appear in a V4 neuron's receptive field, at a distracter site, or both, a subthreshold stimulation train is triggered on half the trials. The paper measured the V4 response. This folder runs the trial structure and sends the trigger and sync marks; the recording, the stimulator and the site mapping are the lab's. Demo status.",
   "methods": "docs/methods.md",
   "references": [
     "Moore, T., & Armstrong, K. M. (2003). Selective gating of visual signals by microstimulation of frontal cortex. Nature, 421(6921), 370-373. https://doi.org/10.1038/nature01341"

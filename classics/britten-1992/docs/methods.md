@@ -14,6 +14,18 @@ PDF and was read from the page image). Page numbers below are the journal's.
 keyboard. Monkey set: display, eye tracker, reward line; TTL sync lines and a recording
 system only for the neurometric half (optional, the lab's).
 
+## At a glance
+
+- **Question.** How weak can a coherent motion signal be and still have its direction seen, and does one MT neuron see it as well as the animal?
+- **What is on the screen.** Random dots in a circular aperture for 2 s. A set share of them (the correlation, 0-51.2 %) steps the same way; the rest jump at random.
+- **What the subject does.** Monkey set: hold gaze on the fixation point (eye tracker enforced), then saccade to the target on the side of the motion. Human set: fixate (instructed only, no eye tracker), then press the left or right arrow.
+- **Measured.** Proportion correct at each correlation; a Weibull fit gives threshold and slope.
+- **What it can and cannot show.** A psychometric function for this subject and display. The paper's comparison with MT neurons needs a recording made on the same trials, and an aperture, axis and speed matched to each neuron; the example values here are not.
+- **Known constraints.** Frame-based dots: the paper's 45-ms signal interval is rounded to whole frames (50 ms at 60 Hz). The paper's display was dark; here the dots sit on a black disc in a mid-grey window.
+- **Source access (audit, 1 Nov 2026).** Full text read this audit (author PDF); values checked against configs.
+
+The full methods follow; nothing below was shortened.
+
 ## Question
 
 How does the sensitivity of single neurons in visual area MT compare with the sensitivity of

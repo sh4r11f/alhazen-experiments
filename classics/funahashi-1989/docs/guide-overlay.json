@@ -1,0 +1,422 @@
+{
+  "tasks": [
+    {
+      "taskKey": "oculomotor-delayed-response@configs/task.yaml",
+      "timeline": {
+        "caption": "One memory trial. The delay is one of three per trial; fixation must be held from acquisition until the spot goes off.",
+        "phases": [
+          {
+            "id": "acquire",
+            "label": "Acquire fixation",
+            "timing": {
+              "kind": "event",
+              "until": "gaze in fixation window",
+              "max": {
+                "param": "acquire_timeout"
+              }
+            },
+            "start_events": [
+              "FIX_ON"
+            ],
+            "end_events": [
+              "FIX_ACQUIRED"
+            ]
+          },
+          {
+            "id": "hold",
+            "label": "Fixation",
+            "timing": {
+              "kind": "parameter",
+              "param": "fixation_period"
+            }
+          },
+          {
+            "id": "cue",
+            "label": "Cue",
+            "timing": {
+              "kind": "parameter",
+              "param": "cue_duration"
+            },
+            "start_events": [
+              "CUE_ON"
+            ]
+          },
+          {
+            "id": "delay",
+            "label": "Delay",
+            "timing": {
+              "kind": "event",
+              "until": "trial's delay (1.5, 3 or 6 s)",
+              "max": {
+                "ms": 6000
+              }
+            },
+            "start_events": [
+              "CUE_OFF"
+            ]
+          },
+          {
+            "id": "saccade",
+            "label": "Go: saccade",
+            "timing": {
+              "kind": "event",
+              "until": "gaze leaves fixation",
+              "max": {
+                "param": "response_period"
+              }
+            },
+            "start_events": [
+              "FIX_OFF"
+            ],
+            "end_events": [
+              "SACCADE_ONSET"
+            ]
+          },
+          {
+            "id": "landing",
+            "label": "Landing",
+            "timing": {
+              "kind": "event",
+              "until": "gaze settles",
+              "max": {
+                "param": "landing_max_wait"
+              }
+            },
+            "end_events": [
+              "LANDED"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Fixation spot",
+            "role": "stimulus",
+            "from": "acquire",
+            "to": "delay"
+          },
+          {
+            "label": "Cue square",
+            "role": "stimulus",
+            "from": "cue",
+            "to": "cue"
+          },
+          {
+            "label": "Hold gaze in window",
+            "role": "requirement",
+            "from": "hold",
+            "to": "delay"
+          },
+          {
+            "label": "Saccade to cued place",
+            "role": "response",
+            "from": "saccade",
+            "to": "landing"
+          }
+        ],
+        "branches": [
+          {
+            "from": "acquire",
+            "kind": "failure",
+            "when": "no fixation in time",
+            "outcome": "NO_FIXATION",
+            "effect": "served again later in the block"
+          },
+          {
+            "from": "hold",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "FIX_BREAK",
+            "effect": "served again later in the block"
+          },
+          {
+            "from": "cue",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "FIX_BREAK",
+            "effect": "served again later in the block"
+          },
+          {
+            "from": "delay",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "FIX_BREAK",
+            "effect": "served again later in the block"
+          },
+          {
+            "from": "saccade",
+            "kind": "failure",
+            "when": "no saccade in time",
+            "outcome": "NO_SACCADE",
+            "effect": "served again later in the block"
+          }
+        ],
+        "end": {
+          "outcome": "CORRECT",
+          "label": "CORRECT, or INACCURATE if it lands outside the window"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "parameter",
+            "param": "iti"
+          }
+        }
+      },
+      "diagram": {
+        "caption": "Display geometry to scale on the mid-grey field (the paper's screen was dark): the fixation spot, the cue at 45° among the eight possible locations 13 dva out (dashed squares, never shown together), the fixation window and the 6 dva response window around the cue. Windows are gaze criteria, not drawn on screen.",
+        "unit": "dva",
+        "width": 32,
+        "height": 32,
+        "background": 0.5,
+        "elements": [
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_size_dva",
+              "factor": 0.5
+            },
+            "role": "stimulus",
+            "luminance": 1,
+            "label": "Fixation spot"
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_window_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true,
+            "label": "Fixation window (ASSUMED radius)"
+          },
+          {
+            "type": "rect",
+            "cx": {
+              "param": "cue_ecc_dva",
+              "factor": 1.0
+            },
+            "cy": {
+              "param": "cue_ecc_dva",
+              "factor": 0.0
+            },
+            "width": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "height": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "rect",
+            "cx": {
+              "param": "cue_ecc_dva",
+              "factor": 0.0
+            },
+            "cy": {
+              "param": "cue_ecc_dva",
+              "factor": 1.0
+            },
+            "width": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "height": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "rect",
+            "cx": {
+              "param": "cue_ecc_dva",
+              "factor": -0.707107
+            },
+            "cy": {
+              "param": "cue_ecc_dva",
+              "factor": 0.707107
+            },
+            "width": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "height": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "rect",
+            "cx": {
+              "param": "cue_ecc_dva",
+              "factor": -1.0
+            },
+            "cy": {
+              "param": "cue_ecc_dva",
+              "factor": 0.0
+            },
+            "width": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "height": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "rect",
+            "cx": {
+              "param": "cue_ecc_dva",
+              "factor": -0.707107
+            },
+            "cy": {
+              "param": "cue_ecc_dva",
+              "factor": -0.707107
+            },
+            "width": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "height": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "rect",
+            "cx": {
+              "param": "cue_ecc_dva",
+              "factor": -0.0
+            },
+            "cy": {
+              "param": "cue_ecc_dva",
+              "factor": -1.0
+            },
+            "width": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "height": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "rect",
+            "cx": {
+              "param": "cue_ecc_dva",
+              "factor": 0.707107
+            },
+            "cy": {
+              "param": "cue_ecc_dva",
+              "factor": -0.707107
+            },
+            "width": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "height": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true
+          },
+          {
+            "type": "rect",
+            "cx": {
+              "param": "cue_ecc_dva",
+              "factor": 0.707107
+            },
+            "cy": {
+              "param": "cue_ecc_dva",
+              "factor": 0.707107
+            },
+            "width": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "height": {
+              "param": "cue_size_dva",
+              "factor": 1
+            },
+            "role": "target",
+            "luminance": 1,
+            "label": "Cue (one of eight)"
+          },
+          {
+            "type": "circle",
+            "cx": {
+              "param": "cue_ecc_dva",
+              "factor": 0.707107
+            },
+            "cy": {
+              "param": "cue_ecc_dva",
+              "factor": 0.707107
+            },
+            "r": {
+              "param": "target_window_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true,
+            "label": "Response window"
+          },
+          {
+            "type": "dimension",
+            "x1": 0,
+            "y1": 0,
+            "x2": 13,
+            "y2": 0,
+            "value": {
+              "param": "cue_ecc_dva",
+              "factor": 1
+            }
+          }
+        ],
+        "insets": [
+          {
+            "cx": 0,
+            "cy": 0,
+            "width": 2.5,
+            "height": 2.0,
+            "label": "fixation detail"
+          }
+        ]
+      },
+      "description": "**Question.** Can a briefly flashed location be held in memory and then looked at?\n\n**On screen.** A fixation spot; a square flashes for [[param:cue_duration]] at one of eight places; a delay of 1.5, 3 or 6 s; then the spot goes off.\n\n**The subject.** Holds gaze on the spot through cue and delay (enforced), then saccades to the remembered place within [[param:response_period]].\n\n**Measured.** Landing inside the window around the cue or not; latency and error by location and delay.\n\n**Limits.** No prefrontal recording, so not the paper's result. Known constraint: a blink counts as a fixation break (up to 7.25 s without blinking).",
+      "sourceFiles": [
+        "src/funahashi1989/task.py",
+        "src/funahashi1989/stimuli.py",
+        "configs/task.yaml",
+        "configs/task-monkey.yaml",
+        "configs/rig-booth.yaml"
+      ],
+      "notes": [
+        "Paper values: 0.1° white spot, 0.7° white square cue, 13° eccentricity, eight locations, 0.75 s fixation, 0.5 s cue, 1.5/3/6 s delays, 0.5 s response period, 6° response window, 5 s inter-trial interval (pp. 331–333).",
+        "ASSUMED (not in the paper): the 1.5 dva fixation window radius, the 2 s limit to acquire fixation, the landing rule (first sample slower than 30 dva/s, at most 150 ms) and the trial counts.",
+        "Deviation: mid-grey field instead of the dark screen; the human set is instructed and unpaid.",
+        "configs/task-monkey.yaml is the same trial for the paper's subject, adding juice for a correct saccade; only its last block differs.",
+        "Human set (configs/task.yaml): instructed, unpaid, fixation enforced by the eye tracker. Monkey set (configs/task-monkey.yaml): same trial plus juice on CORRECT; reward volume must be measured on the rig."
+      ]
+    }
+  ]
+}

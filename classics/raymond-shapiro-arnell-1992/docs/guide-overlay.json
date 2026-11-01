@@ -1,0 +1,246 @@
+{
+  "tasks": [
+    {
+      "taskKey": "attentional-blink@configs/task.yaml",
+      "timeline": {
+        "caption": "One trial. Every letter appears at the same central place: 15 ms on, 75 ms grey. On X trials one letter from the target (+0) to +8 is a black X; drawn as an annotation, not as a separate stimulus. The control condition skips 'Name target'.",
+        "phases": [
+          {
+            "id": "ready",
+            "label": "Ready",
+            "timing": {
+              "kind": "event",
+              "until": "SPACE"
+            },
+            "start_events": [
+              "READY"
+            ],
+            "end_events": [
+              "START_KEY"
+            ]
+          },
+          {
+            "id": "fixation",
+            "label": "Fixation dot",
+            "timing": {
+              "kind": "parameter",
+              "param": "fixation_duration"
+            },
+            "start_events": [
+              "FIX_ON"
+            ]
+          },
+          {
+            "id": "pre",
+            "label": "Pre-target letters",
+            "timing": {
+              "kind": "event",
+              "until": "7–15 letters (630–1350 ms)"
+            },
+            "start_events": [
+              "STREAM_ON"
+            ]
+          },
+          {
+            "id": "target",
+            "label": "White target",
+            "timing": {
+              "kind": "parameter",
+              "param": "letter_duration"
+            },
+            "start_events": [
+              "TARGET_ON"
+            ]
+          },
+          {
+            "id": "post",
+            "label": "8 more letters",
+            "timing": {
+              "kind": "fixed",
+              "ms": 720
+            },
+            "end_events": [
+              "STREAM_OFF"
+            ]
+          },
+          {
+            "id": "letter",
+            "label": "Name target",
+            "timing": {
+              "kind": "conditional",
+              "when": "experimental condition",
+              "timing": {
+                "kind": "event",
+                "until": "letter key",
+                "max": {
+                  "param": "response_timeout"
+                }
+              }
+            },
+            "start_events": [
+              "TARGET_PROMPT"
+            ],
+            "end_events": [
+              "TARGET_RESPONSE"
+            ]
+          },
+          {
+            "id": "probe",
+            "label": "X present?",
+            "timing": {
+              "kind": "event",
+              "until": "Y or N",
+              "max": {
+                "param": "response_timeout"
+              }
+            },
+            "start_events": [
+              "PROBE_PROMPT"
+            ],
+            "end_events": [
+              "PROBE_RESPONSE"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Grey field",
+            "role": "stimulus",
+            "from": "ready",
+            "to": "probe"
+          },
+          {
+            "label": "Fixation dot",
+            "role": "stimulus",
+            "from": "fixation",
+            "to": "fixation"
+          },
+          {
+            "label": "Black letter stream",
+            "role": "stimulus",
+            "from": "pre",
+            "to": "post"
+          },
+          {
+            "label": "White letter",
+            "role": "stimulus",
+            "from": "target",
+            "to": "target"
+          },
+          {
+            "label": "X replaces one letter at +0…+8 (half the trials)",
+            "role": "annotation",
+            "from": "target",
+            "to": "post"
+          },
+          {
+            "label": "Typed reports",
+            "role": "response",
+            "from": "letter",
+            "to": "probe"
+          }
+        ],
+        "branches": [
+          {
+            "from": "ready",
+            "kind": "failure",
+            "when": "no SPACE",
+            "outcome": "NO_START",
+            "effect": "served again"
+          },
+          {
+            "from": "letter",
+            "kind": "failure",
+            "when": "no key in time",
+            "outcome": "NO_RESPONSE",
+            "effect": "served again"
+          },
+          {
+            "from": "probe",
+            "kind": "failure",
+            "when": "no key in time",
+            "outcome": "NO_RESPONSE",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "HIT",
+          "label": "HIT, MISS, FALSE_ALARM or CORRECT_REJECTION"
+        }
+      },
+      "diagram": {
+        "caption": "The paper's 16.3° × 12.5° grey field (9.1 cd/m², drawn at 9.1/32.9 of the display's white) on a black surround (ASSUMED), with the white target where every letter appears, one at a time; the other letters are black. The letter is an example; 0.82° cap height, typeface ASSUMED. Display values; real luminance needs a calibrated display.",
+        "unit": "dva",
+        "width": 18,
+        "height": 14,
+        "background": 0.0,
+        "elements": [
+          {
+            "type": "rect",
+            "cx": 0,
+            "cy": 0,
+            "width": {
+              "param": "field_width_dva"
+            },
+            "height": {
+              "param": "field_height_dva"
+            },
+            "role": "stimulus",
+            "luminance": 0.277,
+            "label": "Grey field"
+          },
+          {
+            "type": "text",
+            "x": 0,
+            "y": 0,
+            "text": "H",
+            "role": "target",
+            "color": "#ffffff",
+            "font_size": {
+              "param": "letter_height_dva",
+              "factor": 1.372
+            },
+            "font_family": "DejaVu Sans",
+            "font_weight": "bold",
+            "label": "White target letter"
+          },
+          {
+            "type": "dimension",
+            "x1": 1.0,
+            "y1": -0.41,
+            "x2": 1.0,
+            "y2": 0.41,
+            "value": {
+              "param": "letter_height_dva"
+            },
+            "text": "cap height",
+            "role": "annotation"
+          }
+        ],
+        "insets": [
+          {
+            "cx": 0,
+            "cy": 0,
+            "width": 4.0,
+            "height": 3.0,
+            "label": "letter detail"
+          }
+        ]
+      },
+      "description": "**Question.** While attention is busy identifying one letter in a rapid stream, is a second, easy item that follows within half a second missed more often? This brief loss is the attentional blink.\n\n**What the observer sees.** On a grey field, a white dot for [[param:fixation_duration]], then black capital letters one at a time at the same central spot, each on for [[param:letter_duration]] and followed by [[param:isi]] of plain grey (about 11 letters a second). After 7–15 letters one letter is white: the target. Eight letters follow it. On half the trials one of the letters from the target (position 0) to +8 is a black X; at position 0 the white target is itself the X. On the other half there is no X.\n\n**What they do.** Press SPACE to start each stream. Experimental condition: type the white letter, then answer [[param:probe_yes_key]] or [[param:probe_no_key]] for the X. Control condition: ignore the white letter and answer only for the X. Each condition is a separate half of the session.\n\n**What varies.** Condition (experimental or control, same streams) and where the X falls: [[param:trials_per_probe_position]] trials at each position 0 to +8 plus [[param:probe_absent_trials]] trials without an X, per condition.\n\n**What is measured.** Accuracy, not speed: the percentage of X-present trials answered yes at each position. In the experimental condition only streams whose white letter was named correctly count. Yes answers on X-absent trials give the false-alarm rate.\n\n**What a result would mean.** A dip in X detection a few letters after the target in the experimental condition only would show that identifying the target, not the letter sequence itself, causes the loss, because the control shows the same streams. Raymond et al. reported such a dip at about 180–450 ms. No result is claimed for this software; reports are typed here instead of spoken.",
+      "sourceFiles": [
+        "classics/raymond-shapiro-arnell-1992/src/raymond1992/task.py",
+        "classics/raymond-shapiro-arnell-1992/src/raymond1992/design.py",
+        "classics/raymond-shapiro-arnell-1992/configs/task.yaml",
+        "classics/raymond-shapiro-arnell-1992/docs/experiment.json"
+      ],
+      "notes": [
+        "Paper (pp. 851–853): 15 ms letters, 75 ms gap, 180 ms fixation dot, 0.82° letters, 16.3° × 12.5° field at 9.1 cd/m², white target 32.9 cd/m², 7–15 pre-target and 8 post-target letters, 10 per X position, 90 X-absent.",
+        "The 8-letter tail is 720 ms after the target's offset (75 ms gap + 7 × 90 ms + the last 15 ms letter), derived from the parameter values.",
+        "ASSUMED: uniform pre-target count, 0 ms dot-to-stream gap, black surround, fixation dot size, Y/N keys, 30 s report cap, counterbalancing by subject number.",
+        "Deviations: responses were spoken to an experimenter and trials started with a mouse button; here they are typed and started with SPACE.",
+        "Durations are whole frames; run mode refuses refresh rates that cannot show 15 ms / 90 ms within tolerance (ASSUMED 5 ms and 2 ms)."
+      ]
+    }
+  ]
+}

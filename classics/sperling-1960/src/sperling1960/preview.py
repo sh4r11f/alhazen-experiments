@@ -107,6 +107,9 @@ def render(out: Path, seed: int = 7) -> Path:
     # A scale bar: 5 dva.
     axes[0].plot([-half_w + 1, -half_w + 6], [-half_h + 1, -half_h + 1], color="0.6", lw=1.5)
     axes[0].text(-half_w + 3.5, -half_h + 1.6, "5 dva", color="0.6", ha="center", fontsize=8)
+    fig.text(0.5, -0.01, "Four moments of one trial in order (illustrative card, "
+             "display values, not calibrated luminance)",
+             ha="center", va="top", fontsize=8.5, color="0.35")
     fig.tight_layout()
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, facecolor=fig.get_facecolor(), bbox_inches="tight", pad_inches=0.05)

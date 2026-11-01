@@ -1,0 +1,235 @@
+{
+  "tasks": [
+    {
+      "taskKey": "target-dimming-detection@configs/task-monkey-inside.yaml",
+      "timeline": {
+        "caption": "A blink trial; fixation is required throughout. The dimming time is drawn per trial; on control trials there is no trigger phase. Catch trials have no dimming and last 2,100 ms.",
+        "phases": [
+          {
+            "id": "acquire",
+            "label": "Acquire fixation",
+            "timing": {
+              "kind": "event",
+              "until": "gaze held 200 ms in the window",
+              "max": {
+                "ms": 2000
+              }
+            },
+            "start_events": [
+              "FIX_ON"
+            ],
+            "end_events": [
+              "FIX_ACQUIRED"
+            ]
+          },
+          {
+            "id": "watch",
+            "label": "Target + distractors",
+            "timing": {
+              "kind": "event",
+              "until": "trigger or dimming time, drawn per trial",
+              "max": {
+                "param": "dim_onset_max"
+              }
+            },
+            "start_events": [
+              "TARGET_ON"
+            ]
+          },
+          {
+            "id": "soa",
+            "label": "SOA",
+            "timing": {
+              "kind": "conditional",
+              "when": "stimulation trial",
+              "timing": {
+                "kind": "parameter",
+                "param": "stimulation.soa"
+              }
+            },
+            "start_events": [
+              "STIM_TRIGGER"
+            ]
+          },
+          {
+            "id": "respond",
+            "label": "Dimming, respond",
+            "timing": {
+              "kind": "event",
+              "until": "key press",
+              "max": {
+                "param": "response_window"
+              }
+            },
+            "start_events": [
+              "DIM_ON"
+            ],
+            "end_events": [
+              "RESPONSE"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Fixation point",
+            "role": "stimulus",
+            "from": "acquire",
+            "to": "respond"
+          },
+          {
+            "label": "Target",
+            "role": "stimulus",
+            "from": "watch",
+            "to": "respond"
+          },
+          {
+            "label": "Distractors flash every 32 ms",
+            "role": "stimulus",
+            "from": "watch",
+            "to": "respond"
+          },
+          {
+            "label": "Target dims 32-48 ms",
+            "role": "stimulus",
+            "from": "respond",
+            "to": "respond"
+          },
+          {
+            "label": "Gaze in fixation window",
+            "role": "requirement",
+            "from": "watch",
+            "to": "respond"
+          },
+          {
+            "label": "Key (stands in for the lever)",
+            "role": "response",
+            "from": "respond",
+            "to": "respond"
+          }
+        ],
+        "branches": [
+          {
+            "from": "acquire",
+            "kind": "failure",
+            "when": "no fixation in time",
+            "outcome": "NO_FIXATION",
+            "effect": "served again in the block"
+          },
+          {
+            "from": "*",
+            "kind": "failure",
+            "when": "gaze leaves the window after target onset",
+            "outcome": "FIX_BREAK",
+            "effect": "served again in the block"
+          },
+          {
+            "from": "watch",
+            "kind": "failure",
+            "when": "key before the dimming",
+            "outcome": "EARLY_RESPONSE"
+          },
+          {
+            "from": "watch",
+            "kind": "failure",
+            "when": "key on a catch trial",
+            "outcome": "FALSE_ALARM"
+          },
+          {
+            "from": "respond",
+            "kind": "failure",
+            "when": "no key in the window",
+            "outcome": "MISS"
+          }
+        ],
+        "end": {
+          "outcome": "HIT",
+          "label": "HIT (juice); a held catch trial is CORRECT_REJECTION (juice)"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 1000
+          }
+        }
+      },
+      "diagram": {
+        "width": 28,
+        "height": 20,
+        "unit": "dva",
+        "background": 0.007,
+        "caption": "Target at the example movement field (inside set), to scale, with its distractor-exclusion circle and one distractor flash (each 16-ms flash lands at a new random place; flashes never share a frame). Luminances relative to the example photometry (not measured).",
+        "elements": [
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_size_dva",
+              "factor": 0.5
+            },
+            "role": "stimulus",
+            "luminance": 0.258
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_window_radius_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true,
+            "label": "Fixation window"
+          },
+          {
+            "type": "rect",
+            "cx": 10,
+            "cy": -6,
+            "width": 0.866,
+            "height": 0.866,
+            "role": "target",
+            "luminance": 0.258,
+            "label": "Target at the movement field (example)"
+          },
+          {
+            "type": "circle",
+            "cx": 10,
+            "cy": -6,
+            "r": {
+              "param": "distractor_exclusion_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true,
+            "label": "No-distractor zone"
+          },
+          {
+            "type": "rect",
+            "cx": -8,
+            "cy": 5,
+            "width": 0.742,
+            "height": 0.742,
+            "role": "distractor",
+            "luminance": 0.258,
+            "label": "Distractor (one flash, random place)"
+          }
+        ]
+      },
+      "description": "**Question.** Does weak frontal eye field stimulation improve detection where that site's saccades would go?\n\n**On screen.** A dark screen, a fixation point and a target at the movement field; one distractor flash at a time elsewhere; the target sometimes dims briefly.\n\n**The subject.** Holds fixation (enforced) and presses the key within [[param:response_window]] of a dimming; holds off on catch trials.\n\n**Measured.** Hits, misses, false alarms; dimming threshold from a block staircase, with and without stimulation.\n\n**Limits.** Stimulation is only a trigger for the lab's stimulator; cd/m2 holds only after the rig's photometry is entered.",
+      "sourceFiles": [
+        "src/moore_fallah2001/task.py",
+        "src/moore_fallah2001/phases.py",
+        "src/moore_fallah2001/geometry.py",
+        "configs/task-monkey-inside.yaml"
+      ],
+      "notes": [
+        "Paper: 1 cd/m² background, 26 cd/m² target and distractors, 16-ms flashes every 32 ms, dimming 32-48 ms at 500-1300 ms, 2,100-ms catch trials, 175-ms SOA example, 100-ms 200-Hz train, 2 blink + 1 catch per block.",
+        "ASSUMED: example movement field (10, -6) dva, target 0.75 deg² and distractor 0.55 deg² (mid-range), 3.5-dva exclusion, 0.5-dva fixation point, 1.5-dva window radius, 2-s / 200-ms acquisition, 800-ms response deadline, 100-ms minimum RT, key for lever, staircase start/step/floor/blocks, 1-s interval.",
+        "Diagram luminances use the example photometry (black 0.3, white 100 cd/m², ASSUMED); measure the rig.",
+        "The outside-field set (configs/task-monkey-outside.yaml) moves the target 90° about fixation; the human set (configs/task.yaml) has no stimulation. Neither is a separate task in docs/experiment.json."
+      ]
+    }
+  ]
+}

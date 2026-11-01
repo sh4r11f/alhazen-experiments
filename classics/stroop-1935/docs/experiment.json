@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Stroop color-word interference (Stroop, 1935), trial-wise by key",
-  "summary": "How much does a printed colour word slow the naming of the ink it is printed in, and how much does the ink slow responding to the word? Stroop's Experiments 1 and 2 used 100-item printed sheets read aloud and timed per sheet. Here each item is one trial: a fixation point, then a colour square or a colour word, answered with one key per colour and corrected when wrong. The colour-naming task compares squares (NC) with words in another colour's ink (NCWd); the word-reading task compares words in black (RCNb) with words in another ink (RCNd), which by key is not the same task as reading aloud.",
+  "summary": "How much does a colour word slow the naming of its ink? Each trial shows one colour square or colour word, and the subject presses the key for the ink (or, in the second task, for the word). Measure: time per item, conflicting against neutral items. Keys replace Stroop's spoken, timed sheets.",
   "methods": "docs/methods.md",
   "references": [
     "Stroop, J. R. (1935). Studies of interference in serial verbal reactions. Journal of Experimental Psychology, 18(6), 643–662.",

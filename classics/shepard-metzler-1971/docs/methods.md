@@ -12,6 +12,27 @@ journal's).
 in the deviations table, every unstated value in the assumed table). **Hardware.** A display
 and a keyboard.
 
+## At a glance
+
+- **Question.** Does deciding whether two drawings show the same three-dimensional object take
+  longer the further one has to be turned to match the other, and is that the same for a turn
+  in depth and a turn in the picture plane?
+- **What the subject sees.** After a warning dot, two perspective line drawings of ten-cube,
+  arm-like objects, one in each of two white circular apertures on a black screen.
+- **What the subject does.** Presses J if the two show the same object and F if they show
+  mirror-image objects, as fast as possible.
+- **What is varied.** The angle between the two portrayed orientations (0 to 180 degrees in
+  20-degree steps); the kind of rotation (picture plane: the same drawing turned in its own
+  plane; depth: the object turned about the vertical axis and redrawn in perspective); and
+  whether the pair is "same" or "different" (one object replaced by its mirror image).
+- **What is recorded.** The key, whether it was right, and the reaction time from the frame
+  that showed the pair.
+- **What a result would mean.** Reaction time of correct "same" answers rising linearly with
+  angle, at a similar rate for depth and picture-plane pairs, is the paper's evidence that
+  people imagine one object turning into the other. A linear trend alone does not prove an
+  analogue rotation. The objects are generated under the paper's constraints, not the 1971
+  drawings. No participant data has been recorded with this folder.
+
 ## Question
 
 Can people tell that two pictures show the same three-dimensional object, and how long

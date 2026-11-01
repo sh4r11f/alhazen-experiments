@@ -1,0 +1,3987 @@
+{
+ "tasks": [
+  {
+   "taskKey": "min-motion-constant@configs/task.yaml",
+   "description": "**Question.** At what luminance is red as bright as green for the visual system's motion pathway, for this observer?\n\n**What the observer sees and does.** A [[param:patch_size_dva]] patch of square-wave stripes at [[param:spatial_freq_cpd]] around a white cross on a blue square. A red/green grating (T1), a light/dark grating of their yellow mixture a quarter cycle on (T2), the red/green grating half a cycle on (T3) and the mixture three quarters on (T4) repeat at [[param:cycle_hz]] (50 ms per grating at 60 Hz). If red is lighter than green the stripes seem to drift with the steps, if darker against them. The observer presses LEFT, RIGHT or DOWN (no consistent motion).\n\n**Varied.** Red luminance ([[param:test_levels_cd_m2]]) against green at [[param:reference_cd_m2]], and the step direction (left or right), [[param:paradigm.n_per_condition]] times each.\n\n**Measured.** Percent left, right and neither per red luminance; the PSE where neither direction prevails; the width of the neither band.\n\n**Meaning and limits.** The PSE is this observer's luminance match for this stimulus on this display. Physical cd/m2 need a measured photometry file on a gamma-linearised display; with the example file the values are nominal and device-specific (every trial records its luminance basis). Not a colour-vision test.",
+   "timeline": {
+    "caption": "One trial. The cycle T1-T4 repeats until a key; only the key wait is event-dependent.",
+    "phases": [
+     {
+      "id": "fixate",
+      "label": "Fixation cross",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "respond",
+      "label": "Cycle runs; report",
+      "timing": {
+       "kind": "event",
+       "until": "LEFT, RIGHT or DOWN",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "RESPONSE_CUE"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation cross on blue square",
+      "role": "stimulus",
+      "from": "fixate",
+      "to": "respond"
+     },
+     {
+      "label": "T1 T2 T3 T4 repeating, 50 ms each",
+      "role": "stimulus",
+      "from": "respond",
+      "to": "respond"
+     },
+     {
+      "label": "Key: left / right / neither",
+      "role": "response",
+      "from": "respond",
+      "to": "respond"
+     }
+    ],
+    "branches": [
+     {
+      "from": "respond",
+      "kind": "failure",
+      "when": "no key in time",
+      "outcome": "NO_RESPONSE",
+      "effect": "served again"
+     }
+    ],
+    "end": {
+     "outcome": "NO_MOTION",
+     "label": "MOTION_LEFT, MOTION_RIGHT or NO_MOTION"
+    },
+    "between_trials": {
+     "label": "Dark interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "width": 10.5,
+    "height": 4.4,
+    "unit": "dva",
+    "background": 0,
+    "caption": "One four-stroke cycle drawn side by side in time order; on the screen all four occupy the same place, one after another. Red 10 vs green 13.4 cd/m2 (the middle test level; red photometrically darker), steps rightward, 2.5 c/deg. Bars are the task's own arrays at 40 px/deg; inks are sRGB renderings of the example photometry's gun levels, illustrative and uncalibrated. Oxblood ticks mark where the first red (T1, T3) or light (T2, T4) bar starts: a quarter cycle further right each stroke.",
+    "elements": [
+     {
+      "type": "rect",
+      "cx": -4.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -4.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -4.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -4.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -4.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -3.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -3.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -4.1,
+      "y1": 0,
+      "x2": -4.0,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -4.05,
+      "y1": -0.05,
+      "x2": -4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -4.05,
+      "y": 1.55,
+      "text": "T1  red | green",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -5.05,
+      "y1": 1.05,
+      "x2": -5.05,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": -2.3,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": -2.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": -1.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": -1.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": -1.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": -1.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": -0.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": -0.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": -0.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": -0.4,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -1.4,
+      "y1": 0,
+      "x2": -1.3,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -1.35,
+      "y1": -0.05,
+      "x2": -1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -1.35,
+      "y": 1.55,
+      "text": "T2  light | dark yellow",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -2.25,
+      "y1": 1.05,
+      "x2": -2.25,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 0.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 0.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 0.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 1.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 1.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 1.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 2.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 2.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 1.3,
+      "y1": 0,
+      "x2": 1.4,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 1.35,
+      "y1": -0.05,
+      "x2": 1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 1.35,
+      "y": 1.55,
+      "text": "T3  green | red",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 0.55,
+      "y1": 1.05,
+      "x2": 0.55,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 3.1,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": 3.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": 3.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": 3.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": 3.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": 4.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": 4.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": 4.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": 4.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#4d3000"
+     },
+     {
+      "type": "rect",
+      "cx": 5.0,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#513300"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 4.0,
+      "y1": 0,
+      "x2": 4.1,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 4.05,
+      "y1": -0.05,
+      "x2": 4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 4.05,
+      "y": 1.55,
+      "text": "T4  dark | light yellow",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 3.35,
+      "y1": 1.05,
+      "x2": 3.35,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "dimension",
+      "x1": -5.05,
+      "y1": -1.35,
+      "x2": -3.05,
+      "y2": -1.35,
+      "value": {
+       "param": "patch_size_dva"
+      },
+      "text": "patch"
+     },
+     {
+      "type": "text",
+      "x": 0.0,
+      "y": -1.8,
+      "text": "50 ms each, in this order",
+      "role": "annotation"
+     }
+    ]
+   },
+   "sourceFiles": [
+    "src/anstiscavanagh1983/stimulus.py",
+    "src/anstiscavanagh1983/constant.py",
+    "src/anstiscavanagh1983/color.py",
+    "configs/task.yaml",
+    "scripts/guide_overlay.py"
+   ],
+   "notes": [
+    "Paper (pp. 155-157): square-wave 2.5 c/deg, 2 x 2 deg in a dark surround, four-stroke cycle at 5 Hz, green 13.4 cd/m2, red 8-12 cd/m2 ten times each, yellow grating 6.25%, white cross on a blue 6-min square.",
+    "ASSUMED: 0.25 cd/m2 level spacing, keys, 500-ms fixation and interval, 10-s deadline, cross size, random start phase; the step direction is counterbalanced (a deviation).",
+    "Mixture bars are drawn as the additive mean of red and green (the paper dithered raster lines); line_dither reproduces the dither."
+   ]
+  },
+  {
+   "taskKey": "min-motion-constant@configs/task-blue-yellow.yaml",
+   "description": "**Question.** At what luminance is blue as bright as yellow for the motion pathway, for this observer?\n\n**What the observer sees and does.** A [[param:patch_size_dva]] patch of square-wave stripes at [[param:spatial_freq_cpd]] around a white cross on a blue square. A blue/yellow grating (T1), a light/dark grating of their grey mixture a quarter cycle on (T2), the blue/yellow grating half a cycle on (T3) and the mixture three quarters on (T4) repeat at [[param:cycle_hz]] (50 ms per grating at 60 Hz). If blue is lighter than yellow the stripes seem to drift with the steps, if darker against them. The observer presses LEFT, RIGHT or DOWN (no consistent motion).\n\n**Varied.** Blue luminance ([[param:test_levels_cd_m2]]) against yellow at [[param:reference_cd_m2]], and the step direction (left or right), [[param:paradigm.n_per_condition]] times each.\n\n**Measured.** Percent left, right and neither per blue luminance; the PSE where neither direction prevails; the width of the neither band.\n\n**Meaning and limits.** The PSE is this observer's luminance match for this stimulus on this display. Physical cd/m2 need a measured photometry file on a gamma-linearised display; with the example file the values are nominal and device-specific (every trial records its luminance basis). Not a colour-vision test.",
+   "timeline": {
+    "caption": "One trial. The cycle T1-T4 repeats until a key; only the key wait is event-dependent.",
+    "phases": [
+     {
+      "id": "fixate",
+      "label": "Fixation cross",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "respond",
+      "label": "Cycle runs; report",
+      "timing": {
+       "kind": "event",
+       "until": "LEFT, RIGHT or DOWN",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "RESPONSE_CUE"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation cross on blue square",
+      "role": "stimulus",
+      "from": "fixate",
+      "to": "respond"
+     },
+     {
+      "label": "T1 T2 T3 T4 repeating, 50 ms each",
+      "role": "stimulus",
+      "from": "respond",
+      "to": "respond"
+     },
+     {
+      "label": "Key: left / right / neither",
+      "role": "response",
+      "from": "respond",
+      "to": "respond"
+     }
+    ],
+    "branches": [
+     {
+      "from": "respond",
+      "kind": "failure",
+      "when": "no key in time",
+      "outcome": "NO_RESPONSE",
+      "effect": "served again"
+     }
+    ],
+    "end": {
+     "outcome": "NO_MOTION",
+     "label": "MOTION_LEFT, MOTION_RIGHT or NO_MOTION"
+    },
+    "between_trials": {
+     "label": "Dark interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "width": 10.5,
+    "height": 4.4,
+    "unit": "dva",
+    "background": 0,
+    "caption": "One four-stroke cycle drawn side by side in time order; on the screen all four occupy the same place, one after another. Blue 10 vs yellow 7.9 cd/m2 (the middle test level; blue photometrically lighter), steps rightward, 2.5 c/deg. Bars are the task's own arrays at 40 px/deg; inks are sRGB renderings of the example photometry's gun levels, illustrative and uncalibrated. Oxblood ticks mark where the first blue (T1, T3) or light (T2, T4) bar starts: a quarter cycle further right each stroke. The mixture is called grey after the paper (p. 157); on the example display's primaries its additive mean renders bluish.",
+    "elements": [
+     {
+      "type": "rect",
+      "cx": -4.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": -4.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": -4.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": -4.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": -4.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": -3.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": -3.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": -3.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": -3.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": -3.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": -4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -4.1,
+      "y1": 0,
+      "x2": -4.0,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -4.05,
+      "y1": -0.05,
+      "x2": -4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -4.05,
+      "y": 1.55,
+      "text": "T1  blue | yellow",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -5.05,
+      "y1": 1.05,
+      "x2": -5.05,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": -2.3,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": -2.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": -1.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": -1.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": -1.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": -1.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": -0.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": -0.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": -0.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": -0.4,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -1.4,
+      "y1": 0,
+      "x2": -1.3,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -1.35,
+      "y1": -0.05,
+      "x2": -1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -1.35,
+      "y": 1.55,
+      "text": "T2  light | dark grey",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -2.25,
+      "y1": 1.05,
+      "x2": -2.25,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 0.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": 0.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": 0.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": 1.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": 1.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": 1.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": 1.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": 1.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": 2.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#402800"
+     },
+     {
+      "type": "rect",
+      "cx": 2.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#0000b5"
+     },
+     {
+      "type": "rect",
+      "cx": 1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 1.3,
+      "y1": 0,
+      "x2": 1.4,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 1.35,
+      "y1": -0.05,
+      "x2": 1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 1.35,
+      "y": 1.55,
+      "text": "T3  yellow | blue",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 0.55,
+      "y1": 1.05,
+      "x2": 0.55,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 3.1,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": 3.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": 3.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": 3.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": 3.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": 4.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": 4.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": 4.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": 4.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2b1a80"
+     },
+     {
+      "type": "rect",
+      "cx": 5.0,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#2e1c88"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 4.0,
+      "y1": 0,
+      "x2": 4.1,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 4.05,
+      "y1": -0.05,
+      "x2": 4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 4.05,
+      "y": 1.55,
+      "text": "T4  dark | light grey",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 3.35,
+      "y1": 1.05,
+      "x2": 3.35,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "dimension",
+      "x1": -5.05,
+      "y1": -1.35,
+      "x2": -3.05,
+      "y2": -1.35,
+      "value": {
+       "param": "patch_size_dva"
+      },
+      "text": "patch"
+     },
+     {
+      "type": "text",
+      "x": 0.0,
+      "y": -1.8,
+      "text": "50 ms each, in this order",
+      "role": "annotation"
+     }
+    ]
+   },
+   "sourceFiles": [
+    "src/anstiscavanagh1983/stimulus.py",
+    "src/anstiscavanagh1983/constant.py",
+    "src/anstiscavanagh1983/color.py",
+    "configs/task-blue-yellow.yaml",
+    "scripts/guide_overlay.py"
+   ],
+   "notes": [
+    "Paper (p. 157, Fig. 2b): the same procedure with blue bars varied against yellow bars held at 7.9 cd/m2 (yellow x 0.51, y 0.44), interleaved with light and dark grey, the mixture of blue and yellow.",
+    "ASSUMED: blue levels 8-12 cd/m2 in 0.25 steps (range not stated; Fig. 2b axes), grey-grating contrast 6.25% (not restated), yellow = red + green guns with 41.9% of its luminance from red (from the paper's chromaticities), keys and timing as for red/green.",
+    "Mixture bars are drawn as the additive mean of blue and yellow (the paper dithered raster lines); line_dither reproduces the dither."
+   ]
+  },
+  {
+   "taskKey": "min-motion-adjust@configs/adjust-spatial.yaml",
+   "description": "**Question.** How bright must red, green and blue be to match grey for the motion pathway, and does that change with spatial frequency (Experiment 2)?\n\n**What the observer sees and does.** The four-stroke cycle: test and grey ([[param:reference_cd_m2]]) bars, then light/dark pink mixture bars at [[param:interleave_contrast]] a quarter cycle on, then the colours exchanged, then the mixture exchanged (16.7 ms each at 60 Hz). The observer turns the test bars' luminance (wheel or UP/DOWN, [[param:step_factor]] per step) until the motion is least and presses SPACE.\n\n**Varied.** Colour ([[param:test_colours]]) x spatial frequency ([[param:spatial_freqs_cpd]]) at [[param:rates_hz]]. Each condition is set [[param:paradigm.n_per_condition]] times per step direction.\n\n**Measured.** The setting (cd/m2), its mean over the readings, and luminous efficiency relative to the uniform-field flicker match.\n\n**Meaning and limits.** Settings at different spatial frequencies differ (the paper's Fig. 3). Physical cd/m2 need a measured photometry file on a gamma-linearised display; with the example file the values are nominal and device-specific (every trial records its luminance basis). Not a colour-vision test.",
+   "timeline": {
+    "caption": "One setting. The cycle runs until SPACE.",
+    "phases": [
+     {
+      "id": "fixate",
+      "label": "Fixation cross",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "adjust",
+      "label": "Adjust",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE",
+       "max": {
+        "param": "adjust_timeout"
+       }
+      },
+      "start_events": [
+       "ADJUST_START"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation cross on blue square",
+      "role": "stimulus",
+      "from": "fixate",
+      "to": "adjust"
+     },
+     {
+      "label": "T1-T4 repeating, 16.7 ms each",
+      "role": "stimulus",
+      "from": "adjust",
+      "to": "adjust"
+     },
+     {
+      "label": "Wheel or UP/DOWN, then SPACE",
+      "role": "response",
+      "from": "adjust",
+      "to": "adjust"
+     }
+    ],
+    "branches": [
+     {
+      "from": "adjust",
+      "kind": "failure",
+      "when": "no SPACE in time",
+      "outcome": "TIMEOUT",
+      "effect": "served again"
+     }
+    ],
+    "end": {
+     "outcome": "SET",
+     "label": "SET: the test luminance is recorded"
+    },
+    "between_trials": {
+     "label": "Dark interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "width": 10.5,
+    "height": 4.4,
+    "unit": "dva",
+    "background": 0,
+    "caption": "One cycle for red against grey, both at 13.6 cd/m2 (each setting starts at a random 0.7-1.3 x reference), 2.5 c/deg, steps rightward, drawn side by side in time order (same place on screen). Grey is the display white point. Task arrays at 40 px/deg; sRGB inks from the example photometry, illustrative and uncalibrated. Ticks: first red (T1, T3) or light (T2, T4) bar, a quarter cycle further right each stroke.",
+    "elements": [
+     {
+      "type": "rect",
+      "cx": -4.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -4.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -4.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -4.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -4.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -3.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -3.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -4.1,
+      "y1": 0,
+      "x2": -4.0,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -4.05,
+      "y1": -0.05,
+      "x2": -4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -4.05,
+      "y": 1.55,
+      "text": "T1  red | grey",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -5.05,
+      "y1": 1.05,
+      "x2": -5.05,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": -2.3,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -2.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -1.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -0.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -0.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -0.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -0.4,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -1.4,
+      "y1": 0,
+      "x2": -1.3,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -1.35,
+      "y1": -0.05,
+      "x2": -1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -1.35,
+      "y": 1.55,
+      "text": "T2  light | dark pink",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -2.25,
+      "y1": 1.05,
+      "x2": -2.25,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 0.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 0.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 0.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 2.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 2.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 1.3,
+      "y1": 0,
+      "x2": 1.4,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 1.35,
+      "y1": -0.05,
+      "x2": 1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 1.35,
+      "y": 1.55,
+      "text": "T3  grey | red",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 0.55,
+      "y1": 1.05,
+      "x2": 0.55,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 3.1,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 3.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 3.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 3.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 3.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 4.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 4.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 4.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 4.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 5.0,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 4.0,
+      "y1": 0,
+      "x2": 4.1,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 4.05,
+      "y1": -0.05,
+      "x2": 4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 4.05,
+      "y": 1.55,
+      "text": "T4  dark | light pink",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 3.35,
+      "y1": 1.05,
+      "x2": 3.35,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "dimension",
+      "x1": -5.05,
+      "y1": -1.35,
+      "x2": -3.05,
+      "y2": -1.35,
+      "value": {
+       "param": "patch_size_dva"
+      },
+      "text": "patch"
+     },
+     {
+      "type": "text",
+      "x": 0.0,
+      "y": -1.8,
+      "text": "16.7 ms each, in this order",
+      "role": "annotation"
+     }
+    ]
+   },
+   "sourceFiles": [
+    "src/anstiscavanagh1983/stimulus.py",
+    "src/anstiscavanagh1983/adjust.py",
+    "configs/adjust-spatial.yaml",
+    "scripts/guide_overlay.py"
+   ],
+   "notes": [
+    "Paper (pp. 157-159): red, green, blue vs grey 13.6 cd/m2, pink 12.5%, 15 Hz (one TV frame per grating), 0.625-5 c/deg, joystick, six readings per point, counterbalanced randomized order.",
+    "ASSUMED: 2 x 2 deg size, start 0.7-1.3 x reference, 1% steps, 60-s deadline, additive pink."
+   ]
+  },
+  {
+   "taskKey": "min-motion-adjust@configs/adjust-temporal.yaml",
+   "description": "**Question.** Does the minimum-motion match of red, green and blue against grey change with temporal frequency (Experiment 3)?\n\n**What the observer sees and does.** The four-stroke cycle: test and grey ([[param:reference_cd_m2]]) bars, then light/dark pink mixture bars at [[param:interleave_contrast]] a quarter cycle on, then the colours exchanged, then the mixture exchanged (16.7-267 ms each by rate at 60 Hz). The observer turns the test bars' luminance (wheel or UP/DOWN, [[param:step_factor]] per step) until the motion is least and presses SPACE.\n\n**Varied.** Colour ([[param:test_colours]]) x cycle rate ([[param:rates_hz]]) at [[param:spatial_freqs_cpd]]. Each condition is set [[param:paradigm.n_per_condition]] times per step direction.\n\n**Measured.** The setting (cd/m2), its mean over the readings, and luminous efficiency relative to the uniform-field flicker match.\n\n**Meaning and limits.** The paper found little effect of rate; that is a claim to test, not a property of this software. Physical cd/m2 need a measured photometry file on a gamma-linearised display; with the example file the values are nominal and device-specific (every trial records its luminance basis). Not a colour-vision test.",
+   "timeline": {
+    "caption": "One setting. The cycle runs until SPACE.",
+    "phases": [
+     {
+      "id": "fixate",
+      "label": "Fixation cross",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "adjust",
+      "label": "Adjust",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE",
+       "max": {
+        "param": "adjust_timeout"
+       }
+      },
+      "start_events": [
+       "ADJUST_START"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation cross on blue square",
+      "role": "stimulus",
+      "from": "fixate",
+      "to": "adjust"
+     },
+     {
+      "label": "T1-T4 repeating, 16.7-267 ms each by rate",
+      "role": "stimulus",
+      "from": "adjust",
+      "to": "adjust"
+     },
+     {
+      "label": "Wheel or UP/DOWN, then SPACE",
+      "role": "response",
+      "from": "adjust",
+      "to": "adjust"
+     }
+    ],
+    "branches": [
+     {
+      "from": "adjust",
+      "kind": "failure",
+      "when": "no SPACE in time",
+      "outcome": "TIMEOUT",
+      "effect": "served again"
+     }
+    ],
+    "end": {
+     "outcome": "SET",
+     "label": "SET: the test luminance is recorded"
+    },
+    "between_trials": {
+     "label": "Dark interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "width": 10.5,
+    "height": 4.4,
+    "unit": "dva",
+    "background": 0,
+    "caption": "One cycle for red against grey, both at 13.6 cd/m2 (each setting starts at a random 0.7-1.3 x reference), 2.5 c/deg, steps rightward, drawn side by side in time order (same place on screen). Grey is the display white point. Task arrays at 40 px/deg; sRGB inks from the example photometry, illustrative and uncalibrated. Ticks: first red (T1, T3) or light (T2, T4) bar, a quarter cycle further right each stroke.",
+    "elements": [
+     {
+      "type": "rect",
+      "cx": -4.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -4.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -4.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -4.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -4.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -3.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -3.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -4.1,
+      "y1": 0,
+      "x2": -4.0,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -4.05,
+      "y1": -0.05,
+      "x2": -4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -4.05,
+      "y": 1.55,
+      "text": "T1  red | grey",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -5.05,
+      "y1": 1.05,
+      "x2": -5.05,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": -2.3,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -2.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -1.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -0.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -0.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -0.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": -0.4,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -1.4,
+      "y1": 0,
+      "x2": -1.3,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -1.35,
+      "y1": -0.05,
+      "x2": -1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -1.35,
+      "y": 1.55,
+      "text": "T2  light | dark pink",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -2.25,
+      "y1": 1.05,
+      "x2": -2.25,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 0.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 0.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 0.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 2.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 2.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 1.3,
+      "y1": 0,
+      "x2": 1.4,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 1.35,
+      "y1": -0.05,
+      "x2": 1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 1.35,
+      "y": 1.55,
+      "text": "T3  grey | red",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 0.55,
+      "y1": 1.05,
+      "x2": 0.55,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 3.1,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 3.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 3.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 3.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 3.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 4.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 4.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 4.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 4.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e2727"
+     },
+     {
+      "type": "rect",
+      "cx": 5.0,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#6a2c2c"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 4.0,
+      "y1": 0,
+      "x2": 4.1,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 4.05,
+      "y1": -0.05,
+      "x2": 4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 4.05,
+      "y": 1.55,
+      "text": "T4  dark | light pink",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 3.35,
+      "y1": 1.05,
+      "x2": 3.35,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "dimension",
+      "x1": -5.05,
+      "y1": -1.35,
+      "x2": -3.05,
+      "y2": -1.35,
+      "value": {
+       "param": "patch_size_dva"
+      },
+      "text": "patch"
+     },
+     {
+      "type": "text",
+      "x": 0.0,
+      "y": -1.8,
+      "text": "16.7-267 ms each by rate, in this order",
+      "role": "annotation"
+     }
+    ]
+   },
+   "sourceFiles": [
+    "src/anstiscavanagh1983/stimulus.py",
+    "src/anstiscavanagh1983/adjust.py",
+    "configs/adjust-temporal.yaml",
+    "scripts/guide_overlay.py"
+   ],
+   "notes": [
+    "Paper (p. 161, Fig. 4): gratings as in Experiment 2 at 2.5 c/deg, four-stroke rates 0.9375, 1.875, 3.75, 7.5 and 15 Hz (submultiples of 60 Hz); settings were largely independent of rate.",
+    "ASSUMED: six readings (not restated), 2 x 2 deg size, start 0.7-1.3 x reference, 1% steps, 60-s deadline, additive pink."
+   ]
+  },
+  {
+   "taskKey": "min-motion-adjust@configs/adjust-red-green.yaml",
+   "description": "**Question.** A practical red/green equiluminance setting for later experiments on this display: at what red luminance does Experiment 1's stimulus stop moving, set by adjustment?\n\n**What the observer sees and does.** The four-stroke cycle: test and green ([[param:reference_cd_m2]]) bars, then light/dark yellow mixture bars at [[param:interleave_contrast]] a quarter cycle on, then the colours exchanged, then the mixture exchanged (50 ms each at 60 Hz). The observer turns the test bars' luminance (wheel or UP/DOWN, [[param:step_factor]] per step) until the motion is least and presses SPACE.\n\n**Varied.** Nothing but the step direction: red ([[param:test_colours]]) against green at [[param:spatial_freqs_cpd]] and [[param:rates_hz]], six settings. Each condition is set [[param:paradigm.n_per_condition]] times per step direction.\n\n**Measured.** The setting (cd/m2), its mean over the readings, and luminous efficiency relative to the uniform-field flicker match.\n\n**Meaning and limits.** The setting holds for this stimulus (2.5 c/deg, 5 Hz) on this display; use it only for stimuli like it (p. 163). Physical cd/m2 need a measured photometry file on a gamma-linearised display; with the example file the values are nominal and device-specific (every trial records its luminance basis). Not a colour-vision test.",
+   "timeline": {
+    "caption": "One setting. The cycle runs until SPACE.",
+    "phases": [
+     {
+      "id": "fixate",
+      "label": "Fixation cross",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "adjust",
+      "label": "Adjust",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE",
+       "max": {
+        "param": "adjust_timeout"
+       }
+      },
+      "start_events": [
+       "ADJUST_START"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation cross on blue square",
+      "role": "stimulus",
+      "from": "fixate",
+      "to": "adjust"
+     },
+     {
+      "label": "T1-T4 repeating, 50 ms each",
+      "role": "stimulus",
+      "from": "adjust",
+      "to": "adjust"
+     },
+     {
+      "label": "Wheel or UP/DOWN, then SPACE",
+      "role": "response",
+      "from": "adjust",
+      "to": "adjust"
+     }
+    ],
+    "branches": [
+     {
+      "from": "adjust",
+      "kind": "failure",
+      "when": "no SPACE in time",
+      "outcome": "TIMEOUT",
+      "effect": "served again"
+     }
+    ],
+    "end": {
+     "outcome": "SET",
+     "label": "SET: the test luminance is recorded"
+    },
+    "between_trials": {
+     "label": "Dark interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "width": 10.5,
+    "height": 4.4,
+    "unit": "dva",
+    "background": 0,
+    "caption": "One cycle for red against green, both at 13.4 cd/m2 (each setting starts at a random 0.7-1.3 x reference), 2.5 c/deg, steps rightward, drawn side by side in time order (same place on screen). Task arrays at 40 px/deg; sRGB inks from the example photometry, illustrative and uncalibrated. Ticks: first red (T1, T3) or light (T2, T4) bar, a quarter cycle further right each stroke.",
+    "elements": [
+     {
+      "type": "rect",
+      "cx": -4.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -4.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -4.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -4.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -4.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -3.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -3.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": -3.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": -4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -4.1,
+      "y1": 0,
+      "x2": -4.0,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -4.05,
+      "y1": -0.05,
+      "x2": -4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -4.05,
+      "y": 1.55,
+      "text": "T1  red | green",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -5.05,
+      "y1": 1.05,
+      "x2": -5.05,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": -2.3,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": -2.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": -1.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": -1.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": -1.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": -1.15,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": -0.95,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": -0.75,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": -0.55,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": -0.4,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -1.4,
+      "y1": 0,
+      "x2": -1.3,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -1.35,
+      "y1": -0.05,
+      "x2": -1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -1.35,
+      "y": 1.55,
+      "text": "T2  light | dark yellow",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -2.25,
+      "y1": 1.05,
+      "x2": -2.25,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 0.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 0.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 0.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 1.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 1.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 1.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 2.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#004700"
+     },
+     {
+      "type": "rect",
+      "cx": 2.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7e0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 1.3,
+      "y1": 0,
+      "x2": 1.4,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 1.35,
+      "y1": -0.05,
+      "x2": 1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 1.35,
+      "y": 1.55,
+      "text": "T3  green | red",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 0.55,
+      "y1": 1.05,
+      "x2": 0.55,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 3.1,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": 3.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": 3.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": 3.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": 3.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": 4.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": 4.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": 4.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": 4.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#583000"
+     },
+     {
+      "type": "rect",
+      "cx": 5.0,
+      "cy": 0,
+      "width": 0.1,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#5e3300"
+     },
+     {
+      "type": "rect",
+      "cx": 4.05,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 4.0,
+      "y1": 0,
+      "x2": 4.1,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 4.05,
+      "y1": -0.05,
+      "x2": 4.05,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 4.05,
+      "y": 1.55,
+      "text": "T4  dark | light yellow",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 3.35,
+      "y1": 1.05,
+      "x2": 3.35,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "dimension",
+      "x1": -5.05,
+      "y1": -1.35,
+      "x2": -3.05,
+      "y2": -1.35,
+      "value": {
+       "param": "patch_size_dva"
+      },
+      "text": "patch"
+     },
+     {
+      "type": "text",
+      "x": 0.0,
+      "y": -1.8,
+      "text": "50 ms each, in this order",
+      "role": "annotation"
+     }
+    ]
+   },
+   "sourceFiles": [
+    "src/anstiscavanagh1983/stimulus.py",
+    "src/anstiscavanagh1983/adjust.py",
+    "configs/adjust-red-green.yaml",
+    "scripts/guide_overlay.py"
+   ],
+   "notes": [
+    "NOT one of the paper's conditions: Experiment 1's red/green stimulus (p. 157: green 13.4 cd/m2, 2.5 c/deg, 5 Hz, yellow 6.25%) set with the adjustment procedure of Experiments 2-3 (p. 159), the use the paper recommends for TV displays (p. 165).",
+    "ASSUMED: start 0.7-1.3 x reference, 1% steps, 60-s deadline, additive yellow mixture."
+   ]
+  },
+  {
+   "taskKey": "min-flicker-adjust@configs/flicker-uniform.yaml",
+   "description": "**Question.** The comparison measure: at what luminance does a colour stop flickering against grey?\n\n**What the observer sees and does.** A 2-deg disc alternates between the test colour and grey ([[param:reference_cd_m2]]) at [[param:rates_hz]] (33.3 ms per state at 60 Hz). The observer turns the colour's luminance until the flicker is least and presses SPACE.\n\n**Varied.** Colour ([[param:test_colours]]) at [[param:rates_hz]]. Each condition is set [[param:paradigm.n_per_condition]] times per step direction.\n\n**Measured.** The setting per condition (cd/m2) and its mean.\n\n**Meaning and limits.** Heterochromatic flicker photometry; not the paper's minimum-motion criterion. Physical cd/m2 need a measured photometry file on a gamma-linearised display; with the example file the values are nominal and device-specific (every trial records its luminance basis). Not a colour-vision test.",
+   "timeline": {
+    "caption": "One setting. The flicker runs until SPACE.",
+    "phases": [
+     {
+      "id": "fixate",
+      "label": "Fixation cross",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "adjust",
+      "label": "Adjust",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE",
+       "max": {
+        "param": "adjust_timeout"
+       }
+      },
+      "start_events": [
+       "ADJUST_START"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation cross on blue square",
+      "role": "stimulus",
+      "from": "fixate",
+      "to": "adjust"
+     },
+     {
+      "label": "Colour and grey alternate, 33.3 ms each",
+      "role": "stimulus",
+      "from": "adjust",
+      "to": "adjust"
+     },
+     {
+      "label": "Wheel or UP/DOWN, then SPACE",
+      "role": "response",
+      "from": "adjust",
+      "to": "adjust"
+     }
+    ],
+    "branches": [
+     {
+      "from": "adjust",
+      "kind": "failure",
+      "when": "no SPACE in time",
+      "outcome": "TIMEOUT",
+      "effect": "served again"
+     }
+    ],
+    "end": {
+     "outcome": "SET",
+     "label": "SET: the test luminance is recorded"
+    },
+    "between_trials": {
+     "label": "Dark interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "width": 5.3,
+    "height": 4.4,
+    "unit": "dva",
+    "background": 0,
+    "caption": "The two states of the uniform field, side by side; on the screen they alternate in one place. Red shown at 13.6 cd/m2 against grey 13.6. sRGB inks from the example photometry, illustrative and uncalibrated.",
+    "elements": [
+     {
+      "type": "circle",
+      "cx": -1.35,
+      "cy": 0,
+      "r": 1.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -1.4,
+      "y1": 0,
+      "x2": -1.3,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -1.35,
+      "y1": -0.05,
+      "x2": -1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -1.35,
+      "y": 1.55,
+      "text": "T1  red",
+      "role": "annotation"
+     },
+     {
+      "type": "circle",
+      "cx": 1.35,
+      "cy": 0,
+      "r": 1.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 1.3,
+      "y1": 0,
+      "x2": 1.4,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 1.35,
+      "y1": -0.05,
+      "x2": 1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 1.35,
+      "y": 1.55,
+      "text": "T2  grey",
+      "role": "annotation"
+     },
+     {
+      "type": "text",
+      "x": -2.35,
+      "y": -1.45,
+      "text": "33.3 ms each, alternating, same place",
+      "role": "annotation"
+     }
+    ]
+   },
+   "sourceFiles": [
+    "src/anstiscavanagh1983/stimulus.py",
+    "src/anstiscavanagh1983/adjust.py",
+    "configs/flicker-uniform.yaml",
+    "scripts/guide_overlay.py"
+   ],
+   "notes": [
+    "Paper (p. 159, Fig. 3 legend): the standard flicker match, a 2-deg uniform field in square-wave flicker at 15 Hz between the colour and 13.6 cd/m2 white; it normalises Fig. 3-4.",
+    "ASSUMED: 2 x 2 deg grating size (the uniform field's 2 deg is the paper's), start 0.7-1.3 x reference, 1% steps, 60-s deadline."
+   ]
+  },
+  {
+   "taskKey": "min-flicker-adjust@configs/flicker-grating.yaml",
+   "description": "**Question.** The comparison measure: at what luminance does a colour stop flickering against grey?\n\n**What the observer sees and does.** A square-wave grating whose bars swap between the test colour and grey ([[param:reference_cd_m2]]) at [[param:rates_hz]] (33.3 ms per state at 60 Hz). The observer turns the colour's luminance until the flicker is least and presses SPACE.\n\n**Varied.** Colour ([[param:test_colours]]) x spatial frequency ([[param:spatial_freqs_cpd]]) at [[param:rates_hz]]. Each condition is set [[param:paradigm.n_per_condition]] times per step direction.\n\n**Measured.** The setting per condition (cd/m2) and its mean.\n\n**Meaning and limits.** Minimum counterphase flicker at each spatial frequency, the comparison for Experiment 2's minimum-motion settings. Physical cd/m2 need a measured photometry file on a gamma-linearised display; with the example file the values are nominal and device-specific (every trial records its luminance basis). Not a colour-vision test.",
+   "timeline": {
+    "caption": "One setting. The flicker runs until SPACE.",
+    "phases": [
+     {
+      "id": "fixate",
+      "label": "Fixation cross",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "adjust",
+      "label": "Adjust",
+      "timing": {
+       "kind": "event",
+       "until": "SPACE",
+       "max": {
+        "param": "adjust_timeout"
+       }
+      },
+      "start_events": [
+       "ADJUST_START"
+      ],
+      "end_events": [
+       "RESPONSE"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation cross on blue square",
+      "role": "stimulus",
+      "from": "fixate",
+      "to": "adjust"
+     },
+     {
+      "label": "Colour and grey alternate, 33.3 ms each",
+      "role": "stimulus",
+      "from": "adjust",
+      "to": "adjust"
+     },
+     {
+      "label": "Wheel or UP/DOWN, then SPACE",
+      "role": "response",
+      "from": "adjust",
+      "to": "adjust"
+     }
+    ],
+    "branches": [
+     {
+      "from": "adjust",
+      "kind": "failure",
+      "when": "no SPACE in time",
+      "outcome": "TIMEOUT",
+      "effect": "served again"
+     }
+    ],
+    "end": {
+     "outcome": "SET",
+     "label": "SET: the test luminance is recorded"
+    },
+    "between_trials": {
+     "label": "Dark interval",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "width": 5.3,
+    "height": 4.4,
+    "unit": "dva",
+    "background": 0,
+    "caption": "The two states of the counterphase grating (red vs grey, both at 13.6 cd/m2, 2.5 c/deg), side by side; on the screen they alternate in one place, the bars exchanging colours (half a cycle, no direction). Task arrays at 40 px/deg; sRGB inks from the example photometry, illustrative and uncalibrated.",
+    "elements": [
+     {
+      "type": "rect",
+      "cx": -2.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -2.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -1.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -1.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -0.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -0.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": -0.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": -1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": -1.4,
+      "y1": 0,
+      "x2": -1.3,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": -1.35,
+      "y1": -0.05,
+      "x2": -1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": -1.35,
+      "y": 1.55,
+      "text": "T1  red | grey",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": -2.35,
+      "y1": 1.05,
+      "x2": -2.35,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "rect",
+      "cx": 0.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 0.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 0.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.45,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.65,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 1.85,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 2.05,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#3c3c3c"
+     },
+     {
+      "type": "rect",
+      "cx": 2.25,
+      "cy": 0,
+      "width": 0.2,
+      "height": 2.0,
+      "role": "stimulus",
+      "color": "#7f0000"
+     },
+     {
+      "type": "rect",
+      "cx": 1.35,
+      "cy": 0,
+      "width": 0.1,
+      "height": 0.1,
+      "role": "stimulus",
+      "color": "#0000ff"
+     },
+     {
+      "type": "line",
+      "x1": 1.3,
+      "y1": 0,
+      "x2": 1.4,
+      "y2": 0,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "line",
+      "x1": 1.35,
+      "y1": -0.05,
+      "x2": 1.35,
+      "y2": 0.05,
+      "role": "stimulus",
+      "color": "#ffffff",
+      "stroke_width": 0.02
+     },
+     {
+      "type": "text",
+      "x": 1.35,
+      "y": 1.55,
+      "text": "T2  grey | red",
+      "role": "annotation",
+      "font_size": 0.22
+     },
+     {
+      "type": "line",
+      "x1": 0.55,
+      "y1": 1.05,
+      "x2": 0.55,
+      "y2": 1.3,
+      "role": "annotation",
+      "color": "#7f1d1d",
+      "stroke_width": 0.06
+     },
+     {
+      "type": "dimension",
+      "x1": -2.35,
+      "y1": -1.35,
+      "x2": -0.35,
+      "y2": -1.35,
+      "value": {
+       "param": "patch_size_dva"
+      },
+      "text": "patch"
+     },
+     {
+      "type": "text",
+      "x": 0.0,
+      "y": -1.8,
+      "text": "33.3 ms each, alternating",
+      "role": "annotation"
+     }
+    ]
+   },
+   "sourceFiles": [
+    "src/anstiscavanagh1983/stimulus.py",
+    "src/anstiscavanagh1983/adjust.py",
+    "configs/flicker-grating.yaml",
+    "scripts/guide_overlay.py"
+   ],
+   "notes": [
+    "Paper (p. 159, Fig. 3 filled symbols): square-wave gratings whose bars flicker in counterphase between the colour and 13.6 cd/m2 grey, two TV frames (33 ms) per state, 0.625-5 c/deg, six readings per point.",
+    "ASSUMED: 2 x 2 deg grating size (the uniform field's 2 deg is the paper's), start 0.7-1.3 x reference, 1% steps, 60-s deadline."
+   ]
+  }
+ ]
+}

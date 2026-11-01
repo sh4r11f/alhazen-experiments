@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Double-drift: perception vs saccades (Lisi & Cavanagh 2015)",
-  "summary": "Lisi & Cavanagh (2015), Experiment 1. A Gabor 10 dva right of fixation moves back and forth on a 3 dva path while its grating, whose stripes run along the path, drifts across it and reverses with every pass; seen in the periphery, an oblique path looks close to vertical. In the perceptual task the observer reports whether the path leans left or right of vertical while interleaved staircases vary the physical orientation, giving each participant's perceived-vertical orientations. In the saccade task those orientations are shown with and without the internal drift, and the observer saccades to the Gabor when the fixation dot goes off; the Gabor is removed at saccade onset. The question is whether the landings follow the physical path or the perceived one.",
+  "summary": "Do the eyes go where a moving object is, or where we see it? A small Gabor moves back and forth on a straight path while its stripes drift across the path; in peripheral vision an oblique path looks nearly vertical. First, each person reports left or right tilt while the path angle is varied, giving the angle that looks vertical. Then the person saccades to the moving Gabor at those angles, with and without the drift. The question is whether landings follow the physical or the seen path.",
   "methods": "docs/methods.md",
   "references": [
     "Lisi, M., & Cavanagh, P. (2015). Dissociation between the perceptual and saccadic localization of moving objects. Current Biology, 25(19), 2535-2540. https://doi.org/10.1016/j.cub.2015.08.021",

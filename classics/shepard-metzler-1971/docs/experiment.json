@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Mental rotation of 3-D objects",
-  "summary": "Shepard & Metzler (1971): two perspective drawings of ten-cube arm-like objects appear side by side, and the subject decides as fast as possible whether they show the same three-dimensional shape (J) or mirror-image shapes (F). The angle between the two portrayed orientations, 0 to 180 degrees in 20-degree steps, is a rotation either in the picture plane or in depth; the reaction time of correct 'same' answers is the measure.",
+  "summary": "Does judging whether two drawings show the same 3-D object take longer the further one is turned? Two drawings of cube objects, 0 to 180 degrees apart in depth or in the picture plane, are judged same or mirror image with a key. Measure: reaction time of correct 'same' answers against angle.",
   "methods": "docs/methods.md",
   "references": [
     "Shepard, R. N., & Metzler, J. (1971). Mental rotation of three-dimensional objects. Science, 171(3972), 701-703. doi:10.1126/science.171.3972.701"

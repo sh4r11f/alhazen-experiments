@@ -1,0 +1,211 @@
+{
+  "tasks": [
+    {
+      "taskKey": "rf-gating-fixation@configs/task.yaml",
+      "timeline": {
+        "caption": "One trial; every phase requires fixation. The trigger time and the bar duration are drawn per trial, so those phases are not to scale.",
+        "phases": [
+          {
+            "id": "acquire",
+            "label": "Acquire fixation",
+            "timing": {
+              "kind": "event",
+              "until": "gaze enters the window",
+              "max": {
+                "ms": 2000
+              }
+            },
+            "start_events": [
+              "FIX_ON"
+            ],
+            "end_events": [
+              "FIX_ACQUIRED"
+            ]
+          },
+          {
+            "id": "baseline",
+            "label": "Baseline",
+            "timing": {
+              "kind": "parameter",
+              "param": "baseline_hold"
+            }
+          },
+          {
+            "id": "bars",
+            "label": "Bars on",
+            "timing": {
+              "kind": "event",
+              "until": "trigger time, 200-500 ms, drawn per trial"
+            },
+            "start_events": [
+              "VIS_ON"
+            ]
+          },
+          {
+            "id": "after",
+            "label": "Train or mark",
+            "timing": {
+              "kind": "event",
+              "until": "bars end, 1.5-2 s after onset"
+            },
+            "start_events": [
+              "STIM_TRIGGER",
+              "CONTROL_MARK"
+            ],
+            "end_events": [
+              "VIS_OFF"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Fixation spot",
+            "role": "stimulus",
+            "from": "acquire",
+            "to": "after"
+          },
+          {
+            "label": "Oriented bar(s): RF, distracter or both",
+            "role": "stimulus",
+            "from": "bars",
+            "to": "after"
+          },
+          {
+            "label": "Gaze in fixation window",
+            "role": "requirement",
+            "from": "baseline",
+            "to": "after"
+          },
+          {
+            "label": "FEF train (stimulation trials only)",
+            "role": "annotation",
+            "from": "after",
+            "to": "after"
+          }
+        ],
+        "branches": [
+          {
+            "from": "acquire",
+            "kind": "failure",
+            "when": "no fixation in time",
+            "outcome": "NO_FIXATION",
+            "effect": "served again"
+          },
+          {
+            "from": "baseline",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "BROKE_FIX_BASELINE",
+            "effect": "served again"
+          },
+          {
+            "from": "bars",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "BROKE_FIX_STIMULUS",
+            "effect": "served again"
+          },
+          {
+            "from": "after",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "BROKE_FIX_AFTER_TRIGGER",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "COMPLETED",
+          "label": "COMPLETED (juice)"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "fixed",
+            "ms": 1000
+          }
+        }
+      },
+      "diagram": {
+        "width": 22,
+        "height": 22,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "Display at the example site, to scale: both bars at the preferred orientation (the \"both\" display). Overlapping site, so the distracter sits opposite the RF through fixation (ASSUMED rule). No saccade is required.",
+        "elements": [
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": 0.1,
+            "role": "stimulus",
+            "luminance": 1
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_window_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true,
+            "label": "Fixation window"
+          },
+          {
+            "type": "circle",
+            "cx": -7.8,
+            "cy": -7.8,
+            "r": 2.5,
+            "role": "region",
+            "dashed": true,
+            "label": "V4 receptive field (example)"
+          },
+          {
+            "type": "rect",
+            "cx": -7.8,
+            "cy": -7.8,
+            "width": 0.4,
+            "height": 2.0,
+            "rotation": -45,
+            "role": "target",
+            "luminance": 0.018,
+            "label": "Bar in the RF, preferred 45°"
+          },
+          {
+            "type": "rect",
+            "cx": 7.8,
+            "cy": 7.8,
+            "width": 0.4,
+            "height": 2.0,
+            "rotation": -45,
+            "role": "distractor",
+            "luminance": 0.018,
+            "label": "Distracter bar"
+          },
+          {
+            "type": "dimension",
+            "x1": -7.8,
+            "y1": -10.8,
+            "x2": 0,
+            "y2": -10.8,
+            "value": 7.8,
+            "role": "annotation"
+          }
+        ]
+      },
+      "description": "**Question.** Does weak frontal eye field stimulation raise V4 responses at the matching place?\n\n**On screen.** A fixation spot; a dark bar in the neuron's receptive field, at a distracter site, or both, for 1.5-2 s.\n\n**The subject.** Only holds fixation (enforced). No saccade, no report.\n\n**Measured.** Nothing behavioural: the trigger or control mark timestamps each trial for the lab's V4 recording.\n\n**Limits.** Demo: needs a V4 recording, an FEF stimulator and site mapping, none of which is here.",
+      "sourceFiles": [
+        "src/moore_armstrong2003/task.py",
+        "src/moore_armstrong2003/geometry.py",
+        "configs/task.yaml"
+      ],
+      "notes": [
+        "Paper: 1.5-2 s stimulus, trigger 200-500 ms after display onset, 50-ms train at the example site, 200 Hz biphasic pulses, 20 µA example current, ten trials per condition.",
+        "EXAMPLE site values (ASSUMED): RF centre (-7.8, -7.8) dva, 5-dva diameter, preferred orientation 45°, evoked-saccade endpoint inside the RF, 40-µA threshold. Enter each site's own.",
+        "ASSUMED: uniform draws of both ranges, the six-display set, bar 2.0 x 0.4 dva, dark polarity at 93% on mid-grey (luminance 0.018 of maximum), 0.2-dva spot, 1-dva window radius, 2-s acquisition, 500-ms baseline, 1-s interval.",
+        "Diagram shows the \"both, preferred\" display; the other five displays omit a bar or rotate both by 90°."
+      ]
+    }
+  ]
+}

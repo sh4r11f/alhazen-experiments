@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Feature vs conjunction search",
-  "summary": "Treisman & Gelade (1980), Experiments I and II. Subjects search a display of 1 to 36 coloured letters for a target defined by one feature (a blue letter or an S) or by a conjunction of colour and shape (a green T among brown Ts and green Xs) and press one key if it is there and another if not. Reaction time rises steeply with the number of letters for conjunctions and hardly at all for features; Experiment II varies how hard the conjunction's features are to tell apart.",
+  "summary": "Treisman & Gelade (1980), Experiments I and II. The observer searches a card of 1 to 36 coloured letters for a target and presses one key if it is there and another if not. The target differs from the other letters by one feature (a blue letter or an S) or only by a conjunction of colour and shape (a green T among brown Ts and green Xs); Experiment II compares an easy and a difficult conjunction in letter matrices. The measure is reaction time against the number of letters. The paper reported nearly flat slopes for feature targets and steep linear slopes for conjunctions, with target-present slopes about half the target-absent ones. Tested in software and simulation only; no result of this implementation is claimed.",
   "methods": "docs/methods.md",
   "references": [
     "Treisman, A. M., & Gelade, G. (1980). A feature-integration theory of attention. Cognitive Psychology, 12(1), 97-136. https://doi.org/10.1016/0010-0285(80)90005-5",
@@ -496,6 +496,720 @@
           "default": true,
           "meaning": "A dummy trial, not analysed, follows each error.",
           "source": "paper p. 103"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The key matched the display: present for a target card, absent for a blank one."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "The other key. The card is served again later in the block and a dummy trial follows (paper p. 103)."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No key before the safety deadline; the card is served again later."
+        },
+        {
+          "name": "NOT_STARTED",
+          "completed": false,
+          "meaning": "The subject never pressed SPACE on the ready field; the card is served again later."
+        }
+      ],
+      "events": [
+        {
+          "name": "READY_ON",
+          "meaning": "The plain white field is up; the subject may press SPACE."
+        },
+        {
+          "name": "FIX_ON",
+          "meaning": "The fixation spot is shown."
+        },
+        {
+          "name": "ARRAY_ON",
+          "meaning": "The search display is shown; reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The subject's key."
+        },
+        {
+          "name": "FEEDBACK_ON",
+          "meaning": "The RT and correctness are shown."
+        }
+      ]
+    },
+    {
+      "id": "feature-conjunction-search",
+      "title": "Feature search (Experiment I)",
+      "summary": "Experiment I, feature targets: a blue letter (T or X) or an S (brown or green) among brown Ts and green Xs; 1, 5, 15 or 30 letters; present or absent key.",
+      "parameters_file": "configs/task-exp1-feature.yaml",
+      "parameters": [
+        {
+          "name": "condition",
+          "label": "Condition",
+          "group": "Design",
+          "type": "choice",
+          "default": "feature",
+          "meaning": "feature: the target differs from every distractor in colour (blue) or in shape (S).",
+          "source": "paper p. 102, p. 108"
+        },
+        {
+          "name": "display_sizes",
+          "label": "Display sizes",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            1,
+            5,
+            15,
+            30
+          ],
+          "meaning": "Numbers of items on a card.",
+          "source": "paper p. 102"
+        },
+        {
+          "name": "field_width_dva",
+          "label": "Field width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 14.0,
+          "meaning": "Width of the area the letters are scattered over (Exp. I).",
+          "unit": "dva",
+          "source": "paper p. 102"
+        },
+        {
+          "name": "field_height_dva",
+          "label": "Field height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.0,
+          "meaning": "Height of that area.",
+          "unit": "dva",
+          "source": "paper p. 102"
+        },
+        {
+          "name": "inner_ellipse_width_dva",
+          "label": "Inner ellipse width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 8.5,
+          "meaning": "The ellipse that splits the field's four diagonal sections into outer and inner, for target placement.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "letter_height_dva",
+          "label": "Letter height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.8,
+          "meaning": "Height of each letter.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "letter_width_dva",
+          "label": "Letter width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.6,
+          "meaning": "Width of each letter.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "stroke_dva",
+          "label": "Stroke width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.12,
+          "meaning": "Width of the letters' strokes. ASSUMED, not in the paper.",
+          "unit": "dva"
+        },
+        {
+          "name": "min_spacing_dva",
+          "label": "Minimum spacing",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 1.2,
+          "meaning": "Closest two letter centres may be. ASSUMED, not in the paper.",
+          "unit": "dva"
+        },
+        {
+          "name": "targets",
+          "label": "Targets",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            "T_blue",
+            "X_blue",
+            "S_brown",
+            "S_green"
+          ],
+          "meaning": "The four possible feature targets, <letter>_<ink>: a blue T or X, or a brown or green S; one per target card.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "distractors",
+          "label": "Distractors",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            "T_brown",
+            "X_green"
+          ],
+          "meaning": "The distractor glyphs, in as near equal numbers as possible.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation spot",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "How long the fixation spot is shown before the display.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 10000
+          },
+          "meaning": "Safety cap on the display; the paper had none. ASSUMED, not in the paper."
+        },
+        {
+          "name": "feedback_duration",
+          "label": "Feedback",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1500
+          },
+          "meaning": "How long the RT and correctness stay on screen. ASSUMED, not in the paper."
+        },
+        {
+          "name": "cards_per_cell",
+          "label": "Cards per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 8,
+          "meaning": "Target cards (and as many blank cards) per display size.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Showings per card",
+          "group": "Design",
+          "type": "integer",
+          "default": 2,
+          "meaning": "How often each card is shown in a block: 8 cards x 2 = 16 positive and 16 negative trials per display size.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "dominant_hand",
+          "label": "Dominant hand",
+          "group": "Response",
+          "type": "choice",
+          "default": "right",
+          "meaning": "The hand whose key means \"target present\". ASSUMED default; set per subject."
+        },
+        {
+          "name": "repeat_errors",
+          "label": "Repeat errors",
+          "group": "Procedure",
+          "type": "boolean",
+          "default": true,
+          "meaning": "An error's card is served again later in the block.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "dummy_after_error",
+          "label": "Dummy after error",
+          "group": "Procedure",
+          "type": "boolean",
+          "default": true,
+          "meaning": "A dummy trial, not analysed, follows each error.",
+          "source": "paper p. 103"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The key matched the display: present for a target card, absent for a blank one."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "The other key. The card is served again later in the block and a dummy trial follows (paper p. 103)."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No key before the safety deadline; the card is served again later."
+        },
+        {
+          "name": "NOT_STARTED",
+          "completed": false,
+          "meaning": "The subject never pressed SPACE on the ready field; the card is served again later."
+        }
+      ],
+      "events": [
+        {
+          "name": "READY_ON",
+          "meaning": "The plain white field is up; the subject may press SPACE."
+        },
+        {
+          "name": "FIX_ON",
+          "meaning": "The fixation spot is shown."
+        },
+        {
+          "name": "ARRAY_ON",
+          "meaning": "The search display is shown; reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The subject's key."
+        },
+        {
+          "name": "FEEDBACK_ON",
+          "meaning": "The RT and correctness are shown."
+        }
+      ]
+    },
+    {
+      "id": "feature-conjunction-search",
+      "title": "Easy conjunction search (Experiment II)",
+      "summary": "Experiment II, easy: a red O among green Os and red Ns, in 2 x 2 (1 or 4 letters), 4 x 4 or 6 x 6 matrices; present or absent key.",
+      "parameters_file": "configs/task-exp2-easy.yaml",
+      "parameters": [
+        {
+          "name": "condition",
+          "label": "Condition",
+          "group": "Design",
+          "type": "choice",
+          "default": "easy",
+          "meaning": "easy: the conjunction's colours (red, green) and shapes (O, N) are easy to tell apart.",
+          "source": "paper p. 108"
+        },
+        {
+          "name": "display_sizes",
+          "label": "Display sizes",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            1,
+            4,
+            16,
+            36
+          ],
+          "meaning": "Numbers of letters on a card: 1 (one cell of the 2 x 2 matrix), 4, 16 or 36.",
+          "source": "paper p. 108"
+        },
+        {
+          "name": "letter_height_dva",
+          "label": "Letter height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.8,
+          "meaning": "Height of each letter.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "letter_width_dva",
+          "label": "Letter width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.6,
+          "meaning": "Width of each letter.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "stroke_dva",
+          "label": "Stroke width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.12,
+          "meaning": "Width of the letters' strokes. ASSUMED, not in the paper.",
+          "unit": "dva"
+        },
+        {
+          "name": "targets",
+          "label": "Targets",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            "O_red"
+          ],
+          "meaning": "The target glyph(s), <letter>_<ink>.",
+          "source": "paper p. 108"
+        },
+        {
+          "name": "distractors",
+          "label": "Distractors",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            "O_green",
+            "N_red"
+          ],
+          "meaning": "The distractor glyphs, in as near equal numbers as possible.",
+          "source": "paper p. 108"
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation spot",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "How long the fixation spot is shown before the display.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 10000
+          },
+          "meaning": "Safety cap on the display; the paper had none. ASSUMED, not in the paper."
+        },
+        {
+          "name": "feedback_duration",
+          "label": "Feedback",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1500
+          },
+          "meaning": "How long the RT and correctness stay on screen. ASSUMED, not in the paper."
+        },
+        {
+          "name": "cards_per_cell",
+          "label": "Cards per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 8,
+          "meaning": "Target cards (and as many blank cards) per display size.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Showings per card",
+          "group": "Design",
+          "type": "integer",
+          "default": 2,
+          "meaning": "How often each card is shown in a block: 8 cards x 2 = 16 positive and 16 negative trials per display size.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "dominant_hand",
+          "label": "Dominant hand",
+          "group": "Response",
+          "type": "choice",
+          "default": "right",
+          "meaning": "The hand whose key means \"target present\". ASSUMED default; set per subject."
+        },
+        {
+          "name": "repeat_errors",
+          "label": "Repeat errors",
+          "group": "Procedure",
+          "type": "boolean",
+          "default": true,
+          "meaning": "An error's card is served again later in the block.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "dummy_after_error",
+          "label": "Dummy after error",
+          "group": "Procedure",
+          "type": "boolean",
+          "default": true,
+          "meaning": "A dummy trial, not analysed, follows each error.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "layout",
+          "label": "Layout",
+          "group": "Stimuli",
+          "type": "choice",
+          "meaning": "matrix: letters on the cells of a regular matrix (Experiment II) instead of scattered (Experiment I).",
+          "constraints": {
+            "choices": [
+              "scatter",
+              "matrix"
+            ]
+          },
+          "source": "paper p. 108"
+        },
+        {
+          "name": "matrices",
+          "label": "Matrices",
+          "group": "Stimuli",
+          "type": "object",
+          "meaning": "Rows, columns and extent of the letter matrix for each display size: 2 x 2 over 7 x 7 deg (also used for 1 letter), 4 x 4 over 9.7 x 9.7 deg, 6 x 6 over 12.3 x 9.7 deg. The extent is read as that of the letters (outer centres half a letter inside), giving a mean eccentricity of 4.5–4.7 deg against the paper's about 4.3 deg.",
+          "source": "paper p. 108; reading of the extent ASSUMED"
+        },
+        {
+          "name": "inks",
+          "label": "Inks",
+          "group": "Stimuli",
+          "type": "object",
+          "meaning": "Display RGB (0-255) of each ink. Not calibrated and not matched to the original inks; ASSUMED.",
+          "source": "ASSUMED"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The key matched the display: present for a target card, absent for a blank one."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "The other key. The card is served again later in the block and a dummy trial follows (paper p. 103)."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No key before the safety deadline; the card is served again later."
+        },
+        {
+          "name": "NOT_STARTED",
+          "completed": false,
+          "meaning": "The subject never pressed SPACE on the ready field; the card is served again later."
+        }
+      ],
+      "events": [
+        {
+          "name": "READY_ON",
+          "meaning": "The plain white field is up; the subject may press SPACE."
+        },
+        {
+          "name": "FIX_ON",
+          "meaning": "The fixation spot is shown."
+        },
+        {
+          "name": "ARRAY_ON",
+          "meaning": "The search display is shown; reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The subject's key."
+        },
+        {
+          "name": "FEEDBACK_ON",
+          "meaning": "The RT and correctness are shown."
+        }
+      ]
+    },
+    {
+      "id": "feature-conjunction-search",
+      "title": "Difficult conjunction search (Experiment II)",
+      "summary": "Experiment II, difficult: a green T among blue Ts and green Xs, with similar green and blue inks and similar shapes, in 2 x 2, 4 x 4 or 6 x 6 matrices; present or absent key.",
+      "parameters_file": "configs/task-exp2-difficult.yaml",
+      "parameters": [
+        {
+          "name": "condition",
+          "label": "Condition",
+          "group": "Design",
+          "type": "choice",
+          "default": "difficult",
+          "meaning": "difficult: the conjunction's colours (very similar green and blue) and shapes (T, X) are hard to tell apart.",
+          "source": "paper p. 108"
+        },
+        {
+          "name": "display_sizes",
+          "label": "Display sizes",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            1,
+            4,
+            16,
+            36
+          ],
+          "meaning": "Numbers of letters on a card: 1 (one cell of the 2 x 2 matrix), 4, 16 or 36.",
+          "source": "paper p. 108"
+        },
+        {
+          "name": "letter_height_dva",
+          "label": "Letter height",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.8,
+          "meaning": "Height of each letter.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "letter_width_dva",
+          "label": "Letter width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.6,
+          "meaning": "Width of each letter.",
+          "unit": "dva",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "stroke_dva",
+          "label": "Stroke width",
+          "group": "Stimuli",
+          "type": "number",
+          "default": 0.12,
+          "meaning": "Width of the letters' strokes. ASSUMED, not in the paper.",
+          "unit": "dva"
+        },
+        {
+          "name": "targets",
+          "label": "Targets",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            "T_green"
+          ],
+          "meaning": "The target glyph(s), <letter>_<ink>.",
+          "source": "paper p. 108"
+        },
+        {
+          "name": "distractors",
+          "label": "Distractors",
+          "group": "Stimuli",
+          "type": "object",
+          "default": [
+            "T_blue",
+            "X_green"
+          ],
+          "meaning": "The distractor glyphs, in as near equal numbers as possible.",
+          "source": "paper p. 108"
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation spot",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "How long the fixation spot is shown before the display.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 10000
+          },
+          "meaning": "Safety cap on the display; the paper had none. ASSUMED, not in the paper."
+        },
+        {
+          "name": "feedback_duration",
+          "label": "Feedback",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1500
+          },
+          "meaning": "How long the RT and correctness stay on screen. ASSUMED, not in the paper."
+        },
+        {
+          "name": "cards_per_cell",
+          "label": "Cards per cell",
+          "group": "Design",
+          "type": "integer",
+          "default": 8,
+          "meaning": "Target cards (and as many blank cards) per display size.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Showings per card",
+          "group": "Design",
+          "type": "integer",
+          "default": 2,
+          "meaning": "How often each card is shown in a block: 8 cards x 2 = 16 positive and 16 negative trials per display size.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "dominant_hand",
+          "label": "Dominant hand",
+          "group": "Response",
+          "type": "choice",
+          "default": "right",
+          "meaning": "The hand whose key means \"target present\". ASSUMED default; set per subject."
+        },
+        {
+          "name": "repeat_errors",
+          "label": "Repeat errors",
+          "group": "Procedure",
+          "type": "boolean",
+          "default": true,
+          "meaning": "An error's card is served again later in the block.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "dummy_after_error",
+          "label": "Dummy after error",
+          "group": "Procedure",
+          "type": "boolean",
+          "default": true,
+          "meaning": "A dummy trial, not analysed, follows each error.",
+          "source": "paper p. 103"
+        },
+        {
+          "name": "layout",
+          "label": "Layout",
+          "group": "Stimuli",
+          "type": "choice",
+          "meaning": "matrix: letters on the cells of a regular matrix (Experiment II) instead of scattered (Experiment I).",
+          "constraints": {
+            "choices": [
+              "scatter",
+              "matrix"
+            ]
+          },
+          "source": "paper p. 108"
+        },
+        {
+          "name": "matrices",
+          "label": "Matrices",
+          "group": "Stimuli",
+          "type": "object",
+          "meaning": "Rows, columns and extent of the letter matrix for each display size: 2 x 2 over 7 x 7 deg (also used for 1 letter), 4 x 4 over 9.7 x 9.7 deg, 6 x 6 over 12.3 x 9.7 deg. The extent is read as that of the letters (outer centres half a letter inside), giving a mean eccentricity of 4.5–4.7 deg against the paper's about 4.3 deg.",
+          "source": "paper p. 108; reading of the extent ASSUMED"
+        },
+        {
+          "name": "inks",
+          "label": "Inks",
+          "group": "Stimuli",
+          "type": "object",
+          "meaning": "Display RGB (0-255) of each ink. Not calibrated and not matched to the original inks; ASSUMED.",
+          "source": "ASSUMED"
         }
       ],
       "outcomes": [

@@ -15,6 +15,18 @@ pp. 332–333.
 session starts with SPACE), eye tracker; a reward line for monkey sessions; optional TTL sync
 lines for a lab's own recording system.
 
+## At a glance
+
+- **Question.** Can the location of a brief cue be held over a delay and then used to aim an eye movement? (The paper used this to find prefrontal neurons active during the delay.)
+- **What is on the screen.** A small white fixation spot; a white square flashes for 0.5 s at one of eight places 13 dva out; then only the spot for 1.5, 3 or 6 s; then the spot goes off.
+- **What the subject does.** Hold gaze on the spot through cue and delay (eye tracker enforced; leaving the window ends the trial), then saccade to the remembered place within 0.5 s.
+- **Measured.** Landing within the 6-dva window around the cue (correct) or not; latency and landing error by location and delay.
+- **What it can and cannot show.** Memory-guided saccade accuracy for this subject. It cannot show the paper's result, directional delay activity of single prefrontal neurons, which needs a recording.
+- **Known constraints.** Known constraint, unchanged: a video eye tracker counts a blink as a fixation break, so a person must not blink for up to 7.25 s. Allowing blinks or shortening the human delays would change the protocol and needs the owner's approval. The paper's dark screen is replaced by a mid-grey field.
+- **Source access (audit, 1 Nov 2026).** Full text not re-accessible this audit (publisher 403); only the abstract was re-checked. Values rest on the earlier build's reading of the publisher's PDF (Methods pp. 332-334).
+
+The full methods follow; nothing below was shortened.
+
 ## Question
 
 Do prefrontal neurons hold the location of a remembered visual cue during a delay, for any

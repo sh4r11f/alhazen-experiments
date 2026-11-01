@@ -12,6 +12,15 @@ error procedure follow the paper; the changes are to apparatus and presentation 
 below), and everything the paper leaves open is in the "Assumed" table. **Hardware.** A
 display and a keyboard.
 
+## In plain words
+
+- **Question.** Is a target that differs by one feature found at a glance, while a target defined only by a combination of colour and shape must be searched for item by item?
+- **What the observer sees.** A fixation spot, then a white card of 1 to 36 coloured letters that stays until a key.
+- **What they do.** Press one key if the target is on the card and another if not, quickly and without errors.
+- **What varies.** The number of letters, target present or absent, and the kind of target (feature, conjunction; easy or difficult conjunction in Experiment II).
+- **What is measured.** Reaction time on correct trials against the number of letters: the search slope, for present and absent cards.
+- **What a result would mean.** A flat slope suggests all letters are checked at once; a steep linear slope with present trials about half as steep as absent ones suggests a serial search that stops at the target. The paper reported the first for features and the second for conjunctions. Nothing here has been run with observers, and the inks are display RGB, not the original inks.
+
 ## Question
 
 Does finding a target cost time per item in the display? Feature-integration theory says

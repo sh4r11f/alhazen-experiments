@@ -10,6 +10,15 @@ the authors' PDF of the article, https://www.cs.ubc.ca/~rensink/publications/dow
 (full text, six pages); page numbers below are the journal's, printed on that PDF.
 **Status.** adaptation (see the deviations table). **Hardware.** a display and a keyboard.
 
+## In plain words
+
+- **Question.** A large change is obvious when it happens in plain view. Is it still easy to see when a brief blank hides the moment of change?
+- **What the observer sees.** A scene and a changed copy alternating, each image twice, with short grey blanks between images, for up to 60 s. The scenes here are generated photo-like images and procedural drawings made for this project, not the paper's photographs.
+- **What they do.** Press SPACE when they see what is changing, then pick the box around it and the kind of change.
+- **What varies.** Whether the changed object is of central or marginal interest, the kind of change, and (other parameter sets) no blanks, longer images or word cues.
+- **What is measured.** Alternations until the change is seen (one switch every 640 ms), on correctly reported trials only: a speed measure.
+- **What a result would mean.** Far more alternations for marginal than for central changes with blanks, but not without them, would show that a visible change goes unseen until attended, as the paper reported. Nothing here has been run with observers, and the generated scenes and model-rated interest are not the original materials.
+
 ## Question
 
 When an original image and a modified image alternate with brief blank fields between

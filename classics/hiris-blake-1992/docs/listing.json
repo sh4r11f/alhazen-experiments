@@ -1,0 +1,50 @@
+{
+  "status": "adaptation",
+  "status_reason": "Fig. 1's design, geometry, timing and measure are the paper's, but on a modern frame-based display (motion steps rounded to whole frames, uncalibrated white instead of the paper's 15 cd/m2 P4-phosphor CRT) and with 20 unstated details assumed, including how noise dots choose directions, the test levels and the control display.",
+  "collection": "classics",
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
+  "original": {
+    "citation": "Hiris, E., & Blake, R. (1992). Another perspective on the visual motion aftereffect. Proceedings of the National Academy of Sciences USA, 89(19), 9025-9028.",
+    "year": 1992,
+    "doi": "10.1073/pnas.89.19.9025",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC50057/",
+    "experiments": "Fig. 1: forced-choice matching of the dynamic motion aftereffect with real motion (adapted and no-adaptation curves); not the Fig. 2-3 discrimination experiments or the Fig. 4 bandwidth/duration experiment"
+  },
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": false,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false
+  },
+  "subjects": [
+    "human"
+  ],
+  "category": "motion",
+  "tags": [
+    "motion aftereffect",
+    "adaptation",
+    "dynamic visual noise",
+    "random-dot cinematogram",
+    "nulling",
+    "point of subjective equality",
+    "probit",
+    "metamer"
+  ],
+  "art": "docs/preview.png",
+  "assets": [
+    {
+      "path": "docs/preview.png",
+      "licence": "CC-BY-4.0"
+    }
+  ],
+  "notes": "Two parameter sets, run as separate sessions: adapted to upward motion (configs/task.yaml) and no adaptation (configs/task-control.yaml). Set the display to the paper's white (15 cd/m2) with a photometer. No participant data: tests and simulated sessions verify the software only.",
+  "listed": false
+}

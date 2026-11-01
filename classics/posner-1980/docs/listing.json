@@ -42,7 +42,8 @@
     {
       "path": "docs/preview.png",
       "licence": "CC-BY-4.0",
-      "source": "drawn by src/posner1980/preview.py from configs/task.yaml"
+      "source": "drawn by src/posner1980/preview.py from configs/task.yaml",
+      "what": "Illustrative stimulus preview drawn by src/posner1980/preview.py from configs/task.yaml: the display at square onset for neutral, valid and invalid cues (one square per trial). Display values on the rig's mid-grey, not calibrated luminance."
     }
   ],
   "notes": "The eye tracker is needed for the original-protocol set (configs/task.yaml). A booth without one can run the keyboard-only set (configs/task-keyboard.yaml), which checks no fixation. No participant data: tests and simulated sessions only."

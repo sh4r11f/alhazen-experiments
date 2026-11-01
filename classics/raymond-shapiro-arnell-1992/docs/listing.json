@@ -39,7 +39,8 @@
   "assets": [
     {
       "path": "docs/preview.png",
-      "licence": "CC-BY-4.0"
+      "licence": "CC-BY-4.0",
+      "what": "Illustrative stimulus preview drawn by src/raymond1992/preview.py from configs/task.yaml: the whole display at scale and a strip of successive letter frames (each shown alone, 15 ms on, 75 ms grey). Display values, not calibrated luminance."
     },
     {
       "path": "letter glyphs (rendered at run time)",

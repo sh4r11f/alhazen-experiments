@@ -1,0 +1,40 @@
+# Contrast threshold by adjustment, 10 deg field (human): the paper's own method (p. 553).
+# Every key is validated against CsfAdjustmentParams. Values the paper does not state are
+# marked "# ASSUMED (not in the paper): <reason>".
+subject_kind: human
+
+# ---- Stimulus. Paper: Campbell & Robson (1968), J. Physiol. 197, 551-566 ("paper: p. N").
+# Luminances are linearised display units 0..1 (after `alhazen calibrate gamma`), not cd/m2.
+field_dva: 10.0            # paper: p. 553-554, square aperture 10 x 10 cm at 57 cm (10 deg) or at 285 cm (2 deg); here the 10 deg near field
+sf_cpd: [0.5, 1, 2, 4, 8]   # ASSUMED (not in the paper): levels chosen; the paper sampled about 0.1-40 c/deg (Fig. 2)
+waveforms: [sine]             # paper: sine-wave gratings (Fig. 2)
+orientation_deg: 0.0         # ASSUMED (not in the paper): vertical stripes (wave vector horizontal); the paper does not say
+random_phase: true           # ASSUMED (not in the paper): grating phase uniform 0-360 deg per presentation
+mean_luminance: 0.5          # ASSUMED (not in the paper): half the display maximum; the paper's mean was 500 cd/m2 (p. 553)
+display_bits: 8              # ASSUMED (not in the paper): the rig's code depth per channel; set it to your display's
+dither: noisy-bit            # ASSUMED (not in the paper): Allard & Faubert (2008) noisy-bit, for contrasts below one 8-bit step
+min_px_per_cycle: 4.0        # ASSUMED (not in the paper): sampling limit refused below (Nyquist is 2)
+square_min_px_per_cycle: 12.0  # ASSUMED (not in the paper): keeps a square wave's 3rd harmonic at >= 4 px per cycle
+fix_size_dva: 0.15           # ASSUMED (not in the paper): no fixation mark is described
+fix_luminance: 0.0           # ASSUMED (not in the paper): black fixation point
+marks_gap_dva: 0.3           # ASSUMED (not in the paper): corner marks outside the field
+marks_arm_dva: 0.6           # ASSUMED (not in the paper): corner mark arm length
+marks_width_dva: 0.06        # ASSUMED (not in the paper): corner mark line width
+marks_luminance: 0.0         # ASSUMED (not in the paper): black corner marks
+
+# ---- Timing. paper: p. 553, "switched on and off at 0.5 c/s".
+fixation_duration: {ms: 500}   # ASSUMED (not in the paper): mean field and corner marks before the grating starts
+flicker_period: {ms: 2000}     # paper: p. 553, on-off at 0.5 c/s
+flicker_on: {ms: 1000}         # ASSUMED (not in the paper): equal on and off halves
+adjust_timeout: {ms: 120000}   # ASSUMED (not in the paper): longest setting before it is served again
+iti: {ms: 500}                 # ASSUMED (not in the paper): mean field between settings
+
+# ---- The knob. paper: p. 553, the subject adjusted contrast until "barely detectable".
+knob_step_log10: 0.05          # ASSUMED (not in the paper): one key press or wheel notch = x1.122
+contrast_min: 0.0005           # ASSUMED (not in the paper): lowest setting
+contrast_max: 0.9              # ASSUMED (not in the paper): highest setting
+start_log10_min: -2.0          # ASSUMED (not in the paper): start contrast, log-uniform from 1%
+start_log10_max: -0.5          # ASSUMED (not in the paper): to 32%
+paradigm:
+  kind: adjustment
+  n_per_condition: 5           # paper: p. 553, "either five or ten observations"

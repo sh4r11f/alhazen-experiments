@@ -1,0 +1,307 @@
+{
+ "tasks": [
+  {
+   "taskKey": "stroop-color-naming@configs/task.yaml",
+   "timeline": {
+    "caption": "One item. Fixation, then the item until the right key; durations are the parameter-file values (all ASSUMED, not in the paper).",
+    "phases": [
+     {
+      "id": "fixation",
+      "label": "Fixation",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "item",
+      "label": "Square or word",
+      "timing": {
+       "kind": "event",
+       "until": "right key",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "RESPONSE_CUE"
+      ],
+      "end_events": [
+       "RESPONSE",
+       "CORRECTION"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation point",
+      "role": "stimulus",
+      "from": "fixation",
+      "to": "fixation"
+     },
+     {
+      "label": "Item at centre",
+      "role": "stimulus",
+      "from": "item",
+      "to": "item"
+     },
+     {
+      "label": "Colour key (ink)",
+      "role": "response",
+      "from": "item",
+      "to": "item"
+     }
+    ],
+    "branches": [
+     {
+      "from": "item",
+      "kind": "failure",
+      "when": "wrong key, never corrected",
+      "outcome": "UNCORRECTED"
+     },
+     {
+      "from": "item",
+      "kind": "failure",
+      "when": "no key",
+      "outcome": "NO_RESPONSE",
+      "effect": "served again at block end"
+     },
+     {
+      "from": "item",
+      "kind": "failure",
+      "when": "wrong key, correction off",
+      "outcome": "WRONG"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT",
+     "label": "CORRECT or CORRECTED"
+    },
+    "between_trials": {
+     "label": "Blank",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "caption": "Two alternative items side by side; each trial shows one at the screen centre on the page colour. NC sheet item 1 (red square) and NCWd item 1 (purple in red ink), form 1, seed 1935. Inks, sizes, Arial and page colour are ASSUMED; the paper used 14-point Franklin type.",
+    "unit": "dva",
+    "width": 7,
+    "height": 3,
+    "background": 0.9,
+    "elements": [
+     {
+      "type": "rect",
+      "cx": -1.75,
+      "cy": 0,
+      "width": {
+       "param": "patch_size_dva"
+      },
+      "height": {
+       "param": "patch_size_dva"
+      },
+      "role": "stimulus",
+      "color": "#ff0000",
+      "label": "NC: solid ink square"
+     },
+     {
+      "type": "text",
+      "x": 1.75,
+      "y": 0,
+      "text": "purple",
+      "role": "stimulus",
+      "label": "NCWd: colour word in another ink",
+      "color": "#ff0000",
+      "font_size": {
+       "param": "letter_height_dva"
+      },
+      "font_family": "Arial"
+     },
+     {
+      "type": "dimension",
+      "x1": 3.2,
+      "y1": -0.35,
+      "x2": 3.2,
+      "y2": 0.35,
+      "value": {
+       "param": "letter_height_dva"
+      },
+      "text": "letter height",
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**Experiment 2, colour naming by key.** Each item of Stroop's 100-item sheets is one trial: a fixation point for [[param:fixation_duration]], then a solid colour square (NC) or a colour word printed in another colour's ink (NCWd) at the centre. The subject presses the key for the **ink**. A wrong key leaves the item up until the right key (Stroop's self-correction), up to [[param:response_timeout]]. A session is four sheets in order A (control, interference, interference, control) or B (the reverse), with practice items first; items are served in sheet order, not shuffled. Keys replace the paper's spoken responses (a deviation).",
+   "sourceFiles": [
+    "classics/stroop-1935/src/stroop1935/task.py",
+    "classics/stroop-1935/src/stroop1935/phases.py",
+    "classics/stroop-1935/configs/task.yaml",
+    "classics/stroop-1935/docs/experiment.json"
+   ],
+   "notes": [
+    "Fixation 500 ms, deadline 5000 ms and blank 500 ms are ASSUMED; the paper's sheets were read continuously.",
+    "Keys D F J K L = red blue green brown purple are ASSUMED; responses were spoken in the paper (deviation).",
+    "Inks drawn from the parameter file: red #ff0000, blue #0000ff, green #008000, brown #804000, purple #8000a0, black #000000 on page #e6e6e6. RGB values, 0.7° Arial and 0.75° squares are ASSUMED; the paper used 14-point Franklin type (deviation).",
+    "UNCORRECTED items are charged twice the sheet's mean time per item in the analysis (paper p. 17).",
+    "WRONG occurs only if require_correction is false; the shipped sets keep it true.",
+    "Block order by subject number and form sequence 1, 2, 1, 2 are ASSUMED."
+   ]
+  },
+  {
+   "taskKey": "stroop-word-reading@configs/task-word-reading.yaml",
+   "timeline": {
+    "caption": "One item. Fixation, then the item until the right key; durations are the parameter-file values (all ASSUMED, not in the paper).",
+    "phases": [
+     {
+      "id": "fixation",
+      "label": "Fixation",
+      "timing": {
+       "kind": "parameter",
+       "param": "fixation_duration"
+      },
+      "start_events": [
+       "FIX_ON"
+      ]
+     },
+     {
+      "id": "item",
+      "label": "Word",
+      "timing": {
+       "kind": "event",
+       "until": "right key",
+       "max": {
+        "param": "response_timeout"
+       }
+      },
+      "start_events": [
+       "RESPONSE_CUE"
+      ],
+      "end_events": [
+       "RESPONSE",
+       "CORRECTION"
+      ]
+     }
+    ],
+    "tracks": [
+     {
+      "label": "Fixation point",
+      "role": "stimulus",
+      "from": "fixation",
+      "to": "fixation"
+     },
+     {
+      "label": "Item at centre",
+      "role": "stimulus",
+      "from": "item",
+      "to": "item"
+     },
+     {
+      "label": "Colour key (word)",
+      "role": "response",
+      "from": "item",
+      "to": "item"
+     }
+    ],
+    "branches": [
+     {
+      "from": "item",
+      "kind": "failure",
+      "when": "wrong key, never corrected",
+      "outcome": "UNCORRECTED"
+     },
+     {
+      "from": "item",
+      "kind": "failure",
+      "when": "no key",
+      "outcome": "NO_RESPONSE",
+      "effect": "served again at block end"
+     },
+     {
+      "from": "item",
+      "kind": "failure",
+      "when": "wrong key, correction off",
+      "outcome": "WRONG"
+     }
+    ],
+    "end": {
+     "outcome": "CORRECT",
+     "label": "CORRECT or CORRECTED"
+    },
+    "between_trials": {
+     "label": "Blank",
+     "timing": {
+      "kind": "parameter",
+      "param": "iti"
+     }
+    }
+   },
+   "diagram": {
+    "caption": "Two alternative items side by side; each trial shows one at the screen centre on the page colour. The same word in black (RCNb) and in red ink (RCNd). Inks, sizes, Arial and page colour are ASSUMED; the paper used 14-point Franklin type.",
+    "unit": "dva",
+    "width": 7,
+    "height": 3,
+    "background": 0.9,
+    "elements": [
+     {
+      "type": "text",
+      "x": -1.75,
+      "y": 0,
+      "text": "purple",
+      "role": "stimulus",
+      "label": "RCNb: word in black",
+      "color": "#000000",
+      "font_size": {
+       "param": "letter_height_dva"
+      },
+      "font_family": "Arial"
+     },
+     {
+      "type": "text",
+      "x": 1.75,
+      "y": 0,
+      "text": "purple",
+      "role": "stimulus",
+      "label": "RCNd: word in another ink",
+      "color": "#ff0000",
+      "font_size": {
+       "param": "letter_height_dva"
+      },
+      "font_family": "Arial"
+     },
+     {
+      "type": "dimension",
+      "x1": 3.2,
+      "y1": -0.35,
+      "x2": 3.2,
+      "y2": 0.35,
+      "value": {
+       "param": "letter_height_dva"
+      },
+      "text": "letter height",
+      "role": "annotation"
+     }
+    ]
+   },
+   "description": "**Experiment 1's comparison, by key.** Each item of the 100-item sheets is one trial: a fixation point for [[param:fixation_duration]], then a colour word printed in black (RCNb) or in another colour's ink (RCNd). The subject presses the key for the **word**. A wrong key leaves the item up until the right key (Stroop's self-correction), up to [[param:response_timeout]]. A session is four sheets in order A (control, interference, interference, control) or B (the reverse), with practice items first; items are served in sheet order, not shuffled. Keys replace the paper's spoken responses (a deviation).",
+   "sourceFiles": [
+    "classics/stroop-1935/src/stroop1935/task.py",
+    "classics/stroop-1935/src/stroop1935/phases.py",
+    "classics/stroop-1935/configs/task-word-reading.yaml",
+    "classics/stroop-1935/docs/experiment.json"
+   ],
+   "notes": [
+    "Fixation 500 ms, deadline 5000 ms and blank 500 ms are ASSUMED; the paper's sheets were read continuously.",
+    "Keys D F J K L = red blue green brown purple are ASSUMED; responses were spoken in the paper (deviation).",
+    "Inks drawn from the parameter file: red #ff0000, blue #0000ff, green #008000, brown #804000, purple #8000a0, black #000000 on page #e6e6e6. RGB values, 0.7° Arial and 0.75° squares are ASSUMED; the paper used 14-point Franklin type (deviation).",
+    "UNCORRECTED items are charged twice the sheet's mean time per item in the analysis (paper p. 17).",
+    "WRONG occurs only if require_correction is false; the shipped sets keep it true.",
+    "Block order by subject number is ASSUMED; the paper gives forms for order A only, reused for B (ASSUMED)."
+   ]
+  }
+ ]
+}

@@ -11,6 +11,18 @@ Figure values quoted below were read off the printed figures.
 **Status.** adaptation (see the deviations table). **Hardware.** a display (linearised, with
 its red and green guns measured by a photometer) and a keyboard; a scroll wheel is optional.
 
+## At a glance
+
+- **Question.** Is there a motion process driven by attentive tracking of visible features, separate from automatic low-level motion detectors?
+- **What is on the screen.** A ring (4.0-8.4 dva) around a bull's-eye. Experiment 1: a red-green and a luminance sinusoidal grating, eight cycles each, turning in opposite directions at 2 Hz. Experiment 2: the colour grating alone in the ring and a luminance grating in an inner ring.
+- **What the subject does.** Fixate the bull's-eye (instructed; no eye tracker). Depending on the task: adjust a setting until the motion looks slowest, nulled or just visible; track a marked pair of bars with attention and say whether a test pointer is on them; or match the inner ring's speed.
+- **Measured.** Equiluminance setting, motion-null contrast, thresholds, tracking accuracy by luminance contrast, matched speed.
+- **What it can and cannot show.** Colour bars that can be tracked while the luminance grating dominates the global motion show tracking is not low-level motion alone. Colours are display values balanced in luminance per observer, not in cone contrast; the rig needs photometer values and a linearised display.
+- **Known constraints.** Thresholds near 0.4 % need a 10-bit or bit-stealing display. Each frame is computed as an image: check frame timing on the rig.
+- **Source access (audit, 1 Nov 2026).** Full text read this audit (author's PDF of the published paper); values checked against configs and scene code.
+
+The full methods follow; nothing below was shortened.
+
 ## Question
 
 When a colour grating and a luminance grating turn in opposite directions in the same

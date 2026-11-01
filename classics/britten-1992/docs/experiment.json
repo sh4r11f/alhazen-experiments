@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Motion coherence discrimination (Britten et al.)",
-  "summary": "Discriminate the direction of weak motion in a stochastic random-dot display: a variable proportion of dots (the correlation) is replotted as a signal displaced in one of two opposite directions, the rest at random. The monkey set is the paper's trial: fixate, view the dots for 2 s, saccade to the target of the direction seen, juice for a correct choice. The human set shows the same display and takes an arrow key. The analysis fits the paper's Weibull psychometric function; its neurometric half needs an MT recording.",
+  "summary": "How weak can a motion signal be and still have its direction seen? Random dots move, a varying share of them coherently, left or right (monkey set: along an example axis over a receptive field). The subject reports the direction: a monkey by a saccade to one of two targets, a person by an arrow key. The analysis fits a psychometric function. Comparing it with single MT neurons, the paper's main point, needs a recording this folder does not provide.",
   "methods": "docs/methods.md",
   "references": [
     "Britten, K. H., Shadlen, M. N., Newsome, W. T., & Movshon, J. A. (1992). The analysis of visual motion: A comparison of neuronal and psychophysical performance. Journal of Neuroscience, 12(12), 4745-4765."

@@ -1,0 +1,48 @@
+# Hiris & Blake (1992), Fig. 1: the dynamic motion aftereffect matched by real motion.
+# Main set (human): the adapted condition. The left display adapts to upward motion, the
+# right to random motion (RDVN); then the left display's downward signal is varied and the
+# right one is fixed at 40 %.
+#
+# Every key is validated against MaeCoherenceMatchTask's params model: a typo fails at load.
+# Values the paper states cite it: "# paper: <where>". Values it does not state are marked
+# "# ASSUMED (not in the paper): <reason>" and listed in docs/methods.md and
+# docs/experiment.json ("assumed").
+adapt_mode: unidirectional      # paper: p. 9025 (one display adapts to upward motion, the other to RDVN)
+subject_kind: human
+
+# --- what the two displays show ---------------------------------------------
+adapt_direction_deg: 90.0       # paper: p. 9025 (adapting dots "all drifted upward")
+adapted_side: left              # paper: p. 9026, Fig. 1 legend (upward adaptation and the variable display on the left)
+test_levels_pct: [-20.0, -10.0, 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0]  # ASSUMED (not in the paper): Fig. 1 abscissa spans -20 (upward) to 60 % (downward); the levels tested are not listed, 10 % steps chosen
+reference_signal_pct: 40.0      # paper: p. 9026, Fig. 1 legend (right-hand display fixed at 40 % downward)
+
+# --- dots and apertures --------------------------------------------------------
+n_dots: 100                     # paper: p. 9025 (100 black dots per display)
+dot_size_dva: 0.0333            # paper: p. 9025 (each dot 2 arcmin at 114 cm)
+aperture_dva: 3.25              # paper: p. 9025 (circular displays 3.25 deg in diameter)
+aperture_gap_dva: 4.8           # paper: p. 9025 (nearest edges of the two displays 4.8 deg apart)
+speed_dva_s: 2.0                # paper: p. 9025 ("~2 deg/sec")
+step_dva: 0.0957                # ASSUMED (not in the paper): the paper's 5-pixel step in degrees, for a 640-px-wide image 24.4 cm across (12-inch 4:3 screen) at 114 cm
+dot_color: [-1.0, -1.0, -1.0]   # paper: p. 9025 (black dots)
+background_rgb: [1.0, 1.0, 1.0] # paper: p. 9025 (white background)
+background_cd_m2: 15.0          # paper: p. 9025 (15 cd/m2 white background); documentation, set on the display (methods: Deviations)
+
+# --- fixation cross ------------------------------------------------------------
+fix_size_dva: 0.4               # ASSUMED (not in the paper): a cross midway between the displays (p. 9025), size not given
+fix_line_dva: 0.06              # ASSUMED (not in the paper): stroke of the cross, not given
+fix_color: [-1.0, -1.0, -1.0]   # ASSUMED (not in the paper): black like the dots
+
+# --- timing --------------------------------------------------------------------
+initial_adaptation: {ms: 60000} # paper: p. 9025 and Fig. 1 legend (60-s adaptation)
+topup_adaptation: {ms: 10000}   # paper: p. 9026, Fig. 1 legend (adaptation displays again for 10 s between tests)
+test_duration: {ms: 2000}       # paper: p. 9026, Fig. 1 legend (each test presentation 2 s)
+response_timeout: {ms: 5000}    # ASSUMED (not in the paper): when and how long the answer was taken is not given; after the test, up to 5 s
+iti: {ms: 0}                    # paper: p. 9026 (tests separated by the 10-s top-up only)
+readapt_after: {ms: 30000}      # ASSUMED (not in the paper): no pauses are described; after a pause longer than 30 s the 60-s adaptation is repeated
+
+key_left: left                  # ASSUMED (not in the paper): response keys not given
+key_right: right                # ASSUMED (not in the paper): response keys not given
+paradigm:
+  kind: sequence
+  n_per_condition: 20           # paper: p. 9026, Fig. 1 legend (each data point based on 20 judgments)
+  shuffle: true                 # ASSUMED (not in the paper): random order of levels within the session

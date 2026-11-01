@@ -1,0 +1,466 @@
+{
+  "tasks": [
+    {
+      "taskKey": "double-drift-perception@configs/task-perception.yaml",
+      "timeline": {
+        "caption": "One perceptual trial. The foreperiod is jittered and the Gabor runs until the key, so neither is drawn to scale.",
+        "phases": [
+          {
+            "id": "acquire",
+            "label": "Acquire fixation",
+            "timing": {
+              "kind": "event",
+              "until": "gaze held 100 ms in the window",
+              "max": {
+                "param": "acquire_timeout"
+              }
+            },
+            "start_events": [
+              "FIX_ON"
+            ],
+            "end_events": [
+              "FIX_ACQUIRED"
+            ]
+          },
+          {
+            "id": "foreperiod",
+            "label": "Foreperiod",
+            "timing": {
+              "kind": "event",
+              "until": "400-600 ms, drawn per trial"
+            }
+          },
+          {
+            "id": "report",
+            "label": "Double drift",
+            "timing": {
+              "kind": "event",
+              "until": "left or right arrow key",
+              "max": {
+                "param": "response_timeout"
+              }
+            },
+            "start_events": [
+              "GABOR_ON"
+            ],
+            "end_events": [
+              "RESPONSE"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Fixation dot",
+            "role": "stimulus",
+            "from": "acquire",
+            "to": "report"
+          },
+          {
+            "label": "Double-drift Gabor, back and forth",
+            "role": "stimulus",
+            "from": "report",
+            "to": "report"
+          },
+          {
+            "label": "Gaze in window, no blinks",
+            "role": "requirement",
+            "from": "foreperiod",
+            "to": "report"
+          },
+          {
+            "label": "Path tilt: left or right arrow",
+            "role": "response",
+            "from": "report",
+            "to": "report"
+          }
+        ],
+        "branches": [
+          {
+            "from": "acquire",
+            "kind": "failure",
+            "when": "no fixation in time",
+            "outcome": "NO_FIXATION",
+            "effect": "repeated"
+          },
+          {
+            "from": "foreperiod",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "FIX_BREAK",
+            "effect": "repeated"
+          },
+          {
+            "from": "report",
+            "kind": "failure",
+            "when": "gaze leaves or a blink",
+            "outcome": "FIX_BREAK",
+            "effect": "repeated"
+          },
+          {
+            "from": "report",
+            "kind": "failure",
+            "when": "no key in time",
+            "outcome": "NO_RESPONSE",
+            "effect": "repeated"
+          }
+        ],
+        "end": {
+          "outcome": "REPORTED_RIGHT",
+          "label": "REPORTED_RIGHT or REPORTED_LEFT"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "parameter",
+            "param": "iti"
+          }
+        }
+      },
+      "diagram": {
+        "width": 25,
+        "height": 7,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "Layout to scale: fixation dot and its gaze window, the Gabor at the middle of its 3-dva path 10 dva to the right. Path angle is an example; in this task QUEST+ sets it.",
+        "elements": [
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_size_dva",
+              "factor": 0.5
+            },
+            "role": "stimulus",
+            "luminance": 0
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_window_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true,
+            "label": "Gaze window"
+          },
+          {
+            "type": "line",
+            "x1": 8.868,
+            "y1": -0.984,
+            "x2": 11.132,
+            "y2": 0.984,
+            "role": "annotation",
+            "dashed": true,
+            "label": "Physical path, 49° example (not drawn)"
+          },
+          {
+            "type": "grating",
+            "cx": 10.0,
+            "cy": 0.0,
+            "radius": {
+              "param": "gabor_sigma_dva",
+              "factor": 3
+            },
+            "cycles": 1.2,
+            "orientation": -49.0,
+            "contrast": 1.0,
+            "role": "stimulus",
+            "label": "Gabor: sine carrier along the path, Gaussian envelope (to scale)",
+            "waveform": "sine",
+            "envelope": "gaussian",
+            "sigma": {
+              "param": "gabor_sigma_dva",
+              "factor": 1
+            },
+            "phase": 0,
+            "drift": "backward"
+          },
+          {
+            "type": "dimension",
+            "x1": 0,
+            "y1": -2.8,
+            "x2": 10,
+            "y2": -2.8,
+            "value": 10,
+            "role": "annotation"
+          }
+        ],
+        "insets": [
+          {
+            "cx": 10.0,
+            "cy": 0.0,
+            "width": 2.4,
+            "height": 1.6,
+            "label": "the Gabor"
+          }
+        ]
+      },
+      "description": "**Question.** Which physical path angle looks vertical when the Gabor's stripes drift across its path?\n\n**On screen.** A fixation dot and a Gabor [[param:path_center_dva]] away, moving back and forth on a short straight path while its stripes drift across the path.\n\n**The subject.** Keeps fixating (enforced; a look away or blink repeats the trial) and presses left or right for the path's tilt.\n\n**Measured.** The angle seen as vertical (PSE), from interleaved staircases.\n\n**Limits.** Only the physical path is shown; the perceived path is inferred from reports.",
+      "sourceFiles": [
+        "src/lisi_cavanagh2015/perception.py",
+        "src/lisi_cavanagh2015/common.py",
+        "src/lisi_cavanagh2015/geometry.py",
+        "src/lisi_cavanagh2015/stimuli.py",
+        "configs/task-perception.yaml"
+      ],
+      "notes": [
+        "Example angle 49° is the paper's mean right-tilt PSE (configs/task.yaml); here the angle is adaptive.",
+        "ASSUMED (configs/task-perception.yaml): fixation colour/size/window, carrier phase, acquire 5 s / 100 ms, 500 ± 100 ms foreperiod, 500-ms interval, staircase counts and lengths, block layout.",
+        "Geometry rule: the stripes run along the physical path; the internal drift is perpendicular to the stripes (across the path) and reverses at each path reversal, in step with the envelope. Only the physical path exists; the perceived (illusory) path is never drawn.",
+        "Drift arrow shows the right-tilt pairing while the envelope moves up the path (drift to the left); it points the other way on the way down, and the left-tilt pairing is the mirror image.",
+        "Diagram background is the window's mid-grey (the paper's 5.3 cd/m² is documentation, not set by software). The 2-dva gaze window is drawn as a radius, as the code uses it.",
+        "Gabor drawn to scale with the renderer's sine carrier and Gaussian envelope: sigma 0.1 dva, 2 c/dva, patch radius 3 sigma (about 1.2 cycles across). Carrier phase is random per trial in the code; the drawing shows phase 0.",
+        "The drift arrow is drawn by the renderer normal to the stripes (drift 'backward' = against the wave vector = up and to the left), the right-tilt pairing while the envelope moves up the path; it reverses on the way down.",
+        "The static drawing uses illustrative carrier phase 0; the task randomises the initial carrier phase. The enlarged detail uses the same geometry, not a larger experimental stimulus."
+      ]
+    },
+    {
+      "taskKey": "double-drift-saccades@configs/task.yaml",
+      "timeline": {
+        "caption": "One saccade trial. Jittered and gaze-dependent phases are not to scale; the fixation dot goes off at one of six times.",
+        "phases": [
+          {
+            "id": "acquire",
+            "label": "Acquire fixation",
+            "timing": {
+              "kind": "event",
+              "until": "gaze held 100 ms in the window",
+              "max": {
+                "param": "acquire_timeout"
+              }
+            },
+            "start_events": [
+              "FIX_ON"
+            ],
+            "end_events": [
+              "FIX_ACQUIRED"
+            ]
+          },
+          {
+            "id": "foreperiod",
+            "label": "Foreperiod",
+            "timing": {
+              "kind": "event",
+              "until": "400-600 ms, drawn per trial"
+            }
+          },
+          {
+            "id": "gabor",
+            "label": "Gabor moves",
+            "timing": {
+              "kind": "event",
+              "until": "fixation offset, 1 of 6 times",
+              "max": {
+                "ms": 3250
+              }
+            },
+            "start_events": [
+              "GABOR_ON"
+            ]
+          },
+          {
+            "id": "saccade",
+            "label": "Saccade",
+            "timing": {
+              "kind": "event",
+              "until": "gaze leaves the window",
+              "max": {
+                "param": "saccade_timeout"
+              }
+            },
+            "start_events": [
+              "FIX_OFF"
+            ],
+            "end_events": [
+              "RESPONSE_ONSET"
+            ]
+          },
+          {
+            "id": "landing",
+            "label": "Landing",
+            "timing": {
+              "kind": "event",
+              "until": "eye settles",
+              "max": {
+                "param": "landing_max_wait"
+              }
+            },
+            "end_events": [
+              "LANDED"
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "label": "Fixation dot",
+            "role": "stimulus",
+            "from": "acquire",
+            "to": "gabor"
+          },
+          {
+            "label": "Double-drift Gabor (or no-drift control)",
+            "role": "stimulus",
+            "from": "gabor",
+            "to": "saccade"
+          },
+          {
+            "label": "Gaze in window",
+            "role": "requirement",
+            "from": "foreperiod",
+            "to": "gabor"
+          },
+          {
+            "label": "Saccade to the Gabor, no feedback",
+            "role": "response",
+            "from": "saccade",
+            "to": "landing"
+          }
+        ],
+        "branches": [
+          {
+            "from": "acquire",
+            "kind": "failure",
+            "when": "no fixation in time",
+            "outcome": "NO_FIXATION",
+            "effect": "served again"
+          },
+          {
+            "from": "foreperiod",
+            "kind": "failure",
+            "when": "gaze leaves the window",
+            "outcome": "FIX_BREAK",
+            "effect": "served again"
+          },
+          {
+            "from": "gabor",
+            "kind": "failure",
+            "when": "gaze leaves before the offset",
+            "outcome": "FIX_BREAK",
+            "effect": "served again"
+          },
+          {
+            "from": "saccade",
+            "kind": "failure",
+            "when": "no saccade in time",
+            "outcome": "NO_SACCADE",
+            "effect": "served again"
+          }
+        ],
+        "end": {
+          "outcome": "SACCADE",
+          "label": "SACCADE: endpoint recorded"
+        },
+        "between_trials": {
+          "label": "Inter-trial interval",
+          "timing": {
+            "kind": "parameter",
+            "param": "iti"
+          }
+        }
+      },
+      "diagram": {
+        "width": 25,
+        "height": 7,
+        "unit": "dva",
+        "background": 0.5,
+        "caption": "Layout to scale at the paper's mean right-tilt PSE (49°): fixation dot and gaze window, the Gabor at mid-path on onset. The Gabor is removed when gaze leaves the window.",
+        "elements": [
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_size_dva",
+              "factor": 0.5
+            },
+            "role": "stimulus",
+            "luminance": 0
+          },
+          {
+            "type": "circle",
+            "cx": 0,
+            "cy": 0,
+            "r": {
+              "param": "fix_window_dva",
+              "factor": 1
+            },
+            "role": "region",
+            "dashed": true,
+            "label": "Gaze window"
+          },
+          {
+            "type": "line",
+            "x1": 8.868,
+            "y1": -0.984,
+            "x2": 11.132,
+            "y2": 0.984,
+            "role": "annotation",
+            "dashed": true,
+            "label": "Physical path, 49° example (not drawn)"
+          },
+          {
+            "type": "grating",
+            "cx": 10.0,
+            "cy": 0.0,
+            "radius": {
+              "param": "gabor_sigma_dva",
+              "factor": 3
+            },
+            "cycles": 1.2,
+            "orientation": -49.0,
+            "contrast": 1.0,
+            "role": "stimulus",
+            "label": "Gabor: sine carrier along the path, Gaussian envelope (to scale)",
+            "waveform": "sine",
+            "envelope": "gaussian",
+            "sigma": {
+              "param": "gabor_sigma_dva",
+              "factor": 1
+            },
+            "phase": 0,
+            "drift": "backward"
+          },
+          {
+            "type": "dimension",
+            "x1": 0,
+            "y1": -2.8,
+            "x2": 10,
+            "y2": -2.8,
+            "value": 10,
+            "role": "annotation"
+          }
+        ],
+        "insets": [
+          {
+            "cx": 10.0,
+            "cy": 0.0,
+            "width": 2.4,
+            "height": 1.6,
+            "label": "the Gabor"
+          }
+        ]
+      },
+      "description": "**Question.** Do the eyes go to where the Gabor is, or to where it is seen?\n\n**On screen.** The same Gabor on the paths each person saw as vertical; half the trials without drift as a control.\n\n**The subject.** When the fixation dot goes off, saccades to the Gabor, which vanishes as the eyes leave fixation.\n\n**Measured.** Landing positions and the path orientation they follow, drift minus control.\n\n**Limits.** Saccades are detected online at the display rate, not offline at 1 kHz; calibrate every session.",
+      "sourceFiles": [
+        "src/lisi_cavanagh2015/saccade.py",
+        "src/lisi_cavanagh2015/common.py",
+        "src/lisi_cavanagh2015/geometry.py",
+        "src/lisi_cavanagh2015/stimuli.py",
+        "configs/task.yaml"
+      ],
+      "notes": [
+        "Offset times 0.75, 1.25, ... 3.25 s follow from the 3-dva path at 2 dva/s (geometry.fixation_offset_times).",
+        "ASSUMED (configs/task.yaml): start directions, carrier phase, acquire 5 s / 100 ms, 500 ± 100 ms foreperiod, 1-s saccade limit, landing rule (30 dva/s, 150 ms, 5-dva window, which does not gate the outcome), 500-ms interval, trials per condition.",
+        "Geometry rule: the stripes run along the physical path; the internal drift is perpendicular to the stripes (across the path) and reverses at each path reversal, in step with the envelope. Only the physical path exists; the perceived (illusory) path is never drawn.",
+        "Drift arrow shows the right-tilt pairing while the envelope moves up the path (drift to the left); it points the other way on the way down, and the left-tilt pairing is the mirror image.",
+        "Diagram background is the window's mid-grey (the paper's 5.3 cd/m² is documentation, not set by software). The 2-dva gaze window is drawn as a radius, as the code uses it.",
+        "Gabor drawn to scale with the renderer's sine carrier and Gaussian envelope: sigma 0.1 dva, 2 c/dva, patch radius 3 sigma (about 1.2 cycles across). Carrier phase is random per trial in the code; the drawing shows phase 0.",
+        "The drift arrow is drawn by the renderer normal to the stripes (drift 'backward' = against the wave vector = up and to the left), the right-tilt pairing while the envelope moves up the path; it reverses on the way down.",
+        "The static drawing uses illustrative carrier phase 0; the task randomises the initial carrier phase. The enlarged detail uses the same geometry, not a larger experimental stimulus."
+      ]
+    }
+  ]
+}

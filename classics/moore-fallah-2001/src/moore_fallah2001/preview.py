@@ -63,13 +63,10 @@ def render(out: Path, params_file: str = "task-monkey-inside.yaml") -> Path:
     ax.add_patch(Rectangle((-half_w, -half_h), 2 * half_w, 2 * half_h,
                            color=_grey(p.background_cd_m2, white)))
     # This frame's distractor: the one nearest the upper-left quadrant's middle, so its
-    # label stays on the display; the rest are drawn faintly as the flashes before it.
+    # label stays on the display. Only one is drawn: a distractor is on for 16 ms of
+    # every 32 ms and the next flash lands elsewhere, so flashes never share a frame.
     current = min(range(len(spots)), key=lambda i: math.hypot(spots[i][0] + half_w / 2,
                                                               spots[i][1] - half_h / 3))
-    ghosts = [s for i, s in enumerate(spots) if i != current]
-    for i, (x, y) in enumerate(ghosts):
-        ax.add_patch(Rectangle((x - ds / 2, y - ds / 2), ds, ds, color="white",
-                               alpha=0.10 + 0.04 * i, lw=0))
     x, y = spots[current]
     ax.add_patch(Rectangle((x - ds / 2, y - ds / 2), ds, ds,
                            color=_grey(p.distractor_cd_m2, white), lw=0))
@@ -86,16 +83,17 @@ def render(out: Path, params_file: str = "task-monkey-inside.yaml") -> Path:
     lab = dict(color="#d9d4ca", fontsize=8.5, family="DejaVu Sans")
     ax.text(target[0], target[1] - 3.1, "target in the movement field", ha="center", va="top",
             **lab)
-    ax.text(outside[0], outside[1] + 1.1, "outside location (90°)", ha="center", va="bottom", **lab)
+    ax.text(outside[0], outside[1] - 1.1, "outside-set place\n(other set; not shown)", ha="center",
+            va="top", **lab)
     ax.text(0, -p.fix_window_radius_dva - 0.6, "fixation window", ha="center", va="top", **lab)
-    ax.text(x, y + ds / 2 + 0.5, "distractor, this frame", ha="center", va="bottom", **lab)
+    ax.text(x, y + ds / 2 + 0.5, "distractor, one 16-ms flash", ha="center", va="bottom", **lab)
     ax.set_xlim(-half_w, half_w)
     ax.set_ylim(-half_h, half_h)
     ax.set_aspect("equal")
     ax.axis("off")
 
     # The timeline, ms from target onset, for a stimulation blink trial.
-    tl = fig.add_axes((0.64, 0.12, 0.345, 0.76), facecolor=PAPER)
+    tl = fig.add_axes((0.665, 0.12, 0.32, 0.76), facecolor=PAPER)
     dim_on, dim_ms = 900.0, 48.0
     soa = p.stimulation.soa.ms or 175.0
     window = p.response_window.ms or 800.0

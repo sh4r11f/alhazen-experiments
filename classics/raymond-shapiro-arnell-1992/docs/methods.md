@@ -18,6 +18,15 @@ Experiment 1 is a different task (report the white letter and the next three let
 after Weichselgartner & Sperling, 1987) and is not built here. Experiments 3 and 4 insert
 blank intervals into the stream and are not built here either.
 
+## In plain words
+
+- **Question.** While attention is busy identifying one letter in a rapid stream, is an easy second item shortly afterwards missed more often (the attentional blink)?
+- **What the observer sees.** Black letters flashed one at a time at one spot, about 11 a second; one white letter (the target); on half the streams a black X 0 to 8 letters after it.
+- **What they do.** Experimental condition: type the white letter, then say whether there was an X. Control: ignore the white letter and only say whether there was an X.
+- **What varies.** The condition, and where the X falls after the target.
+- **What is measured.** Accuracy: the percentage of X trials answered yes at each position (experimental trials count only when the white letter was right), and the false-alarm rate without an X.
+- **What a result would mean.** A dip a few letters after the target in the experimental condition only would show that identifying the target, not the stream itself, hides the X, as the paper reported for about 180–450 ms. Nothing here has been run with observers.
+
 ## Question
 
 After a target letter has been identified in a rapid stream, is a simple, fully specified
