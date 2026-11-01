@@ -2,7 +2,7 @@
   "schema": "alhazen-documentation",
   "schema_version": 1,
   "title": "Posner spatial cueing",
-  "summary": "Posner's (1980) central-cue experiment: a plus sign or an arrow at fixation, then 1000 ms later a white square 7° left or right, detected with one key. Arrows point to the square's side on 80% of target trials; the plus sign is uninformative. RT is faster after a valid cue (benefit) and slower after an invalid one (cost) than after the neutral cue, with the eyes held at fixation (checked by an eye tracker; a keyboard-only set runs without one). Catch trials have no square.",
+  "summary": "Posner's (1980) central-cue experiment. The observer keeps the eyes on a central point; a plus sign or an arrow appears there, 1000 ms later a white square appears 7° to the left or right, and they press one key as soon as they see it. After an arrow the square is on the pointed side on 80% of target trials (valid) and on the other side otherwise (invalid); the plus sign is uninformative (neutral). Catch trials show no square. The measure is reaction time: Posner reported faster detection after valid and slower after invalid cues than after neutral ones with the eyes held still, evidence that attention can move without the eyes. An eye tracker enforces fixation here; a keyboard-only set runs without one and cannot rule out eye movements. Tested in software and simulation only; no result of this implementation is claimed.",
   "methods": "docs/methods.md",
   "references": [
     "Posner, M. I. (1980). Orienting of attention. Quarterly Journal of Experimental Psychology, 32(1), 3–25. https://doi.org/10.1080/00335558008248231",

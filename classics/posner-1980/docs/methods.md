@@ -14,6 +14,15 @@ keyboard-only set (`configs/task-keyboard.yaml`) drops fixation control and is n
 protocol. See the tables below. **Hardware.** A display and a keyboard; an eye tracker for the
 original-protocol set.
 
+## In plain words
+
+- **Question.** Can attention move to a place while the eyes stay still, and does that make a light there quicker to detect?
+- **What the observer sees.** A fixation point, then an arrow or a plus sign in its place, then 1000 ms later a white square 7° left or right (nothing on catch trials). The cue stays on with the square.
+- **What they do.** Keep the eyes on the centre and press one key as soon as the square appears.
+- **What varies.** Whether the cue points to the square's side (valid, 80% of arrow trials), the other side (invalid) or neither (neutral plus sign).
+- **What is measured.** Reaction time to the square. Misses and catch-trial false alarms only check that the observer waits for the square.
+- **What a result would mean.** Valid faster than neutral (benefit) and invalid slower (cost), with fixation verified, would show attention moving without the eyes, as Posner (1980) reported. Nothing here has been run with observers, and the keyboard-only set cannot rule out eye movements.
+
 ## Question
 
 Can attention be moved to a place in the visual field without moving the eyes, and does doing
