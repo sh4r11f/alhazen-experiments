@@ -63,7 +63,9 @@ They are not a replication: no folder here claims a participant result unless it
 works like any other, but the Alhazen Experiment Platform does not list it under Alhazen
 Classics; a listing it had is taken off Browse at the next sync. Leaving the key out, or
 `true`, lists it. Unlisted now: `sperling-1960`, `moore-fallah-2001`, `moore-armstrong-2003`,
-`funahashi-1989`.
+`funahashi-1989`. The three new psychophysics projects, `campbell-robson-1968`,
+`hiris-blake-1992` and `anstis-cavanagh-1983`, are also unlisted while they are reviewed;
+private copies can run without putting them on Browse.
 
 ## Hardware
 

@@ -47,5 +47,6 @@
       "licence": "CC-BY-4.0"
     }
   ],
-  "notes": "Needs a gamma-linearised display (alhazen calibrate gamma with a photometer) and its real bit depth in display_bits; contrasts below one code step are shown by noisy-bit dithering, not by a 10-bit path. The 2 deg high-frequency set needs about 90 px/deg (configs/rig-booth-far.yaml). Not a clinical test. No participant data: tests and simulated sessions verify the software only. Identity emblem for the reader: art kind 'contrast' (renderer contract); this field keeps the preview path the validator requires."
+  "notes": "Needs a gamma-linearised display (alhazen calibrate gamma with a photometer) and its real bit depth in display_bits; contrasts below one code step are shown by noisy-bit dithering, not by a 10-bit path. The 2 deg high-frequency set needs about 90 px/deg (configs/rig-booth-far.yaml). Not a clinical test. No participant data: tests and simulated sessions verify the software only. Identity emblem for the reader: art kind 'contrast' (renderer contract); this field keeps the preview path the validator requires.",
+  "listed": false
 }

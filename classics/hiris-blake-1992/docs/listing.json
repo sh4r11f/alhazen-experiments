@@ -45,5 +45,6 @@
       "licence": "CC-BY-4.0"
     }
   ],
-  "notes": "Two parameter sets, run as separate sessions: adapted to upward motion (configs/task.yaml) and no adaptation (configs/task-control.yaml). Set the display to the paper's white (15 cd/m2) with a photometer. No participant data: tests and simulated sessions verify the software only."
+  "notes": "Two parameter sets, run as separate sessions: adapted to upward motion (configs/task.yaml) and no adaptation (configs/task-control.yaml). Set the display to the paper's white (15 cd/m2) with a photometer. No participant data: tests and simulated sessions verify the software only.",
+  "listed": false
 }

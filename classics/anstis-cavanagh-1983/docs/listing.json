@@ -40,5 +40,6 @@
   ],
   "art": "docs/preview.png",
   "assets": [],
-  "notes": "Generated assets: CC-BY-4.0 (docs/preview.png is drawn by src/anstiscavanagh1983/preview.py from the task's own arrays). No third-party assets. Needs a photometer and a gamma-linearised display for physical cd/m2."
+  "notes": "Generated assets: CC-BY-4.0 (docs/preview.png is drawn by src/anstiscavanagh1983/preview.py from the task's own arrays). No third-party assets. Needs a photometer and a gamma-linearised display for physical cd/m2.",
+  "listed": false
 }
