@@ -242,6 +242,10 @@ The simulated observer is a toy with a made-up sensitivity function that detects
 fundamental, so it produces a 4/pi square/sine ratio by construction. This folder has recorded
 no participant data and claims no replication of the original result.
 
+Review fix, 1 Nov 2026 (independent review): `orientation_deg` other than a multiple of 90 is refused when the
+parameter file loads; before, it loaded and every trial failed because the realised-contrast read-back only
+follows stripes along the pixel grid (`tests/test_review_regressions.py`).
+
 ## References
 
 - Campbell, F. W., & Robson, J. G. (1968). Application of Fourier analysis to the visibility of

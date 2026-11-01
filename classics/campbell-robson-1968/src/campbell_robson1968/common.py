@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import Literal
 
@@ -43,6 +44,19 @@ class CampbellRobsonParams(SubjectParams):
     def _positive(cls, v: list[float]) -> list[float]:
         if not v or any(f <= 0 for f in v) or len(set(v)) != len(v):
             raise ValueError("sf_cpd must be distinct positive spatial frequencies")
+        return v
+
+    @field_validator("orientation_deg")
+    @classmethod
+    def _axis_aligned(cls, v: float) -> float:
+        # grating.measure() reads the drawn image back along a pixel axis, so it (and so
+        # every trial) only handles stripes along the pixel grid; refuse others at load
+        # instead of failing on the first trial.
+        if not math.isfinite(v) or not math.isclose((v % 90.0 + 45.0) % 90.0, 45.0,
+                                                     abs_tol=1e-9):
+            raise ValueError(
+                f"orientation_deg must be a multiple of 90 (stripes along the pixel grid), "
+                f"got {v}")
         return v
 
     @field_validator("waveforms")
