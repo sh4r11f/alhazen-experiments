@@ -1,0 +1,30 @@
+# Practical red/green equiluminance setting by minimum motion, by adjustment (human).
+# NOT one of the paper's conditions: Experiment 1's red/green stimulus (p. 157) set with the
+# adjustment procedure of Experiments 2-3 (p. 159), the use the paper recommends for TV
+# displays (p. 165). Its setting is valid for this stimulus on this display only.
+subject_kind: human
+patch_size_dva: 2.0           # paper: p. 157 ("2 deg x 2 deg in a dark surround")
+fixation:                     # paper: p. 157 ("a white cross on a blue 6-min square")
+  square_arcmin: 6.0          # paper: p. 157
+  cross_arcmin: 6.0           # ASSUMED (not in the paper): cross arms span the square
+  line_arcmin: 1.0            # ASSUMED (not in the paper): cross line width
+photometry_file: photometry-booth.yaml   # rig-specific; the example file is NOT a measurement
+display_calibration: calibrated          # real data refused unless the photometry is measured
+snap_period_to_pixels: true   # ASSUMED (not in the paper): period a multiple of 4 px so each step is exactly 1/4 cycle
+fixation_duration: {ms: 500}  # ASSUMED (not in the paper): fixation mark alone before the cycle starts
+iti: {ms: 500}                # ASSUMED (not in the paper): dark interval between trials
+reference_colour: green       # paper: p. 157
+reference_cd_m2: 13.4         # paper: p. 157
+test_colours: [red]           # paper: p. 157
+spatial_freqs_cpd: [2.5]      # paper: p. 157
+rates_hz: [5.0]               # paper: p. 157
+interleave_contrast: 0.0625   # paper: p. 157
+interleave_mix: additive      # ASSUMED (not in the paper): additive mean instead of the raster-line dither
+dither_rows: 2                # used only with line_dither
+start_range: [0.7, 1.3]       # ASSUMED (not in the paper): random start 0.7-1.3 x the reference
+step_factor: 1.01             # ASSUMED (not in the paper): 1% per notch or arrow press
+limits: [0.25, 4.0]           # ASSUMED (not in the paper): knob range x reference, capped by the display
+adjust_timeout: {ms: 60000}   # ASSUMED (not in the paper): uncommitted settings served again
+paradigm:
+  kind: adjustment
+  n_per_condition: 3          # paper: p. 159 (six readings = 3 per step direction)
