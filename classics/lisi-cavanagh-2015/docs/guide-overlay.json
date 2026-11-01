@@ -187,6 +187,15 @@
             "value": 10,
             "role": "annotation"
           }
+        ],
+        "insets": [
+          {
+            "cx": 10.0,
+            "cy": 0.0,
+            "width": 2.4,
+            "height": 1.6,
+            "label": "the Gabor"
+          }
         ]
       },
       "description": "**Question.** Which physical path angle looks vertical when the Gabor's stripes drift across its path?\n\n**On screen.** A fixation dot and a Gabor [[param:path_center_dva]] away, moving back and forth on a short straight path while its stripes drift across the path.\n\n**The subject.** Keeps fixating (enforced; a look away or blink repeats the trial) and presses left or right for the path's tilt.\n\n**Measured.** The angle seen as vertical (PSE), from interleaved staircases.\n\n**Limits.** Only the physical path is shown; the perceived path is inferred from reports.",
@@ -204,7 +213,8 @@
         "Drift arrow shows the right-tilt pairing while the envelope moves up the path (drift to the left); it points the other way on the way down, and the left-tilt pairing is the mirror image.",
         "Diagram background is the window's mid-grey (the paper's 5.3 cd/m² is documentation, not set by software). The 2-dva gaze window is drawn as a radius, as the code uses it.",
         "Gabor drawn to scale with the renderer's sine carrier and Gaussian envelope: sigma 0.1 dva, 2 c/dva, patch radius 3 sigma (about 1.2 cycles across). Carrier phase is random per trial in the code; the drawing shows phase 0.",
-        "The drift arrow is drawn by the renderer normal to the stripes (drift 'backward' = against the wave vector = up and to the left), the right-tilt pairing while the envelope moves up the path; it reverses on the way down."
+        "The drift arrow is drawn by the renderer normal to the stripes (drift 'backward' = against the wave vector = up and to the left), the right-tilt pairing while the envelope moves up the path; it reverses on the way down.",
+        "The static drawing uses illustrative carrier phase 0; the task randomises the initial carrier phase. The enlarged detail uses the same geometry, not a larger experimental stimulus."
       ]
     },
     {
@@ -422,6 +432,15 @@
             "value": 10,
             "role": "annotation"
           }
+        ],
+        "insets": [
+          {
+            "cx": 10.0,
+            "cy": 0.0,
+            "width": 2.4,
+            "height": 1.6,
+            "label": "the Gabor"
+          }
         ]
       },
       "description": "**Question.** Do the eyes go to where the Gabor is, or to where it is seen?\n\n**On screen.** The same Gabor on the paths each person saw as vertical; half the trials without drift as a control.\n\n**The subject.** When the fixation dot goes off, saccades to the Gabor, which vanishes as the eyes leave fixation.\n\n**Measured.** Landing positions and the path orientation they follow, drift minus control.\n\n**Limits.** Saccades are detected online at the display rate, not offline at 1 kHz; calibrate every session.",
@@ -439,7 +458,8 @@
         "Drift arrow shows the right-tilt pairing while the envelope moves up the path (drift to the left); it points the other way on the way down, and the left-tilt pairing is the mirror image.",
         "Diagram background is the window's mid-grey (the paper's 5.3 cd/m² is documentation, not set by software). The 2-dva gaze window is drawn as a radius, as the code uses it.",
         "Gabor drawn to scale with the renderer's sine carrier and Gaussian envelope: sigma 0.1 dva, 2 c/dva, patch radius 3 sigma (about 1.2 cycles across). Carrier phase is random per trial in the code; the drawing shows phase 0.",
-        "The drift arrow is drawn by the renderer normal to the stripes (drift 'backward' = against the wave vector = up and to the left), the right-tilt pairing while the envelope moves up the path; it reverses on the way down."
+        "The drift arrow is drawn by the renderer normal to the stripes (drift 'backward' = against the wave vector = up and to the left), the right-tilt pairing while the envelope moves up the path; it reverses on the way down.",
+        "The static drawing uses illustrative carrier phase 0; the task randomises the initial carrier phase. The enlarged detail uses the same geometry, not a larger experimental stimulus."
       ]
     }
   ]
