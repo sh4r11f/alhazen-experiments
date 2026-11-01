@@ -1,0 +1,947 @@
+{
+  "schema": "alhazen-documentation",
+  "schema_version": 1,
+  "title": "Minimum-motion equiluminance (Anstis & Cavanagh 1983)",
+  "summary": "A red/green grating alternates with a light/dark grating of their mixture, each a quarter cycle further along. If red is lighter than green the pattern seems to drift one way, if darker the other way; at the observer's equiluminance no consistent motion is seen. Experiment 1 finds that point by constant stimuli (left, right or neither); Experiments 2-3 by adjustment across spatial and temporal frequency, beside minimum flicker. A calibration measure for one observer, stimulus and display, not a colour-vision test.",
+  "methods": "docs/methods.md",
+  "references": [
+    "Anstis, S. M., & Cavanagh, P. (1983). A minimum motion technique for judging equiluminance. In J. D. Mollon & L. T. Sharpe (Eds.), Colour vision: Physiology and psychophysics (pp. 155-166). London: Academic Press."
+  ],
+  "license": {
+    "code": "Apache-2.0",
+    "docs": "CC-BY-4.0",
+    "assets": "CC-BY-4.0"
+  },
+  "deviations": [
+    {
+      "item": "Display",
+      "original": "Computer-controlled colour TV, P22 phosphors (red x 0.68 y 0.32, green x 0.28 y 0.60, blue x 0.15 y 0.07), luminances read with a Spectra photometer (p. 157)",
+      "here": "Any gamma-linearised display; luminances in cd/m2 computed from a per-rig photometry file (each gun at full drive). The colours are the display's primaries, not P22 chromaticities",
+      "reason": "Modern displays have no P22 phosphors; luminance matching only needs the guns' luminances. A display's own primaries change what 'red' and 'green' are, so settings do not transfer between displays"
+    },
+    {
+      "item": "Luminance grating",
+      "original": "Light/dark yellow made by dithering pairs of the 512 raster lines between the red and green of the colour grating within each bar (p. 156)",
+      "here": "By default every pixel shows the additive mean of the two colours (interleave_mix: additive); the paper's dither is available as line_dither with dither_rows rows per band",
+      "reason": "On an additive, linearised display the mean is the same light as the spatially summed dither, without depending on raster lines being below resolution on a modern panel"
+    },
+    {
+      "item": "Grey",
+      "original": "Achromatic grey / white x 0.30, y 0.30 (p. 159)",
+      "here": "The display's own white point (all three guns at equal drive)",
+      "reason": "A display's white is what it has; matching to x 0.30 y 0.30 would need a spectroradiometer and changes nothing in the method"
+    },
+    {
+      "item": "Step direction",
+      "original": "Fig. 1 shows each grating displaced rightward from its predecessor; the paper does not say whether the direction varied",
+      "here": "Each condition is run with rightward and with leftward quarter-cycle steps equally often; reports are scored as 'test lighter' (motion in the step direction), 'reference lighter' or 'neither'",
+      "reason": "Separates the luminance judgement from a bias to answer left or right"
+    },
+    {
+      "item": "Report",
+      "original": "Left, right or neither (p. 157); how reports were given is not stated",
+      "here": "LEFT, RIGHT and DOWN arrow keys while the cycle runs",
+      "reason": "A keyboard is on every rig"
+    },
+    {
+      "item": "Adjustment control",
+      "original": "Joystick (p. 159)",
+      "here": "Scroll wheel or UP/DOWN arrows, 1% per step, SPACE to commit",
+      "reason": "Joysticks are not standard rig hardware"
+    },
+    {
+      "item": "Spatial frequency",
+      "original": "2.5 c/deg etc. on the TV (pp. 157, 159)",
+      "here": "Period rounded to a multiple of 4 pixels (snap_period_to_pixels) so every step is exactly a quarter cycle; the effective frequency is recorded per trial",
+      "reason": "A quarter-cycle step that is not whole pixels would change the phase relation the method depends on"
+    },
+    {
+      "item": "Real-data guard",
+      "original": "Not applicable",
+      "here": "A real-data session with display_calibration: calibrated is refused unless the photometry file says measured: true; uncalibrated-demo runs and labels every trial as nominal, device-specific values",
+      "reason": "So no one reports cd/m2 that were never measured"
+    },
+    {
+      "item": "Added set",
+      "original": "Not in the paper",
+      "here": "adjust-red-green.yaml: Experiment 1's red/green stimulus set by adjustment, the practical calibration use the paper recommends (p. 165)",
+      "reason": "Labelled as not one of the paper's conditions"
+    },
+    {
+      "item": "Experiment 3 flicker",
+      "original": "Minimum flicker measured at 7.5 and 15 Hz only (p. 161)",
+      "here": "No separate temporal-frequency flicker file; min-flicker-adjust takes any rates_hz",
+      "reason": "The paper's own flicker settings were impossible below 7.5 Hz; the motion task carries Experiment 3"
+    }
+  ],
+  "assumed": [
+    {
+      "item": "Fixation cross span",
+      "value": "6 arcmin (the square's side)",
+      "reason": "the paper gives only 'a white cross on a blue 6-min square'",
+      "key": "fixation.cross_arcmin",
+      "file": "configs/task.yaml"
+    },
+    {
+      "item": "Fixation cross line width",
+      "value": "1 arcmin",
+      "reason": "not stated",
+      "key": "fixation.line_arcmin",
+      "file": "configs/task.yaml"
+    },
+    {
+      "item": "Fixation square blue",
+      "value": "blue gun at full drive",
+      "reason": "not stated"
+    },
+    {
+      "item": "Fixation in Experiments 2-3 and flicker",
+      "value": "the same cross is shown",
+      "reason": "fixation is described for Experiment 1 only"
+    },
+    {
+      "item": "Dark surround",
+      "value": "black (all guns off)",
+      "reason": "the paper says 'dark surround'"
+    },
+    {
+      "item": "Whole-pixel quarter cycles",
+      "value": "period rounded to a multiple of 4 px",
+      "reason": "needed for exact quarter-cycle steps on a pixel grid",
+      "key": "snap_period_to_pixels",
+      "file": "configs/task.yaml"
+    },
+    {
+      "item": "Fixation period",
+      "value": "500 ms",
+      "reason": "trial structure not stated",
+      "key": "fixation_duration",
+      "file": "configs/task.yaml"
+    },
+    {
+      "item": "Inter-trial interval",
+      "value": "500 ms",
+      "reason": "not stated",
+      "key": "iti",
+      "file": "configs/task.yaml"
+    },
+    {
+      "item": "Reading of '5 Hz'",
+      "value": "5 complete four-stroke cycles per second (50 ms per grating)",
+      "reason": "Experiments 2-3 state '15 Hz ... a single TV frame' per grating, which fixes the convention"
+    },
+    {
+      "item": "Contrast definition",
+      "value": "Michelson contrast of the mixture grating's luminance",
+      "reason": "the paper says 'contrast' without a definition"
+    },
+    {
+      "item": "Mixture drawing",
+      "value": "additive mean of the two colours",
+      "reason": "the paper dithered raster lines; see Deviations",
+      "key": "interleave_mix",
+      "file": "configs/task.yaml"
+    },
+    {
+      "item": "Experiment 1 test levels",
+      "value": "8.0 to 12.0 cd/m2 in 0.25 steps (17 levels)",
+      "reason": "the paper gives the range 8-12 cd/m2; spacing read from Fig. 2",
+      "key": "test_levels_cd_m2",
+      "file": "configs/task.yaml"
+    },
+    {
+      "item": "Blue test levels",
+      "value": "8.0 to 12.0 cd/m2 in 0.25 steps",
+      "reason": "range not stated; Fig. 2b axes span 8-12",
+      "key": "test_levels_cd_m2",
+      "file": "configs/task-blue-yellow.yaml"
+    },
+    {
+      "item": "Blue/yellow grey-grating contrast",
+      "value": "6.25%",
+      "reason": "not restated for blue/yellow",
+      "key": "interleave_contrast",
+      "file": "configs/task-blue-yellow.yaml"
+    },
+    {
+      "item": "Yellow composition",
+      "value": "red and green guns, red share 0.419 of luminance",
+      "reason": "derived from the paper's chromaticities: its yellow lies on the P22 red-green line"
+    },
+    {
+      "item": "Response deadline",
+      "value": "10 s (the cycle runs until a key)",
+      "reason": "viewing duration and response timing not stated",
+      "key": "response_timeout",
+      "file": "configs/task.yaml"
+    },
+    {
+      "item": "Random start phase",
+      "value": "the first red bar's position is random per trial",
+      "reason": "not stated"
+    },
+    {
+      "item": "Grating size, Experiments 2-3",
+      "value": "2 x 2 deg",
+      "reason": "not restated",
+      "key": "patch_size_dva",
+      "file": "configs/adjust-spatial.yaml"
+    },
+    {
+      "item": "Starting value",
+      "value": "0.7-1.3 x the reference, log-uniform",
+      "reason": "not stated",
+      "key": "start_range",
+      "file": "configs/adjust-spatial.yaml"
+    },
+    {
+      "item": "Knob step",
+      "value": "1% per notch or press",
+      "reason": "joystick gain not stated",
+      "key": "step_factor",
+      "file": "configs/adjust-spatial.yaml"
+    },
+    {
+      "item": "Knob range",
+      "value": "0.25-4 x the reference, capped by the display",
+      "reason": "not stated",
+      "key": "limits",
+      "file": "configs/adjust-spatial.yaml"
+    },
+    {
+      "item": "Setting deadline",
+      "value": "60 s",
+      "reason": "not stated",
+      "key": "adjust_timeout",
+      "file": "configs/adjust-spatial.yaml"
+    },
+    {
+      "item": "Pink-grating drawing",
+      "value": "additive mean of the test colour and grey",
+      "reason": "'equal parts of the red and the achromatic grey'",
+      "key": "interleave_mix",
+      "file": "configs/adjust-spatial.yaml"
+    },
+    {
+      "item": "Experiment 3 readings",
+      "value": "six per datum",
+      "reason": "not restated for Experiment 3",
+      "key": "paradigm.n_per_condition",
+      "file": "configs/adjust-temporal.yaml"
+    },
+    {
+      "item": "PSE estimate",
+      "value": "crossing of 'test lighter' and 'reference lighter' proportions, plus an ordered-probit fit",
+      "reason": "the paper read PSEs off its plots without saying how"
+    },
+    {
+      "item": "Indifference width",
+      "value": "half the width of the half-maximum 'neither' band, in colour-grating Michelson contrast",
+      "reason": "the paper's '1.6%' is not defined further"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "min-motion-constant",
+      "title": "Minimum motion, constant stimuli (Experiment 1)",
+      "summary": "Fixation mark alone, then the four-stroke cycle runs until the observer reports motion LEFT, RIGHT or DOWN (neither). Test luminance and step direction vary from trial to trial.",
+      "parameters_file": "configs/task.yaml",
+      "parameters": [
+        {
+          "name": "test_colour",
+          "label": "Test colour",
+          "group": "Stimulus",
+          "type": "choice",
+          "default": "red",
+          "meaning": "Colour of the bars whose luminance varies (A bars).",
+          "constraints": {
+            "choices": [
+              "red",
+              "green",
+              "blue",
+              "yellow",
+              "grey"
+            ]
+          }
+        },
+        {
+          "name": "reference_colour",
+          "label": "Reference colour",
+          "group": "Stimulus",
+          "type": "choice",
+          "default": "green",
+          "meaning": "Colour of the bars held constant (B bars).",
+          "constraints": {
+            "choices": [
+              "red",
+              "green",
+              "blue",
+              "yellow",
+              "grey"
+            ]
+          }
+        },
+        {
+          "name": "reference_cd_m2",
+          "label": "Reference luminance",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 13.4,
+          "meaning": "Luminance of the reference bars (paper: green 13.4 cd/m2).",
+          "unit": "cd/m2"
+        },
+        {
+          "name": "test_levels_cd_m2",
+          "label": "Test luminances",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            8.0,
+            8.25,
+            8.5,
+            8.75,
+            9.0,
+            9.25,
+            9.5,
+            9.75,
+            10.0,
+            10.25,
+            10.5,
+            10.75,
+            11.0,
+            11.25,
+            11.5,
+            11.75,
+            12.0
+          ],
+          "meaning": "The test-bar luminances of the method of constant stimuli (paper: 8-12 cd/m2; 0.25 spacing ASSUMED from Fig. 2).",
+          "unit": "cd/m2"
+        },
+        {
+          "name": "spatial_freq_cpd",
+          "label": "Spatial frequency",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 2.5,
+          "meaning": "Square-wave grating frequency (paper: 2.5 c/deg).",
+          "unit": "c/deg"
+        },
+        {
+          "name": "cycle_hz",
+          "label": "Cycle rate",
+          "group": "Timing",
+          "type": "number",
+          "default": 5.0,
+          "meaning": "Complete four-stroke cycles per second (paper: 5 Hz; 3 frames per grating at 60 Hz). Each grating lasts 1/(4 x rate).",
+          "unit": "Hz"
+        },
+        {
+          "name": "interleave_contrast",
+          "label": "Luminance-grating contrast",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 0.0625,
+          "meaning": "Michelson luminance contrast of the light/dark mixture grating (paper: 6.25%).",
+          "constraints": {
+            "min": 0,
+            "max": 0.99
+          }
+        },
+        {
+          "name": "interleave_mix",
+          "label": "Mixture drawing",
+          "group": "Stimulus",
+          "type": "choice",
+          "default": "additive",
+          "meaning": "additive: the mean of the two colours on every pixel (default, ASSUMED). line_dither: bands of rows alternate between the two colours, as the paper's raster-line dither.",
+          "constraints": {
+            "choices": [
+              "additive",
+              "line_dither"
+            ]
+          }
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 10000
+          },
+          "meaning": "The cycle runs until LEFT, RIGHT or DOWN, or this long. ASSUMED, not in the paper."
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Trials per level and step direction",
+          "group": "Design",
+          "type": "integer",
+          "default": 5,
+          "meaning": "Presentations of each test level per step direction (5 x 2 = the paper's ten per level)."
+        },
+        {
+          "name": "patch_size_dva",
+          "label": "Patch size",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 2.0,
+          "meaning": "Side of the square grating patch (diameter of the uniform flicker disc) in a dark surround.",
+          "unit": "dva"
+        },
+        {
+          "name": "fixation.square_arcmin",
+          "label": "Fixation square",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 6.0,
+          "meaning": "Side of the blue fixation square (paper: 6 arcmin).",
+          "unit": "arcmin"
+        },
+        {
+          "name": "fixation.cross_arcmin",
+          "label": "Fixation cross span",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 6.0,
+          "meaning": "Length of the white cross arms. ASSUMED, not in the paper.",
+          "unit": "arcmin"
+        },
+        {
+          "name": "fixation.line_arcmin",
+          "label": "Fixation cross line",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 1.0,
+          "meaning": "Line width of the white cross. ASSUMED, not in the paper.",
+          "unit": "arcmin"
+        },
+        {
+          "name": "photometry_file",
+          "label": "Photometry file",
+          "group": "Display",
+          "type": "string",
+          "default": "photometry-booth.yaml",
+          "meaning": "Rig file with each gun's full-drive luminance. The example is NOT a measurement; luminances computed from it are device-specific demonstration values."
+        },
+        {
+          "name": "display_calibration",
+          "label": "Calibration mode",
+          "group": "Display",
+          "type": "choice",
+          "default": "calibrated",
+          "meaning": "calibrated: a real-data session needs a measured photometry file. uncalibrated-demo: runs anyway and labels every trial as nominal, device-specific values.",
+          "constraints": {
+            "choices": [
+              "calibrated",
+              "uncalibrated-demo"
+            ]
+          }
+        },
+        {
+          "name": "snap_period_to_pixels",
+          "label": "Whole-pixel quarter cycles",
+          "group": "Stimulus",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Round the grating period to a multiple of 4 px so every step is exactly a quarter cycle; the effective spatial frequency is recorded. ASSUMED, not in the paper."
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation period",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Fixation mark alone before the stimulus starts. ASSUMED, not in the paper."
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Dark interval between trials. ASSUMED, not in the paper."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "MOTION_LEFT",
+          "completed": true,
+          "success": true,
+          "meaning": "LEFT arrow: the grating moved left."
+        },
+        {
+          "name": "MOTION_RIGHT",
+          "completed": true,
+          "success": true,
+          "meaning": "RIGHT arrow: the grating moved right."
+        },
+        {
+          "name": "NO_MOTION",
+          "completed": true,
+          "success": true,
+          "meaning": "DOWN arrow: no consistent motion (none, ambiguous, two opposite, or flicker in place)."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No key before the deadline; the condition is served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation mark shown alone; carries the trial's stimulus values."
+        },
+        {
+          "name": "RESPONSE_CUE",
+          "meaning": "First frame of the four-stroke cycle (T1); reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "The observer's key."
+        }
+      ]
+    },
+    {
+      "id": "min-motion-adjust",
+      "title": "Minimum motion by adjustment (Experiments 2-3)",
+      "summary": "Fixation mark alone, then the four-stroke cycle of test/grey bars and light/dark mixture bars runs while the observer turns the test luminance until motion is least, and presses SPACE.",
+      "parameters_file": "configs/adjust-spatial.yaml",
+      "parameters": [
+        {
+          "name": "reference_colour",
+          "label": "Reference colour",
+          "group": "Stimulus",
+          "type": "choice",
+          "default": "grey",
+          "meaning": "Colour held constant: the display's own grey (white point).",
+          "constraints": {
+            "choices": [
+              "red",
+              "green",
+              "blue",
+              "yellow",
+              "grey"
+            ]
+          }
+        },
+        {
+          "name": "reference_cd_m2",
+          "label": "Reference luminance",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 13.6,
+          "meaning": "Grey bar luminance (paper: 13.6 cd/m2).",
+          "unit": "cd/m2"
+        },
+        {
+          "name": "test_colours",
+          "label": "Test colours",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            "red",
+            "green",
+            "blue"
+          ],
+          "meaning": "Colours matched to grey, one condition each (paper: red, green, blue)."
+        },
+        {
+          "name": "spatial_freqs_cpd",
+          "label": "Spatial frequencies",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            0.625,
+            1.25,
+            2.5,
+            5.0
+          ],
+          "meaning": "Square-wave frequencies (paper: 0.625-5 c/deg).",
+          "unit": "c/deg"
+        },
+        {
+          "name": "rates_hz",
+          "label": "Cycle rates",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            15.0
+          ],
+          "meaning": "Four-stroke cycles per second (paper: 15 Hz, one 60-Hz frame per grating).",
+          "unit": "Hz"
+        },
+        {
+          "name": "interleave_contrast",
+          "label": "Luminance-grating contrast",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 0.125,
+          "meaning": "Michelson contrast of the light/dark 'pink' mixture grating (paper: 12.5%).",
+          "constraints": {
+            "min": 0,
+            "max": 0.99
+          }
+        },
+        {
+          "name": "start_range",
+          "label": "Start range",
+          "group": "Procedure",
+          "type": "object",
+          "default": [
+            0.7,
+            1.3
+          ],
+          "meaning": "Each setting starts at a random luminance within this range x reference (log-uniform). ASSUMED, not in the paper."
+        },
+        {
+          "name": "step_factor",
+          "label": "Knob step",
+          "group": "Procedure",
+          "type": "number",
+          "default": 1.01,
+          "meaning": "Factor per wheel notch or arrow press (the paper used a joystick). ASSUMED, not in the paper."
+        },
+        {
+          "name": "limits",
+          "label": "Knob limits",
+          "group": "Procedure",
+          "type": "object",
+          "default": [
+            0.25,
+            4.0
+          ],
+          "meaning": "Range of the knob x reference, capped by what the display can show. ASSUMED, not in the paper."
+        },
+        {
+          "name": "adjust_timeout",
+          "label": "Setting deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "A setting not committed with SPACE in this time is served again. ASSUMED, not in the paper."
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Settings per condition and step direction",
+          "group": "Design",
+          "type": "integer",
+          "default": 3,
+          "meaning": "3 x 2 step directions = the paper's six readings per datum."
+        },
+        {
+          "name": "patch_size_dva",
+          "label": "Patch size",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 2.0,
+          "meaning": "Side of the square grating patch (diameter of the uniform flicker disc) in a dark surround.",
+          "unit": "dva"
+        },
+        {
+          "name": "fixation.square_arcmin",
+          "label": "Fixation square",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 6.0,
+          "meaning": "Side of the blue fixation square (paper: 6 arcmin).",
+          "unit": "arcmin"
+        },
+        {
+          "name": "fixation.cross_arcmin",
+          "label": "Fixation cross span",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 6.0,
+          "meaning": "Length of the white cross arms. ASSUMED, not in the paper.",
+          "unit": "arcmin"
+        },
+        {
+          "name": "fixation.line_arcmin",
+          "label": "Fixation cross line",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 1.0,
+          "meaning": "Line width of the white cross. ASSUMED, not in the paper.",
+          "unit": "arcmin"
+        },
+        {
+          "name": "photometry_file",
+          "label": "Photometry file",
+          "group": "Display",
+          "type": "string",
+          "default": "photometry-booth.yaml",
+          "meaning": "Rig file with each gun's full-drive luminance. The example is NOT a measurement; luminances computed from it are device-specific demonstration values."
+        },
+        {
+          "name": "display_calibration",
+          "label": "Calibration mode",
+          "group": "Display",
+          "type": "choice",
+          "default": "calibrated",
+          "meaning": "calibrated: a real-data session needs a measured photometry file. uncalibrated-demo: runs anyway and labels every trial as nominal, device-specific values.",
+          "constraints": {
+            "choices": [
+              "calibrated",
+              "uncalibrated-demo"
+            ]
+          }
+        },
+        {
+          "name": "snap_period_to_pixels",
+          "label": "Whole-pixel quarter cycles",
+          "group": "Stimulus",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Round the grating period to a multiple of 4 px so every step is exactly a quarter cycle; the effective spatial frequency is recorded. ASSUMED, not in the paper."
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation period",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Fixation mark alone before the stimulus starts. ASSUMED, not in the paper."
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Dark interval between trials. ASSUMED, not in the paper."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "SET",
+          "completed": true,
+          "success": true,
+          "meaning": "SPACE committed a setting."
+        },
+        {
+          "name": "TIMEOUT",
+          "completed": false,
+          "meaning": "No setting in time; served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation mark shown alone; carries the trial's stimulus values."
+        },
+        {
+          "name": "ADJUST_START",
+          "meaning": "Cycle starts; carries the starting value, step and limits."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "SPACE: the setting is committed."
+        }
+      ]
+    },
+    {
+      "id": "min-flicker-adjust",
+      "title": "Minimum flicker by adjustment (comparison)",
+      "summary": "Fixation mark alone, then a uniform disc (or a counterphase grating) alternates between the test colour and grey while the observer turns the test luminance until flicker is least, and presses SPACE.",
+      "parameters_file": "configs/flicker-uniform.yaml",
+      "parameters": [
+        {
+          "name": "field",
+          "label": "Field",
+          "group": "Stimulus",
+          "type": "choice",
+          "default": "uniform",
+          "meaning": "uniform: a disc alternating between the test colour and grey (the standard flicker match). counterphase: a square-wave grating whose bars swap colours.",
+          "constraints": {
+            "choices": [
+              "uniform",
+              "counterphase"
+            ]
+          }
+        },
+        {
+          "name": "reference_cd_m2",
+          "label": "Reference luminance",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 13.6,
+          "meaning": "Grey luminance (paper: 13.6 cd/m2).",
+          "unit": "cd/m2"
+        },
+        {
+          "name": "test_colours",
+          "label": "Test colours",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            "red",
+            "green",
+            "blue"
+          ],
+          "meaning": "Colours matched to grey (paper: red, green, blue)."
+        },
+        {
+          "name": "rates_hz",
+          "label": "Flicker rates",
+          "group": "Design",
+          "type": "object",
+          "default": [
+            15.0
+          ],
+          "meaning": "Full flicker cycles per second (paper: 15 Hz, two 60-Hz frames per state).",
+          "unit": "Hz"
+        },
+        {
+          "name": "step_factor",
+          "label": "Knob step",
+          "group": "Procedure",
+          "type": "number",
+          "default": 1.01,
+          "meaning": "Factor per wheel notch or arrow press. ASSUMED, not in the paper."
+        },
+        {
+          "name": "adjust_timeout",
+          "label": "Setting deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 60000
+          },
+          "meaning": "A setting not committed in this time is served again. ASSUMED, not in the paper."
+        },
+        {
+          "name": "paradigm.n_per_condition",
+          "label": "Settings per condition and step",
+          "group": "Design",
+          "type": "integer",
+          "default": 3,
+          "meaning": "3 x 2 = six readings (the step has no effect on a uniform field)."
+        },
+        {
+          "name": "patch_size_dva",
+          "label": "Patch size",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 2.0,
+          "meaning": "Side of the square grating patch (diameter of the uniform flicker disc) in a dark surround.",
+          "unit": "dva"
+        },
+        {
+          "name": "fixation.square_arcmin",
+          "label": "Fixation square",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 6.0,
+          "meaning": "Side of the blue fixation square (paper: 6 arcmin).",
+          "unit": "arcmin"
+        },
+        {
+          "name": "fixation.cross_arcmin",
+          "label": "Fixation cross span",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 6.0,
+          "meaning": "Length of the white cross arms. ASSUMED, not in the paper.",
+          "unit": "arcmin"
+        },
+        {
+          "name": "fixation.line_arcmin",
+          "label": "Fixation cross line",
+          "group": "Stimulus",
+          "type": "number",
+          "default": 1.0,
+          "meaning": "Line width of the white cross. ASSUMED, not in the paper.",
+          "unit": "arcmin"
+        },
+        {
+          "name": "photometry_file",
+          "label": "Photometry file",
+          "group": "Display",
+          "type": "string",
+          "default": "photometry-booth.yaml",
+          "meaning": "Rig file with each gun's full-drive luminance. The example is NOT a measurement; luminances computed from it are device-specific demonstration values."
+        },
+        {
+          "name": "display_calibration",
+          "label": "Calibration mode",
+          "group": "Display",
+          "type": "choice",
+          "default": "calibrated",
+          "meaning": "calibrated: a real-data session needs a measured photometry file. uncalibrated-demo: runs anyway and labels every trial as nominal, device-specific values.",
+          "constraints": {
+            "choices": [
+              "calibrated",
+              "uncalibrated-demo"
+            ]
+          }
+        },
+        {
+          "name": "snap_period_to_pixels",
+          "label": "Whole-pixel quarter cycles",
+          "group": "Stimulus",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Round the grating period to a multiple of 4 px so every step is exactly a quarter cycle; the effective spatial frequency is recorded. ASSUMED, not in the paper."
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation period",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Fixation mark alone before the stimulus starts. ASSUMED, not in the paper."
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Dark interval between trials. ASSUMED, not in the paper."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "SET",
+          "completed": true,
+          "success": true,
+          "meaning": "SPACE committed a setting."
+        },
+        {
+          "name": "TIMEOUT",
+          "completed": false,
+          "meaning": "No setting in time; served again."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Fixation mark shown alone; carries the trial's stimulus values."
+        },
+        {
+          "name": "ADJUST_START",
+          "meaning": "Flicker starts; carries the starting value, step and limits."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "SPACE: the setting is committed."
+        }
+      ]
+    }
+  ]
+}

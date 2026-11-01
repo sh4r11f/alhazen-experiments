@@ -1,7 +1,7 @@
 # Experiment 2, minimum motion vs spatial frequency, by adjustment (human).
 # Anstis & Cavanagh (1983), pp. 157-159 and Fig. 3.
 subject_kind: human
-patch_size_dva: 2.0           # paper: p. 157 ("2 deg x 2 deg in a dark surround")
+patch_size_dva: 2.0           # ASSUMED (not in the paper): Experiments 2-3 do not restate the size; Experiment 1's 2 x 2 deg
 fixation:                     # paper: p. 157 ("a white cross on a blue 6-min square")
   square_arcmin: 6.0          # paper: p. 157
   cross_arcmin: 6.0           # ASSUMED (not in the paper): cross arms span the square

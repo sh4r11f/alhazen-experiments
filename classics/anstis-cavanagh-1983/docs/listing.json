@@ -1,0 +1,44 @@
+{
+  "status": "adaptation",
+  "status_reason": "All three experiments are rebuilt from the full chapter with its values, but on a modern display (its own primaries, luminances from a rig photometry file, additive mixture instead of raster dither) with counterbalanced step direction and keys instead of a joystick; 26 unstated details are ASSUMED and no observer has been run.",
+  "collection": "classics",
+  "authors": [
+    {
+      "name": "Sharif Saleki",
+      "role": "replication"
+    }
+  ],
+  "original": {
+    "citation": "Anstis, S. M., & Cavanagh, P. (1983). A minimum motion technique for judging equiluminance. In J. D. Mollon & L. T. Sharpe (Eds.), Colour vision: Physiology and psychophysics (pp. 155-166). London: Academic Press.",
+    "year": 1983,
+    "doi": null,
+    "url": "https://cavlab.net/MyRWResources/MyPDFs/PDF1983/AnstisCavanagh1983.pdf",
+    "experiments": "Experiments 1 (constant stimuli, red/green and blue/yellow), 2 (spatial frequency) and 3 (temporal frequency), with the minimum-flicker comparison"
+  },
+  "hardware": {
+    "display": true,
+    "keyboard": true,
+    "audio": false,
+    "eye_tracker": false,
+    "reward": false,
+    "microstimulation": false,
+    "recording": false,
+    "mouse": false
+  },
+  "subjects": [
+    "human"
+  ],
+  "category": "color",
+  "tags": [
+    "equiluminance",
+    "isoluminance",
+    "minimum motion",
+    "heterochromatic photometry",
+    "apparent motion",
+    "colour",
+    "calibration"
+  ],
+  "art": "docs/preview.png",
+  "assets": [],
+  "notes": "Generated assets: CC-BY-4.0 (docs/preview.png is drawn by src/anstiscavanagh1983/preview.py from the task's own arrays). No third-party assets. Needs a photometer and a gamma-linearised display for physical cd/m2."
+}

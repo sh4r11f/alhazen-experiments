@@ -20,7 +20,7 @@ step_factor: 1.01             # ASSUMED (not in the paper): one wheel notch or a
 limits: [0.25, 4.0]           # ASSUMED (not in the paper): knob range, x reference, capped by the display
 adjust_timeout: {ms: 60000}   # ASSUMED (not in the paper): a setting not committed in 60 s is served again
 field: uniform                # paper: p. 159
-spatial_freqs_cpd: [2.5]      # ASSUMED (not in the paper): unused by a uniform field; kept so the file validates
+spatial_freqs_cpd: [2.5]      # not used by a uniform field
 rates_hz: [15.0]              # paper: p. 159 ("square-wave flicker at 15 Hz", Fig. 3 legend)
 paradigm:
   kind: adjustment
