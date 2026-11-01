@@ -586,6 +586,502 @@
       ]
     },
     {
+      "id": "csf-2ifc",
+      "title": "Contrast threshold, 2IFC, 2 deg field for high frequencies",
+      "summary": "The same two-look forced-choice trial as the main set, in the paper's small 2 x 2 deg field at 2 to 22.6 c/deg. These frequencies need about 90 px/deg, so the set runs on a far rig (150 cm in the example rig file); a rig that cannot draw 4 px per cycle at every frequency is refused before the first trial.",
+      "parameters_file": "configs/task-far.yaml",
+      "parameters": [
+        {
+          "name": "field_dva",
+          "label": "Field size",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 2.0,
+          "meaning": "Side of the square grating field: the paper's 2 x 2 deg aperture (10 x 10 cm at 285 cm, pp. 553-554), used there for the high frequencies."
+        },
+        {
+          "name": "sf_cpd",
+          "label": "Spatial frequencies",
+          "group": "Stimulus",
+          "type": "object",
+          "unit": "c/deg",
+          "default": [
+            2,
+            4,
+            8,
+            16,
+            22.6
+          ],
+          "meaning": "One cell per frequency (cycles per degree): 2 to 22.6 c/deg, octave spaced over the range the paper measured with the 2 deg field (Fig. 2, triangles). ASSUMED, not in the paper."
+        },
+        {
+          "name": "waveforms",
+          "label": "Waveforms",
+          "group": "Stimulus",
+          "type": "object",
+          "default": [
+            "sine"
+          ],
+          "meaning": "sine, or sine and square (the paper's p. 555 comparison); every waveform at every frequency."
+        },
+        {
+          "name": "orientation_deg",
+          "label": "Wave-vector direction",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "deg",
+          "default": 0.0,
+          "meaning": "0 = vertical stripes, luminance varying left to right. ASSUMED, not in the paper."
+        },
+        {
+          "name": "random_phase",
+          "label": "Random phase",
+          "group": "Stimulus",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Grating phase drawn uniformly per presentation. ASSUMED, not in the paper."
+        },
+        {
+          "name": "mean_luminance",
+          "label": "Mean luminance",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "of display max",
+          "default": 0.5,
+          "meaning": "Mean grey of the field and the whole screen, as a fraction of the display's maximum after gamma linearisation; snapped to a code value. ASSUMED, not in the paper. The paper's mean was 500 cd/m2."
+        },
+        {
+          "name": "display_bits",
+          "label": "Display bit depth",
+          "group": "Display",
+          "type": "integer",
+          "default": 8,
+          "meaning": "Code depth per channel of the rig's display; sets the quantisation the realised contrast is computed with. Set it to your display's. ASSUMED, not in the paper."
+        },
+        {
+          "name": "dither",
+          "label": "Dithering",
+          "group": "Display",
+          "type": "choice",
+          "default": "noisy-bit",
+          "constraints": {
+            "choices": [
+              "noisy-bit",
+              "none"
+            ]
+          },
+          "meaning": "noisy-bit (Allard & Faubert, 2008) keeps contrasts below one code step on average; none rounds. ASSUMED, not in the paper."
+        },
+        {
+          "name": "min_px_per_cycle",
+          "label": "Sampling limit",
+          "group": "Display",
+          "type": "number",
+          "unit": "px",
+          "default": 4.0,
+          "meaning": "Fewest pixels per grating cycle allowed. At 22.6 c/deg this needs about 90 px/deg (e.g. configs/rig-booth-far.yaml, 150 cm); a rig with fewer is refused before the first trial, naming the frequencies it cannot draw. ASSUMED, not in the paper."
+        },
+        {
+          "name": "marks_gap_dva",
+          "label": "Corner-mark gap",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.3,
+          "meaning": "Gap between the field's edge and the corner marks. ASSUMED, not in the paper."
+        },
+        {
+          "name": "marks_width_dva",
+          "label": "Corner-mark line width",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.06,
+          "meaning": "Line width of the corner marks. ASSUMED, not in the paper."
+        },
+        {
+          "name": "square_min_px_per_cycle",
+          "label": "Square-wave sampling limit",
+          "group": "Display",
+          "type": "number",
+          "unit": "px",
+          "default": 12.0,
+          "meaning": "Fewest pixels per cycle for a square wave, so its third harmonic is still drawn with 4 or more px per cycle. ASSUMED, not in the paper."
+        },
+        {
+          "name": "fix_size_dva",
+          "label": "Fixation point",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.15,
+          "meaning": "Diameter of the black fixation point at the centre. ASSUMED, not in the paper."
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Mean field and fixation point before interval 1. ASSUMED, not in the paper."
+        },
+        {
+          "name": "interval_duration",
+          "label": "Interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "Each observation interval: one 'on' half of the paper's 0.5 c/s on-off cycle. ASSUMED, not in the paper."
+        },
+        {
+          "name": "isi",
+          "label": "Gap between intervals",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Mean field between the two intervals. ASSUMED, not in the paper."
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 5000
+          },
+          "meaning": "Longest wait for F or J; without one the trial is served again. ASSUMED, not in the paper."
+        },
+        {
+          "name": "feedback_duration",
+          "label": "Feedback",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 200
+          },
+          "meaning": "Fixation point green after a correct answer, red after a wrong one. ASSUMED, not in the paper."
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Mean field between trials. ASSUMED, not in the paper."
+        },
+        {
+          "name": "paradigm.quest.n_trials",
+          "label": "Trials per cell",
+          "group": "Session",
+          "type": "integer",
+          "default": 60,
+          "meaning": "QUEST+ trials per spatial frequency (and waveform). ASSUMED, not in the paper."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The key named the interval that held the grating."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "The key named the empty interval."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No F or J before the deadline; QUEST+ serves the same contrast again."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Mean field and fixation point; payload: cell, frequency, waveform, signal interval, realised contrasts."
+        },
+        {
+          "name": "INTERVAL1_ON",
+          "meaning": "First flip of interval 1 (corner marks; grating if it is the signal interval)."
+        },
+        {
+          "name": "ISI_ON",
+          "meaning": "First flip of the gap."
+        },
+        {
+          "name": "INTERVAL2_ON",
+          "meaning": "First flip of interval 2."
+        },
+        {
+          "name": "RESPONSE_CUE",
+          "meaning": "Response window opens; reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "F or J."
+        }
+      ]
+    },
+    {
+      "id": "csf-2ifc",
+      "title": "Sine- vs square-wave gratings, 2IFC (the paper's Fourier test)",
+      "summary": "The same two-look forced-choice trial in the 10 deg field, with sine-wave and square-wave gratings interleaved at 0.5 to 3 c/deg. Each trial shows one waveform. The analysis compares square-wave with sine-wave sensitivity at each frequency against 4/pi = 1.273, the ratio predicted if only the fundamental counts (paper, pp. 555-556).",
+      "parameters_file": "configs/sine-square.yaml",
+      "parameters": [
+        {
+          "name": "field_dva",
+          "label": "Field size",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 10.0,
+          "meaning": "Side of the square grating field. The paper's apertures subtended 10 x 10 deg (57 cm) or 2 x 2 deg (285 cm), p. 553-554."
+        },
+        {
+          "name": "sf_cpd",
+          "label": "Spatial frequencies",
+          "group": "Stimulus",
+          "type": "object",
+          "unit": "c/deg",
+          "default": [
+            0.5,
+            1,
+            2,
+            3
+          ],
+          "meaning": "One cell per frequency and waveform: 0.5 to 3 c/deg, the highest at which a square wave keeps 12 px per cycle on the example booth. The paper went to about 30 c/deg (Fig. 3). ASSUMED, not in the paper."
+        },
+        {
+          "name": "waveforms",
+          "label": "Waveforms",
+          "group": "Stimulus",
+          "type": "object",
+          "default": [
+            "sine",
+            "square"
+          ],
+          "meaning": "sine and square, every waveform at every frequency, interleaved by QUEST+ (the paper measured them alternately at each frequency, p. 555). A square wave of contrast m has a fundamental of 4m/pi."
+        },
+        {
+          "name": "orientation_deg",
+          "label": "Wave-vector direction",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "deg",
+          "default": 0.0,
+          "meaning": "0 = vertical stripes, luminance varying left to right. ASSUMED, not in the paper."
+        },
+        {
+          "name": "random_phase",
+          "label": "Random phase",
+          "group": "Stimulus",
+          "type": "boolean",
+          "default": true,
+          "meaning": "Grating phase drawn uniformly per presentation. ASSUMED, not in the paper."
+        },
+        {
+          "name": "mean_luminance",
+          "label": "Mean luminance",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "of display max",
+          "default": 0.5,
+          "meaning": "Mean grey of the field and the whole screen, as a fraction of the display's maximum after gamma linearisation; snapped to a code value. ASSUMED, not in the paper. The paper's mean was 500 cd/m2."
+        },
+        {
+          "name": "display_bits",
+          "label": "Display bit depth",
+          "group": "Display",
+          "type": "integer",
+          "default": 8,
+          "meaning": "Code depth per channel of the rig's display; sets the quantisation the realised contrast is computed with. Set it to your display's. ASSUMED, not in the paper."
+        },
+        {
+          "name": "dither",
+          "label": "Dithering",
+          "group": "Display",
+          "type": "choice",
+          "default": "noisy-bit",
+          "constraints": {
+            "choices": [
+              "noisy-bit",
+              "none"
+            ]
+          },
+          "meaning": "noisy-bit (Allard & Faubert, 2008) keeps contrasts below one code step on average; none rounds. ASSUMED, not in the paper."
+        },
+        {
+          "name": "min_px_per_cycle",
+          "label": "Sampling limit",
+          "group": "Display",
+          "type": "number",
+          "unit": "px",
+          "default": 4.0,
+          "meaning": "Fewest pixels per grating cycle allowed; a session refuses frequencies the rig cannot draw. ASSUMED, not in the paper."
+        },
+        {
+          "name": "marks_gap_dva",
+          "label": "Corner-mark gap",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.3,
+          "meaning": "Gap between the field's edge and the corner marks. ASSUMED, not in the paper."
+        },
+        {
+          "name": "marks_width_dva",
+          "label": "Corner-mark line width",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.06,
+          "meaning": "Line width of the corner marks. ASSUMED, not in the paper."
+        },
+        {
+          "name": "square_min_px_per_cycle",
+          "label": "Square-wave sampling limit",
+          "group": "Display",
+          "type": "number",
+          "unit": "px",
+          "default": 12.0,
+          "meaning": "Fewest pixels per cycle for a square wave, so its third harmonic is still drawn with 4 or more px per cycle; above this frequency the display's pixels, not the eye, would remove the harmonics. ASSUMED, not in the paper."
+        },
+        {
+          "name": "fix_size_dva",
+          "label": "Fixation point",
+          "group": "Stimulus",
+          "type": "number",
+          "unit": "dva",
+          "default": 0.15,
+          "meaning": "Diameter of the black fixation point at the centre. ASSUMED, not in the paper."
+        },
+        {
+          "name": "fixation_duration",
+          "label": "Fixation",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Mean field and fixation point before interval 1. ASSUMED, not in the paper."
+        },
+        {
+          "name": "interval_duration",
+          "label": "Interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 1000
+          },
+          "meaning": "Each observation interval: one 'on' half of the paper's 0.5 c/s on-off cycle. ASSUMED, not in the paper."
+        },
+        {
+          "name": "isi",
+          "label": "Gap between intervals",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Mean field between the two intervals. ASSUMED, not in the paper."
+        },
+        {
+          "name": "response_timeout",
+          "label": "Response deadline",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 5000
+          },
+          "meaning": "Longest wait for F or J; without one the trial is served again. ASSUMED, not in the paper."
+        },
+        {
+          "name": "feedback_duration",
+          "label": "Feedback",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 200
+          },
+          "meaning": "Fixation point green after a correct answer, red after a wrong one. ASSUMED, not in the paper."
+        },
+        {
+          "name": "iti",
+          "label": "Inter-trial interval",
+          "group": "Timing",
+          "type": "duration",
+          "default": {
+            "ms": 500
+          },
+          "meaning": "Mean field between trials. ASSUMED, not in the paper."
+        },
+        {
+          "name": "paradigm.quest.n_trials",
+          "label": "Trials per cell",
+          "group": "Session",
+          "type": "integer",
+          "default": 60,
+          "meaning": "QUEST+ trials per spatial frequency (and waveform). ASSUMED, not in the paper."
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "CORRECT",
+          "completed": true,
+          "success": true,
+          "meaning": "The key named the interval that held the grating."
+        },
+        {
+          "name": "WRONG",
+          "completed": true,
+          "success": false,
+          "meaning": "The key named the empty interval."
+        },
+        {
+          "name": "NO_RESPONSE",
+          "completed": false,
+          "meaning": "No F or J before the deadline; QUEST+ serves the same contrast again."
+        }
+      ],
+      "events": [
+        {
+          "name": "FIX_ON",
+          "meaning": "Mean field and fixation point; payload: cell, frequency, waveform, signal interval, realised contrasts."
+        },
+        {
+          "name": "INTERVAL1_ON",
+          "meaning": "First flip of interval 1 (corner marks; grating if it is the signal interval)."
+        },
+        {
+          "name": "ISI_ON",
+          "meaning": "First flip of the gap."
+        },
+        {
+          "name": "INTERVAL2_ON",
+          "meaning": "First flip of interval 2."
+        },
+        {
+          "name": "RESPONSE_CUE",
+          "meaning": "Response window opens; reaction time runs from this flip."
+        },
+        {
+          "name": "RESPONSE",
+          "meaning": "F or J."
+        }
+      ]
+    },
+    {
       "id": "csf-adjustment",
       "title": "Contrast threshold by adjustment (the paper's method)",
       "summary": "The grating switches on and off at 0.5 c/s while the observer turns its contrast down or up until it is barely detectable, then presses SPACE. Five settings per frequency; the threshold is their geometric mean.",

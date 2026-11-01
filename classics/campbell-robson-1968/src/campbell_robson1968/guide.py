@@ -38,16 +38,19 @@ def _quantised_mean(p: dict[str, Any]) -> float:
     return round(float(p["mean_luminance"]) * levels) / levels
 
 
-def diagram(params_file: str, *, fixation: bool) -> dict[str, Any]:
+def diagram(params_file: str, *, fixation: bool, sf: float = EXAMPLE_SF,
+            waveform: str = "sine") -> dict[str, Any]:
     p = _params(params_file)
     field = float(p["field_dva"])
     mean = _quantised_mean(p)
-    n = int(round(field * EXAMPLE_SF * STRIPS_PER_CYCLE))
+    n = int(round(field * sf * STRIPS_PER_CYCLE))
     w = field / n
     elements: list[dict[str, Any]] = []
     for i in range(n):
         cx = -field / 2 + (i + 0.5) * w
-        lum = mean * (1 + EXAMPLE_CONTRAST * math.cos(2 * math.pi * EXAMPLE_SF * cx))
+        c = math.cos(2 * math.pi * sf * cx)
+        w_ = c if waveform == "sine" else math.copysign(1.0, c)
+        lum = mean * (1 + EXAMPLE_CONTRAST * w_)
         elements.append(
             {
                 "type": "rect",
@@ -318,6 +321,41 @@ DESC_ADJ = (
 )
 
 
+DESC_FAR = (
+    "**The high-frequency set.** The same two-look trial as the main set: corner marks show two "
+    "looks of [[param:interval_duration]], [[param:isi]] apart; a stationary vertical sine "
+    "grating is in one, chosen at random; F for the first, J for the second. The field is the "
+    "paper's small aperture, [[param:field_dva]] on a side, and the frequencies run from 2 to "
+    "22.6 c/deg, the part of Fig. 2 the paper measured from 285 cm.\n\n"
+    "**Why it needs its own rig.** A pixel display can only draw a grating with enough pixels per "
+    "cycle; this task refuses any frequency with fewer than [[param:min_px_per_cycle]]. At 22.6 "
+    "c/deg that means about 90 px/deg: the example booth panel viewed from 150 cm "
+    "(configs/rig-booth-far.yaml), not from 57 cm (36 px/deg), where the session stops before "
+    "the first trial and names the frequencies it cannot show. Even when allowed, a display's "
+    "own blur lowers the contrast it delivers near its limit, which this folder does not "
+    "measure.\n\n"
+    "**What is measured.** As in the main set: a threshold (81% correct in a fitted Weibull) "
+    "and its reciprocal, the sensitivity, per frequency. The paper found that a 2 deg field "
+    "lowers sensitivity below about 3 c/deg compared with a 10 deg field (p. 554), so the two "
+    "sets are not interchangeable at their overlapping frequencies.")
+
+DESC_SQUARE = (
+    "**The paper's Fourier test.** The same two-look trial as the main set in the "
+    "[[param:field_dva]] field, but each frequency is measured with two waveforms, interleaved: "
+    "a sine-wave grating and a square-wave grating of the same period. A trial shows ONE of "
+    "them, in one of the two looks; the drawing shows the square wave, which steps between two "
+    "levels at the same mean.\n\n"
+    "**Why the ratio is 4/pi.** A square wave of contrast m is a sum of sine waves at f, 3f, "
+    "5f, ...; its fundamental has amplitude 4m/pi. If only the fundamental decides whether the "
+    "grating is seen, square-wave sensitivity is 4/pi = 1.273 times sine-wave sensitivity; the "
+    "paper found that above about 0.8 c/deg and a larger ratio below it (pp. 555-556). Each "
+    "trial records the square wave's contrast and its drawn fundamental.\n\n"
+    "**Sampling.** A square wave needs its harmonics drawn too, so its frequencies are refused "
+    "below [[param:square_min_px_per_cycle]] px per cycle (third harmonic at 4 or more); on the "
+    "example booth that caps the set at 3 c/deg. Above that, the display's pixels rather than "
+    "the eye would remove the harmonics and the ratio would say nothing about vision.")
+
+
 def overlay() -> dict[str, Any]:
     src = [
         "classics/campbell-robson-1968/src/campbell_robson1968/" + f
@@ -345,6 +383,40 @@ def overlay() -> dict[str, Any]:
                     "corner marks, fixation point, feedback, QUEST+ grids, 60 trials per cell.",
                     "Contrast below one display code step (about 0.8% on 8 bits) exists only through "
                     "dithering; set display_bits and measure gamma before real data.",
+                ],
+            },
+            {
+                "taskKey": "csf-2ifc@configs/task-far.yaml",
+                "timeline": timeline_2ifc(),
+                "diagram": diagram("configs/task-far.yaml", fixation=True, sf=4.0),
+                "description": DESC_FAR,
+                "sourceFiles": src
+                + [
+                    "classics/campbell-robson-1968/configs/task-far.yaml",
+                    "classics/campbell-robson-1968/configs/rig-booth-far.yaml",
+                    "classics/campbell-robson-1968/docs/experiment.json",
+                ],
+                "notes": [
+                    "Paper (pp. 553-554, Fig. 2): the 2 x 2 deg field was a 2 x 2 cm aperture at 57 cm or 10 x 10 cm at 285 cm; the high frequencies came from 285 cm because the tube lost contrast above 10 c/cm.",
+                    "Here: 2 deg field at 2, 4, 8, 16 and 22.6 c/deg (ASSUMED levels); refused unless every frequency gets 4 px per cycle on the rig (about 90 px/deg at 22.6 c/deg).",
+                    "Drawing: the 2 deg field to scale with one example frequency, 4 c/deg, at an illustrative contrast of 0.6; the timing is the same as the main set's.",
+                ],
+            },
+            {
+                "taskKey": "csf-2ifc@configs/sine-square.yaml",
+                "timeline": timeline_2ifc(),
+                "diagram": diagram("configs/sine-square.yaml", fixation=True, waveform="square"),
+                "description": DESC_SQUARE,
+                "sourceFiles": src
+                + [
+                    "classics/campbell-robson-1968/configs/sine-square.yaml",
+                    "classics/campbell-robson-1968/src/campbell_robson1968/analysis.py",
+                    "classics/campbell-robson-1968/docs/experiment.json",
+                ],
+                "notes": [
+                    "Paper (pp. 555-556, Figs. 3-4): square/sine sensitivity ratio 4/pi = 1.273 above about 0.8 c/deg (1.280 +/- 0.025 for F.W.C. over 1-35 c/deg), larger below; thresholds for the two waveforms measured alternately.",
+                    "Here: sine and square interleaved at 0.5, 1, 2 and 3 c/deg (ASSUMED levels); square waves refused below 12 px per cycle; the analysis reports the ratio per frequency beside 4/pi.",
+                    "Drawing: the square wave at 1 c/deg, contrast 0.6 (illustrative); sine trials look like the main set's drawing. One waveform per trial, never both.",
                 ],
             },
             {
